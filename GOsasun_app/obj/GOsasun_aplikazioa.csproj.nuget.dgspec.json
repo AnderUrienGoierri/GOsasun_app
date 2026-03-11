@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_app.csproj": {}
+    "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_aplikazioa.csproj": {}
   },
   "projects": {
-    "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_app.csproj": {
+    "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_aplikazioa.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_app.csproj",
-        "projectName": "GOsasun_app",
-        "projectPath": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_app.csproj",
+        "projectUniqueName": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_aplikazioa.csproj",
+        "projectName": "GOsasun_aplikazioa",
+        "projectPath": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_aplikazioa.csproj",
         "packagesPath": "C:\\Users\\anurt\\.nuget\\packages\\",
         "outputPath": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\obj\\",
         "projectStyle": "PackageReference",
@@ -45,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net10.0-windows7.0": {
@@ -75,7 +75,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

@@ -3,13 +3,13 @@ using System.Windows.Forms;
 
 namespace GOsasun_WinForms
 {
-    internal static class Program
+    internal static class Programa
     {
         [STAThread]
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new LoginForm());
+            Application.Run(new SaioaHasiFormularioa());
         }
     }
 }

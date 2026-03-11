@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace GOsasun_WinForms
 {
-    public class LoginForm : Form
+    public class SaioaHasiFormularioa : Form
     {
         private PictureBox pbLogo;
         private Label lblEmail;
@@ -16,7 +16,7 @@ namespace GOsasun_WinForms
         private Button btnLogin;
         private Label lblError;
 
-        public LoginForm()
+        public SaioaHasiFormularioa()
         {
             InitializeComponent();
         }
@@ -37,7 +37,7 @@ namespace GOsasun_WinForms
             this.pbLogo.Location = new Point(125, 20);
             this.pbLogo.Size = new Size(150, 150);
             this.pbLogo.SizeMode = PictureBoxSizeMode.Zoom;
-            string imagePath = Path.Combine(Application.StartupPath, "Assets", "GOsasun_logo_whatsap.png");
+            string imagePath = Path.Combine(Application.StartupPath, "Assets", "GOsasun_logoa_whatsap.png");
             if (File.Exists(imagePath))
             {
                 this.pbLogo.Image = Image.FromFile(imagePath);
@@ -77,7 +77,7 @@ namespace GOsasun_WinForms
             this.lblError.ForeColor = Color.Red;
             this.lblError.Text = "";
             
-            // LoginForm
+            // SaioaHasiFormularioa
             this.ClientSize = new Size(400, 450);
             this.Controls.Add(this.pbLogo);
             this.Controls.Add(this.lblEmail);
@@ -86,7 +86,7 @@ namespace GOsasun_WinForms
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.lblError);
-            this.Name = "LoginForm";
+            this.Name = "SaioaHasiFormularioa";
             this.Text = "Saioa Hasi - GOsasun";
             this.StartPosition = FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
@@ -107,7 +107,7 @@ namespace GOsasun_WinForms
 
             try
             {
-                DatabaseConnection dbConn = new DatabaseConnection();
+                DatuBaseKonexioa dbConn = new DatuBaseKonexioa();
                 using (MySqlConnection conn = dbConn.GetConnection())
                 {
                     conn.Open();
@@ -130,15 +130,11 @@ namespace GOsasun_WinForms
                                     Form nextForm = null;
                                     if (rolIzen == "Medikua")
                                     {
-                                        nextForm = new DoctorForm();
-                                    }
-                                    else if (rolIzen == "Pazientea")
-                                    {
-                                        nextForm = new PatientForm();
+                                        nextForm = new MedikuFormularioa();
                                     }
                                     else if (rolIzen == "Harrera")
                                     {
-                                        nextForm = new ReceptionistForm();
+                                        nextForm = new HarrerakoFormularioa();
                                     }
 
                                     if (nextForm != null)
@@ -148,7 +144,7 @@ namespace GOsasun_WinForms
                                     }
                                     else
                                     {
-                                        lblError.Text = "Sarbide deuseztatua rol ezezagunagatik.";
+                                        lblError.Text = "Sarbide deuseztatua rol ezezagunagatik edo baimen faltagatik.";
                                         this.Show();
                                     }
                                 }

@@ -297,9 +297,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_app.csproj",
-      "projectName": "GOsasun_app",
-      "projectPath": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_app.csproj",
+      "projectUniqueName": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_aplikazioa.csproj",
+      "projectName": "GOsasun_aplikazioa",
+      "projectPath": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_aplikazioa.csproj",
       "packagesPath": "C:\\Users\\anurt\\.nuget\\packages\\",
       "outputPath": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\obj\\",
       "projectStyle": "PackageReference",
@@ -365,7 +365,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200-preview.0.26103.119/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

@@ -30,3 +30,4 @@ C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\bin\Debug\net10.0-window
 C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\bin\Debug\net10.0-windows\Assets\index_harrera.png
 C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\bin\Debug\net10.0-windows\Assets\index_medikua.png
 C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\bin\Debug\net10.0-windows\Assets\index_pazientea.png
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\obj\Debug\net10.0-windows\GOsasun_app.sourcelink.json

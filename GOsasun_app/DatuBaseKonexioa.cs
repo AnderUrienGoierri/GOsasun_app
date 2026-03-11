@@ -3,11 +3,11 @@ using MySql.Data.MySqlClient;
 
 namespace GOsasun_WinForms
 {
-    public class DatabaseConnection
+    public class DatuBaseKonexioa
     {
         private string connectionString;
 
-        public DatabaseConnection()
+        public DatuBaseKonexioa()
         {
             connectionString = "server=127.0.0.1;userid=root;password=1MG32025;database=GOsasun_DB";
         }

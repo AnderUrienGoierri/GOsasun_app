@@ -5,11 +5,11 @@ using System.Windows.Forms;
 
 namespace GOsasun_WinForms
 {
-    public class ReceptionistForm : Form
+    public class HarrerakoFormularioa : Form
     {
         private PictureBox pbMainImage;
 
-        public ReceptionistForm()
+        public HarrerakoFormularioa()
         {
             InitializeComponent();
         }
@@ -24,17 +24,17 @@ namespace GOsasun_WinForms
             this.pbMainImage.Dock = DockStyle.Fill;
             this.pbMainImage.SizeMode = PictureBoxSizeMode.Zoom;
             
-            string imagePath = Path.Combine(Application.StartupPath, "Assets", "index_harrera.png");
+            string imagePath = Path.Combine(Application.StartupPath, "Assets", "harrera_indizea.png");
             if (File.Exists(imagePath))
             {
                 this.pbMainImage.Image = Image.FromFile(imagePath);
             }
             // 
-            // ReceptionistForm
+            // HarrerakoFormularioa
             // 
             this.ClientSize = new Size(800, 600);
             this.Controls.Add(this.pbMainImage);
-            this.Name = "ReceptionistForm";
+            this.Name = "HarrerakoFormularioa";
             this.Text = "Harrerako Menua";
             this.StartPosition = FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.pbMainImage)).EndInit();

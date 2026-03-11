@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace GOsasun_WinForms
 {
-    public class DoctorForm : Form
+    public class MedikuFormularioa : Form
     {
         private Panel pnlTopBar;
         private PictureBox pbLogo;
@@ -21,7 +21,7 @@ namespace GOsasun_WinForms
         private Button btnLogout;
         private PictureBox pbMainImage;
 
-        public DoctorForm()
+        public MedikuFormularioa()
         {
             InitializeComponent();
         }
@@ -61,7 +61,7 @@ namespace GOsasun_WinForms
             this.pbLogo.Location = new Point(20, 15);
             this.pbLogo.Size = new Size(140, 40);
             this.pbLogo.SizeMode = PictureBoxSizeMode.Zoom;
-            string imagePath = Path.Combine(Application.StartupPath, "Assets", "GOsasun_logo_whatsap.png");
+            string imagePath = Path.Combine(Application.StartupPath, "Assets", "GOsasun_logoa_whatsap.png");
             if (File.Exists(imagePath)) this.pbLogo.Image = Image.FromFile(imagePath);
             
             // lblRole
@@ -115,14 +115,14 @@ namespace GOsasun_WinForms
             // pbMainImage
             this.pbMainImage.Dock = DockStyle.Fill;
             this.pbMainImage.SizeMode = PictureBoxSizeMode.Zoom;
-            string mainImagePath = Path.Combine(Application.StartupPath, "Assets", "index_medikua.png");
+            string mainImagePath = Path.Combine(Application.StartupPath, "Assets", "mediku_indizea.png");
             if (File.Exists(mainImagePath)) this.pbMainImage.Image = Image.FromFile(mainImagePath);
             
-            // DoctorForm
+            // MedikuFormularioa
             this.ClientSize = new Size(1160, 700); // Increased width
             this.Controls.Add(this.pbMainImage); // Added first so it's behind top bar or docked correctly
             this.Controls.Add(this.pnlTopBar); 
-            this.Name = "DoctorForm";
+            this.Name = "MedikuFormularioa";
             this.Text = "Mediku Menua";
             this.StartPosition = FormStartPosition.CenterScreen;
             
