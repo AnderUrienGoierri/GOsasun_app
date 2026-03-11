@@ -130,11 +130,11 @@ namespace GOsasun_WinForms
                                     Form nextForm = null;
                                     if (rolIzen == "Medikua")
                                     {
-                                        nextForm = new MedikuFormularioa();
+                                        nextForm = new MenuMedikua();
                                     }
                                     else if (rolIzen == "Harrera")
                                     {
-                                        nextForm = new HarrerakoFormularioa();
+                                        nextForm = new MenuHarrera();
                                     }
 
                                     if (nextForm != null)

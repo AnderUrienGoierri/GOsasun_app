@@ -5,11 +5,11 @@ using System.Windows.Forms;
 
 namespace GOsasun_WinForms
 {
-    public class HarrerakoFormularioa : Form
+    public class MenuHarrera : Form
     {
         private PictureBox pbMainImage;
 
-        public HarrerakoFormularioa()
+        public MenuHarrera()
         {
             InitializeComponent();
         }
@@ -30,11 +30,11 @@ namespace GOsasun_WinForms
                 this.pbMainImage.Image = Image.FromFile(imagePath);
             }
             // 
-            // HarrerakoFormularioa
+            // MenuHarrera
             // 
             this.ClientSize = new Size(800, 600);
             this.Controls.Add(this.pbMainImage);
-            this.Name = "HarrerakoFormularioa";
+            this.Name = "MenuHarrera";
             this.Text = "Harrerako Menua";
             this.StartPosition = FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.pbMainImage)).EndInit();

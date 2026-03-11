@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GOsasun_aplikazioa")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+27af780324453d9110c246ba095a4c131ebc25cc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a43a6642b2065625df37d041df2892ff5c843b3b")]
 [assembly: System.Reflection.AssemblyProductAttribute("GOsasun_aplikazioa")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GOsasun_aplikazioa")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

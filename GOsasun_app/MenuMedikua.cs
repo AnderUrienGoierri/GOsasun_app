@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace GOsasun_WinForms
 {
-    public class MedikuFormularioa : Form
+    public class MenuMedikua : Form
     {
         private Panel pnlTopBar;
         private PictureBox pbLogo;
@@ -21,7 +21,7 @@ namespace GOsasun_WinForms
         private Button btnLogout;
         private PictureBox pbMainImage;
 
-        public MedikuFormularioa()
+        public MenuMedikua()
         {
             InitializeComponent();
         }
@@ -118,11 +118,11 @@ namespace GOsasun_WinForms
             string mainImagePath = Path.Combine(Application.StartupPath, "Assets", "mediku_indizea.png");
             if (File.Exists(mainImagePath)) this.pbMainImage.Image = Image.FromFile(mainImagePath);
             
-            // MedikuFormularioa
+            // MenuMedikua
             this.ClientSize = new Size(1160, 700); // Increased width
             this.Controls.Add(this.pbMainImage); // Added first so it's behind top bar or docked correctly
             this.Controls.Add(this.pnlTopBar); 
-            this.Name = "MedikuFormularioa";
+            this.Name = "MenuMedikua";
             this.Text = "Mediku Menua";
             this.StartPosition = FormStartPosition.CenterScreen;
             
