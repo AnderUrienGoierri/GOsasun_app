@@ -5,4 +5,5 @@ obj/
 *.suo
 *.userosscache
 *.sln.docstates
+*.slnx
 build_errors.txt
