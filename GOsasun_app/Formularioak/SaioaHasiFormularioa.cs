@@ -15,25 +15,9 @@ namespace GOsasun_app.Formularioak
     /// Saioa hasteko formularioa (Saioa Hasi Formularioa).
     /// Tablet-entzako diseinatua, ukipen-elementu handiekin.
     /// </summary>
-    public class SaioaHasiFormularioa : Form
+    public partial class SaioaHasiFormularioa : Form
     {
-        // -----------------------------------------------------------
-        // Osagaiak
-        // -----------------------------------------------------------
-        private Panel _loginPanela = null!;
-        private PictureBox _logoPicture = null!;
-        private Label _tituluLabel = null!;
-        private Label _erabiltzaileLabel = null!;
-        private TextBox _erabiltzaileTextBox = null!;
-        private Label _pasahitzaLabel = null!;
-        private TextBox _pasahitzaTextBox = null!;
-        private Button _loginBotoia = null!;
-        private Label _mezuLabel = null!;
-        private CheckBox _erakutsiPasahitza = null!;
-
-        // -----------------------------------------------------------
         // Eraikitzailea
-        // -----------------------------------------------------------
         public SaioaHasiFormularioa()
         {
             InitializeComponent();
@@ -43,9 +27,7 @@ namespace GOsasun_app.Formularioak
             KokatuOsagaiak();
         }
 
-        // -----------------------------------------------------------
         // Formularioaren konfigurazioa
-        // -----------------------------------------------------------
         private void KonfiguratuFormularioa()
         {
             this.Text = "GOsasun - Saioa Hasi";
@@ -58,9 +40,7 @@ namespace GOsasun_app.Formularioak
             this.Resize += (s, e) => KokatuOsagaiak();
         }
 
-        // -----------------------------------------------------------
         // Irudiak kargatu
-        // -----------------------------------------------------------
         private void KargatuBaliabideak()
         {
             if (this.DesignMode) return;
@@ -125,134 +105,6 @@ namespace GOsasun_app.Formularioak
             {
                 _logoPicture.BackColor = Color.Blue;
             }
-        }
-
-        private void InitializeComponent()
-        {
-            _loginPanela = new Panel();
-            _logoPicture = new PictureBox();
-            _tituluLabel = new Label();
-            _erabiltzaileLabel = new Label();
-            _erabiltzaileTextBox = new TextBox();
-            _pasahitzaLabel = new Label();
-            _pasahitzaTextBox = new TextBox();
-            _erakutsiPasahitza = new CheckBox();
-            _loginBotoia = new Button();
-            _mezuLabel = new Label();
-            _loginPanela.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)_logoPicture).BeginInit();
-            SuspendLayout();
-
-            _loginPanela.BackColor = Color.FromArgb(240, 255, 255, 255);
-            _loginPanela.Controls.Add(_logoPicture);
-            _loginPanela.Controls.Add(_tituluLabel);
-            _loginPanela.Controls.Add(_erabiltzaileLabel);
-            _loginPanela.Controls.Add(_erabiltzaileTextBox);
-            _loginPanela.Controls.Add(_pasahitzaLabel);
-            _loginPanela.Controls.Add(_pasahitzaTextBox);
-            _loginPanela.Controls.Add(_erakutsiPasahitza);
-            _loginPanela.Controls.Add(_loginBotoia);
-            _loginPanela.Controls.Add(_mezuLabel);
-            _loginPanela.Location = new Point(283, 152);
-            _loginPanela.Name = "_loginPanela";
-            _loginPanela.Padding = new Padding(30);
-            _loginPanela.Size = new Size(672, 774);
-            _loginPanela.TabIndex = 0;
-
-            _logoPicture.BackColor = Color.Transparent;
-            _logoPicture.Location = new Point(285, 38);
-            _logoPicture.Name = "_logoPicture";
-            _logoPicture.Size = new Size(120, 120);
-            _logoPicture.SizeMode = PictureBoxSizeMode.Zoom;
-            _logoPicture.TabIndex = 0;
-            _logoPicture.TabStop = false;
-
-            _tituluLabel.AutoSize = true;
-            _tituluLabel.BackColor = Color.Transparent;
-            _tituluLabel.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
-            _tituluLabel.ForeColor = Color.FromArgb(44, 62, 80);
-            _tituluLabel.Location = new Point(175, 142);
-            _tituluLabel.Name = "_tituluLabel";
-            _tituluLabel.Size = new Size(348, 100);
-            _tituluLabel.TabIndex = 1;
-            _tituluLabel.Text = "GOsasun";
-
-            _erabiltzaileLabel.AutoSize = true;
-            _erabiltzaileLabel.BackColor = Color.Transparent;
-            _erabiltzaileLabel.Font = new Font("Segoe UI", 13F);
-            _erabiltzaileLabel.ForeColor = Color.FromArgb(100, 100, 100);
-            _erabiltzaileLabel.Location = new Point(165, 238);
-            _erabiltzaileLabel.Name = "_erabiltzaileLabel";
-            _erabiltzaileLabel.Size = new Size(120, 47);
-            _erabiltzaileLabel.TabIndex = 2;
-            _erabiltzaileLabel.Text = "Emaila";
-
-            _erabiltzaileTextBox.BorderStyle = BorderStyle.FixedSingle;
-            _erabiltzaileTextBox.Font = new Font("Segoe UI", 12F);
-            _erabiltzaileTextBox.Location = new Point(165, 287);
-            _erabiltzaileTextBox.Name = "_erabiltzaileTextBox";
-            _erabiltzaileTextBox.PlaceholderText = "Zure emaila...";
-            _erabiltzaileTextBox.Size = new Size(360, 50);
-            _erabiltzaileTextBox.TabIndex = 3;
-
-            _pasahitzaLabel.AutoSize = true;
-            _pasahitzaLabel.BackColor = Color.Transparent;
-            _pasahitzaLabel.Font = new Font("Segoe UI", 13F);
-            _pasahitzaLabel.ForeColor = Color.FromArgb(100, 100, 100);
-            _pasahitzaLabel.Location = new Point(165, 338);
-            _pasahitzaLabel.Name = "_pasahitzaLabel";
-            _pasahitzaLabel.Size = new Size(164, 47);
-            _pasahitzaLabel.TabIndex = 4;
-            _pasahitzaLabel.Text = "Pasahitza";
-
-            _pasahitzaTextBox.BorderStyle = BorderStyle.FixedSingle;
-            _pasahitzaTextBox.Font = new Font("Segoe UI", 12F);
-            _pasahitzaTextBox.Location = new Point(165, 389);
-            _pasahitzaTextBox.Name = "_pasahitzaTextBox";
-            _pasahitzaTextBox.PlaceholderText = "Pasahitza...";
-            _pasahitzaTextBox.Size = new Size(360, 50);
-            _pasahitzaTextBox.TabIndex = 5;
-            _pasahitzaTextBox.UseSystemPasswordChar = true;
-
-            _erakutsiPasahitza.AutoSize = true;
-            _erakutsiPasahitza.BackColor = Color.Transparent;
-            _erakutsiPasahitza.Font = new Font("Segoe UI", 11F);
-            _erakutsiPasahitza.ForeColor = Color.FromArgb(100, 100, 100);
-            _erakutsiPasahitza.Location = new Point(165, 446);
-            _erakutsiPasahitza.Name = "_erakutsiPasahitza";
-            _erakutsiPasahitza.Size = new Size(284, 45);
-            _erakutsiPasahitza.TabIndex = 6;
-            _erakutsiPasahitza.Text = "Erakutsi pasahitza";
-            _erakutsiPasahitza.UseVisualStyleBackColor = false;
-
-            _loginBotoia.BackColor = Color.FromArgb(46, 204, 113);
-            _loginBotoia.Cursor = Cursors.Hand;
-            _loginBotoia.FlatAppearance.BorderSize = 0;
-            _loginBotoia.FlatStyle = FlatStyle.Flat;
-            _loginBotoia.Location = new Point(171, 507);
-            _loginBotoia.Name = "_loginBotoia";
-            _loginBotoia.Size = new Size(360, 60);
-            _loginBotoia.TabIndex = 7;
-            _loginBotoia.Text = "SARTU";
-            _loginBotoia.UseVisualStyleBackColor = false;
-
-            _mezuLabel.AutoSize = true;
-            _mezuLabel.BackColor = Color.Transparent;
-            _mezuLabel.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            _mezuLabel.ForeColor = Color.FromArgb(231, 76, 60);
-            _mezuLabel.Location = new Point(165, 540);
-            _mezuLabel.Name = "_mezuLabel";
-            _mezuLabel.Size = new Size(0, 41);
-            _mezuLabel.TabIndex = 8;
-            _mezuLabel.TextAlign = ContentAlignment.MiddleCenter;
-
-            ClientSize = new Size(1600, 1000);
-            Controls.Add(_loginPanela);
-            Name = "SaioaHasiFormularioa";
-            _loginPanela.ResumeLayout(false);
-            _loginPanela.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)_logoPicture).EndInit();
-            ResumeLayout(false);
         }
 
         private void KokatuOsagaiak()

@@ -15,19 +15,20 @@ namespace GOsasun_app.Formularioak
     /// Menu nagusiaren formularioa.
     /// Rolaren arabera txartel desberdinak erakusten ditu.
     /// </summary>
-    public class MenuNagusia : OinarriFormularioa
+    public partial class MenuNagusia : OinarriFormularioa
     {
         // -----------------------------------------------------------
         // Eraikitzailea
         // -----------------------------------------------------------
         public MenuNagusia() : base()
         {
-            // Diseinatzailearentzat
+            InitializeComponent();
         }
 
         public MenuNagusia(Erabiltzailea erabiltzailea)
             : base(erabiltzailea)
         {
+            InitializeComponent();
             KargatuTxartelak();
         }
 

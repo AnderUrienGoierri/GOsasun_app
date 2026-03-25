@@ -5,11 +5,12 @@ using GOsasun_app.Modeloak;
 
 namespace GOsasun_app.Formularioak
 {
-    public class KontaktuaFormularioa : OinarriFormularioa
+    public partial class KontaktuaFormularioa : OinarriFormularioa
     {
-        public KontaktuaFormularioa() : base() { }
+        public KontaktuaFormularioa() : base() { InitializeComponent(); }
         public KontaktuaFormularioa(Erabiltzailea erabiltzailea) : base(erabiltzailea)
         {
+            InitializeComponent();
             GehituAtzeraBotoia();
         }
     }

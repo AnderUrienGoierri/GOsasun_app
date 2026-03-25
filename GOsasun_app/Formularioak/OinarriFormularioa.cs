@@ -15,13 +15,12 @@ namespace GOsasun_app.Formularioak
     /// Formulario guztien oinarri klasea.
     /// Egurrezko atzeko planoa eta nabigazio estandarra eskaintzen ditu.
     /// </summary>
-    public class OinarriFormularioa : Form
+    public partial class OinarriFormularioa : Form
     {
         // -----------------------------------------------------------
         // Osagaiak
         // -----------------------------------------------------------
         protected GoiburuBarra? _goiburuBarra;
-        protected FlowLayoutPanel _edukiPanela;
         protected Button? _atzeraBotoia;
 
         // Erabiltzaile informazioa (OOP)
@@ -35,42 +34,6 @@ namespace GOsasun_app.Formularioak
             InitializeComponent();
             KonfiguratuFormularioa();
             KargatuBaliabideak();
-        }
-
-        private void InitializeComponent()
-        {
-            _edukiPanela = new FlowLayoutPanel();
-            SuspendLayout();
-            // 
-            // _edukiPanela
-            // 
-            _edukiPanela.AutoScroll = true;
-            _edukiPanela.BackColor = Color.Transparent;
-            _edukiPanela.Dock = DockStyle.Fill;
-            _edukiPanela.Location = new Point(0, 0);
-            _edukiPanela.Name = "_edukiPanela";
-            _edukiPanela.Padding = new Padding(40);
-            _edukiPanela.Size = new Size(1600, 1000);
-            _edukiPanela.TabIndex = 0;
-            // 
-            // OinarriFormularioa
-            // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1600, 1000);
-            Controls.Add(_edukiPanela);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(3, 2, 3, 2);
-            MaximizeBox = false;
-            Name = "OinarriFormularioa";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "GOsasun";
-            ResumeLayout(false);
-
-            // Goiburuko barra (diseinatzailean ere ikusteko) - Moved here to ensure it's added after _edukiPanela
-            _goiburuBarra = new GoiburuBarra("Erabiltzailea", "Rola");
-            this.Controls.Add(_goiburuBarra);
-            _goiburuBarra.BringToFront();
         }
 
         /// <summary>

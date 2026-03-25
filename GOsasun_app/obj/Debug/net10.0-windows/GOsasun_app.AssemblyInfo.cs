@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GOsasun_app")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7ab387462ec7f60eb6b2171c644ed17b68a90799")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7a51586c153b917697cfbe1280b7926935836edc")]
 [assembly: System.Reflection.AssemblyProductAttribute("GOsasun_app")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GOsasun_app")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
