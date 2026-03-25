@@ -1,3 +1,6 @@
+using System;
+using System.Windows.Forms;
+
 namespace GOsasun_app
 {
     internal static class Program
@@ -8,9 +11,10 @@ namespace GOsasun_app
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+
             Application.Run(new GOsasun_app.Formularioak.SaioaHasiFormularioa());
         }
     }

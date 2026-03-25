@@ -287,7 +287,7 @@
   },
   "projectFileDependencyGroups": {
     "net10.0-windows7.0": [
-      "MySql.Data >= 9.6.0"
+      "MySql.Data >= 9.*"
     ]
   },
   "packageFolders": {
@@ -297,9 +297,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_aplikazioa.csproj",
-      "projectName": "GOsasun_aplikazioa",
-      "projectPath": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_aplikazioa.csproj",
+      "projectUniqueName": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_app.csproj",
+      "projectName": "GOsasun_app",
+      "projectPath": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_app.csproj",
       "packagesPath": "C:\\Users\\anurt\\.nuget\\packages\\",
       "outputPath": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\obj\\",
       "projectStyle": "PackageReference",
@@ -343,7 +343,7 @@
         "dependencies": {
           "MySql.Data": {
             "target": "Package",
-            "version": "[9.6.0, )"
+            "version": "[9.*, )"
           }
         },
         "imports": [

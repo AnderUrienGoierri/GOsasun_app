@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Trn3aJLXqQA=",
+  "dgSpecHash": "yCEG4cpQqaw=",
   "success": true,
-  "projectFilePath": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_aplikazioa.csproj",
+  "projectFilePath": "C:\\Ander\\Workspace\\C\\proiektuak\\GOsasun_app\\GOsasun_app\\GOsasun_app.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\anurt\\.nuget\\packages\\bouncycastle.cryptography\\2.6.2\\bouncycastle.cryptography.2.6.2.nupkg.sha512",
     "C:\\Users\\anurt\\.nuget\\packages\\google.protobuf\\3.32.0\\google.protobuf.3.32.0.nupkg.sha512",

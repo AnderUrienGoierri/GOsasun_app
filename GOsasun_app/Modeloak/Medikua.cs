@@ -35,6 +35,6 @@ namespace GOsasun_app.Modeloak
             Irudia = irudia;
         }
 
-        public string IzenOsoa => $"{Izena} {Abizenak}";
+        public override string IzenOsoa => $"{Izena} {Abizenak}";
     }
 }

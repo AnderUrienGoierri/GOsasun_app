@@ -16,7 +16,7 @@ namespace GOsasun_app.Modeloak
         public Botika() { }
 
         public Botika(int botikaId, string izena, string? izenKimikoa,
-                      string? nomenklaturaKimikoa, string? eraginFokoa, string? aktibitatea)
+                    string? nomenklaturaKimikoa, string? eraginFokoa, string? aktibitatea)
         {
             BotikaId = botikaId;
             Izena = izena;

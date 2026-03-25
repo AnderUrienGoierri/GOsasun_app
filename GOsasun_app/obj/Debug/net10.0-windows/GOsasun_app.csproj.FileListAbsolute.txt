@@ -26,8 +26,10 @@ C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\obj\Debug\net10.0-window
 C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\obj\Debug\net10.0-windows\GOsasun_app.pdb
 C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\obj\Debug\net10.0-windows\GOsasun_app.genruntimeconfig.cache
 C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\obj\Debug\net10.0-windows\ref\GOsasun_app.dll
-C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\bin\Debug\net10.0-windows\Assets\GOsasun_logo_whatsap.png
-C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\bin\Debug\net10.0-windows\Assets\index_harrera.png
-C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\bin\Debug\net10.0-windows\Assets\index_medikua.png
-C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\bin\Debug\net10.0-windows\Assets\index_pazientea.png
 C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\obj\Debug\net10.0-windows\GOsasun_app.sourcelink.json
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\obj\Debug\net10.0-windows\GOsasun_app.Formularioak.KontaktuaFormularioa.resources
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\obj\Debug\net10.0-windows\GOsasun_app.Formularioak.PazienteenFormularioa.resources
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\obj\Debug\net10.0-windows\GOsasun_app.Formularioak.OinarriFormularioa.resources
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\obj\Debug\net10.0-windows\GOsasun_app.Formularioak.OsasunaFormularioa.resources
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\obj\Debug\net10.0-windows\GOsasun_app.Formularioak.SaioaHasiFormularioa.resources
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\obj\Debug\net10.0-windows\GOsasun_app.csproj.GenerateResource.cache

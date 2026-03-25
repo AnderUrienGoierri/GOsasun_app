@@ -14,8 +14,8 @@ namespace GOsasun_app.Modeloak
 
         public ErrezetaBotika() { }
 
-        public ErrezetaBotika(int loturaId, int errezetaId, int botikaId,
-                               string? dosia, string? maiztasuna)
+        public ErrezetaBotika(  int loturaId, int errezetaId, int botikaId,
+                                string? dosia, string? maiztasuna)
         {
             LoturaId = loturaId;
             ErrezetaId = errezetaId;
