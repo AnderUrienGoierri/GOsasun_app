@@ -80,10 +80,13 @@ namespace GOsasun_app.Formularioak
             {
                 string root = Directory.GetCurrentDirectory();
                 string[] saioak = {
-                    Path.Combine(root, "img", logoIzena),
-                    Path.Combine(root, "GOsasun_app", "img", logoIzena),
-                    Path.Combine(root, "..", "..", "..", "img", logoIzena),
-                    Path.Combine(root, "..", "..", "..", "GOsasun_app", "img", logoIzena)
+                    Path.Combine(root, "img", "png", "logoak", logoIzena),
+                    Path.Combine(root, "GOsasun_app", "img", "png", "logoak", logoIzena),
+                    Path.Combine(root, "Assets", logoIzena),
+                    Path.Combine(root, "GOsasun_app", "Assets", logoIzena),
+                    Path.Combine(root, "..", "..", "..", "img", "png", "logoak", logoIzena),
+                    Path.Combine(root, "..", "..", "..", "GOsasun_app", "img", "png", "logoak", logoIzena),
+                    Path.Combine(root, "..", "..", "..", "Assets", logoIzena)
                 };
 
                 foreach (string s in saioak)

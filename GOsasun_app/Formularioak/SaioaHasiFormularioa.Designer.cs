@@ -28,6 +28,7 @@ namespace GOsasun_app.Formularioak
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SaioaHasiFormularioa));
             _loginPanela = new Panel();
             _logoPicture = new PictureBox();
             _tituluLabel = new Label();
@@ -63,6 +64,7 @@ namespace GOsasun_app.Formularioak
             // _logoPicture
             // 
             _logoPicture.BackColor = Color.Transparent;
+            _logoPicture.Image = ((Image)(resources.GetObject("GOsasun_logo_whatsap")));
             _logoPicture.Location = new Point(285, 38);
             _logoPicture.Name = "_logoPicture";
             _logoPicture.Size = new Size(120, 120);
