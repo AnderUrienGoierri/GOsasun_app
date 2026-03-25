@@ -98,7 +98,7 @@ namespace GOsasun_app.Formularioak
             // 
             _erabiltzaileTextBox.BorderStyle = BorderStyle.FixedSingle;
             _erabiltzaileTextBox.Font = new Font("Segoe UI", 12F);
-            _erabiltzaileTextBox.Location = new Point(165, 287);
+            _erabiltzaileTextBox.Location = new Point(165, 288);
             _erabiltzaileTextBox.Name = "_erabiltzaileTextBox";
             _erabiltzaileTextBox.PlaceholderText = "Zure emaila...";
             _erabiltzaileTextBox.Size = new Size(360, 50);
@@ -120,7 +120,7 @@ namespace GOsasun_app.Formularioak
             // 
             _pasahitzaTextBox.BorderStyle = BorderStyle.FixedSingle;
             _pasahitzaTextBox.Font = new Font("Segoe UI", 12F);
-            _pasahitzaTextBox.Location = new Point(165, 389);
+            _pasahitzaTextBox.Location = new Point(165, 388);
             _pasahitzaTextBox.Name = "_pasahitzaTextBox";
             _pasahitzaTextBox.PlaceholderText = "Pasahitza...";
             _pasahitzaTextBox.Size = new Size(360, 50);
