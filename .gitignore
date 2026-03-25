@@ -1,9 +1,18 @@
+# IDE and build files
 .vs/
-bin/
-obj/
+.slnx
+**/bin/
+**/obj/
+build_errors.txt
+dokumentuak/
 *.user
-*.suo
-*.userosscache
+
+# Large files (>100MB)
+**/*.exe
+**/*.zip
+**/*.rar
+**/beurer_tentsiometroa_pultsometroa/
+osscache
 *.sln.docstates
 *.slnx
 build_errors.txt
