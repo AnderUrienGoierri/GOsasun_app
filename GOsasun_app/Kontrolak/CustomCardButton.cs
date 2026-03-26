@@ -137,9 +137,12 @@ namespace GOsasun_app.Kontrolak
             // 5. Ikonoa marraztu (erdian, goialdean)
             if (_ikonoa != null)
             {
-                int ikonoTamaina = Math.Min(this.Width - 80, 120);
+                // Handiagoa egin: aurreko 120tik 150-era (edo tamainaren %60)
+                int maxTamaina = Math.Min(this.Width - 60, this.Height - 100);
+                int ikonoTamaina = Math.Max(maxTamaina, 80); 
+                
                 int ikonoX = (this.Width - ikonoTamaina) / 2;
-                int ikonoY = 35;
+                int ikonoY = 25; // Zertxobait gorago jarri tokia lortzeko
                 g.DrawImage(_ikonoa, new Rectangle(ikonoX, ikonoY, ikonoTamaina, ikonoTamaina));
             }
 
@@ -153,8 +156,9 @@ namespace GOsasun_app.Kontrolak
                     Trimming = StringTrimming.EllipsisWord
                 };
 
-                int testuY = _ikonoa != null ? this.Height - 100 : (this.Height - 60) / 2;
-                Rectangle testuRect = new Rectangle(15, testuY, this.Width - 30, 85);
+                // Testua pixka bat beherago bultzatu ikonoa kabitzeko
+                int testuY = _ikonoa != null ? this.Height - 85 : (this.Height - 60) / 2;
+                Rectangle testuRect = new Rectangle(10, testuY, this.Width - 20, 75);
 
                 using (SolidBrush testuBrotxa = new SolidBrush(_testuKolorea))
                 {
