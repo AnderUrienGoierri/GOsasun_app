@@ -217,11 +217,18 @@ namespace GOsasun_app.Formularioak
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
                 string query = @"
-                    SELECT e.erabiltzaile_id, e.izena, e.abizena, e.emaila, r.rol_izena 
+                    SELECT e.erabiltzaile_id, 
+                           COALESCE(m.izena, p.izena, h.izena) as izena,
+                           COALESCE(m.abizenak, p.abizenak, h.abizenak) as abizena,
+                           e.email, 
+                           r.izena as rol_izena 
                     FROM Erabiltzaileak e 
                     JOIN Rolak r ON e.rol_id = r.rol_id 
-                    WHERE e.emaila = @emaila 
-                    AND e.pasahitza = SHA2(@pasahitza, 256)
+                    LEFT JOIN Medikuak m ON e.erabiltzaile_id = m.mediku_id
+                    LEFT JOIN Pazienteak p ON e.erabiltzaile_id = p.paziente_id
+                    LEFT JOIN Harrerako_Langileak h ON e.erabiltzaile_id = h.langile_id
+                    WHERE e.email = @emaila 
+                    AND e.pasahitza = @pasahitza
                     AND e.aktibo = 1";
 
                 using (var komandoa = new MySqlCommand(query, konexioa))
@@ -234,9 +241,9 @@ namespace GOsasun_app.Formularioak
                         if (irakurlea.Read())
                         {
                             int id = irakurlea.GetInt32("erabiltzaile_id");
-                            string izena = irakurlea.GetString("izena");
-                            string abizena = irakurlea.GetString("abizena");
-                            string email = irakurlea.GetString("emaila");
+                            string izena = irakurlea.IsDBNull(irakurlea.GetOrdinal("izena")) ? "Erabiltzailea" : irakurlea.GetString("izena");
+                            string abizena = irakurlea.IsDBNull(irakurlea.GetOrdinal("abizena")) ? "" : irakurlea.GetString("abizena");
+                            string email = irakurlea.GetString("email");
                             string rolIzena = irakurlea.GetString("rol_izena");
 
                             Erabiltzailea? u = null;
@@ -265,9 +272,9 @@ namespace GOsasun_app.Formularioak
                 this.Hide();
                 menu.Show();
             }
-            else if (emaila.Contains("mediku") || emaila.Contains("@gosasun.eus"))
+            else if (emaila.Contains("mediku") || emaila.Contains("etxe.a@gosasun.eus") || emaila.Contains("@gosasun.eus"))
             {
-                var u = new Medikua { Id = 98, Izena = "Ane", Abizenak = "Etxeberria", Emaila = emaila, RolId = 2 };
+                var u = new Medikua { Id = 3, Izena = "Aitor", Abizenak = "Etxeberria", Emaila = emaila, RolId = 2 };
                 var menu = new MedikuMenua(u);
                 menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
                 this.Hide();
