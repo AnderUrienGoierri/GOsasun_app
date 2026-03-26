@@ -60,12 +60,13 @@ namespace GOsasun_app.Formularioak
             _loginPanela.Padding = new Padding(30);
             _loginPanela.Size = new Size(672, 774);
             _loginPanela.TabIndex = 0;
+            _loginPanela.Paint += _loginPanela_Paint;
             // 
             // _logoPicture
             // 
             _logoPicture.BackColor = Color.Transparent;
             _logoPicture.Image = (Image)resources.GetObject("_logoPicture.Image");
-            _logoPicture.Location = new Point(229, 0);
+            _logoPicture.Location = new Point(385, 0);
             _logoPicture.Name = "_logoPicture";
             _logoPicture.Size = new Size(222, 153);
             _logoPicture.SizeMode = PictureBoxSizeMode.Zoom;

@@ -27,20 +27,16 @@ namespace GOsasun_app.Formularioak
             KonfiguratuFormularioa();
             KargatuBaliabideak();
             KonfiguratuGertakariak();
-            KokatuOsagaiak();
         }
 
         // Formularioaren konfigurazioa
         private void KonfiguratuFormularioa()
         {
             this.Text = "GOsasun - Saioa Hasi";
-            this.ClientSize = new Size(1600, 1000);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.DoubleBuffered = true;
-
-            this.Resize += (s, e) => KokatuOsagaiak();
         }
 
         // Irudiak kargatu
@@ -50,7 +46,7 @@ namespace GOsasun_app.Formularioak
 
             string bgIzena = "wood_background.png";
             string atzekoPlanoaBidea = Path.Combine(Application.StartupPath, "img", bgIzena);
-            
+
             if (!File.Exists(atzekoPlanoaBidea))
             {
                 string root = Directory.GetCurrentDirectory();
@@ -78,7 +74,7 @@ namespace GOsasun_app.Formularioak
 
             string logoIzena = "GOsasun_logo_whatsap.png";
             string logoBidea = Path.Combine(Application.StartupPath, "img", logoIzena);
-            
+
             if (!File.Exists(logoBidea))
             {
                 string root = Directory.GetCurrentDirectory();
@@ -100,10 +96,13 @@ namespace GOsasun_app.Formularioak
 
             if (File.Exists(logoBidea))
             {
-                try {
+                try
+                {
                     _logoPicture.Image = Image.FromFile(logoBidea);
                     _logoPicture.BackColor = Color.Transparent;
-                } catch {
+                }
+                catch
+                {
                     _logoPicture.BackColor = Color.Red;
                 }
             }
@@ -113,39 +112,6 @@ namespace GOsasun_app.Formularioak
             }
         }
 
-        private void KokatuOsagaiak()
-        {
-            _loginPanela.Location = new Point(
-                (this.ClientSize.Width - _loginPanela.Width) / 2,
-                (this.ClientSize.Height - _loginPanela.Height) / 2);
-
-            int ezkerTartea = (_loginPanela.Width - 360) / 2;
-            int y = 20;
-
-            _logoPicture.Location = new Point((_loginPanela.Width - _logoPicture.Width) / 2, y);
-            y += _logoPicture.Height + 5;
-
-            _tituluLabel.Location = new Point((_loginPanela.Width - _tituluLabel.Width) / 2, y);
-            y += _tituluLabel.Height + 25;
-
-            _erabiltzaileLabel.Location = new Point(ezkerTartea, y);
-            y += _erabiltzaileLabel.Height + 5;
-            _erabiltzaileTextBox.Location = new Point(ezkerTartea, y);
-            y += _erabiltzaileTextBox.Height + 15;
-
-            _pasahitzaLabel.Location = new Point(ezkerTartea, y);
-            y += _pasahitzaLabel.Height + 5;
-            _pasahitzaTextBox.Location = new Point(ezkerTartea, y);
-            y += _pasahitzaTextBox.Height + 8;
-
-            _erakutsiPasahitza.Location = new Point(ezkerTartea, y);
-            y += _erakutsiPasahitza.Height + 20;
-
-            _loginBotoia.Location = new Point(ezkerTartea, y);
-            y += _loginBotoia.Height + 15;
-
-            _mezuLabel.Location = new Point(ezkerTartea, y);
-        }
 
         private void LoginPanela_Paint(object? sender, PaintEventArgs e)
         {
@@ -181,7 +147,7 @@ namespace GOsasun_app.Formularioak
                 if (erabiltzaileaObj != null)
                 {
                     ErakutsiMezua("Saioa ongi hasi da! Itxaron...", Color.FromArgb(46, 204, 113));
-                    
+
                     Form menuForm;
                     if (erabiltzaileaObj is Medikua)
                     {
@@ -229,6 +195,11 @@ namespace GOsasun_app.Formularioak
         {
             _mezuLabel.Text = mezua;
             _mezuLabel.ForeColor = kolorea;
+        }
+
+        private void _loginPanela_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
