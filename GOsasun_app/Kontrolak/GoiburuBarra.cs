@@ -51,8 +51,21 @@ namespace GOsasun_app.Kontrolak
             };
 
             // Logo irudia kargatu
-            string logoPath = Path.Combine(Application.StartupPath, "img",
-                "GOsasun_logoa-removebg-preview-white.png");
+            string logoIzena = "GOsasun_logoa-removebg-preview-white.png";
+            string logoPath = Path.Combine(Application.StartupPath, "img", logoIzena);
+            
+            if (!File.Exists(logoPath))
+            {
+                string root = Directory.GetCurrentDirectory();
+                string[] saioak = {
+                    Path.Combine(root, "img", logoIzena),
+                    Path.Combine(root, "GOsasun_app", "img", logoIzena),
+                    Path.Combine(root, "..", "..", "..", "img", logoIzena),
+                    Path.Combine(root, "..", "..", "..", "GOsasun_app", "img", logoIzena)
+                };
+                foreach (string s in saioak) { if (File.Exists(s)) { logoPath = s; break; } }
+            }
+
             if (File.Exists(logoPath))
             {
                 _logoPictureBox.Image = Image.FromFile(logoPath);
@@ -119,6 +132,9 @@ namespace GOsasun_app.Kontrolak
                 _dataLabel.Text = DateTime.Now.ToString("yyyy/MM/dd, dddd");
             };
             _orduaTimer.Start();
+            
+            // Hasierako kokapena behartu
+            GoiburuBarra_Resize(null, EventArgs.Empty);
 
             // Resize kudeatzailea
             this.Resize += GoiburuBarra_Resize;

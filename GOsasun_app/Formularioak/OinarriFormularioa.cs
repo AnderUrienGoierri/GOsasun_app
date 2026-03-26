@@ -61,8 +61,8 @@ namespace GOsasun_app.Formularioak
         // -----------------------------------------------------------
         private void KonfiguratuFormularioa()
         {
-            // Tamaina eta estiloa (Tablet: 1024x768)
-            this.ClientSize = new Size(1024, 768);
+            // Tamaina eta estiloa (Tablet: 1024x600)
+            this.ClientSize = new Size(1024, 600);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -149,7 +149,7 @@ namespace GOsasun_app.Formularioak
             var txartela = new CustomCardButton
             {
                 Testua = testua,
-                Size = new Size(300, 250),
+                Size = new Size(300, 200),
                 Margin = new Padding(20) // Tartea txartelen artean
             };
 

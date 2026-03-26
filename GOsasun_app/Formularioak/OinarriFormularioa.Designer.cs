@@ -39,14 +39,14 @@ namespace GOsasun_app.Formularioak
             _edukiPanela.Location = new Point(0, 0);
             _edukiPanela.Name = "_edukiPanela";
             _edukiPanela.Padding = new Padding(40);
-            _edukiPanela.Size = new Size(1024, 768);
+            _edukiPanela.Size = new Size(1024, 600);
             _edukiPanela.TabIndex = 0;
             // 
             // OinarriFormularioa
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1024, 768);
+            ClientSize = new Size(1024, 600);
             Controls.Add(_edukiPanela);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
