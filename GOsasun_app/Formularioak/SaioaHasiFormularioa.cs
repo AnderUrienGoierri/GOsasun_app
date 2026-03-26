@@ -6,8 +6,8 @@
 // rola arabera MenuNagusia irekitzen du.
 // ============================================================
 
-using MySql.Data.MySqlClient;
 using GOsasun_app.Modeloak;
+using GOsasun_app.Kontrolatzaileak;
 
 namespace GOsasun_app.Formularioak
 {
@@ -17,10 +17,13 @@ namespace GOsasun_app.Formularioak
     /// </summary>
     public partial class SaioaHasiFormularioa : Form
     {
+        private readonly ErabiltzaileKontrolatzailea _kontrolatzailea;
+
         // Eraikitzailea
         public SaioaHasiFormularioa()
         {
             InitializeComponent();
+            _kontrolatzailea = new ErabiltzaileKontrolatzailea();
             KonfiguratuFormularioa();
             KargatuBaliabideak();
             KonfiguratuGertakariak();
@@ -172,9 +175,10 @@ namespace GOsasun_app.Formularioak
 
             try
             {
-                var (arrakasta, erabiltzaileaObj) = EgiaztatuErabiltzailea(emaila, pasahitza);
+                // Kontrolatzaileari deitu (OOP bidez)
+                var erabiltzaileaObj = _kontrolatzailea.Login(emaila, pasahitza);
 
-                if (arrakasta && erabiltzaileaObj != null)
+                if (erabiltzaileaObj != null)
                 {
                     ErakutsiMezua("Saioa ongi hasi da! Itxaron...", Color.FromArgb(46, 204, 113));
                     
@@ -207,14 +211,9 @@ namespace GOsasun_app.Formularioak
                     ErakutsiMezua("Erabiltzaile edo pasahitz okerra.", Color.FromArgb(231, 76, 60));
                 }
             }
-            catch (MySqlException)
-            {
-                ErakutsiMezua($"DB errorea. Garapen modua erabiltzen...", Color.FromArgb(243, 156, 18));
-                GarapenModuLogin(emaila);
-            }
             catch (Exception ex)
             {
-                ErakutsiMezua($"Errorea: {ex.Message}", Color.FromArgb(231, 76, 60));
+                ErakutsiMezua($"Errorea saioa hastean: {ex.Message}", Color.FromArgb(231, 76, 60));
             }
         }
 
@@ -224,112 +223,6 @@ namespace GOsasun_app.Formularioak
             _pasahitzaTextBox.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) LoginBotoia_Click(s, e); };
             _erakutsiPasahitza.CheckedChanged += (s, e) => { _pasahitzaTextBox.UseSystemPasswordChar = !_erakutsiPasahitza.Checked; };
             _loginBotoia.Click += LoginBotoia_Click;
-        }
-
-        private (bool arrakasta, Erabiltzailea? erabiltzailea) EgiaztatuErabiltzailea(string emaila, string pasahitza)
-        {
-            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
-            {
-                string query = @"
-                    SELECT e.erabiltzaile_id, 
-                           COALESCE(m.izena, p.izena, h.izena) as izena,
-                           COALESCE(m.abizenak, p.abizenak, h.abizenak) as abizena,
-                           e.email, 
-                           r.izena as rol_izena 
-                    FROM Erabiltzaileak e 
-                    JOIN Rolak r ON e.rol_id = r.rol_id 
-                    LEFT JOIN Medikuak m ON e.erabiltzaile_id = m.mediku_id
-                    LEFT JOIN Pazienteak p ON e.erabiltzaile_id = p.paziente_id
-                    LEFT JOIN Harrerako_Langileak h ON e.erabiltzaile_id = h.langile_id
-                    WHERE e.email = @emaila 
-                    AND e.pasahitza = @pasahitza
-                    AND e.aktibo = 1";
-
-                using (var komandoa = new MySqlCommand(query, konexioa))
-                {
-                    komandoa.Parameters.AddWithValue("@emaila", emaila);
-                    komandoa.Parameters.AddWithValue("@pasahitza", pasahitza);
-
-                    using (var irakurlea = komandoa.ExecuteReader())
-                    {
-                        if (irakurlea.Read())
-                        {
-                            int id = irakurlea.GetInt32("erabiltzaile_id");
-                            string izena = irakurlea.IsDBNull(irakurlea.GetOrdinal("izena")) ? "Erabiltzailea" : irakurlea.GetString("izena");
-                            string abizena = irakurlea.IsDBNull(irakurlea.GetOrdinal("abizena")) ? "" : irakurlea.GetString("abizena");
-                            string email = irakurlea.GetString("email");
-                            string rolIzena = irakurlea.GetString("rol_izena");
-
-                             Erabiltzailea? u = null;
-                             if (rolIzena.Equals("Pazientea", StringComparison.OrdinalIgnoreCase))
-                                 u = new Pazientea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 3 };
-                             else if (rolIzena.Equals("Medikua", StringComparison.OrdinalIgnoreCase))
-                                 u = new Medikua { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 2 };
-                             else
-                                 u = new HarrerakoLangilea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 4 };
-                             
-                             return (true, u);
-                         }
-                     }
-                 }
-             }
-             return (false, null);
-         }
-
-         private void GarapenModuLogin(string emaila)
-        {
-            if (emaila.Contains("ander.m") || emaila.Equals("pazientea@gosasun.eus"))
-            {
-                var u = new Pazientea { Id = 51, Izena = "Ander", Abizenak = "Martinez", Emaila = emaila, RolId = 3 };
-                var menu = new PazienteMenua(u);
-                menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
-                this.Hide();
-                menu.Show();
-            }
-            else if (emaila.Contains("urrutia.j"))
-            {
-                var u = new Medikua { Id = 1, Izena = "Jon", Abizenak = "Urrutia", Emaila = emaila, RolId = 2 };
-                var menu = new MedikuMenua(u);
-                menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
-                this.Hide();
-                menu.Show();
-            }
-            else if (emaila.Contains("goiko.m"))
-            {
-                var u = new Medikua { Id = 2, Izena = "Miren", Abizenak = "Goikoetxea", Emaila = emaila, RolId = 2 };
-                var menu = new MedikuMenua(u);
-                menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
-                this.Hide();
-                menu.Show();
-            }
-            else if (emaila.Contains("etxe.a") || emaila.Contains("mediku"))
-            {
-                var u = new Medikua { Id = 3, Izena = "Aitor", Abizenak = "Etxeberria", Emaila = emaila, RolId = 2 };
-                var menu = new MedikuMenua(u);
-                menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
-                this.Hide();
-                menu.Show();
-            }
-            else if (emaila.Contains("harrera"))
-            {
-                var u = new HarrerakoLangilea { Id = 101, Izena = "Ane", Abizenak = "Martinez Mendizabal", Emaila = emaila, RolId = 4 };
-                var menu = new HarreraMenua(u);
-                menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
-                this.Hide();
-                menu.Show();
-            }
-            else if (emaila.Contains("@")) // Generic fallback
-            {
-                var u = new Medikua { Id = 999, Izena = "Simulazioa", Abizenak = "Erabiltzailea", Emaila = emaila, RolId = 2 };
-                var menu = new MedikuMenua(u);
-                menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
-                this.Hide();
-                menu.Show();
-            }
-            else
-            {
-                ErakutsiMezua("Garapen modua: erabili email bat", Color.FromArgb(243, 156, 18));
-            }
         }
 
         private void ErakutsiMezua(string mezua, Color kolorea)
