@@ -140,6 +140,12 @@ namespace GOsasun_app.Kontrolak
             this.Resize += GoiburuBarra_Resize;
         }
 
+        public void EguneratuInformazioa(string erabiltzaileIzena, string rola)
+        {
+            _erabiltzaileLabel.Text = $"  {erabiltzaileIzena}  ({rola})";
+            GoiburuBarra_Resize(null, EventArgs.Empty);
+        }
+
         // -----------------------------------------------------------
         // Tamaina aldatzean osagaiak berrezarri
         // -----------------------------------------------------------

@@ -29,6 +29,7 @@ namespace GOsasun_app.Formularioak
         private void InitializeComponent()
         {
             _edukiPanela = new FlowLayoutPanel();
+            _goiburuBarra = new GOsasun_app.Kontrolak.GoiburuBarra("Erabiltzailea", "Rola");
             SuspendLayout();
             // 
             // _edukiPanela
@@ -47,6 +48,7 @@ namespace GOsasun_app.Formularioak
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1024, 600);
+            Controls.Add(_goiburuBarra);
             Controls.Add(_edukiPanela);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
@@ -60,5 +62,6 @@ namespace GOsasun_app.Formularioak
         #endregion
 
         protected FlowLayoutPanel _edukiPanela;
+        protected GOsasun_app.Kontrolak.GoiburuBarra _goiburuBarra;
     }
 }

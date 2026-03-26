@@ -20,7 +20,6 @@ namespace GOsasun_app.Formularioak
         // -----------------------------------------------------------
         // Osagaiak
         // -----------------------------------------------------------
-        protected GoiburuBarra? _goiburuBarra;
         protected Button? _atzeraBotoia;
 
         // Erabiltzaile informazioa (OOP)
@@ -47,13 +46,9 @@ namespace GOsasun_app.Formularioak
             // Goiburuko barra informazioarekin eguneratu
             if (_goiburuBarra != null)
             {
-                this.Controls.Remove(_goiburuBarra);
+                _goiburuBarra.EguneratuInformazioa(_erabiltzailea.IzenOsoa, _erabiltzailea.Rola);
+                _goiburuBarra.SaioaItxi += GoiburuBarra_SaioaItxi;
             }
-            
-            _goiburuBarra = new GoiburuBarra(_erabiltzailea.IzenOsoa, _erabiltzailea.Rola);
-            _goiburuBarra.SaioaItxi += GoiburuBarra_SaioaItxi;
-            this.Controls.Add(_goiburuBarra);
-            _goiburuBarra.BringToFront();
         }
 
         // -----------------------------------------------------------
