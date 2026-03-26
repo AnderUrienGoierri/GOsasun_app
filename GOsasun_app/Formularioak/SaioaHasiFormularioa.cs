@@ -186,7 +186,6 @@ namespace GOsasun_app.Formularioak
         private void KonfiguratuGertakariak()
         {
             _loginPanela.Paint += LoginPanela_Paint;
-            _pasahitzaTextBox.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) LoginBotoia_Click(s, e); };
             _erakutsiPasahitza.CheckedChanged += (s, e) => { _pasahitzaTextBox.UseSystemPasswordChar = !_erakutsiPasahitza.Checked; };
             _loginBotoia.Click += LoginBotoia_Click;
         }
