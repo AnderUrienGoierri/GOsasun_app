@@ -278,7 +278,7 @@ namespace GOsasun_app.Formularioak
 
          private void GarapenModuLogin(string emaila)
         {
-            if (emaila.Contains("paziente") || emaila.Contains("ander.m") || emaila.Contains("@gmail.com"))
+            if (emaila.Contains("ander.m") || emaila.Equals("pazientea@gosasun.eus"))
             {
                 var u = new Pazientea { Id = 51, Izena = "Ander", Abizenak = "Martinez", Emaila = emaila, RolId = 3 };
                 var menu = new PazienteMenua(u);
@@ -286,7 +286,23 @@ namespace GOsasun_app.Formularioak
                 this.Hide();
                 menu.Show();
             }
-            else if (emaila.Contains("mediku") || emaila.Contains("etxe.a@gosasun.eus") || emaila.Contains("@gosasun.eus"))
+            else if (emaila.Contains("urrutia.j"))
+            {
+                var u = new Medikua { Id = 1, Izena = "Jon", Abizenak = "Urrutia", Emaila = emaila, RolId = 2 };
+                var menu = new MedikuMenua(u);
+                menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
+                this.Hide();
+                menu.Show();
+            }
+            else if (emaila.Contains("goiko.m"))
+            {
+                var u = new Medikua { Id = 2, Izena = "Miren", Abizenak = "Goikoetxea", Emaila = emaila, RolId = 2 };
+                var menu = new MedikuMenua(u);
+                menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
+                this.Hide();
+                menu.Show();
+            }
+            else if (emaila.Contains("etxe.a") || emaila.Contains("mediku"))
             {
                 var u = new Medikua { Id = 3, Izena = "Aitor", Abizenak = "Etxeberria", Emaila = emaila, RolId = 2 };
                 var menu = new MedikuMenua(u);
@@ -298,6 +314,14 @@ namespace GOsasun_app.Formularioak
             {
                 var u = new HarrerakoLangilea { Id = 101, Izena = "Ane", Abizenak = "Martinez Mendizabal", Emaila = emaila, RolId = 4 };
                 var menu = new HarreraMenua(u);
+                menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
+                this.Hide();
+                menu.Show();
+            }
+            else if (emaila.Contains("@")) // Generic fallback
+            {
+                var u = new Medikua { Id = 999, Izena = "Simulazioa", Abizenak = "Erabiltzailea", Emaila = emaila, RolId = 2 };
+                var menu = new MedikuMenua(u);
                 menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
                 this.Hide();
                 menu.Show();
