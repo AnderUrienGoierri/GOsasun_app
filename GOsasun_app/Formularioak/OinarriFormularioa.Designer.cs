@@ -39,8 +39,8 @@ namespace GOsasun_app.Formularioak
             _edukiPanela.Dock = DockStyle.Fill;
             _edukiPanela.Location = new Point(0, 0);
             _edukiPanela.Name = "_edukiPanela";
-            _edukiPanela.Padding = new Padding(40);
-            _edukiPanela.Size = new Size(1024, 600);
+            this._edukiPanela.Padding = new Padding(2);
+            this._edukiPanela.Size = new Size(1024, 600);
             _edukiPanela.TabIndex = 0;
             // 
             // OinarriFormularioa

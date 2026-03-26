@@ -31,7 +31,7 @@ namespace GOsasun_app.Formularioak
             // 
             this.btnNeurketak.BackColor = Color.White;
             this.btnNeurketak.BorderBiribiltasuna = 24;
-            this.btnNeurketak.Ikonoa = null;
+            this.btnNeurketak.Ikonoa = Image.FromFile(@"img\icons\neurketak.png");
             this.btnNeurketak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             this.btnNeurketak.Location = new Point(20, 20);
             this.btnNeurketak.Margin = new Padding(20);
@@ -44,7 +44,7 @@ namespace GOsasun_app.Formularioak
             // 
             this.btnErrezetak.BackColor = Color.White;
             this.btnErrezetak.BorderBiribiltasuna = 24;
-            this.btnErrezetak.Ikonoa = null;
+            this.btnErrezetak.Ikonoa = Image.FromFile(@"img\icons\errezetak.png");
             this.btnErrezetak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             this.btnErrezetak.Location = new Point(340, 20);
             this.btnErrezetak.Margin = new Padding(20);
@@ -57,7 +57,7 @@ namespace GOsasun_app.Formularioak
             // 
             this.btnKontaktua.BackColor = Color.White;
             this.btnKontaktua.BorderBiribiltasuna = 24;
-            this.btnKontaktua.Ikonoa = null;
+            this.btnKontaktua.Ikonoa = Image.FromFile(@"img\icons\kontaktua.png");
             this.btnKontaktua.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             this.btnKontaktua.Location = new Point(660, 20);
             this.btnKontaktua.Margin = new Padding(20);
@@ -70,7 +70,7 @@ namespace GOsasun_app.Formularioak
             // 
             this.btnGrafikak.BackColor = Color.White;
             this.btnGrafikak.BorderBiribiltasuna = 24;
-            this.btnGrafikak.Ikonoa = null;
+            this.btnGrafikak.Ikonoa = Image.FromFile(@"img\icons\grafikak.png");
             this.btnGrafikak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             this.btnGrafikak.Location = new Point(20, 240);
             this.btnGrafikak.Margin = new Padding(20);
@@ -83,7 +83,7 @@ namespace GOsasun_app.Formularioak
             // 
             this.btnAbisuak.BackColor = Color.White;
             this.btnAbisuak.BorderBiribiltasuna = 24;
-            this.btnAbisuak.Ikonoa = null;
+            this.btnAbisuak.Ikonoa = Image.FromFile(@"img\icons\abisua.png");
             this.btnAbisuak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             this.btnAbisuak.Location = new Point(340, 240);
             this.btnAbisuak.Margin = new Padding(20);
