@@ -32,15 +32,23 @@ namespace GOsasun_app.Formularioak
             _goiburuBarra = new GOsasun_app.Kontrolak.GoiburuBarra("Erabiltzailea", "Rola");
             SuspendLayout();
             // 
+            // _goiburuBarra
+            // 
+            _goiburuBarra.Dock = DockStyle.Top;
+            _goiburuBarra.Height = 85;
+            _goiburuBarra.Location = new Point(0, 0);
+            _goiburuBarra.Name = "_goiburuBarra";
+            _goiburuBarra.TabIndex = 1;
+            // 
             // _edukiPanela
             // 
             _edukiPanela.AutoScroll = true;
             _edukiPanela.BackColor = Color.Transparent;
             _edukiPanela.Dock = DockStyle.Fill;
-            _edukiPanela.Location = new Point(0, 0);
+            _edukiPanela.Location = new Point(0, 85);
             _edukiPanela.Name = "_edukiPanela";
-            this._edukiPanela.Padding = new Padding(2);
-            this._edukiPanela.Size = new Size(1024, 600);
+            _edukiPanela.Padding = new Padding(2);
+            _edukiPanela.Size = new Size(1024, 515);
             _edukiPanela.TabIndex = 0;
             // 
             // OinarriFormularioa
@@ -56,6 +64,7 @@ namespace GOsasun_app.Formularioak
             Name = "OinarriFormularioa";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "GOsasun";
+            _edukiPanela.ResumeLayout(false);
             ResumeLayout(false);
         }
 
