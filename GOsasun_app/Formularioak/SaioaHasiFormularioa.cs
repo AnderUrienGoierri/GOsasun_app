@@ -201,5 +201,10 @@ namespace GOsasun_app.Formularioak
         {
 
         }
+
+        private void _loginBotoia_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

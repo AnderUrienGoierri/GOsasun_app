@@ -28,48 +28,34 @@ namespace GOsasun_app.Formularioak
             : base(erabiltzailea)
         {
             InitializeComponent();
-            KargatuIkonoak();
-            KonfiguratuGertaerak();
+            KargatuMenuDinamikoa();
         }
 
-        private void KargatuIkonoak()
+        private void KargatuMenuDinamikoa()
         {
-            btnPazienteak.Ikonoa = KargatuIrudia("pazienteak.png");
-            btnKontaktua.Ikonoa = KargatuIrudia("kontaktua.png");
-            btnNeurketak.Ikonoa = KargatuIrudia("neurketak.png");
-            btnErrezetak.Ikonoa = KargatuIrudia("errezetak.png");
-            btnGrafikak.Ikonoa = KargatuIrudia("grafikak.png");
-            btnAbisuak.Ikonoa = KargatuIrudia("abisua.png");
-        }
+            if (_edukiPanela == null) return;
+            _edukiPanela.Controls.Clear();
 
-        private Image? KargatuIrudia(string fitxategia)
-        {
-            string path = Path.Combine(Application.StartupPath, "img", fitxategia);
-            if (!File.Exists(path))
-            {
-                // Bilatu beste karpetetan
-                string root = Directory.GetCurrentDirectory();
-                string[] aukerak = {
-                    Path.Combine(root, "img", fitxategia),
-                    Path.Combine(root, "GOsasun_app", "img", fitxategia),
-                    Path.Combine(root, "..", "..", "..", "img", fitxategia)
-                };
-                foreach (var a in aukerak) { if (File.Exists(a)) { path = a; break; } }
-            }
-            return File.Exists(path) ? Image.FromFile(path) : null;
-        }
+            // Txartelak sortu eta gehitu (3 zutabeko grid-ean automatikoki)
+            var btnPazienteak = SortuTxartela("NIRE PAZIENTEAK", "pazienteak.png");
+            var btnKontaktua = SortuTxartela("KONTAKTUA", "kontaktua.png");
+            var btnNeurketak = SortuTxartela("NEURKETAK", "neurketak.png");
+            var btnErrezetak = SortuTxartela("ERREZETAK", "errezetak.png");
+            var btnGrafikak = SortuTxartela("GRAFIKAK", "grafikak.png");
+            var btnAbisuak = SortuTxartela("ABISUAK", "abisua.png");
 
-        private void KonfiguratuGertaerak()
-        {
-            if (this.DesignMode) return;
-            if (_erabiltzailea == null) return;
-
+            // Gertakariak konfiguratu
             btnPazienteak.Click += (s, e) => IrekiFormularioa(new PazienteMenua(_erabiltzailea!));
             btnKontaktua.Click += (s, e) => IrekiFormularioa(new KontaktuaFormularioa(_erabiltzailea!));
             btnNeurketak.Click += (s, e) => IrekiFormularioa(new NeurketenFormularioa(_erabiltzailea!));
             btnErrezetak.Click += (s, e) => IrekiFormularioa(new ErrezetenFormularioa(_erabiltzailea!));
             btnGrafikak.Click += (s, e) => IrekiFormularioa(new GrafikenFormularioa(_erabiltzailea!));
             btnAbisuak.Click += (s, e) => IrekiFormularioa(new AbisuenFormularioa(_erabiltzailea!));
+
+            _edukiPanela.Controls.AddRange(new Control[] { 
+                btnPazienteak, btnKontaktua, btnNeurketak, 
+                btnErrezetak, btnGrafikak, btnAbisuak 
+            });
         }
 
         // -----------------------------------------------------------

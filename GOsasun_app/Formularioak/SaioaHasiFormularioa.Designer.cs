@@ -66,9 +66,9 @@ namespace GOsasun_app.Formularioak
             // 
             _logoPicture.BackColor = Color.Transparent;
             _logoPicture.Image = (Image)resources.GetObject("_logoPicture.Image");
-            _logoPicture.Location = new Point(385, 0);
+            _logoPicture.Location = new Point(145, 0);
             _logoPicture.Name = "_logoPicture";
-            _logoPicture.Size = new Size(222, 153);
+            _logoPicture.Size = new Size(360, 229);
             _logoPicture.SizeMode = PictureBoxSizeMode.Zoom;
             _logoPicture.TabIndex = 0;
             _logoPicture.TabStop = false;
@@ -79,7 +79,7 @@ namespace GOsasun_app.Formularioak
             _tituluLabel.BackColor = Color.Transparent;
             _tituluLabel.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
             _tituluLabel.ForeColor = Color.FromArgb(44, 62, 80);
-            _tituluLabel.Location = new Point(167, 138);
+            _tituluLabel.Location = new Point(147, 219);
             _tituluLabel.Name = "_tituluLabel";
             _tituluLabel.Size = new Size(348, 100);
             _tituluLabel.TabIndex = 1;
@@ -91,7 +91,7 @@ namespace GOsasun_app.Formularioak
             _erabiltzaileLabel.BackColor = Color.Transparent;
             _erabiltzaileLabel.Font = new Font("Segoe UI", 13F);
             _erabiltzaileLabel.ForeColor = Color.FromArgb(100, 100, 100);
-            _erabiltzaileLabel.Location = new Point(165, 238);
+            _erabiltzaileLabel.Location = new Point(145, 315);
             _erabiltzaileLabel.Name = "_erabiltzaileLabel";
             _erabiltzaileLabel.Size = new Size(120, 47);
             _erabiltzaileLabel.TabIndex = 2;
@@ -101,7 +101,7 @@ namespace GOsasun_app.Formularioak
             // 
             _erabiltzaileTextBox.BorderStyle = BorderStyle.FixedSingle;
             _erabiltzaileTextBox.Font = new Font("Segoe UI", 12F);
-            _erabiltzaileTextBox.Location = new Point(165, 288);
+            _erabiltzaileTextBox.Location = new Point(147, 365);
             _erabiltzaileTextBox.Name = "_erabiltzaileTextBox";
             _erabiltzaileTextBox.PlaceholderText = "Zure emaila...";
             _erabiltzaileTextBox.Size = new Size(360, 50);
@@ -113,7 +113,7 @@ namespace GOsasun_app.Formularioak
             _pasahitzaLabel.BackColor = Color.Transparent;
             _pasahitzaLabel.Font = new Font("Segoe UI", 13F);
             _pasahitzaLabel.ForeColor = Color.FromArgb(100, 100, 100);
-            _pasahitzaLabel.Location = new Point(165, 338);
+            _pasahitzaLabel.Location = new Point(147, 435);
             _pasahitzaLabel.Name = "_pasahitzaLabel";
             _pasahitzaLabel.Size = new Size(164, 47);
             _pasahitzaLabel.TabIndex = 4;
@@ -123,7 +123,7 @@ namespace GOsasun_app.Formularioak
             // 
             _pasahitzaTextBox.BorderStyle = BorderStyle.FixedSingle;
             _pasahitzaTextBox.Font = new Font("Segoe UI", 12F);
-            _pasahitzaTextBox.Location = new Point(165, 388);
+            _pasahitzaTextBox.Location = new Point(147, 485);
             _pasahitzaTextBox.Name = "_pasahitzaTextBox";
             _pasahitzaTextBox.PlaceholderText = "Pasahitza...";
             _pasahitzaTextBox.Size = new Size(360, 50);
@@ -136,7 +136,7 @@ namespace GOsasun_app.Formularioak
             _erakutsiPasahitza.BackColor = Color.Transparent;
             _erakutsiPasahitza.Font = new Font("Segoe UI", 11F);
             _erakutsiPasahitza.ForeColor = Color.FromArgb(100, 100, 100);
-            _erakutsiPasahitza.Location = new Point(167, 433);
+            _erakutsiPasahitza.Location = new Point(151, 541);
             _erakutsiPasahitza.Name = "_erakutsiPasahitza";
             _erakutsiPasahitza.Size = new Size(284, 45);
             _erakutsiPasahitza.TabIndex = 6;
@@ -149,12 +149,13 @@ namespace GOsasun_app.Formularioak
             _loginBotoia.Cursor = Cursors.Hand;
             _loginBotoia.FlatAppearance.BorderSize = 0;
             _loginBotoia.FlatStyle = FlatStyle.Flat;
-            _loginBotoia.Location = new Point(165, 525);
+            _loginBotoia.Location = new Point(145, 629);
             _loginBotoia.Name = "_loginBotoia";
             _loginBotoia.Size = new Size(360, 60);
             _loginBotoia.TabIndex = 7;
             _loginBotoia.Text = "SARTU";
             _loginBotoia.UseVisualStyleBackColor = false;
+            _loginBotoia.Click += _loginBotoia_Click;
             // 
             // _mezuLabel
             // 
@@ -162,7 +163,7 @@ namespace GOsasun_app.Formularioak
             _mezuLabel.BackColor = Color.Transparent;
             _mezuLabel.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             _mezuLabel.ForeColor = Color.FromArgb(231, 76, 60);
-            _mezuLabel.Location = new Point(165, 540);
+            _mezuLabel.Location = new Point(145, 602);
             _mezuLabel.Name = "_mezuLabel";
             _mezuLabel.Size = new Size(0, 41);
             _mezuLabel.TabIndex = 8;
