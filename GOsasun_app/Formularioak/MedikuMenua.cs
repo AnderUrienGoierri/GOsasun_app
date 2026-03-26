@@ -64,7 +64,7 @@ namespace GOsasun_app.Formularioak
             if (this.DesignMode) return;
             if (_erabiltzailea == null) return;
 
-            btnPazienteak.Click += (s, e) => IrekiFormularioa(new PazienteenFormularioa(_erabiltzailea!));
+            btnPazienteak.Click += (s, e) => IrekiFormularioa(new PazienteMenua(_erabiltzailea!));
             btnKontaktua.Click += (s, e) => IrekiFormularioa(new KontaktuaFormularioa(_erabiltzailea!));
             btnNeurketak.Click += (s, e) => IrekiFormularioa(new NeurketenFormularioa(_erabiltzailea!));
             btnErrezetak.Click += (s, e) => IrekiFormularioa(new ErrezetenFormularioa(_erabiltzailea!));
@@ -80,6 +80,11 @@ namespace GOsasun_app.Formularioak
             formularioa.FormClosed += (s, e) => this.Show();
             this.Hide();
             formularioa.Show();
+        }
+
+        private void btnGrafikak_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

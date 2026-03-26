@@ -177,8 +177,22 @@ namespace GOsasun_app.Formularioak
                 if (arrakasta && erabiltzaileaObj != null)
                 {
                     ErakutsiMezua("Saioa ongi hasi da! Itxaron...", Color.FromArgb(46, 204, 113));
-                    var medikuMenua = new MedikuMenua(erabiltzaileaObj);
-                    medikuMenua.FormClosed += (s, args) =>
+                    
+                    Form menuForm;
+                    if (erabiltzaileaObj is Medikua)
+                    {
+                        menuForm = new MedikuMenua(erabiltzaileaObj);
+                    }
+                    else if (erabiltzaileaObj is Pazientea)
+                    {
+                        menuForm = new PazienteMenua(erabiltzaileaObj);
+                    }
+                    else
+                    {
+                        menuForm = new HarreraMenua(erabiltzaileaObj);
+                    }
+
+                    menuForm.FormClosed += (s, args) =>
                     {
                         _erabiltzaileTextBox.Text = "";
                         _pasahitzaTextBox.Text = "";
@@ -186,7 +200,7 @@ namespace GOsasun_app.Formularioak
                         this.Show();
                     };
                     this.Hide();
-                    medikuMenua.Show();
+                    menuForm.Show();
                 }
                 else
                 {
@@ -246,28 +260,28 @@ namespace GOsasun_app.Formularioak
                             string email = irakurlea.GetString("email");
                             string rolIzena = irakurlea.GetString("rol_izena");
 
-                            Erabiltzailea? u = null;
-                            if (rolIzena.Equals("Pazientea", StringComparison.OrdinalIgnoreCase))
-                                u = new Pazientea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 1 };
-                            else if (rolIzena.Equals("Medikua", StringComparison.OrdinalIgnoreCase))
-                                u = new Medikua { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 2 };
-                            else
-                                u = new HarrerakoLangilea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 3 };
-                            
-                            return (true, u);
-                        }
-                    }
-                }
-            }
-            return (false, null);
-        }
+                             Erabiltzailea? u = null;
+                             if (rolIzena.Equals("Pazientea", StringComparison.OrdinalIgnoreCase))
+                                 u = new Pazientea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 3 };
+                             else if (rolIzena.Equals("Medikua", StringComparison.OrdinalIgnoreCase))
+                                 u = new Medikua { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 2 };
+                             else
+                                 u = new HarrerakoLangilea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 4 };
+                             
+                             return (true, u);
+                         }
+                     }
+                 }
+             }
+             return (false, null);
+         }
 
-        private void GarapenModuLogin(string emaila)
+         private void GarapenModuLogin(string emaila)
         {
-            if (emaila.Contains("paziente") || emaila.Contains("@gmail.com"))
+            if (emaila.Contains("paziente") || emaila.Contains("ander.m") || emaila.Contains("@gmail.com"))
             {
-                var u = new Pazientea { Id = 99, Izena = "Joseba", Abizenak = "Zabala", Emaila = emaila, RolId = 1 };
-                var menu = new MedikuMenua(u);
+                var u = new Pazientea { Id = 51, Izena = "Ander", Abizenak = "Martinez", Emaila = emaila, RolId = 3 };
+                var menu = new PazienteMenua(u);
                 menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
                 this.Hide();
                 menu.Show();
@@ -276,6 +290,14 @@ namespace GOsasun_app.Formularioak
             {
                 var u = new Medikua { Id = 3, Izena = "Aitor", Abizenak = "Etxeberria", Emaila = emaila, RolId = 2 };
                 var menu = new MedikuMenua(u);
+                menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
+                this.Hide();
+                menu.Show();
+            }
+            else if (emaila.Contains("harrera"))
+            {
+                var u = new HarrerakoLangilea { Id = 101, Izena = "Ane", Abizenak = "Martinez Mendizabal", Emaila = emaila, RolId = 4 };
+                var menu = new HarreraMenua(u);
                 menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
                 this.Hide();
                 menu.Show();

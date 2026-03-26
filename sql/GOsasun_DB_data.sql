@@ -5,9 +5,9 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- 1. Rolak (Dagoeneko badaude, baina bistan badago berridatziko ditugu)
 INSERT IGNORE INTO Rolak (rol_id, izena)
 VALUES (1, 'Administratzailea'),
-    (2, 'Medikua'),
-    (3, 'Pazientea'),
-    (4, 'Harrera');
+       (2, 'Medikua'),
+       (3, 'Pazientea'),
+       (4, 'Harrera');
 -- 2. Erabiltzaileak (100+)
 -- Medikuak (50), Pazienteak (50)
 -- Pasahitz guztientzat: '1234'
