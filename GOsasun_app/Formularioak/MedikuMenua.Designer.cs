@@ -39,38 +39,44 @@ namespace GOsasun_app.Formularioak
             // btnPazienteak
             // 
             btnPazienteak.Testua = "NIRE PAZIENTEAK";
-            btnPazienteak.Size = new Size(300, 200);
-            btnPazienteak.Margin = new Padding(20);
+            btnPazienteak.Size = new System.Drawing.Size(280, 180);
+            btnPazienteak.Margin = new System.Windows.Forms.Padding(15);
+            btnPazienteak.Name = "btnPazienteak";
             // 
             // btnKontaktua
             // 
             btnKontaktua.Testua = "KONTAKTUA";
-            btnKontaktua.Size = new Size(300, 200);
-            btnKontaktua.Margin = new Padding(20);
+            btnKontaktua.Size = new System.Drawing.Size(280, 180);
+            btnKontaktua.Margin = new System.Windows.Forms.Padding(15);
+            btnKontaktua.Name = "btnKontaktua";
             // 
             // btnNeurketak
             // 
             btnNeurketak.Testua = "NEURKETAK";
-            btnNeurketak.Size = new Size(300, 200);
-            btnNeurketak.Margin = new Padding(20);
+            btnNeurketak.Size = new System.Drawing.Size(280, 180);
+            btnNeurketak.Margin = new System.Windows.Forms.Padding(15);
+            btnNeurketak.Name = "btnNeurketak";
             // 
             // btnErrezetak
             // 
             btnErrezetak.Testua = "ERREZETAK";
-            btnErrezetak.Size = new Size(300, 200);
-            btnErrezetak.Margin = new Padding(20);
+            btnErrezetak.Size = new System.Drawing.Size(280, 180);
+            btnErrezetak.Margin = new System.Windows.Forms.Padding(15);
+            btnErrezetak.Name = "btnErrezetak";
             // 
             // btnGrafikak
             // 
             btnGrafikak.Testua = "GRAFIKAK";
-            btnGrafikak.Size = new Size(300, 200);
-            btnGrafikak.Margin = new Padding(20);
+            btnGrafikak.Size = new System.Drawing.Size(280, 180);
+            btnGrafikak.Margin = new System.Windows.Forms.Padding(15);
+            btnGrafikak.Name = "btnGrafikak";
             // 
             // btnAbisuak
             // 
             btnAbisuak.Testua = "ABISUAK";
-            btnAbisuak.Size = new Size(300, 200);
-            btnAbisuak.Margin = new Padding(20);
+            btnAbisuak.Size = new System.Drawing.Size(280, 180);
+            btnAbisuak.Margin = new System.Windows.Forms.Padding(15);
+            btnAbisuak.Name = "btnAbisuak";
             // 
             // MedikuMenua
             // 

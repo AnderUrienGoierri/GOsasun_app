@@ -48,8 +48,8 @@ namespace GOsasun_app.Formularioak
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1024, 600);
-            Controls.Add(_goiburuBarra);
             Controls.Add(_edukiPanela);
+            Controls.Add(_goiburuBarra);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;

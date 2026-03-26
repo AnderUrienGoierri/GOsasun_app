@@ -28,7 +28,35 @@ namespace GOsasun_app.Formularioak
             : base(erabiltzailea)
         {
             InitializeComponent();
+            KargatuIkonoak();
             KonfiguratuGertaerak();
+        }
+
+        private void KargatuIkonoak()
+        {
+            btnPazienteak.Ikonoa = KargatuIrudia("pazienteak.png");
+            btnKontaktua.Ikonoa = KargatuIrudia("kontaktua.png");
+            btnNeurketak.Ikonoa = KargatuIrudia("neurketak.png");
+            btnErrezetak.Ikonoa = KargatuIrudia("errezetak.png");
+            btnGrafikak.Ikonoa = KargatuIrudia("grafikak.png");
+            btnAbisuak.Ikonoa = KargatuIrudia("abisua.png");
+        }
+
+        private Image? KargatuIrudia(string fitxategia)
+        {
+            string path = Path.Combine(Application.StartupPath, "img", fitxategia);
+            if (!File.Exists(path))
+            {
+                // Bilatu beste karpetetan
+                string root = Directory.GetCurrentDirectory();
+                string[] aukerak = {
+                    Path.Combine(root, "img", fitxategia),
+                    Path.Combine(root, "GOsasun_app", "img", fitxategia),
+                    Path.Combine(root, "..", "..", "..", "img", fitxategia)
+                };
+                foreach (var a in aukerak) { if (File.Exists(a)) { path = a; break; } }
+            }
+            return File.Exists(path) ? Image.FromFile(path) : null;
         }
 
         private void KonfiguratuGertaerak()
