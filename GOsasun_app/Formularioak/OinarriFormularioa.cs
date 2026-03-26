@@ -56,10 +56,7 @@ namespace GOsasun_app.Formularioak
         // -----------------------------------------------------------
         private void KonfiguratuFormularioa()
         {
-            // Tamaina eta estiloa (Tablet: 1024x600)
-            this.ClientSize = new Size(1024, 600);
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
+            // Orain Diseinatzailean jarritako tamaina eta estiloa erabiliko dira
             this.StartPosition = FormStartPosition.CenterScreen;
             this.DoubleBuffered = true;
             this.Text = "GOsasun";

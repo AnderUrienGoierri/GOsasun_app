@@ -171,6 +171,7 @@ namespace GOsasun_app.Formularioak
             // 
             // SaioaHasiFormularioa
             // 
+            AcceptButton = _loginBotoia;
             ClientSize = new Size(1600, 1000);
             Controls.Add(_loginPanela);
             Name = "SaioaHasiFormularioa";

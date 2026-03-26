@@ -35,5 +35,10 @@ namespace GOsasun_app.Formularioak
             this.Hide();
             formularioa.Show();
         }
+
+        private void btnErrezetak_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
