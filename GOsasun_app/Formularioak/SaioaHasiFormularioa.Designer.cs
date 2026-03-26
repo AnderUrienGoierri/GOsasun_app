@@ -55,7 +55,7 @@ namespace GOsasun_app.Formularioak
             _loginPanela.Controls.Add(_erakutsiPasahitza);
             _loginPanela.Controls.Add(_loginBotoia);
             _loginPanela.Controls.Add(_mezuLabel);
-            _loginPanela.Location = new Point(283, 152);
+            _loginPanela.Location = new Point(455, 122);
             _loginPanela.Name = "_loginPanela";
             _loginPanela.Padding = new Padding(30);
             _loginPanela.Size = new Size(672, 774);

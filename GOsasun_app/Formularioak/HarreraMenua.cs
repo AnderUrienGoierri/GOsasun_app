@@ -15,29 +15,42 @@ namespace GOsasun_app.Formularioak
         public HarreraMenua(Erabiltzailea u) : base(u)
         {
             InitializeComponent();
-            KargatuMenuDinamikoa();
+            KargatuIkonoak();
+            KonfiguratuGertaerak();
         }
 
-        private void KargatuMenuDinamikoa()
+        private void KargatuIkonoak()
         {
-            if (_edukiPanela == null) return;
-            _edukiPanela.Controls.Clear();
+            btnPazienteak.Ikonoa = KargatuIrudia("pazienteak.png");
+            btnMedikuak.Ikonoa = KargatuIrudia("medikuak.png");
+            btnLangileak.Ikonoa = KargatuIrudia("langileak.png");
+            btnHitzorduak.Ikonoa = KargatuIrudia("hitzorduak.png");
+        }
 
-            // Txartelak sortu
-            var btnPazienteak = SortuTxartela("PAZIENTEAK KUDEATU", "pazienteak.png");
-            var btnMedikuak = SortuTxartela("MEDIKUAK KUDEATU", "medikuak.png");
-            var btnLangileak = SortuTxartela("LANGILEAK KUDEATU", "langileak.png");
-            var btnHitzorduak = SortuTxartela("HITZORDUAK KUDEATU", "hitzorduak.png");
+        private Image? KargatuIrudia(string fitxategia)
+        {
+            string path = Path.Combine(Application.StartupPath, "img", "icons", fitxategia);
+            if (!File.Exists(path))
+            {
+                // Bilatu beste karpetetan
+                string root = Directory.GetCurrentDirectory();
+                string[] aukerak = {
+                    Path.Combine(root, "img", "icons", fitxategia),
+                    Path.Combine(root, "GOsasun_app", "img", "icons", fitxategia),
+                    Path.Combine(root, "..", "..", "..", "img", "icons", fitxategia)
+                };
+                foreach (var a in aukerak) { if (File.Exists(a)) { path = a; break; } }
+            }
+            return File.Exists(path) ? Image.FromFile(path) : null;
+        }
 
+        private void KonfiguratuGertaerak()
+        {
             // Gertakariak (Simulazioa oraingoz, formularioak ez daudelako oraindik)
             btnPazienteak.Click += (s, e) => MessageBox.Show("Pazienteen kudeaketa eraikitzen...", "Informazioa");
             btnMedikuak.Click += (s, e) => MessageBox.Show("Medikuen kudeaketa eraikitzen...", "Informazioa");
             btnLangileak.Click += (s, e) => MessageBox.Show("Langileen kudeaketa eraikitzen...", "Informazioa");
             btnHitzorduak.Click += (s, e) => MessageBox.Show("Hitzorduen kudeaketa eraikitzen...", "Informazioa");
-
-            _edukiPanela.Controls.AddRange(new Control[] { 
-                btnPazienteak, btnMedikuak, btnLangileak, btnHitzorduak 
-            });
         }
     }
 }

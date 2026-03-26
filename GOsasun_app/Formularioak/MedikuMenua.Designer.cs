@@ -1,16 +1,12 @@
+using System.Drawing;
+using System.Windows.Forms;
+
 namespace GOsasun_app.Formularioak
 {
     partial class MedikuMenua
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,124 +18,110 @@ namespace GOsasun_app.Formularioak
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            btnPazienteak = new GOsasun_app.Kontrolak.CustomCardButton();
-            btnKontaktua = new GOsasun_app.Kontrolak.CustomCardButton();
-            btnNeurketak = new GOsasun_app.Kontrolak.CustomCardButton();
-            btnErrezetak = new GOsasun_app.Kontrolak.CustomCardButton();
-            btnGrafikak = new GOsasun_app.Kontrolak.CustomCardButton();
-            btnAbisuak = new GOsasun_app.Kontrolak.CustomCardButton();
-            btnNeurketak.SuspendLayout();
-            btnErrezetak.SuspendLayout();
-            SuspendLayout();
-            // 
-            // _goiburuBarra
-            // 
-            _goiburuBarra.Size = new Size(1902, 181);
+            this.btnPazienteak = new GOsasun_app.Kontrolak.CustomCardButton();
+            this.btnKontaktua = new GOsasun_app.Kontrolak.CustomCardButton();
+            this.btnNeurketak = new GOsasun_app.Kontrolak.CustomCardButton();
+            this.btnErrezetak = new GOsasun_app.Kontrolak.CustomCardButton();
+            this.btnGrafikak = new GOsasun_app.Kontrolak.CustomCardButton();
+            this.btnAbisuak = new GOsasun_app.Kontrolak.CustomCardButton();
+            this.SuspendLayout();
             // 
             // btnPazienteak
             // 
-            btnPazienteak.BackColor = Color.White;
-            btnPazienteak.BorderBiribiltasuna = 24;
-            btnPazienteak.Ikonoa = null;
-            btnPazienteak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
-            btnPazienteak.Location = new Point(492, 220);
-            btnPazienteak.Margin = new Padding(28, 32, 28, 32);
-            btnPazienteak.Name = "btnPazienteak";
-            btnPazienteak.Padding = new Padding(19, 21, 19, 21);
-            btnPazienteak.Size = new Size(520, 384);
-            btnPazienteak.TabIndex = 0;
-            btnPazienteak.Testua = "NIRE PAZIENTEAK";
+            this.btnPazienteak.BackColor = Color.White;
+            this.btnPazienteak.BorderBiribiltasuna = 24;
+            this.btnPazienteak.Ikonoa = null;
+            this.btnPazienteak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+            this.btnPazienteak.Location = new Point(20, 20);
+            this.btnPazienteak.Margin = new Padding(20);
+            this.btnPazienteak.Name = "btnPazienteak";
+            this.btnPazienteak.Size = new Size(300, 200);
+            this.btnPazienteak.TabIndex = 0;
+            this.btnPazienteak.Testua = "NIRE PAZIENTEAK";
             // 
             // btnKontaktua
             // 
-            btnKontaktua.BackColor = Color.White;
-            btnKontaktua.BorderBiribiltasuna = 24;
-            btnKontaktua.Ikonoa = null;
-            btnKontaktua.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
-            btnKontaktua.Location = new Point(0, 220);
-            btnKontaktua.Margin = new Padding(28, 32, 28, 32);
-            btnKontaktua.Name = "btnKontaktua";
-            btnKontaktua.Padding = new Padding(19, 21, 19, 21);
-            btnKontaktua.Size = new Size(520, 384);
-            btnKontaktua.TabIndex = 1;
-            btnKontaktua.Testua = "KONTAKTUA";
+            this.btnKontaktua.BackColor = Color.White;
+            this.btnKontaktua.BorderBiribiltasuna = 24;
+            this.btnKontaktua.Ikonoa = null;
+            this.btnKontaktua.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+            this.btnKontaktua.Location = new Point(340, 20);
+            this.btnKontaktua.Margin = new Padding(20);
+            this.btnKontaktua.Name = "btnKontaktua";
+            this.btnKontaktua.Size = new Size(300, 200);
+            this.btnKontaktua.TabIndex = 1;
+            this.btnKontaktua.Testua = "KONTAKTUA";
             // 
             // btnNeurketak
             // 
-            btnNeurketak.BackColor = Color.White;
-            btnNeurketak.BorderBiribiltasuna = 24;
-            btnNeurketak.Controls.Add(btnPazienteak);
-            btnNeurketak.Ikonoa = null;
-            btnNeurketak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
-            btnNeurketak.Location = new Point(469, 1028);
-            btnNeurketak.Margin = new Padding(28, 32, 28, 32);
-            btnNeurketak.Name = "btnNeurketak";
-            btnNeurketak.Padding = new Padding(19, 21, 19, 21);
-            btnNeurketak.Size = new Size(520, 384);
-            btnNeurketak.TabIndex = 2;
-            btnNeurketak.Testua = "NEURKETAK";
+            this.btnNeurketak.BackColor = Color.White;
+            this.btnNeurketak.BorderBiribiltasuna = 24;
+            this.btnNeurketak.Ikonoa = null;
+            this.btnNeurketak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+            this.btnNeurketak.Location = new Point(660, 20);
+            this.btnNeurketak.Margin = new Padding(20);
+            this.btnNeurketak.Name = "btnNeurketak";
+            this.btnNeurketak.Size = new Size(300, 200);
+            this.btnNeurketak.TabIndex = 2;
+            this.btnNeurketak.Testua = "NEURKETAK";
             // 
             // btnErrezetak
             // 
-            btnErrezetak.BackColor = Color.White;
-            btnErrezetak.BorderBiribiltasuna = 24;
-            btnErrezetak.Controls.Add(btnKontaktua);
-            btnErrezetak.Ikonoa = null;
-            btnErrezetak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
-            btnErrezetak.Location = new Point(469, 580);
-            btnErrezetak.Margin = new Padding(28, 32, 28, 32);
-            btnErrezetak.Name = "btnErrezetak";
-            btnErrezetak.Padding = new Padding(19, 21, 19, 21);
-            btnErrezetak.Size = new Size(520, 384);
-            btnErrezetak.TabIndex = 3;
-            btnErrezetak.Testua = "ERREZETAK";
+            this.btnErrezetak.BackColor = Color.White;
+            this.btnErrezetak.BorderBiribiltasuna = 24;
+            this.btnErrezetak.Ikonoa = null;
+            this.btnErrezetak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+            this.btnErrezetak.Location = new Point(20, 240);
+            this.btnErrezetak.Margin = new Padding(20);
+            this.btnErrezetak.Name = "btnErrezetak";
+            this.btnErrezetak.Size = new Size(300, 200);
+            this.btnErrezetak.TabIndex = 3;
+            this.btnErrezetak.Testua = "ERREZETAK";
             // 
             // btnGrafikak
             // 
-            btnGrafikak.BackColor = Color.White;
-            btnGrafikak.BorderBiribiltasuna = 24;
-            btnGrafikak.Ikonoa = null;
-            btnGrafikak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
-            btnGrafikak.Location = new Point(469, 1476);
-            btnGrafikak.Margin = new Padding(28, 32, 28, 32);
-            btnGrafikak.Name = "btnGrafikak";
-            btnGrafikak.Padding = new Padding(19, 21, 19, 21);
-            btnGrafikak.Size = new Size(520, 384);
-            btnGrafikak.TabIndex = 4;
-            btnGrafikak.Testua = "GRAFIKAK";
-            btnGrafikak.Paint += btnGrafikak_Paint;
+            this.btnGrafikak.BackColor = Color.White;
+            this.btnGrafikak.BorderBiribiltasuna = 24;
+            this.btnGrafikak.Ikonoa = null;
+            this.btnGrafikak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+            this.btnGrafikak.Location = new Point(340, 240);
+            this.btnGrafikak.Margin = new Padding(20);
+            this.btnGrafikak.Name = "btnGrafikak";
+            this.btnGrafikak.Size = new Size(300, 200);
+            this.btnGrafikak.TabIndex = 4;
+            this.btnGrafikak.Testua = "GRAFIKAK";
             // 
             // btnAbisuak
             // 
-            btnAbisuak.BackColor = Color.White;
-            btnAbisuak.BorderBiribiltasuna = 24;
-            btnAbisuak.Ikonoa = null;
-            btnAbisuak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
-            btnAbisuak.Location = new Point(469, 132);
-            btnAbisuak.Margin = new Padding(28, 32, 28, 32);
-            btnAbisuak.Name = "btnAbisuak";
-            btnAbisuak.Padding = new Padding(19, 21, 19, 21);
-            btnAbisuak.Size = new Size(520, 384);
-            btnAbisuak.TabIndex = 5;
-            btnAbisuak.Testua = "ABISUAK";
+            this.btnAbisuak.BackColor = Color.White;
+            this.btnAbisuak.BorderBiribiltasuna = 24;
+            this.btnAbisuak.Ikonoa = null;
+            this.btnAbisuak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+            this.btnAbisuak.Location = new Point(660, 240);
+            this.btnAbisuak.Margin = new Padding(20);
+            this.btnAbisuak.Name = "btnAbisuak";
+            this.btnAbisuak.Size = new Size(300, 200);
+            this.btnAbisuak.TabIndex = 5;
+            this.btnAbisuak.Testua = "ABISUAK";
             // 
             // MedikuMenua
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1902, 1280);
-            Margin = new Padding(11, 9, 11, 9);
-            Name = "MedikuMenua";
-            Text = "GOsasun - Mediku Menua";
-            btnNeurketak.ResumeLayout(false);
-            btnErrezetak.ResumeLayout(false);
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new SizeF(7F, 15F);
+            this.AutoScaleMode = AutoScaleMode.Font;
+            this.ClientSize = new Size(1024, 600);
+            this.Name = "MedikuMenua";
+            this.Text = "GOsasun - Mediku Menua";
+            
+            this._edukiPanela.Controls.Add(this.btnPazienteak);
+            this._edukiPanela.Controls.Add(this.btnKontaktua);
+            this._edukiPanela.Controls.Add(this.btnNeurketak);
+            this._edukiPanela.Controls.Add(this.btnErrezetak);
+            this._edukiPanela.Controls.Add(this.btnGrafikak);
+            this._edukiPanela.Controls.Add(this.btnAbisuak);
+            
+            this.ResumeLayout(false);
         }
 
         #endregion
