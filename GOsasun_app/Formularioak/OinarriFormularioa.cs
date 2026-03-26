@@ -68,24 +68,12 @@ namespace GOsasun_app.Formularioak
             KonfiguratuEdukiPanela(_edukiPanela);
         }
 
-        private void KonfiguratuEdukiPanela(FlowLayoutPanel panela)
+        private void KonfiguratuEdukiPanela(Panel panela)
         {
             panela.Dock = DockStyle.Fill;
             panela.AutoScroll = true;
             panela.BackColor = Color.Transparent;
-            panela.Padding = new Padding(40, 100, 40, 40);
-            panela.WrapContents = true;
-            panela.FlowDirection = FlowDirection.LeftToRight;
-
-            // Horizontalki zentraldu txartelak (3 zutabe tablet-erako optimizatuta)
-            panela.Resize += (s, e) =>
-            {
-                int txartelZabalera = 300 + 40; // Zabalera + Margin
-                int tzkop = 3; // 3 zutabe nahi ditugu tablet-erako grid-ean
-                int guztiraZabalera = tzkop * txartelZabalera;
-                int ezkerTartea = Math.Max(40, (panela.Width - guztiraZabalera) / 2);
-                panela.Padding = new Padding(ezkerTartea, 100, ezkerTartea, 40);
-            };
+            // Padding manualki kudeatuko dugu elementuen X,Y bitartez diseinatzailean
         }
 
         // -----------------------------------------------------------

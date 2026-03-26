@@ -28,7 +28,7 @@ namespace GOsasun_app.Formularioak
         /// </summary>
         private void InitializeComponent()
         {
-            _edukiPanela = new FlowLayoutPanel();
+            _edukiPanela = new Panel();
             _goiburuBarra = new GOsasun_app.Kontrolak.GoiburuBarra("Erabiltzailea", "Rola");
             SuspendLayout();
             // 
@@ -61,7 +61,7 @@ namespace GOsasun_app.Formularioak
 
         #endregion
 
-        protected FlowLayoutPanel _edukiPanela;
+        protected Panel _edukiPanela;
         protected GOsasun_app.Kontrolak.GoiburuBarra _goiburuBarra;
     }
 }

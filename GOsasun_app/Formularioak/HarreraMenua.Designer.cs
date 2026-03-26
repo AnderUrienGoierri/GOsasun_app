@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace GOsasun_app.Formularioak
 {
@@ -20,21 +21,18 @@ namespace GOsasun_app.Formularioak
 
         private void InitializeComponent()
         {
-            btnPazienteak = new GOsasun_app.Kontrolak.CustomCardButton();
-            btnMedikuak = new GOsasun_app.Kontrolak.CustomCardButton();
-            btnLangileak = new GOsasun_app.Kontrolak.CustomCardButton();
-            btnHitzorduak = new GOsasun_app.Kontrolak.CustomCardButton();
-            SuspendLayout();
-            // 
-            // _goiburuBarra
-            // 
-            _goiburuBarra.Size = new Size(1902, 181);
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(HarreraMenua));
+            this.btnPazienteak = new GOsasun_app.Kontrolak.CustomCardButton();
+            this.btnMedikuak = new GOsasun_app.Kontrolak.CustomCardButton();
+            this.btnLangileak = new GOsasun_app.Kontrolak.CustomCardButton();
+            this.btnHitzorduak = new GOsasun_app.Kontrolak.CustomCardButton();
+            this.SuspendLayout();
             // 
             // btnPazienteak
             // 
             this.btnPazienteak.BackColor = Color.White;
             this.btnPazienteak.BorderBiribiltasuna = 24;
-            this.btnPazienteak.Ikonoa = Image.FromFile(@"img\icons\pazienteak.png");
+            this.btnPazienteak.Ikonoa = ((Image)(resources.GetObject("pazienteak")));
             this.btnPazienteak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             this.btnPazienteak.Location = new Point(20, 20);
             this.btnPazienteak.Margin = new Padding(20);
@@ -47,7 +45,7 @@ namespace GOsasun_app.Formularioak
             // 
             this.btnMedikuak.BackColor = Color.White;
             this.btnMedikuak.BorderBiribiltasuna = 24;
-            this.btnMedikuak.Ikonoa = Image.FromFile(@"img\icons\medikuak.png");
+            this.btnMedikuak.Ikonoa = ((Image)(resources.GetObject("medikuak")));
             this.btnMedikuak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             this.btnMedikuak.Location = new Point(340, 20);
             this.btnMedikuak.Margin = new Padding(20);
@@ -60,7 +58,7 @@ namespace GOsasun_app.Formularioak
             // 
             this.btnLangileak.BackColor = Color.White;
             this.btnLangileak.BorderBiribiltasuna = 24;
-            this.btnLangileak.Ikonoa = Image.FromFile(@"img\icons\langileak.png");
+            this.btnLangileak.Ikonoa = ((Image)(resources.GetObject("langileak")));
             this.btnLangileak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             this.btnLangileak.Location = new Point(660, 20);
             this.btnLangileak.Margin = new Padding(20);
@@ -73,7 +71,7 @@ namespace GOsasun_app.Formularioak
             // 
             this.btnHitzorduak.BackColor = Color.White;
             this.btnHitzorduak.BorderBiribiltasuna = 24;
-            this.btnHitzorduak.Ikonoa = Image.FromFile(@"img\icons\hitzorduak.png");
+            this.btnHitzorduak.Ikonoa = ((Image)(resources.GetObject("hitzorduak")));
             this.btnHitzorduak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             this.btnHitzorduak.Location = new Point(20, 240);
             this.btnHitzorduak.Margin = new Padding(20);
@@ -84,13 +82,18 @@ namespace GOsasun_app.Formularioak
             // 
             // HarreraMenua
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1902, 1280);
-            Margin = new Padding(11, 9, 11, 9);
-            Name = "HarreraMenua";
-            Text = "GOsasun - Harrera Menua";
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new SizeF(7F, 15F);
+            this.AutoScaleMode = AutoScaleMode.Font;
+            this.ClientSize = new Size(1024, 600);
+            this.Name = "HarreraMenua";
+            this.Text = "GOsasun - Harrera Menua";
+            
+            this._edukiPanela.Controls.Add(this.btnPazienteak);
+            this._edukiPanela.Controls.Add(this.btnMedikuak);
+            this._edukiPanela.Controls.Add(this.btnLangileak);
+            this._edukiPanela.Controls.Add(this.btnHitzorduak);
+            
+            this.ResumeLayout(false);
         }
 
         #endregion

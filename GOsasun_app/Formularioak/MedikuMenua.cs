@@ -28,35 +28,7 @@ namespace GOsasun_app.Formularioak
             : base(erabiltzailea)
         {
             InitializeComponent();
-            KargatuIkonoak();
             KonfiguratuGertaerak();
-        }
-
-        private void KargatuIkonoak()
-        {
-            btnPazienteak.Ikonoa = KargatuIrudia("pazienteak.png");
-            btnKontaktua.Ikonoa = KargatuIrudia("kontaktua.png");
-            btnNeurketak.Ikonoa = KargatuIrudia("neurketak.png");
-            btnErrezetak.Ikonoa = KargatuIrudia("errezetak.png");
-            btnGrafikak.Ikonoa = KargatuIrudia("grafikak.png");
-            btnAbisuak.Ikonoa = KargatuIrudia("abisua.png");
-        }
-
-        private Image? KargatuIrudia(string fitxategia)
-        {
-            string path = Path.Combine(Application.StartupPath, "img", "icons", fitxategia);
-            if (!File.Exists(path))
-            {
-                // Bilatu beste karpetetan
-                string root = Directory.GetCurrentDirectory();
-                string[] aukerak = {
-                    Path.Combine(root, "img", "icons", fitxategia),
-                    Path.Combine(root, "GOsasun_app", "img", "icons", fitxategia),
-                    Path.Combine(root, "..", "..", "..", "img", "icons", fitxategia)
-                };
-                foreach (var a in aukerak) { if (File.Exists(a)) { path = a; break; } }
-            }
-            return File.Exists(path) ? Image.FromFile(path) : null;
         }
 
         private void KonfiguratuGertaerak()
@@ -77,11 +49,6 @@ namespace GOsasun_app.Formularioak
             formularioa.FormClosed += (s, e) => this.Show();
             this.Hide();
             formularioa.Show();
-        }
-
-        private void btnGrafikak_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

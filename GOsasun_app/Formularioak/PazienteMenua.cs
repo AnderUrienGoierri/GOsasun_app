@@ -1,46 +1,23 @@
+// PazienteMenua.cs - Pazientearen Menua (Patient Menu)
+// ============================================================
+
+using GOsasun_app.Kontrolak;
 using GOsasun_app.Modeloak;
 
 namespace GOsasun_app.Formularioak
 {
     public partial class PazienteMenua : OinarriFormularioa
     {
-        public PazienteMenua() : base() 
-        { 
-            InitializeComponent(); 
+        public PazienteMenua() : base()
+        {
+            InitializeComponent();
         }
 
-        public PazienteMenua(Erabiltzailea u) : base(u) 
-        { 
-            InitializeComponent(); 
-            GehituAtzeraBotoia();
-            KargatuIkonoak();
+        public PazienteMenua(Erabiltzailea erabiltzailea)
+            : base(erabiltzailea)
+        {
+            InitializeComponent();
             KonfiguratuGertaerak();
-        }
-
-        private void KargatuIkonoak()
-        {
-            btnNeurketak.Ikonoa = KargatuIrudia("neurketak.png");
-            btnErrezetak.Ikonoa = KargatuIrudia("errezetak.png");
-            btnKontaktua.Ikonoa = KargatuIrudia("kontaktua.png");
-            btnGrafikak.Ikonoa = KargatuIrudia("grafikak.png");
-            btnAbisuak.Ikonoa = KargatuIrudia("abisua.png");
-        }
-
-        private Image? KargatuIrudia(string fitxategia)
-        {
-            string path = Path.Combine(Application.StartupPath, "img", "icons", fitxategia);
-            if (!File.Exists(path))
-            {
-                // Bilatu beste karpetetan
-                string root = Directory.GetCurrentDirectory();
-                string[] aukerak = {
-                    Path.Combine(root, "img", "icons", fitxategia),
-                    Path.Combine(root, "GOsasun_app", "img", "icons", fitxategia),
-                    Path.Combine(root, "..", "..", "..", "img", "icons", fitxategia)
-                };
-                foreach (var a in aukerak) { if (File.Exists(a)) { path = a; break; } }
-            }
-            return File.Exists(path) ? Image.FromFile(path) : null;
         }
 
         private void KonfiguratuGertaerak()
