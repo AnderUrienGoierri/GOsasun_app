@@ -22,7 +22,7 @@ namespace GOsasun_app.Modeloak
         private static readonly int Portua = 3306;
         private static readonly string DatuBasea = "GOsasun_DB";
         private static readonly string Erabiltzailea = "root";
-        private static readonly string Pasahitza = "";
+        private static readonly string Pasahitza = "1MG32025";
 
         /// <summary>
         /// Konexio katea eraikitzen du parametroekin.
