@@ -1,5 +1,4 @@
-// ============================================================
-// MenuNagusia.cs - Menu Nagusia (Main Menu)
+// MedikuMenua.cs - Medikuaren Menua (Doctor Menu)
 // ============================================================
 // Aplikazioaren sarrera nagusia login egin ondoren.
 // Erabiltzailearen rolaren arabera (Pazientea/Medikua)
@@ -15,17 +14,17 @@ namespace GOsasun_app.Formularioak
     /// Menu nagusiaren formularioa.
     /// Rolaren arabera txartel desberdinak erakusten ditu.
     /// </summary>
-    public partial class MenuNagusia : OinarriFormularioa
+    public partial class MedikuMenua : OinarriFormularioa
     {
         // -----------------------------------------------------------
         // Eraikitzailea
         // -----------------------------------------------------------
-        public MenuNagusia() : base()
+        public MedikuMenua() : base()
         {
             InitializeComponent();
         }
 
-        public MenuNagusia(Erabiltzailea erabiltzailea)
+        public MedikuMenua(Erabiltzailea erabiltzailea)
             : base(erabiltzailea)
         {
             InitializeComponent();

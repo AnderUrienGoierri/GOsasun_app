@@ -61,8 +61,8 @@ namespace GOsasun_app.Formularioak
         // -----------------------------------------------------------
         private void KonfiguratuFormularioa()
         {
-            // Tamaina eta estiloa (Tablet/Desktop: 1600x1000)
-            this.ClientSize = new Size(1600, 1000);
+            // Tamaina eta estiloa (Tablet: 1024x768)
+            this.ClientSize = new Size(1024, 768);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -85,7 +85,7 @@ namespace GOsasun_app.Formularioak
             // Horizontalki zentraldu txartelak (3 zutabe tablet-erako optimizatuta)
             panela.Resize += (s, e) =>
             {
-                int txartelZabalera = 400 + 40; // Zabalera + Margin
+                int txartelZabalera = 300 + 40; // Zabalera + Margin
                 int tzkop = 3; // 3 zutabe nahi ditugu tablet-erako grid-ean
                 int guztiraZabalera = tzkop * txartelZabalera;
                 int ezkerTartea = Math.Max(40, (panela.Width - guztiraZabalera) / 2);
@@ -149,7 +149,7 @@ namespace GOsasun_app.Formularioak
             var txartela = new CustomCardButton
             {
                 Testua = testua,
-                Size = new Size(400, 320),
+                Size = new Size(300, 250),
                 Margin = new Padding(20) // Tartea txartelen artean
             };
 

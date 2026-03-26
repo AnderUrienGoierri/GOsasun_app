@@ -64,10 +64,10 @@ namespace GOsasun_app.Formularioak
             // _logoPicture
             // 
             _logoPicture.BackColor = Color.Transparent;
-            _logoPicture.Image = ((Image)(resources.GetObject("GOsasun_logo_whatsap")));
-            _logoPicture.Location = new Point(285, 38);
+            _logoPicture.Image = (Image)resources.GetObject("_logoPicture.Image");
+            _logoPicture.Location = new Point(229, 0);
             _logoPicture.Name = "_logoPicture";
-            _logoPicture.Size = new Size(120, 120);
+            _logoPicture.Size = new Size(222, 153);
             _logoPicture.SizeMode = PictureBoxSizeMode.Zoom;
             _logoPicture.TabIndex = 0;
             _logoPicture.TabStop = false;
@@ -78,7 +78,7 @@ namespace GOsasun_app.Formularioak
             _tituluLabel.BackColor = Color.Transparent;
             _tituluLabel.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
             _tituluLabel.ForeColor = Color.FromArgb(44, 62, 80);
-            _tituluLabel.Location = new Point(175, 142);
+            _tituluLabel.Location = new Point(167, 138);
             _tituluLabel.Name = "_tituluLabel";
             _tituluLabel.Size = new Size(348, 100);
             _tituluLabel.TabIndex = 1;
@@ -135,7 +135,7 @@ namespace GOsasun_app.Formularioak
             _erakutsiPasahitza.BackColor = Color.Transparent;
             _erakutsiPasahitza.Font = new Font("Segoe UI", 11F);
             _erakutsiPasahitza.ForeColor = Color.FromArgb(100, 100, 100);
-            _erakutsiPasahitza.Location = new Point(165, 446);
+            _erakutsiPasahitza.Location = new Point(167, 433);
             _erakutsiPasahitza.Name = "_erakutsiPasahitza";
             _erakutsiPasahitza.Size = new Size(284, 45);
             _erakutsiPasahitza.TabIndex = 6;
@@ -148,7 +148,7 @@ namespace GOsasun_app.Formularioak
             _loginBotoia.Cursor = Cursors.Hand;
             _loginBotoia.FlatAppearance.BorderSize = 0;
             _loginBotoia.FlatStyle = FlatStyle.Flat;
-            _loginBotoia.Location = new Point(171, 507);
+            _loginBotoia.Location = new Point(165, 525);
             _loginBotoia.Name = "_loginBotoia";
             _loginBotoia.Size = new Size(360, 60);
             _loginBotoia.TabIndex = 7;

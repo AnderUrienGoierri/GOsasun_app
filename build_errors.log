@@ -1,0 +1,13 @@
+  Determinando los proyectos que se van a restaurar...
+  Todos los proyectos est├ín actualizados para la restauraci├│n.
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Formularioak\SaioaHasiFormularioa.cs(263,32): error CS0246: El nombre del tipo o del espacio de nombres 'MenuNagusia' no se encontr├│ (┬┐falta una directiva using o una referencia de ensamblado?) [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Formularioak\SaioaHasiFormularioa.cs(271,32): error CS0246: El nombre del tipo o del espacio de nombres 'MenuNagusia' no se encontr├│ (┬┐falta una directiva using o una referencia de ensamblado?) [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+
+ERROR al compilar.
+
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Formularioak\SaioaHasiFormularioa.cs(263,32): error CS0246: El nombre del tipo o del espacio de nombres 'MenuNagusia' no se encontr├│ (┬┐falta una directiva using o una referencia de ensamblado?) [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Formularioak\SaioaHasiFormularioa.cs(271,32): error CS0246: El nombre del tipo o del espacio de nombres 'MenuNagusia' no se encontr├│ (┬┐falta una directiva using o una referencia de ensamblado?) [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+    0 Advertencia(s)
+    2 Errores
+
+Tiempo transcurrido 00:00:01.84

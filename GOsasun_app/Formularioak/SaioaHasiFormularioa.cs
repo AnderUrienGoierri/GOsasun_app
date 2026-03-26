@@ -177,8 +177,8 @@ namespace GOsasun_app.Formularioak
                 if (arrakasta && erabiltzaileaObj != null)
                 {
                     ErakutsiMezua("Saioa ongi hasi da! Itxaron...", Color.FromArgb(46, 204, 113));
-                    var menuNagusia = new MenuNagusia(erabiltzaileaObj);
-                    menuNagusia.FormClosed += (s, args) =>
+                    var medikuMenua = new MedikuMenua(erabiltzaileaObj);
+                    medikuMenua.FormClosed += (s, args) =>
                     {
                         _erabiltzaileTextBox.Text = "";
                         _pasahitzaTextBox.Text = "";
@@ -186,7 +186,7 @@ namespace GOsasun_app.Formularioak
                         this.Show();
                     };
                     this.Hide();
-                    menuNagusia.Show();
+                    medikuMenua.Show();
                 }
                 else
                 {
@@ -260,7 +260,7 @@ namespace GOsasun_app.Formularioak
             if (emaila.Contains("paziente") || emaila.Contains("@gmail.com"))
             {
                 var u = new Pazientea { Id = 99, Izena = "Joseba", Abizenak = "Zabala", Emaila = emaila, RolId = 1 };
-                var menu = new MenuNagusia(u);
+                var menu = new MedikuMenua(u);
                 menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
                 this.Hide();
                 menu.Show();
@@ -268,7 +268,7 @@ namespace GOsasun_app.Formularioak
             else if (emaila.Contains("mediku") || emaila.Contains("@gosasun.eus"))
             {
                 var u = new Medikua { Id = 98, Izena = "Ane", Abizenak = "Etxeberria", Emaila = emaila, RolId = 2 };
-                var menu = new MenuNagusia(u);
+                var menu = new MedikuMenua(u);
                 menu.FormClosed += (s, args) => { this.Show(); _mezuLabel.Text = ""; };
                 this.Hide();
                 menu.Show();

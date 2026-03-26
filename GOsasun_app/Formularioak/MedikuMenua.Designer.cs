@@ -1,6 +1,6 @@
 namespace GOsasun_app.Formularioak
 {
-    partial class MenuNagusia
+    partial class MedikuMenua
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,13 @@ namespace GOsasun_app.Formularioak
         {
             this.SuspendLayout();
             // 
-            // MenuNagusia
+            // MedikuMenua
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1600, 1000);
-            this.Name = "MenuNagusia";
-            this.Text = "GOsasun - Menu Nagusia";
+            this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Name = "MedikuMenua";
+            this.Text = "GOsasun - Mediku Menua";
             this.ResumeLayout(false);
         }
 
