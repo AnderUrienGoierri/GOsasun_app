@@ -83,10 +83,10 @@ namespace GOsasun_app.Zerbitzuak
                 _stream.ReadTimeout = 2000;
                 _stream.WriteTimeout = 2000;
                 
-                // Gailuaren report luzera natiboak lortu
-                _maxInput = device.MaxInputReportLength;
-                _maxOutput = device.MaxOutputReportLength;
-                _maxFeature = device.MaxFeatureReportLength;
+                // Gailuaren report luzera natiboak lortu (Metodo berriak erabiliz obsolete ekiditeko)
+                _maxInput = device.GetMaxInputReportLength();
+                _maxOutput = device.GetMaxOutputReportLength();
+                _maxFeature = device.GetMaxFeatureReportLength();
             }
 
             public void ConfigureBaudRate()
