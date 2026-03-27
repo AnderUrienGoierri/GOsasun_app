@@ -39,6 +39,7 @@ namespace GOsasun_app.Formularioak
             _edukiPanela.Controls.Add(btnErrezetak);
             _edukiPanela.Controls.Add(btnGrafikak);
             _edukiPanela.Controls.Add(btnAbisuak);
+<<<<<<< HEAD
             _edukiPanela.Size = new Size(1570, 871);
             // 
             // _goiburuBarra
@@ -49,6 +50,9 @@ namespace GOsasun_app.Formularioak
             // 
             _atzeraBotoia.FlatAppearance.BorderSize = 0;
             _atzeraBotoia.Visible = false;
+=======
+            _edukiPanela.Size = new Size(1902, 1153);
+>>>>>>> ander-branch
             // 
             // btnPazienteak
             // 
@@ -56,11 +60,19 @@ namespace GOsasun_app.Formularioak
             btnPazienteak.BorderBiribiltasuna = 24;
             btnPazienteak.Ikonoa = (Image)resources.GetObject("btnPazienteak.Ikonoa");
             btnPazienteak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+<<<<<<< HEAD
             btnPazienteak.Location = new Point(20, 20);
             btnPazienteak.Margin = new Padding(20);
             btnPazienteak.Name = "btnPazienteak";
             btnPazienteak.Padding = new Padding(10);
             btnPazienteak.Size = new Size(529, 330);
+=======
+            btnPazienteak.Location = new Point(37, 43);
+            btnPazienteak.Margin = new Padding(37, 43, 37, 43);
+            btnPazienteak.Name = "btnPazienteak";
+            btnPazienteak.Padding = new Padding(19, 21, 19, 21);
+            btnPazienteak.Size = new Size(576, 512);
+>>>>>>> ander-branch
             btnPazienteak.TabIndex = 0;
             btnPazienteak.Testua = "NIRE PAZIENTEAK";
             // 
@@ -70,11 +82,19 @@ namespace GOsasun_app.Formularioak
             btnKontaktua.BorderBiribiltasuna = 24;
             btnKontaktua.Ikonoa = (Image)resources.GetObject("btnKontaktua.Ikonoa");
             btnKontaktua.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+<<<<<<< HEAD
             btnKontaktua.Location = new Point(573, 23);
             btnKontaktua.Margin = new Padding(20);
             btnKontaktua.Name = "btnKontaktua";
             btnKontaktua.Padding = new Padding(10);
             btnKontaktua.Size = new Size(487, 327);
+=======
+            btnKontaktua.Location = new Point(650, 43);
+            btnKontaktua.Margin = new Padding(37, 43, 37, 43);
+            btnKontaktua.Name = "btnKontaktua";
+            btnKontaktua.Padding = new Padding(19, 21, 19, 21);
+            btnKontaktua.Size = new Size(576, 512);
+>>>>>>> ander-branch
             btnKontaktua.TabIndex = 1;
             btnKontaktua.Testua = "KONTAKTUA";
             // 
@@ -84,11 +104,19 @@ namespace GOsasun_app.Formularioak
             btnNeurketak.BorderBiribiltasuna = 24;
             btnNeurketak.Ikonoa = (Image)resources.GetObject("btnNeurketak.Ikonoa");
             btnNeurketak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+<<<<<<< HEAD
             btnNeurketak.Location = new Point(1080, 23);
             btnNeurketak.Margin = new Padding(20);
             btnNeurketak.Name = "btnNeurketak";
             btnNeurketak.Padding = new Padding(10);
             btnNeurketak.Size = new Size(468, 335);
+=======
+            btnNeurketak.Location = new Point(1263, 43);
+            btnNeurketak.Margin = new Padding(37, 43, 37, 43);
+            btnNeurketak.Name = "btnNeurketak";
+            btnNeurketak.Padding = new Padding(19, 21, 19, 21);
+            btnNeurketak.Size = new Size(576, 512);
+>>>>>>> ander-branch
             btnNeurketak.TabIndex = 2;
             btnNeurketak.Testua = "NEURKETAK";
             // 
@@ -98,11 +126,19 @@ namespace GOsasun_app.Formularioak
             btnErrezetak.BorderBiribiltasuna = 24;
             btnErrezetak.Ikonoa = (Image)resources.GetObject("btnErrezetak.Ikonoa");
             btnErrezetak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+<<<<<<< HEAD
             btnErrezetak.Location = new Point(29, 407);
             btnErrezetak.Margin = new Padding(20);
             btnErrezetak.Name = "btnErrezetak";
             btnErrezetak.Padding = new Padding(10);
             btnErrezetak.Size = new Size(520, 322);
+=======
+            btnErrezetak.Location = new Point(37, 597);
+            btnErrezetak.Margin = new Padding(37, 43, 37, 43);
+            btnErrezetak.Name = "btnErrezetak";
+            btnErrezetak.Padding = new Padding(19, 21, 19, 21);
+            btnErrezetak.Size = new Size(576, 512);
+>>>>>>> ander-branch
             btnErrezetak.TabIndex = 3;
             btnErrezetak.Testua = "ERREZETAK";
             // 
@@ -112,11 +148,19 @@ namespace GOsasun_app.Formularioak
             btnGrafikak.BorderBiribiltasuna = 24;
             btnGrafikak.Ikonoa = (Image)resources.GetObject("btnGrafikak.Ikonoa");
             btnGrafikak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+<<<<<<< HEAD
             btnGrafikak.Location = new Point(573, 407);
             btnGrafikak.Margin = new Padding(20);
             btnGrafikak.Name = "btnGrafikak";
             btnGrafikak.Padding = new Padding(10);
             btnGrafikak.Size = new Size(492, 322);
+=======
+            btnGrafikak.Location = new Point(650, 597);
+            btnGrafikak.Margin = new Padding(37, 43, 37, 43);
+            btnGrafikak.Name = "btnGrafikak";
+            btnGrafikak.Padding = new Padding(19, 21, 19, 21);
+            btnGrafikak.Size = new Size(576, 512);
+>>>>>>> ander-branch
             btnGrafikak.TabIndex = 4;
             btnGrafikak.Testua = "GRAFIKAK";
             // 
@@ -126,11 +170,19 @@ namespace GOsasun_app.Formularioak
             btnAbisuak.BorderBiribiltasuna = 24;
             btnAbisuak.Ikonoa = (Image)resources.GetObject("btnAbisuak.Ikonoa");
             btnAbisuak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+<<<<<<< HEAD
             btnAbisuak.Location = new Point(1080, 407);
             btnAbisuak.Margin = new Padding(20);
             btnAbisuak.Name = "btnAbisuak";
             btnAbisuak.Padding = new Padding(10);
             btnAbisuak.Size = new Size(468, 322);
+=======
+            btnAbisuak.Location = new Point(1263, 597);
+            btnAbisuak.Margin = new Padding(37, 43, 37, 43);
+            btnAbisuak.Name = "btnAbisuak";
+            btnAbisuak.Padding = new Padding(19, 21, 19, 21);
+            btnAbisuak.Size = new Size(576, 512);
+>>>>>>> ander-branch
             btnAbisuak.TabIndex = 5;
             btnAbisuak.Testua = "ABISUAK";
             // 
@@ -138,9 +190,17 @@ namespace GOsasun_app.Formularioak
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
+<<<<<<< HEAD
             ClientSize = new Size(1570, 1052);
             Name = "MedikuMenua";
             Text = "GOsasun - Mediku Menua";
+=======
+            ClientSize = new Size(1902, 1334);
+            Margin = new Padding(11, 9, 11, 9);
+            Name = "MedikuMenua";
+            Text = "GOsasun - Mediku Menua";
+            Load += MedikuMenua_Load;
+>>>>>>> ander-branch
             _edukiPanela.ResumeLayout(false);
             ResumeLayout(false);
         }

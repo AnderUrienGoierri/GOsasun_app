@@ -1,0 +1,188 @@
+25/03/2026 08:20:01:794 : public void Save() InsertPatient Method called.
+
+=======================================================================================
+Application Version : 3.16User Machine Culture : es-ES
+25/03/2026 08:20:04:764 : La conversión especificada no es válida.
+25/03/2026 08:20:04:764 :    en System.Data.DataRowExtensions.UnboxT`1.ValueField(Object value)
+   en System.Data.DataRowExtensions.Field[T](DataRow row, String columnName)
+   en BeurerPCManager.Data.WaterRepository.<>c.<SelectWaterSettingsById>b__10_0(DataRow data)
+   en System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en BeurerPCManager.Data.WaterRepository.SelectWaterSettingsById(Int32 Id)
+=======================================================================================
+25/03/2026 08:28:21:259 : 
+================================= Data Transfer Start For BM58 ================================= 
+25/03/2026 08:28:21:263 : 
+Operating System Version: 6,3
+25/03/2026 08:28:21:263 : 
+Prolific Driver version: CorrectVersion
+25/03/2026 08:28:21:265 : 
+Enhanced Power Management Enabled: True
+25/03/2026 08:28:21:265 : 
+Update Utility Path: C:\ProgramData\Beurer\Beurer HealthManager\drivers\HealthManagerDriverFix.exe
+25/03/2026 08:28:21:265 : 
+Update Utility Found.
+25/03/2026 08:28:25:108 : 
+Update confirmation recieved.
+25/03/2026 08:28:25:110 : 
+Parameter For Update Utility: HID-USBDevice
+25/03/2026 08:28:25:246 : 
+Update process completed with exit code: 0
+25/03/2026 08:28:28:768 : 
+Reconnect Device.
+25/03/2026 08:28:28:768 : 
+================================= Data Transfer End ================================= 
+25/03/2026 08:28:33:276 : 
+================================= Data Transfer Start For BM58 ================================= 
+25/03/2026 08:28:33:283 : 
+Operating System Version: 6,3
+25/03/2026 08:28:33:285 : 
+No issues found in drivers for data transfer.
+25/03/2026 08:28:33:329 : 
+================================= Data Transfer End ================================= 
+25/03/2026 08:32:34:276 : 
+================================= Data Transfer Start For BM58 ================================= 
+25/03/2026 08:32:34:280 : 
+Operating System Version: 6,3
+25/03/2026 08:32:34:280 : 
+No issues found in drivers for data transfer.
+25/03/2026 08:32:34:302 : 
+================================= Data Transfer End ================================= 
+25/03/2026 08:32:49:173 : Number of measurements transferred : 1
+25/03/2026 08:33:08:671 : 
+================================= Data Transfer Start For BM58 ================================= 
+25/03/2026 08:33:08:671 : 
+Operating System Version: 6,3
+25/03/2026 08:33:08:675 : 
+No issues found in drivers for data transfer.
+25/03/2026 08:33:08:701 : 
+================================= Data Transfer End ================================= 
+25/03/2026 08:57:11:636 : 
+================================= Data Transfer Start For BM58 ================================= 
+25/03/2026 08:57:11:638 : 
+Operating System Version: 6,3
+25/03/2026 08:57:11:638 : 
+No issues found in drivers for data transfer.
+25/03/2026 08:57:11:670 : 
+================================= Data Transfer End ================================= 
+25/03/2026 08:57:41:594 : 
+================================= Data Transfer Start For BM58 ================================= 
+25/03/2026 08:57:41:597 : 
+Operating System Version: 6,3
+25/03/2026 08:57:41:597 : 
+No issues found in drivers for data transfer.
+25/03/2026 08:57:41:622 : 
+================================= Data Transfer End ================================= 
+25/03/2026 08:57:48:138 : Number of measurements transferred : 1
+26/03/2026 10:05:40:781 : public void Save() InsertPatient Method called.
+
+=======================================================================================
+Application Version : 3.16User Machine Culture : es-ES
+26/03/2026 10:05:43:650 : La conversión especificada no es válida.
+26/03/2026 10:05:43:650 :    en System.Data.DataRowExtensions.UnboxT`1.ValueField(Object value)
+   en System.Data.DataRowExtensions.Field[T](DataRow row, String columnName)
+   en BeurerPCManager.Data.WaterRepository.<>c.<SelectWaterSettingsById>b__10_0(DataRow data)
+   en System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en BeurerPCManager.Data.WaterRepository.SelectWaterSettingsById(Int32 Id)
+=======================================================================================
+26/03/2026 10:07:58:313 : 
+================================= Data Transfer Start For BM58 ================================= 
+26/03/2026 10:07:58:316 : 
+Operating System Version: 6,3
+26/03/2026 10:07:58:318 : 
+Prolific Driver version: CorrectVersion
+26/03/2026 10:07:58:318 : 
+Enhanced Power Management Enabled: True
+26/03/2026 10:07:58:318 : 
+Update Utility Path: C:\ProgramData\Beurer\Beurer HealthManager\drivers\HealthManagerDriverFix.exe
+26/03/2026 10:07:58:318 : 
+Update Utility Found.
+26/03/2026 10:07:59:844 : 
+Update confirmation recieved.
+26/03/2026 10:07:59:848 : 
+Parameter For Update Utility: HID-USBDevice
+26/03/2026 10:08:03:263 : 
+Update process completed with exit code: 0
+26/03/2026 10:08:04:880 : 
+Reconnect Device.
+26/03/2026 10:08:04:880 : 
+================================= Data Transfer End ================================= 
+26/03/2026 10:08:07:487 : 
+================================= Data Transfer Start For BM58 ================================= 
+26/03/2026 10:08:07:488 : 
+Operating System Version: 6,3
+26/03/2026 10:08:07:488 : 
+No issues found in drivers for data transfer.
+26/03/2026 10:08:07:530 : 
+================================= Data Transfer End ================================= 
+26/03/2026 14:08:03:849 : 
+================================= Data Transfer Start For BM58 ================================= 
+26/03/2026 14:08:03:850 : 
+Operating System Version: 6,3
+26/03/2026 14:08:03:852 : 
+No issues found in drivers for data transfer.
+26/03/2026 14:08:03:876 : 
+================================= Data Transfer End ================================= 
+26/03/2026 14:08:22:252 : Number of measurements transferred : 2
+26/03/2026 14:08:57:697 : 
+================================= Data Transfer Start For BM58 ================================= 
+26/03/2026 14:08:57:700 : 
+Operating System Version: 6,3
+26/03/2026 14:08:57:700 : 
+No issues found in drivers for data transfer.
+26/03/2026 14:08:57:721 : 
+================================= Data Transfer End ================================= 
+26/03/2026 14:09:09:367 : Number of measurements transferred : 2
+27/03/2026 08:28:14:722 : 
+================================= Data Transfer Start For BM58 ================================= 
+27/03/2026 08:28:14:728 : 
+Operating System Version: 6,3
+27/03/2026 08:28:14:730 : 
+No issues found in drivers for data transfer.
+27/03/2026 08:28:14:765 : 
+================================= Data Transfer End ================================= 
+27/03/2026 08:28:26:328 : Number of measurements transferred : 2
+27/03/2026 08:28:37:793 : 
+================================= Data Transfer Start For BM58 ================================= 
+27/03/2026 08:28:37:793 : 
+Operating System Version: 6,3
+27/03/2026 08:28:37:803 : 
+No issues found in drivers for data transfer.
+27/03/2026 08:28:37:827 : 
+================================= Data Transfer End ================================= 
+27/03/2026 08:28:50:895 : Number of measurements transferred : 2
+27/03/2026 08:28:52:937 : 
+================================= Data Transfer Start For BM58 ================================= 
+27/03/2026 08:28:52:943 : 
+Operating System Version: 6,3
+27/03/2026 08:28:52:944 : 
+No issues found in drivers for data transfer.
+27/03/2026 08:28:52:966 : 
+================================= Data Transfer End ================================= 
+27/03/2026 08:29:23:161 : 
+================================= Data Transfer Start For BM58 ================================= 
+27/03/2026 08:29:23:163 : 
+Operating System Version: 6,3
+27/03/2026 08:29:23:164 : 
+No issues found in drivers for data transfer.
+27/03/2026 08:29:23:193 : 
+================================= Data Transfer End ================================= 
+27/03/2026 08:29:37:719 : 
+================================= Data Transfer Start For BM58 ================================= 
+27/03/2026 08:29:37:722 : 
+Operating System Version: 6,3
+27/03/2026 08:29:37:722 : 
+No issues found in drivers for data transfer.
+27/03/2026 08:29:37:744 : 
+================================= Data Transfer End ================================= 
+27/03/2026 08:29:52:672 : Number of measurements transferred : 2
+27/03/2026 08:31:49:290 : 
+================================= Data Transfer Start For BM58 ================================= 
+27/03/2026 08:31:49:290 : 
+Operating System Version: 6,3
+27/03/2026 08:31:49:290 : 
+No issues found in drivers for data transfer.
+27/03/2026 08:31:49:319 : 
+================================= Data Transfer End ================================= 
+27/03/2026 08:32:18:032 : Number of measurements transferred : 2

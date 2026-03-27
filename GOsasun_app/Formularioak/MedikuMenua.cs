@@ -33,7 +33,14 @@ namespace GOsasun_app.Formularioak
 
         private void KonfiguratuGertaerak()
         {
+<<<<<<< HEAD
             btnPazienteak.Click += (s, e) => IrekiFormularioa(new PazienteenZerrendaFormularioa(_erabiltzailea!));
+=======
+            // Medikua denez, EZ du Pazienteen menua ireki behar (berriz ere menua delako)
+            // Zuzenketa: Mezua erakutsi edo Pazienteen Listua ireki (laster)
+            btnPazienteak.Click += (s, e) => MessageBox.Show("Pazienteen zerrenda kudeatzeko formularioa irekiko da laster.");
+
+>>>>>>> ander-branch
             btnKontaktua.Click += (s, e) => IrekiFormularioa(new KontaktuaFormularioa(_erabiltzailea!));
             btnNeurketak.Click += (s, e) => IrekiFormularioa(new NeurketaMotakFormularioa(_erabiltzailea!));
             btnErrezetak.Click += (s, e) => IrekiFormularioa(new ErrezetenFormularioa(_erabiltzailea!));
@@ -49,6 +56,11 @@ namespace GOsasun_app.Formularioak
             formularioa.FormClosed += (s, e) => this.Show();
             this.Hide();
             formularioa.Show();
+        }
+
+        private void MedikuMenua_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

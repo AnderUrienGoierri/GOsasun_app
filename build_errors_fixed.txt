@@ -1,0 +1,27 @@
+  Determinando los proyectos que se van a restaurar...
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj : warning NU1603: GOsasun_app depende de System.IO.Ports (>= 10.0.0-preview.1.25110.1), pero no se encontr├│ System.IO.Ports 10.0.0-preview.1.25110.1. System.IO.Ports 10.0.0-preview.2.25163.2 se resolvi├│ en su lugar.
+  Todos los proyectos est├ín actualizados para la restauraci├│n.
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj : warning NU1603: GOsasun_app depende de System.IO.Ports (>= 10.0.0-preview.1.25110.1), pero no se encontr├│ System.IO.Ports 10.0.0-preview.1.25110.1. System.IO.Ports 10.0.0-preview.2.25163.2 se resolvi├│ en su lugar.
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Zerbitzuak\BM58Driver.cs(181,45): error CS0103: El nombre 'ok' no existe en el contexto actual [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Zerbitzuak\BM58Driver.cs(188,22): error CS0103: El nombre 'ok' no existe en el contexto actual [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Zerbitzuak\BM58Driver.cs(70,29): warning CS0612: 'HidDevice.MaxInputReportLength' est├í obsoleto [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Zerbitzuak\BM58Driver.cs(71,30): warning CS0612: 'HidDevice.MaxOutputReportLength' est├í obsoleto [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Formularioak\NeurketaMotakFormularioa.cs(155,86): warning CS8602: Desreferencia de una referencia posiblemente NULL. [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Formularioak\NeurketaMotakFormularioa.cs(186,17): warning CS8602: Desreferencia de una referencia posiblemente NULL. [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Formularioak\NeurketaMotakFormularioa.cs(195,33): warning CS8602: Desreferencia de una referencia posiblemente NULL. [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+
+ERROR al compilar.
+
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj : warning NU1603: GOsasun_app depende de System.IO.Ports (>= 10.0.0-preview.1.25110.1), pero no se encontr├│ System.IO.Ports 10.0.0-preview.1.25110.1. System.IO.Ports 10.0.0-preview.2.25163.2 se resolvi├│ en su lugar.
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj : warning NU1603: GOsasun_app depende de System.IO.Ports (>= 10.0.0-preview.1.25110.1), pero no se encontr├│ System.IO.Ports 10.0.0-preview.1.25110.1. System.IO.Ports 10.0.0-preview.2.25163.2 se resolvi├│ en su lugar.
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Zerbitzuak\BM58Driver.cs(70,29): warning CS0612: 'HidDevice.MaxInputReportLength' est├í obsoleto [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Zerbitzuak\BM58Driver.cs(71,30): warning CS0612: 'HidDevice.MaxOutputReportLength' est├í obsoleto [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Formularioak\NeurketaMotakFormularioa.cs(155,86): warning CS8602: Desreferencia de una referencia posiblemente NULL. [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Formularioak\NeurketaMotakFormularioa.cs(186,17): warning CS8602: Desreferencia de una referencia posiblemente NULL. [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Formularioak\NeurketaMotakFormularioa.cs(195,33): warning CS8602: Desreferencia de una referencia posiblemente NULL. [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Zerbitzuak\BM58Driver.cs(181,45): error CS0103: El nombre 'ok' no existe en el contexto actual [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\Zerbitzuak\BM58Driver.cs(188,22): error CS0103: El nombre 'ok' no existe en el contexto actual [C:\Ander\Workspace\C\proiektuak\GOsasun_app\GOsasun_app\GOsasun_app.csproj]
+    7 Advertencia(s)
+    2 Errores
+
+Tiempo transcurrido 00:00:01.17

@@ -58,10 +58,14 @@ namespace GOsasun_app.Formularioak
         // -----------------------------------------------------------
         private void KonfiguratuFormularioa()
         {
+<<<<<<< HEAD
             // Tamaina eta estiloa (Standard: 1902x1500)
             this.ClientSize = new Size(1902, 1500);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+=======
+            // Orain Diseinatzailean jarritako tamaina eta estiloa erabiliko dira
+>>>>>>> ander-branch
             this.StartPosition = FormStartPosition.CenterScreen;
             this.DoubleBuffered = true;
             this.Text = "GOsasun";
