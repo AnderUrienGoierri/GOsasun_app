@@ -17,11 +17,6 @@ namespace GOsasun_app.Formularioak
     /// </summary>
     public partial class OinarriFormularioa : Form
     {
-        // -----------------------------------------------------------
-        // Osagaiak
-        // -----------------------------------------------------------
-        protected Button? _atzeraBotoia;
-
         // Erabiltzaile informazioa (OOP)
         protected Erabiltzailea? _erabiltzailea;
 
@@ -33,6 +28,13 @@ namespace GOsasun_app.Formularioak
             InitializeComponent();
             KonfiguratuFormularioa();
             KargatuBaliabideak();
+            
+            // Atzera botoiaren gertaera lehenetsia
+            if (_atzeraBotoia != null)
+            {
+                _atzeraBotoia.Click += (s, e) => this.Close();
+                _atzeraBotoia.BringToFront();
+            }
         }
 
         /// <summary>
@@ -56,8 +58,8 @@ namespace GOsasun_app.Formularioak
         // -----------------------------------------------------------
         private void KonfiguratuFormularioa()
         {
-            // Tamaina eta estiloa (Tablet: 1024x600)
-            this.ClientSize = new Size(1024, 600);
+            // Tamaina eta estiloa (Standard: 1902x1500)
+            this.ClientSize = new Size(1902, 1500);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -101,28 +103,7 @@ namespace GOsasun_app.Formularioak
         // -----------------------------------------------------------
 
 
-        // -----------------------------------------------------------
-        // Atzera botoia gehitu (azpi-formularioetarako)
-        // -----------------------------------------------------------
-        protected void GehituAtzeraBotoia()
-        {
-            _atzeraBotoia = new Button
-            {
-                Text = "⬅  Atzera",
-                Font = new Font("Segoe UI", 13f, FontStyle.Bold),
-                ForeColor = Color.White,
-                BackColor = Color.FromArgb(180, 52, 73, 94), // #34495E gardena
-                FlatStyle = FlatStyle.Flat,
-                Size = new Size(150, 50),
-                Location = new Point(20, 75),
-                Cursor = Cursors.Hand
-            };
-            _atzeraBotoia.FlatAppearance.BorderSize = 0;
-            _atzeraBotoia.Click += (s, e) => this.Close();
-
-            this.Controls.Add(_atzeraBotoia);
-            _atzeraBotoia.BringToFront();
-        }
+        // Atzera botoia kudeatzeko metodo zaharra ezabatuta (Designerrak kudeatzen du orain)
 
         // -----------------------------------------------------------
         // Txartel bat sortu (laguntza-metodoa)

@@ -11,7 +11,6 @@ namespace GOsasun_app.Formularioak
         public OsasunaFormularioa(Erabiltzailea erabiltzailea) : base(erabiltzailea)
         {
             InitializeComponent();
-            GehituAtzeraBotoia();
         }
     }
 }

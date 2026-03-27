@@ -5,6 +5,6 @@ namespace GOsasun_app.Formularioak
     public partial class GrafikenFormularioa : OinarriFormularioa
     {
         public GrafikenFormularioa() : base() { InitializeComponent(); }
-        public GrafikenFormularioa(Erabiltzailea u) : base(u) { InitializeComponent(); GehituAtzeraBotoia(); }
+        public GrafikenFormularioa(Erabiltzailea u) : base(u) { InitializeComponent(); }
     }
 }

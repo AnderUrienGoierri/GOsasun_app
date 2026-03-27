@@ -94,11 +94,15 @@ namespace GOsasun_app.Formularioak
             this.btnAbisuak.TabIndex = 4;
             this.btnAbisuak.Testua = "ABISUAK";
             // 
+            // _atzeraBotoia
+            // 
+            this._atzeraBotoia.Visible = false;
+            // 
             // PazienteMenua
             // 
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
+            this.AutoScaleDimensions = new SizeF(13F, 32F);
             this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(1024, 600);
+            this.ClientSize = new Size(1902, 1500);
             this.Name = "PazienteMenua";
             this.Text = "GOsasun - Paziente Menua";
 

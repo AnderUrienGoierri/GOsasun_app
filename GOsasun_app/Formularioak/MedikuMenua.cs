@@ -33,9 +33,9 @@ namespace GOsasun_app.Formularioak
 
         private void KonfiguratuGertaerak()
         {
-            btnPazienteak.Click += (s, e) => IrekiFormularioa(new PazienteMenua(_erabiltzailea!));
+            btnPazienteak.Click += (s, e) => IrekiFormularioa(new PazienteenZerrendaFormularioa(_erabiltzailea!));
             btnKontaktua.Click += (s, e) => IrekiFormularioa(new KontaktuaFormularioa(_erabiltzailea!));
-            btnNeurketak.Click += (s, e) => IrekiFormularioa(new NeurketenFormularioa(_erabiltzailea!));
+            btnNeurketak.Click += (s, e) => IrekiFormularioa(new NeurketaMotakFormularioa(_erabiltzailea!));
             btnErrezetak.Click += (s, e) => IrekiFormularioa(new ErrezetenFormularioa(_erabiltzailea!));
             btnGrafikak.Click += (s, e) => IrekiFormularioa(new GrafikenFormularioa(_erabiltzailea!));
             btnAbisuak.Click += (s, e) => IrekiFormularioa(new AbisuenFormularioa(_erabiltzailea!));

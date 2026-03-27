@@ -25,8 +25,8 @@ namespace GOsasun_app.Modeloak
         public Pazientea() : base() { }
 
         public Pazientea(int id, string emaila, string pasahitza, int rolId, bool aktibo, DateTime sortzeData,
-                         string nan, string izena, string abizenak, DateTime jaiotzeData, string? telefonoa,
-                         string? odolTaldea, decimal? azkenAltuera, decimal? azkenPisua, string egoeraKlinikoa, string irudia)
+                        string nan, string izena, string abizenak, DateTime jaiotzeData, string? telefonoa,
+                        string? odolTaldea, decimal? azkenAltuera, decimal? azkenPisua, string egoeraKlinikoa, string irudia)
             : base(id, emaila, pasahitza, rolId, aktibo, sortzeData)
         {
             Nan = nan;

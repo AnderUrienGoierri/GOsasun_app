@@ -80,11 +80,15 @@ namespace GOsasun_app.Formularioak
             this.btnHitzorduak.TabIndex = 3;
             this.btnHitzorduak.Testua = "HITZORDUAK KUDEATU";
             // 
+            // _atzeraBotoia
+            // 
+            this._atzeraBotoia.Visible = false;
+            // 
             // HarreraMenua
             // 
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
+            this.AutoScaleDimensions = new SizeF(13F, 32F);
             this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(1024, 600);
+            this.ClientSize = new Size(1902, 1500);
             this.Name = "HarreraMenua";
             this.Text = "GOsasun - Harrera Menua";
             

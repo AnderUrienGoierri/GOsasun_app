@@ -30,8 +30,10 @@ namespace GOsasun_app.Kontrolak
         public event EventHandler? SaioaItxi;
 
         // -----------------------------------------------------------
-        // Eraikitzailea
+        // Eraikitzaileak
         // -----------------------------------------------------------
+        public GoiburuBarra() : this("Erabiltzailea", "Rola") { }
+
         public GoiburuBarra(string erabiltzaileIzena, string rola)
         {
             // Panel konfigurazioa

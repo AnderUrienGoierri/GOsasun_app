@@ -5,6 +5,6 @@ namespace GOsasun_app.Formularioak
     public partial class AbisuenFormularioa : OinarriFormularioa
     {
         public AbisuenFormularioa() : base() { InitializeComponent(); }
-        public AbisuenFormularioa(Erabiltzailea u) : base(u) { InitializeComponent(); GehituAtzeraBotoia(); }
+        public AbisuenFormularioa(Erabiltzailea u) : base(u) { InitializeComponent(); }
     }
 }

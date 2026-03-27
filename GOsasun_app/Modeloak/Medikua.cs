@@ -22,8 +22,8 @@ namespace GOsasun_app.Modeloak
         public Medikua() : base() { }
 
         public Medikua(int id, string emaila, string pasahitza, int rolId, bool aktibo, DateTime sortzeData,
-                       string izena, string abizenak, DateTime jaiotzeData, string elkargokideZenbakia,
-                       string espezialitatea, string? telefonoa, string irudia)
+                        string izena, string abizenak, DateTime jaiotzeData, string elkargokideZenbakia,
+                        string espezialitatea, string? telefonoa, string irudia)
             : base(id, emaila, pasahitza, rolId, aktibo, sortzeData)
         {
             Izena = izena;
