@@ -87,7 +87,7 @@ namespace GOsasun_app.Kontrolak
             // Data
             _dataLabel = new Label
             {
-                Text = DateTime.Now.ToString("yyyy/MM/dd, dddd"),
+                Text = DateTime.Now.ToString("yyyy/MM/dd, dddd", new System.Globalization.CultureInfo("eu-ES")),
                 Font = new Font("Segoe UI", 12f, FontStyle.Regular),
                 ForeColor = Color.FromArgb(189, 195, 199), // #BDC3C7
                 AutoSize = true,
@@ -131,7 +131,7 @@ namespace GOsasun_app.Kontrolak
             _orduaTimer.Tick += (s, e) =>
             {
                 _orduaLabel.Text = DateTime.Now.ToString("HH:mm:ss");
-                _dataLabel.Text = DateTime.Now.ToString("yyyy/MM/dd, dddd");
+                _dataLabel.Text = DateTime.Now.ToString("yyyy/MM/dd, dddd", new System.Globalization.CultureInfo("eu-ES"));
             };
             _orduaTimer.Start();
             

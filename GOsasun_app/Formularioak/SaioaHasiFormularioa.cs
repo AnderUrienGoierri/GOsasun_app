@@ -146,8 +146,6 @@ namespace GOsasun_app.Formularioak
 
                 if (erabiltzaileaObj != null)
                 {
-                    ErakutsiMezua("Saioa ongi hasi da! Itxaron...", Color.FromArgb(46, 204, 113));
-
                     Form menuForm;
                     if (erabiltzaileaObj is Medikua)
                     {
@@ -188,6 +186,7 @@ namespace GOsasun_app.Formularioak
             _loginPanela.Paint += LoginPanela_Paint;
             _erakutsiPasahitza.CheckedChanged += (s, e) => { _pasahitzaTextBox.UseSystemPasswordChar = !_erakutsiPasahitza.Checked; };
             _loginBotoia.Click += LoginBotoia_Click;
+            _itzaliBotoia.Click += (s, e) => Application.Exit();
         }
 
         private void ErakutsiMezua(string mezua, Color kolorea)

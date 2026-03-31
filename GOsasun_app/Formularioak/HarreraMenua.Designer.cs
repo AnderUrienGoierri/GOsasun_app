@@ -21,7 +21,7 @@ namespace GOsasun_app.Formularioak
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HarreraMenua));
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(HarreraMenua));
             btnPazienteak = new GOsasun_app.Kontrolak.CustomCardButton();
             btnMedikuak = new GOsasun_app.Kontrolak.CustomCardButton();
             btnLangileak = new GOsasun_app.Kontrolak.CustomCardButton();
@@ -37,6 +37,10 @@ namespace GOsasun_app.Formularioak
             _edukiPanela.Controls.Add(btnHitzorduak);
             _edukiPanela.Size = new Size(1902, 1159);
             // 
+            // _atzeraBotoia
+            // 
+            _atzeraBotoia.FlatAppearance.BorderSize = 0;
+            // 
             // btnPazienteak
             // 
             btnPazienteak.BackColor = Color.White;
@@ -50,6 +54,7 @@ namespace GOsasun_app.Formularioak
             btnPazienteak.Size = new Size(576, 512);
             btnPazienteak.TabIndex = 0;
             btnPazienteak.Testua = "PAZIENTEAK KUDEATU";
+            btnPazienteak.TestuKolorea = Color.FromArgb(50, 50, 50);
             // 
             // btnMedikuak
             // 
@@ -64,11 +69,13 @@ namespace GOsasun_app.Formularioak
             btnMedikuak.Size = new Size(576, 512);
             btnMedikuak.TabIndex = 1;
             btnMedikuak.Testua = "MEDIKUAK KUDEATU";
+            btnMedikuak.TestuKolorea = Color.FromArgb(50, 50, 50);
             // 
             // btnLangileak
             // 
             btnLangileak.BackColor = Color.White;
             btnLangileak.BorderBiribiltasuna = 24;
+            btnLangileak.Font = new Font("Segoe UI", 9F);
             btnLangileak.Ikonoa = (Image)resources.GetObject("btnLangileak.Ikonoa");
             btnLangileak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnLangileak.Location = new Point(1263, 43);
@@ -77,7 +84,8 @@ namespace GOsasun_app.Formularioak
             btnLangileak.Padding = new Padding(19, 21, 19, 21);
             btnLangileak.Size = new Size(576, 512);
             btnLangileak.TabIndex = 2;
-            btnLangileak.Testua = "LANGILEAK KUDEATU";
+            btnLangileak.Testua = "HARRERAKO LANGILEAK";
+            btnLangileak.TestuKolorea = Color.FromArgb(50, 50, 50);
             // 
             // btnHitzorduak
             // 
@@ -92,6 +100,7 @@ namespace GOsasun_app.Formularioak
             btnHitzorduak.Size = new Size(576, 512);
             btnHitzorduak.TabIndex = 3;
             btnHitzorduak.Testua = "HITZORDUAK KUDEATU";
+            btnHitzorduak.TestuKolorea = Color.FromArgb(50, 50, 50);
             // 
             // HarreraMenua
             // 

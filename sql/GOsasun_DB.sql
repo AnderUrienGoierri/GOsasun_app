@@ -66,7 +66,6 @@ CREATE TABLE IF NOT EXISTS mediku_Paziente (
 CREATE TABLE IF NOT EXISTS neurketak (
     neurketa_id INT AUTO_INCREMENT PRIMARY KEY,
     paziente_id INT NOT NULL,
-    glukosa_mg_dl DECIMAL(5, 2),
     tentsio_sistolikoa INT,
     tentsio_diastolikoa INT,
     pisua_kg DECIMAL(5, 2),

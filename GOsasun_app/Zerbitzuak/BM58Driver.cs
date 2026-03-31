@@ -368,7 +368,7 @@ namespace GOsasun_app.Zerbitzuak
                     PazienteId = pazienteId,
                     TentsioSistolikoa = data[0] + 25,
                     TentsioDiastolikoa = data[1] + 25,
-                    Pultsua = data[2],
+                    PultsuaPpm = data[2],
                     ErregistroData = new DateTime(2000 + data[7], data[3], data[4], data[5], data[6], 0),
                     Sintomak = "" 
                 };
@@ -393,7 +393,7 @@ namespace GOsasun_app.Zerbitzuak
                         new XElement("glukosa_mg_dl"), 
                         new XElement("tentsio_sistolikoa", neurria.TentsioSistolikoa),
                         new XElement("tentsio_diastolikoa", neurria.TentsioDiastolikoa),
-                        new XElement("pultsua_ppm", neurria.Pultsua)
+                        new XElement("pultsua_ppm", neurria.PultsuaPpm)
                     )
                 )
             );

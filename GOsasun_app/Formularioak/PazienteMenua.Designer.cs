@@ -117,7 +117,7 @@ namespace GOsasun_app.Formularioak
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1902, 1358);
+            ClientSize = new Size(1902, 1334);
             Margin = new Padding(11, 9, 11, 9);
             Name = "PazienteMenua";
             Text = "GOsasun - Paziente Menua";

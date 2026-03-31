@@ -10,29 +10,27 @@ namespace GOsasun_app.Modeloak
     {
         public int NeurketaId { get; set; }
         public int PazienteId { get; set; }
-        public decimal? Glukosa { get; set; }
         public int? TentsioSistolikoa { get; set; }
         public int? TentsioDiastolikoa { get; set; }
-        public decimal? Pisua { get; set; }
+        public decimal? PisuaKg { get; set; }
         public decimal? Altuera { get; set; }
-        public int? Pultsua { get; set; }
+        public int? PultsuaPpm { get; set; }
         public string? Sintomak { get; set; }
         public DateTime ErregistroData { get; set; } = DateTime.Now;
 
         public Neurketa() { }
 
-        public Neurketa(int neurketaId, int pazienteId, decimal? glukosa, int? tentsioSistolikoa,
-                        int? tentsioDiastolikoa, decimal? pisua, decimal? altuera, int? pultsua,
+        public Neurketa(int neurketaId, int pazienteId, int? tentsioSistolikoa,
+                        int? tentsioDiastolikoa, decimal? pisuaKg, decimal? altuera, int? pultsuaPpm,
                         string? sintomak, DateTime erregistroData)
         {
             NeurketaId = neurketaId;
             PazienteId = pazienteId;
-            Glukosa = glukosa;
             TentsioSistolikoa = tentsioSistolikoa;
             TentsioDiastolikoa = tentsioDiastolikoa;
-            Pisua = pisua;
+            PisuaKg = pisuaKg;
             Altuera = altuera;
-            Pultsua = pultsua;
+            PultsuaPpm = pultsuaPpm;
             Sintomak = sintomak;
             ErregistroData = erregistroData;
         }

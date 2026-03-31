@@ -3,6 +3,9 @@
 
 using GOsasun_app.Kontrolak;
 using GOsasun_app.Modeloak;
+using System.IO;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace GOsasun_app.Formularioak
 {
@@ -17,12 +20,32 @@ namespace GOsasun_app.Formularioak
             : base(erabiltzailea)
         {
             InitializeComponent();
+            KargatuIkonoak();
             KonfiguratuGertaerak();
+        }
+
+        private void KargatuIkonoak()
+        {
+            try
+            {
+                string iconsPath = Path.Combine(Application.StartupPath, "img", "icons");
+                
+                btnNeurketak.Ikonoa = Image.FromFile(Path.Combine(iconsPath, "neurketak.png"));
+                btnErrezetak.Ikonoa = Image.FromFile(Path.Combine(iconsPath, "errezetak.png"));
+                btnKontaktua.Ikonoa = Image.FromFile(Path.Combine(iconsPath, "kontaktua.png"));
+                btnGrafikak.Ikonoa = Image.FromFile(Path.Combine(iconsPath, "grafikak.png"));
+                btnAbisuak.Ikonoa = Image.FromFile(Path.Combine(iconsPath, "abisua.png"));
+            }
+            catch (Exception ex)
+            {
+                // Isilpean kudeatu edo log-ean idatzi (erakustaldian ez errorea bota)
+                System.Diagnostics.Debug.WriteLine("Errorea ikonoak kargatzean: " + ex.Message);
+            }
         }
 
         private void KonfiguratuGertaerak()
         {
-            btnNeurketak.Click += (s, e) => IrekiFormularioa(new NeurketenFormularioa(_erabiltzailea!));
+            btnNeurketak.Click += (s, e) => IrekiFormularioa(new NireNeurketakFormularioa(_erabiltzailea!));
             btnErrezetak.Click += (s, e) => IrekiFormularioa(new ErrezetenFormularioa(_erabiltzailea!));
             btnKontaktua.Click += (s, e) => IrekiFormularioa(new KontaktuaFormularioa(_erabiltzailea!));
             btnGrafikak.Click += (s, e) => IrekiFormularioa(new GrafikenFormularioa(_erabiltzailea!));

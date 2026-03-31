@@ -38,6 +38,7 @@ namespace GOsasun_app.Formularioak
             _pasahitzaTextBox = new TextBox();
             _erakutsiPasahitza = new CheckBox();
             _loginBotoia = new Button();
+            _itzaliBotoia = new Button();
             _mezuLabel = new Label();
             _loginPanela.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)_logoPicture).BeginInit();
@@ -54,11 +55,12 @@ namespace GOsasun_app.Formularioak
             _loginPanela.Controls.Add(_pasahitzaTextBox);
             _loginPanela.Controls.Add(_erakutsiPasahitza);
             _loginPanela.Controls.Add(_loginBotoia);
+            _loginPanela.Controls.Add(_itzaliBotoia);
             _loginPanela.Controls.Add(_mezuLabel);
             _loginPanela.Location = new Point(455, 122);
             _loginPanela.Name = "_loginPanela";
             _loginPanela.Padding = new Padding(30);
-            _loginPanela.Size = new Size(672, 774);
+            _loginPanela.Size = new Size(672, 800);
             _loginPanela.TabIndex = 0;
             _loginPanela.Paint += _loginPanela_Paint;
             // 
@@ -149,13 +151,30 @@ namespace GOsasun_app.Formularioak
             _loginBotoia.Cursor = Cursors.Hand;
             _loginBotoia.FlatAppearance.BorderSize = 0;
             _loginBotoia.FlatStyle = FlatStyle.Flat;
-            _loginBotoia.Location = new Point(145, 629);
+            _loginBotoia.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            _loginBotoia.ForeColor = Color.White;
+            _loginBotoia.Location = new Point(145, 663);
             _loginBotoia.Name = "_loginBotoia";
             _loginBotoia.Size = new Size(360, 60);
             _loginBotoia.TabIndex = 7;
             _loginBotoia.Text = "SARTU";
             _loginBotoia.UseVisualStyleBackColor = false;
             _loginBotoia.Click += _loginBotoia_Click;
+            // 
+            // _itzaliBotoia
+            // 
+            _itzaliBotoia.BackColor = Color.FromArgb(231, 76, 60);
+            _itzaliBotoia.Cursor = Cursors.Hand;
+            _itzaliBotoia.FlatAppearance.BorderSize = 0;
+            _itzaliBotoia.FlatStyle = FlatStyle.Flat;
+            _itzaliBotoia.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            _itzaliBotoia.ForeColor = Color.White;
+            _itzaliBotoia.Location = new Point(145, 738);
+            _itzaliBotoia.Name = "_itzaliBotoia";
+            _itzaliBotoia.Size = new Size(360, 50);
+            _itzaliBotoia.TabIndex = 9;
+            _itzaliBotoia.Text = "ITZALI";
+            _itzaliBotoia.UseVisualStyleBackColor = false;
             // 
             // _mezuLabel
             // 
@@ -193,5 +212,6 @@ namespace GOsasun_app.Formularioak
         private Button _loginBotoia;
         private Label _mezuLabel;
         private CheckBox _erakutsiPasahitza;
+        private Button _itzaliBotoia;
     }
 }

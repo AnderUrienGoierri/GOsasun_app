@@ -155,7 +155,44 @@ namespace GOsasun_app.Formularioak
 
             if (emaitza == DialogResult.Yes)
             {
-                this.Close();
+                try
+                {
+                    // Saioa hasteko formularioa bilatu (SaioaHasiFormularioa)
+                    var loginForm = Application.OpenForms.OfType<SaioaHasiFormularioa>().FirstOrDefault();
+
+                    if (loginForm != null)
+                    {
+                        // Guztiak ezkutatu berehala feedback bisuala emateko (flicker prebenitzeko)
+                        var irekiak = Application.OpenForms.Cast<Form>().ToList();
+                        foreach (Form f in irekiak)
+                        {
+                            if (f != loginForm) f.Hide();
+                        }
+
+                        // Login pantaila erakutsi
+                        loginForm.Show();
+
+                        // Beste guztiak itxi (Dispose erabili gertaera kateak mozteko eta memoria garbitzeko)
+                        foreach (Form f in irekiak)
+                        {
+                            if (f != loginForm) f.Dispose();
+                        }
+                    }
+                    else
+                    {
+                        // Ez bada aurkitu (kasu arraroa), berria sortu
+                        SaioaHasiFormularioa berria = new SaioaHasiFormularioa();
+                        berria.Show();
+                        this.Hide();
+                        this.Dispose();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Errore larria bada, aplikazioa restart egin
+                    System.Diagnostics.Debug.WriteLine($"Logout errorea: {ex.Message}");
+                    Application.Restart();
+                }
             }
         }
     }

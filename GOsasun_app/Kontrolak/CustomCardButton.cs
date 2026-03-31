@@ -72,6 +72,17 @@ namespace GOsasun_app.Kontrolak
             set { _kartaKolorea = value; Invalidate(); }
         }
 
+        /// <summary>
+        /// Txartelaren testuaren kolorea.
+        /// </summary>
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public Color TestuKolorea
+        {
+            get => _testuKolorea;
+            set { _testuKolorea = value; Invalidate(); }
+        }
+
         // -----------------------------------------------------------
         // Eraikitzailea
         // -----------------------------------------------------------
