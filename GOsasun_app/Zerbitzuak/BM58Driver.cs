@@ -390,7 +390,6 @@ namespace GOsasun_app.Zerbitzuak
                         new XElement("paziente_id", neurria.PazienteId),
                         new XElement("altuera", ""),
                         new XElement("pisua", ""),
-                        new XElement("glukosa_mg_dl"), 
                         new XElement("tentsio_sistolikoa", neurria.TentsioSistolikoa),
                         new XElement("tentsio_diastolikoa", neurria.TentsioDiastolikoa),
                         new XElement("pultsua_ppm", neurria.PultsuaPpm)
