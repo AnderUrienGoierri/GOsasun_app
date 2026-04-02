@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace GOsasun_app
@@ -15,7 +15,7 @@ namespace GOsasun_app
             Application.SetCompatibleTextRenderingDefault(false);
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
 
-            Application.Run(new GOsasun_app.Formularioak.SaioaHasiFormularioa());
+            Application.Run(new GOsasun_app.Interfazea.SaioaHasi());
         }
     }
 }
