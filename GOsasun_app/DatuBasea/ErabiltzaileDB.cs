@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using GOsasun_app.Modeloa;
@@ -191,6 +191,136 @@ namespace GOsasun_app.DatuBasea
                 }
             }
             return harrerakoak;
+        }
+
+        public bool SortuPazientea(Pazientea p)
+        {
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            using (var transakzioa = konexioa.BeginTransaction())
+            {
+                try
+                {
+                    string q1 = "INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza) VALUES (@email, @pass, 3, 1, @hizkuntza); SELECT LAST_INSERT_ID();";
+                    using (var cmd1 = new MySqlCommand(q1, konexioa, transakzioa))
+                    {
+                        cmd1.Parameters.AddWithValue("@email", p.Emaila);
+                        cmd1.Parameters.AddWithValue("@pass", p.Pasahitza);
+                        cmd1.Parameters.AddWithValue("@hizkuntza", p.Hizkuntza);
+                        int newId = Convert.ToInt32(cmd1.ExecuteScalar());
+
+                        string q2 = @"INSERT INTO pazienteak 
+                                    (paziente_id, nan, izena, abizenak, sexua, jaiotze_data, telefonoa, helbidea, herria, posta_kodea, egoera_klinikoa, irudia) 
+                                    VALUES (@id, @nan, @izena, @abizenak, @sexua, @jaiotze, @telefonoa, @helbidea, @herria, @posta, 'Alta', 'img/lehenetsia_pazientea.png')";
+                        using (var cmd2 = new MySqlCommand(q2, konexioa, transakzioa))
+                        {
+                            cmd2.Parameters.AddWithValue("@id", newId);
+                            cmd2.Parameters.AddWithValue("@nan", p.Nan);
+                            cmd2.Parameters.AddWithValue("@izena", p.Izena);
+                            cmd2.Parameters.AddWithValue("@abizenak", p.Abizenak);
+                            cmd2.Parameters.AddWithValue("@sexua", p.Sexua);
+                            cmd2.Parameters.AddWithValue("@jaiotze", p.JaiotzeData);
+                            cmd2.Parameters.AddWithValue("@telefonoa", (object?)p.Telefonoa ?? DBNull.Value);
+                            cmd2.Parameters.AddWithValue("@helbidea", (object?)p.Helbidea ?? DBNull.Value);
+                            cmd2.Parameters.AddWithValue("@herria", (object?)p.Herria ?? DBNull.Value);
+                            cmd2.Parameters.AddWithValue("@posta", (object?)p.PostaKodea ?? DBNull.Value);
+                            cmd2.ExecuteNonQuery();
+                        }
+                    }
+                    transakzioa.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transakzioa.Rollback();
+                    Console.WriteLine($"Errorea: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+
+        public bool SortuMedikua(Medikua m)
+        {
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            using (var transakzioa = konexioa.BeginTransaction())
+            {
+                try
+                {
+                    string q1 = "INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza) VALUES (@email, @pass, 2, 1, @hizkuntza); SELECT LAST_INSERT_ID();";
+                    using (var cmd1 = new MySqlCommand(q1, konexioa, transakzioa))
+                    {
+                        cmd1.Parameters.AddWithValue("@email", m.Emaila);
+                        cmd1.Parameters.AddWithValue("@pass", m.Pasahitza);
+                        cmd1.Parameters.AddWithValue("@hizkuntza", m.Hizkuntza);
+                        int newId = Convert.ToInt32(cmd1.ExecuteScalar());
+
+                        string q2 = @"INSERT INTO medikuak 
+                                    (mediku_id, izena, abizenak, jaiotze_data, elkargokide_zenbakia, espezialitatea, kontsulta, lanaldia, telefonoa, irudia) 
+                                    VALUES (@id, @izena, @abizenak, @jaiotze, @elkargokide, @espezialitatea, @kontsulta, @lanaldia, @telefonoa, 'img/lehenetsia_medikua.png')";
+                        using (var cmd2 = new MySqlCommand(q2, konexioa, transakzioa))
+                        {
+                            cmd2.Parameters.AddWithValue("@id", newId);
+                            cmd2.Parameters.AddWithValue("@izena", m.Izena);
+                            cmd2.Parameters.AddWithValue("@abizenak", m.Abizenak);
+                            cmd2.Parameters.AddWithValue("@jaiotze", m.JaiotzeData);
+                            cmd2.Parameters.AddWithValue("@elkargokide", m.ElkargokideZenbakia);
+                            cmd2.Parameters.AddWithValue("@espezialitatea", m.Espezialitatea);
+                            cmd2.Parameters.AddWithValue("@kontsulta", (object?)m.Kontsulta ?? DBNull.Value);
+                            cmd2.Parameters.AddWithValue("@lanaldia", m.Lanaldia);
+                            cmd2.Parameters.AddWithValue("@telefonoa", (object?)m.Telefonoa ?? DBNull.Value);
+                            cmd2.ExecuteNonQuery();
+                        }
+                    }
+                    transakzioa.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transakzioa.Rollback();
+                    Console.WriteLine($"Errorea: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+
+        public bool SortuHarrerakoa(HarrerakoLangilea h)
+        {
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            using (var transakzioa = konexioa.BeginTransaction())
+            {
+                try
+                {
+                    string q1 = "INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza) VALUES (@email, @pass, 4, 1, @hizkuntza); SELECT LAST_INSERT_ID();";
+                    using (var cmd1 = new MySqlCommand(q1, konexioa, transakzioa))
+                    {
+                        cmd1.Parameters.AddWithValue("@email", h.Emaila);
+                        cmd1.Parameters.AddWithValue("@pass", h.Pasahitza);
+                        cmd1.Parameters.AddWithValue("@hizkuntza", h.Hizkuntza);
+                        int newId = Convert.ToInt32(cmd1.ExecuteScalar());
+
+                        string q2 = @"INSERT INTO harrerako_langileak 
+                                    (langile_id, izena, abizenak, txanda, jaiotze_data, telefonoa) 
+                                    VALUES (@id, @izena, @abizenak, @txanda, @jaiotze, @telefonoa)";
+                        using (var cmd2 = new MySqlCommand(q2, konexioa, transakzioa))
+                        {
+                            cmd2.Parameters.AddWithValue("@id", newId);
+                            cmd2.Parameters.AddWithValue("@izena", h.Izena);
+                            cmd2.Parameters.AddWithValue("@abizenak", h.Abizenak);
+                            cmd2.Parameters.AddWithValue("@txanda", h.Txanda);
+                            cmd2.Parameters.AddWithValue("@jaiotze", (object?)h.JaiotzeData ?? DBNull.Value);
+                            cmd2.Parameters.AddWithValue("@telefonoa", (object?)h.Telefonoa ?? DBNull.Value);
+                            cmd2.ExecuteNonQuery();
+                        }
+                    }
+                    transakzioa.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transakzioa.Rollback();
+                    Console.WriteLine($"Errorea: {ex.Message}");
+                    return false;
+                }
+            }
         }
     }
 }

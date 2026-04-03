@@ -13,6 +13,8 @@ CREATE TABLE IF NOT EXISTS erabiltzaileak (
     email VARCHAR(100) NOT NULL UNIQUE,
     pasahitza VARCHAR(255) NOT NULL,
     rol_id INT NOT NULL,
+    hizkuntza VARCHAR(50) DEFAULT 'Euskara',
+    ezarpenak JSON NULL,
     aktibo BOOLEAN DEFAULT TRUE,
     sortze_data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (rol_id) REFERENCES Rolak(rol_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -20,11 +22,15 @@ CREATE TABLE IF NOT EXISTS erabiltzaileak (
 -- 3. PAZIENTEAK TAULA
 CREATE TABLE IF NOT EXISTS pazienteak (
     paziente_id INT PRIMARY KEY,
-    nan VARCHAR(15) NOT NULL UNIQUE,
+    nan CHAR(9) NOT NULL UNIQUE,
     izena VARCHAR(50) NOT NULL,
     abizenak VARCHAR(100) NOT NULL,
+    sexua ENUM('Gizona', 'Emakumea') NOT NULL,
     jaiotze_data DATE NOT NULL,
     telefonoa VARCHAR(20),
+    helbidea VARCHAR(255),
+    herria VARCHAR(100),
+    posta_kodea VARCHAR(10),
     odol_taldea VARCHAR(5),
     azken_altuera DECIMAL(5, 2),
     azken_pisua DECIMAL(5, 2),
@@ -40,6 +46,8 @@ CREATE TABLE IF NOT EXISTS medikuak (
     jaiotze_data DATE NOT NULL,
     elkargokide_zenbakia VARCHAR(50) NOT NULL UNIQUE,
     espezialitatea VARCHAR(100) NOT NULL,
+    kontsulta VARCHAR(50),
+    lanaldia ENUM('Osoa', 'Murriztua') DEFAULT 'Osoa',
     telefonoa VARCHAR(20),
     irudia VARCHAR(255) DEFAULT 'img/lehenetsia_medikua.png',
     FOREIGN KEY (mediku_id) REFERENCES Erabiltzaileak(erabiltzaile_id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -49,6 +57,9 @@ CREATE TABLE IF NOT EXISTS harrerako_Langileak (
     langile_id INT PRIMARY KEY,
     izena VARCHAR(50) NOT NULL,
     abizenak VARCHAR(100) NOT NULL,
+    txanda ENUM('Goizez', 'Arratsaldez', 'Gauez') DEFAULT 'Goizez',
+    jaiotze_data DATE,
+    telefonoa VARCHAR(20),
     irudia VARCHAR(255) DEFAULT 'img/lehenetsia_harrera.png',
     FOREIGN KEY (langile_id) REFERENCES Erabiltzaileak(erabiltzaile_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
@@ -94,6 +105,7 @@ CREATE TABLE IF NOT EXISTS dokumentuak (
     igotzaile_id INT NOT NULL,
     fitxategi_izena VARCHAR(255) NOT NULL,
     bidea_zerbitzarian VARCHAR(500) NOT NULL,
+    fitxategi_edukia MEDIUMBLOB,
     mota VARCHAR(50),
     igotze_data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     deskribapena TEXT,
