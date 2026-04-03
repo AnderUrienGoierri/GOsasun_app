@@ -86,6 +86,7 @@ namespace GOsasun_app.Interfazea
             btnLangileak.TabIndex = 2;
             btnLangileak.Testua = "HARRERAKO LANGILEAK";
             btnLangileak.TestuKolorea = Color.FromArgb(50, 50, 50);
+            btnLangileak.Paint += btnLangileak_Paint;
             // 
             // btnHitzorduak
             // 

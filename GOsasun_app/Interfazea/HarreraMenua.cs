@@ -1,4 +1,4 @@
-﻿// HarreraMenua.cs - Harrerako langilearen Menua (Receptionist Menu)
+// HarreraMenua.cs - Harrerako langilearen Menua (Receptionist Menu)
 // ============================================================
 
 using GOsasun_app.Interfazea.Kontrolak;
@@ -22,16 +22,29 @@ namespace GOsasun_app.Interfazea
 
         private void KonfiguratuGertaerak()
         {
-            btnPazienteak.Click += (s, e) => MessageBox.Show("Pazienteak kudeatzeko formularioa irekiko da laster.");
-            btnMedikuak.Click += (s, e) => MessageBox.Show("Medikuak kudeatzeko formularioa irekiko da laster.");
-            btnLangileak.Click += (s, e) => MessageBox.Show("Harrerako langileak kudeatzeko formularioa irekiko da laster.");
-            btnHitzorduak.Click += (s, e) => 
+            btnPazienteak.Click += (s, e) => IrekiKudeaketa("Pazientea");
+            btnMedikuak.Click += (s, e) => IrekiKudeaketa("Medikua");
+            btnLangileak.Click += (s, e) => IrekiKudeaketa("Harrerako Langilea");
+            btnHitzorduak.Click += (s, e) =>
             {
                 var h = new HitzorduKudeaketa(_erabiltzailea!);
                 h.FormClosed += (sender, args) => this.Show();
                 this.Hide();
                 h.Show();
             };
+        }
+
+        private void IrekiKudeaketa(string rolIzena)
+        {
+            var m = new ErabiltzaileKudeaketaMenua(rolIzena, _erabiltzailea!);
+            m.FormClosed += (sender, args) => this.Show();
+            this.Hide();
+            m.Show();
+        }
+
+        private void btnLangileak_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

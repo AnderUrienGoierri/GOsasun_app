@@ -16,13 +16,16 @@
         <mxCell id="L4" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" value="ErabiltzaileDB" vertex="1">
           <mxGeometry height="550" width="100" x="700" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="E1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="LoginBotoia_Click()">
+        <mxCell id="L5" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" value="Modeloa" vertex="1">
+          <mxGeometry height="550" width="100" x="900" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="E1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="LoginBotoia_Click(email, pasahitza)">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="150" y="150" as="sourcePoint" />
             <mxPoint x="350" y="150" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="E2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="Login(email, pasahitza)">
+        <mxCell id="E2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="erabiltzaileaObj = Login(email, pasahitza)">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="350" y="200" as="sourcePoint" />
             <mxPoint x="550" y="200" as="targetPoint" />
@@ -34,40 +37,46 @@
             <mxPoint x="750" y="250" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="E4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" value="e">
+        <mxCell id="E_Model" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="new Pazientea / Medikua">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="750" y="300" as="sourcePoint" />
-            <mxPoint x="550" y="300" as="targetPoint" />
+            <mxPoint x="950" y="300" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="F_Alt" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=90;height=40;boundedLbl=1;verticalAlign=top;align=left;spacingLeft=5;" value="alt&#xa;[e == null]" vertex="1">
-          <mxGeometry height="100" width="500" x="100" y="320" as="geometry" />
-        </mxCell>
-        <mxCell id="E5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" value="errorea">
+        <mxCell id="E_Model_Ret" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" value="objektua">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="550" y="360" as="sourcePoint" />
-            <mxPoint x="350" y="360" as="targetPoint" />
+            <mxPoint x="950" y="340" as="sourcePoint" />
+            <mxPoint x="750" y="340" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="E6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" value="Datuak okerrak direla adierazi">
+        <mxCell id="E4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" value="erabiltzaileaObj">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="350" y="400" as="sourcePoint" />
-            <mxPoint x="150" y="400" as="targetPoint" />
+            <mxPoint x="750" y="380" as="sourcePoint" />
+            <mxPoint x="550" y="380" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="F_Else" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=90;height=40;boundedLbl=1;verticalAlign=top;align=left;spacingLeft=5;" value="alt&#xa;[e != null]" vertex="1">
-          <mxGeometry height="100" width="500" x="100" y="440" as="geometry" />
-        </mxCell>
-        <mxCell id="E7" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" value="saioaOnartuta(e.rola)">
+        <mxCell id="E_Contr_Ret" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" value="erabiltzaileaObj">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="550" y="480" as="sourcePoint" />
-            <mxPoint x="350" y="480" as="targetPoint" />
+            <mxPoint x="550" y="420" as="sourcePoint" />
+            <mxPoint x="350" y="420" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="E8" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" value="Dagokion menura bideratu">
+        <mxCell id="F_Alt" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=140;height=40;boundedLbl=1;verticalAlign=top;align=left;spacingLeft=5;" value="alt&#xa;[erabiltzaileaObj == null]" vertex="1">
+          <mxGeometry height="140" width="500" x="100" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="E5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" value="ErakutsiMezua(&quot;Errorea&quot;)">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="350" y="520" as="sourcePoint" />
-            <mxPoint x="150" y="520" as="targetPoint" />
+            <mxPoint x="350" y="500" as="sourcePoint" />
+            <mxPoint x="150" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F_Else" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=140;height=40;boundedLbl=1;verticalAlign=top;align=left;spacingLeft=5;" value="alt&#xa;[erabiltzaileaObj != null]" vertex="1">
+          <mxGeometry height="100" width="500" x="100" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="E8" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" value="Menu Nagusira bideratu">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="350" y="640" as="sourcePoint" />
+            <mxPoint x="150" y="640" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>

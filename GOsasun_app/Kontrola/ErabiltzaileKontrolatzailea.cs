@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using GOsasun_app.Modeloa;
 using GOsasun_app.DatuBasea;
 
@@ -50,6 +50,21 @@ namespace GOsasun_app.Kontrola
         public List<HarrerakoLangilea> LortuGuztiakHarrerakoak()
         {
             return _db.LortuGuztiakHarrerakoak();
+        }
+
+        public bool SortuPazientea(Pazientea p)
+        {
+            return _db.SortuPazientea(p);
+        }
+
+        public bool SortuMedikua(Medikua m)
+        {
+            return _db.SortuMedikua(m);
+        }
+
+        public bool SortuHarrerakoa(HarrerakoLangilea h)
+        {
+            return _db.SortuHarrerakoa(h);
         }
     }
 }

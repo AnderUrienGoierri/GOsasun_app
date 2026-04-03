@@ -4,19 +4,19 @@ Harrerako langileak hitzordu berri bat gorde nahi duenean garatzen den fluxua.
 
 ## Draw.io-n marrazteko elementuak (Zutabeak):
 *   **Aktorea:** Harrerakoa
-*   **Muga / Interfazea:** HitzorduKudeaketaFormularioa (Interfazea)
+*   **Muga / Interfazea:** HitzorduKudeaketa (Interfazea)
 *   **Kontrola:** HitzorduKontrolatzailea (Kontrola)
-*   **Datu-Basea:** HitzorduDB (Datu-basea)
-*   **Klasea:** Hitzordua (Modeloak)
+*   **DatuBasea:** HitzorduDB (DatuBasea)
+*   **Klasea:** Hitzordua (Modeloa)
 
 ## Urratsak (Geziak) Draw.io-n irudikatzeko:
-1.  **Harrerakoa -> Interfazea:** Pazientea, Medikua, Data eta Ordua aukeratu eta "Gorde" botoiari ematen dio. Gezi testua: `BtnGorde_Click()`
-2.  **Interfazea -> Kontrola:** Eskaria kontrolera doan lekua. Testua: `GehituHitzordua(Hitzordua h)`
-3.  **Kontrola -> Datu-Basea:** Kontrolak Datu-Baseari eskatzen dio gordetzea. Gezi testua: `GehituHitzordua(h)`
-4.  **Datu-Basea -> Klasea:** SQL `INSERT` sententzia eginez. Gezi testua: `new Hitzordua(idPaziente, idMediku, data...)`
-5.  **Datu-Basea -> Kontrola** (Zatikakoa): Erantzuna jaso. Testua: `gordeta / errorea`
-6.  **Kontrola -> Interfazea** (Zatikakoa): Baieztapena. Testua: `Hitzordua sortuta`
-7.  **Interfazea -> Harrerakoa** (Zatikakoa): Baieztapen mezua. Testua: `MessageBox("Hitzordu berria sortu da")`
+1.  **Harrerakoa -> Interfazea:** Bezeroaren datuak hautatu eta "Gorde" sakatzen du. Gezi testua: `btnGorde_Click()`
+2.  **Interfazea -> Kontrola:** Kontrolatzaileari deitzen dio hitzordu objektuarekin. Gezi testua: `GehituHitzordua(h)`
+3.  **Kontrola -> DatuBasea:** SQL kudeaketarako Datu-Base geruzari deitzen dio. Gezi testua: `GehituHitzordua(h)`
+4.  **DatuBasea -> Modeloa:** SQL INSERT sententzia prestatzen du. Gezi testua: `SQL INSERT`
+5.  **DatuBasea -> Kontrola (Zatikakoa):** Emaitza itzuli.
+6.  **Kontrola -> Interfazea (Zatikakoa):** Prozesua amaitu dela adierazi.
+7.  **Interfazea -> Harrerakoa (Zatikakoa):** Baieztapen mezua. Testua: `MessageBox("Hitzordua ondo gorde da")`
 
 ---
 
@@ -25,18 +25,24 @@ Harrerako langileak hitzordu berri bat gorde nahi duenean garatzen den fluxua.
 ```mermaid
 sequenceDiagram
     participant Ha as Harrerakoa
-    participant I as HitzorduKudeaketaFormularioa
+    participant I as HitzorduKudeaketa
     participant K as HitzorduKontrolatzailea
     participant DB as HitzorduDB
     participant KL as Hitzordua
 
-    Ha->>I: BtnGorde_Click()
+    participant Ha as Harrerakoa
+    participant I as HitzorduKudeaketa
+    participant K as HitzorduKontrolatzailea
+    participant DB as HitzorduDB
+    participant KL as Modeloa
+
+    Ha->>I: btnGorde_Click()
     I->>K: GehituHitzordua(h)
     K->>DB: GehituHitzordua(h)
     
-    DB->>KL: SQL testua / Objektu sorkuntza
+    DB->>KL: SQL INSERT (Hitzordua)
     KL-->>DB: gordeta
     DB-->>K: void (osatuta)
     K-->>I: hitzordua_sortuta
-    I-->>Ha: MessageBox("Hitzordu berria sortu da")
+    I-->>Ha: MessageBox("Hitzordua ondo gorde da")
 ```

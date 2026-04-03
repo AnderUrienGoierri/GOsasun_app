@@ -4,18 +4,19 @@ Diagrama honek erabiltzaile batek sisteman saioa hastean jarraitzen duen prozesu
 
 ## Draw.io-n marrazteko elementuak (Zutabeak):
 *   **Aktorea:** Erabiltzailea
-*   **Muga / Interfazea:** SaioaHasiFormularioa
+*   **Muga / Interfazea:** SaioaHasi
 *   **Kontrola:** ErabiltzaileKontrolatzailea
-*   **Datu-Basea:** ErabiltzaileDB
-*   **Klasea:** Erabiltzailea (Modeloak: Pazientea, Medikua...)
+*   **DatuBasea:** ErabiltzaileDB
+*   **Klasea:** Erabiltzailea (Modeloa: Pazientea, Medikua...)
 
 ## Urratsak (Geziak) Draw.io-n irudikatzeko:
 1.  **Erabiltzailea -> Interfazea:** Erabiltzaileak bere Emaila eta Pasahitza sartu eta "Saioa hasi" botoia sakatzen du. Geziaren testua: `LoginBotoia_Click()`
 2.  **Interfazea -> Kontrola:** Interfazeak kontrolagailuaren metodoari deitzen dio. Gezi testua: `erabiltzaileaObj = Login(email, pasahitza)`
-3.  **Kontrola -> Datu-Basea:** Kontrolak Datu-Base geruzari eskatzen dio balioztapena. Gezi testua: `Login(email, pasahitza)`
-4.  **Datu-Basea -> Klasea:** Datu-Baseak datuak irakurri eta objektua sortzen du. Gezi testua: `new Pazientea(...)` edo `new Medikua(...)`
-5.  **Datu-Basea -> Kontrola** (Zatikakoa): Bilaketaren emaitza itzultzen du. Testua: `erabiltzaileaObj`
-6.  **Kontrola -> Interfazea** (Zatikakoa): Emaitza itzuli.
+3.  **Kontrola -> DatuBasea:** Kontrolatzaileak Datu-Baseko `Login` metodoari deitzen dio. Gezi testua: `Login(email, pasahitza)`
+4.  **DatuBasea -> Modeloa:** Erregistroa aurkitzean, datuekin objektu bat sortzen da (Herentzia erabiliz). Gezi testua: `new Pazientea(...)` edo `new Medikua(...)`
+5.  **Modeloa -> DatuBasea:** Objektuaren instantzia itzultzen da.
+6.  **DatuBasea -> Kontrola:** Erabiltzaile objektua (Pazientea/Medikua/Harrerakoa) itzultzen da. Testua: `erabiltzaileaObj`
+7.  **Kontrola -> Interfazea:** Saioaren emaitza bidaltzen da.
 
 **[Alt: erabiltzaileaObj == null]**:
 7.  **Interfazea -> Erabiltzailea** (Zatikakoa): Errore-mezua pantailan. Testua: `ErakutsiMezua("Erabiltzaile edo pasahitz okerra")`
@@ -30,10 +31,10 @@ Diagrama honek erabiltzaile batek sisteman saioa hastean jarraitzen duen prozesu
 ```mermaid
 sequenceDiagram
     participant e as Erabiltzailea
-    participant I as SaioaHasiFormularioa
+    participant I as SaioaHasi
     participant K as ErabiltzaileKontrolatzailea
     participant DB as ErabiltzaileDB
-    participant KL as Modeloak
+    participant KL as Modeloa
 
     e->>I: LoginBotoia_Click(email, pasahitza)
     I->>K: erabiltzaileaObj = Login(email, pasahitza)

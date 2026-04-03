@@ -1,68 +1,71 @@
-<mxfile host="Electron">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6">
   <diagram id="d5" name="Page-1">
-    <mxGraphModel dx="1000" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850">
+    <mxGraphModel dx="946" dy="662" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
       <root>
-        <mxCell id="0"/>
-        <mxCell id="1" parent="0"/>
-        <mxCell id="L1" value="Medikua" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlActor;" vertex="1" parent="1">
-          <mxGeometry x="130" y="80" width="40" height="650" as="geometry"/>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlActor;" value="Medikua" vertex="1">
+          <mxGeometry height="650" width="40" x="130" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="L2" value="PazienteenZerrendaFormularioa" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
-          <mxGeometry x="300" y="80" width="100" height="650" as="geometry"/>
+        <mxCell id="L2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" value="INTERFAZEA&lt;div&gt;PazienteenZerrenda&lt;/div&gt;" vertex="1">
+          <mxGeometry height="650" width="100" x="300" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="L3" value="ErabiltzaileKontrolatzailea" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
-          <mxGeometry x="500" y="80" width="100" height="650" as="geometry"/>
+        <mxCell id="L3" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" value="KONTROLA&lt;div&gt;ErabiltzaileKontrolatzailea&lt;/div&gt;" vertex="1">
+          <mxGeometry height="650" width="150" x="500" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="L4" value="ErabiltzaileDB" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
-          <mxGeometry x="700" y="80" width="100" height="650" as="geometry"/>
+        <mxCell id="L4" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" value="DATU-BASEA&lt;div&gt;ErabiltzaileDB&lt;/div&gt;" vertex="1">
+          <mxGeometry height="650" width="100" x="700" y="80" as="geometry" />
         </mxCell>
-        
-        <mxCell id="E1" value="KargatuPazienteak()" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry"><mxPoint x="150" y="160" as="sourcePoint"/><mxPoint x="350" y="160" as="targetPoint"/></mxGeometry>
+        <mxCell id="L5" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" value="Modeloa" vertex="1">
+          <mxGeometry height="650" width="100" x="900" y="80" as="geometry" />
         </mxCell>
-        
-        <mxCell id="E2" value="LortuMedikuarenPazienteak(id, testua)" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry"><mxPoint x="350" y="210" as="sourcePoint"/><mxPoint x="550" y="210" as="targetPoint"/></mxGeometry>
-        </mxCell>
-        
-        <mxCell id="E_DB" value="LortuMedikuarenPazienteak(id, testua)" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry"><mxPoint x="550" y="270" as="sourcePoint"/><mxPoint x="750" y="270" as="targetPoint"/></mxGeometry>
-        </mxCell>
-
-        <mxCell id="Loop1" value="loop&#10;[i = 0 .. count(datuak)]" style="shape=umlFrame;whiteSpace=wrap;html=1;width=160;height=30;boundedLbl=1;verticalAlign=top;align=left;spacingLeft=5;" vertex="1" parent="1">
-          <mxGeometry x="460" y="310" width="320" height="150" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="E3" value="p = new Pazientea(datuak[i])" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry"><mxPoint x="550" y="350" as="sourcePoint"/><mxPoint x="750" y="350" as="targetPoint"/></mxGeometry>
-        </mxCell>
-        
-        <mxCell id="E4" value="p" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry"><mxPoint x="750" y="400" as="sourcePoint"/><mxPoint x="550" y="400" as="targetPoint"/></mxGeometry>
-        </mxCell>
-        
-        <mxCell id="E_ADD" value="z.add(p)" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=horizontal;rounded=0;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry"><mxPoint x="550" y="420" as="sourcePoint"/><mxPoint x="550" y="450" as="targetPoint"/>
-            <Array as="points">
-              <mxPoint x="580" y="435"/>
-            </Array>          
+        <mxCell id="E1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="btnPazienteak_Click()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="160" as="sourcePoint" />
+            <mxPoint x="350" y="160" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-
-        <mxCell id="E5" value="z (Paziente[] array-a)" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry"><mxPoint x="550" y="520" as="sourcePoint"/><mxPoint x="350" y="520" as="targetPoint"/></mxGeometry>
-        </mxCell>
-        
-        <mxCell id="E_GRID" value="txertatuDataGrid(z)" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=horizontal;rounded=0;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry"><mxPoint x="350" y="550" as="sourcePoint"/><mxPoint x="350" y="580" as="targetPoint"/>
-            <Array as="points">
-              <mxPoint x="380" y="565"/>
-            </Array>          
+        <mxCell id="E2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="LortuMedikuarenPazienteak(medikuId, bilatzailea)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="350" y="210" as="sourcePoint" />
+            <mxPoint x="550" y="210" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-
-        <mxCell id="E6" value="Gaurko listadoa erakutsi" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry"><mxPoint x="350" y="620" as="sourcePoint"/><mxPoint x="150" y="620" as="targetPoint"/></mxGeometry>
+        <mxCell id="E_DB" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="LortuMedikuarenPazienteak(medikuId, bilatzailea)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="550" y="270" as="sourcePoint" />
+            <mxPoint x="750" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="Mapaketa (Pazientea)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="750" y="320" as="sourcePoint" />
+            <mxPoint x="950" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" value="Objektu zerrenda">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="950" y="360" as="sourcePoint" />
+            <mxPoint x="750" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" value="List&lt;Pazientea&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="750" y="420" as="sourcePoint" />
+            <mxPoint x="550" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E_Ret" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" value="List&lt;Pazientea&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="550" y="480" as="sourcePoint" />
+            <mxPoint x="350" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;dashed=1;" value="dgvPazienteak.DataSource = lista">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="350" y="540" as="sourcePoint" />
+            <mxPoint x="150" y="540" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>

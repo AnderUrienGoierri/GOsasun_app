@@ -4,13 +4,13 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="L1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlActor;size=50;" value="Harrerakoa" vertex="1">
-          <mxGeometry height="660" width="40" x="130" y="70" as="geometry" />
+        <mxCell id="L1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlActor;" value="Harrerakoa" vertex="1">
+          <mxGeometry height="650" width="40" x="130" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="L2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;INTERFAZEA&lt;/span&gt;&lt;/div&gt;&lt;div&gt;ErabiltzaileaSortu&lt;/div&gt;" vertex="1">
+        <mxCell id="L2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" value="ErabiltzaileaSortu" vertex="1">
           <mxGeometry height="650" width="100" x="300" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="L3" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" value="KONTROLA&lt;div&gt;ErabiltzaileKontrolatzailea&lt;/div&gt;" vertex="1">
+        <mxCell id="L3" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" value="ErabiltzaileKontrolatzailea" vertex="1">
           <mxGeometry height="650" width="150" x="475" y="80" as="geometry" />
         </mxCell>
         <mxCell id="L4" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" value="ErabiltzaileDB" vertex="1">

@@ -4,20 +4,19 @@ Sistemako langile batek (normalean Harrerakoak) erabiltzaile berri bat sistema b
 
 ## Draw.io-n marrazteko elementuak (Zutabeak):
 *   **Aktorea:** Harrerakoa (edo Administradorea)
-*   **Muga / Interfazea:** ErabiltzaileKudeaketaFormularioa (Interfazea)
+*   **Muga / Interfazea:** ErabiltzaileaSortu (Interfazea)
 *   **Kontrola:** ErabiltzaileKontrolatzailea (Kontrola)
-*   **Datu-Basea:** ErabiltzaileDB (Datu-basea)
-*   **Klasea:** Pazientea / Medikua (Modeloak)
+*   **DatuBasea:** ErabiltzaileDB (DatuBasea)
+*   **Modeloa:** Pazientea / Medikua / HarrerakoLangilea (Modeloa)
 
 ## Urratsak (Geziak) Draw.io-n irudikatzeko:
-1.  **Harrerakoa -> Interfazea:** Bezeroaren/Medikuaren datu guztiak idazten ditu eta "Gorde" botoiari ematen dio. Gezi testua: `BtnGorde_Click()`
-2.  **Interfazea -> Kontrola:** Funtzioa deitzen da datuekin. Gezi testua: `SortuErabiltzailea(datuak)`
-3.  **Kontrola -> Datu-Basea:** Kontrolak SQL geruzari pasatzen dio agindua. Gezi testua: `GordeErabiltzailea(datuak)`
-4.  **Datu-Basea -> Klasea:** Datu-Baseak instantzia sortuko du (edo DBra zuzenean bidali). Gezi testua: `new Pazientea(datuak)`
-5.  **Klasea -> Datu-Basea** (Zatikakoa): `sortuta`
-6.  **Datu-Basea -> Kontrola** (Zatikakoa): `true / false` emaitza itzuli.
-7.  **Kontrola -> Interfazea** (Zatikakoa): Sorkuntzaren baieztapena. Testua: `onartuta`
-8.  **Interfazea -> Harrerakoa** (Zatikakoa): Erabiltzailea ondo txertatu den abisua. Testua: `MessageBox("Erabiltzailea ondo gorde da")`
+1.  **Harrerakoa -> Interfazea:** Datuak bete eta "Gorde" botoia sakatzen du. Gezi testua: `btnGorde_Click()`
+2.  **Interfazea -> Kontrola:** Kontrolatzaileari deitzen dio aukeratutako rolaren arabera. Gezi testua: `SortuPazientea(obj)`
+3.  **Kontrola -> DatuBasea:** SQL transakzio bat irekitzen da DBan. Gezi testua: `SortuPazientea(obj)`
+4.  **DatuBasea -> Modeloa:** Objektuaren datuak erabiliz SQL INSERT query-ak sortzen dira.
+5.  **DatuBasea -> Kontrola (Zatikakoa):** `true / false` emaitza itzuli (Transakzioa Commit/Rollback).
+6.  **Kontrola -> Interfazea (Zatikakoa):** Sorkuntza ondo joan den adierazi.
+7.  **Interfazea -> Harrerakoa (Zatikakoa):** Mezua pantailan. Testua: `MessageBox("Erabiltzailea ondo gorde da")`
 
 ---
 
@@ -26,21 +25,21 @@ Sistemako langile batek (normalean Harrerakoak) erabiltzaile berri bat sistema b
 ```mermaid
 sequenceDiagram
     participant H as Harrerakoa
-    participant I as ErabiltzaileKudeaketaFormularioa
+    participant I as ErabiltzaileaSortu
     participant K as ErabiltzaileKontrolatzailea
     participant DB as ErabiltzaileDB
-    participant KL as Modeloak
+    participant KL as Modeloa
 
-    H->>I: BtnGorde_Click(datuak)
-    I->>K: SortuErabiltzailea(datuak)
+    H->>I: btnGorde_Click()
+    I->>K: SortuPazientea(obj)
     
     alt datuak okerrak
-        K-->>I: Ebaluazio errorea
+        K-->>I: Ebaluazio errorea (validazioa)
         I-->>H: MessageBox("Datuak okerrak")
     else datuak ondo
-        K->>DB: GordeErabiltzailea(datuak)
-        DB->>KL: new Pazientea / Medikua
-        KL-->>DB: sortuta
+        K->>DB: SortuPazientea(obj)
+        DB->>KL: Datuen mapaketa
+        KL-->>DB: SQL Query prest
         DB-->>K: true (gordeta)
         K-->>I: prozesua amaituta
         I-->>H: MessageBox("Erabiltzailea sortuta")
