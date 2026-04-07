@@ -54,9 +54,9 @@ namespace GOsasun_app.Interfazea
             _pnlMainCard.Controls.Add(_dgvHistoriala);
             _pnlMainCard.Controls.Add(_btnInportatu);
             _pnlMainCard.Controls.Add(_btnUtzi);
-            _pnlMainCard.Location = new Point(350, 50);
+            _pnlMainCard.Location = new Point(177, 50);
             _pnlMainCard.Name = "_pnlMainCard";
-            _pnlMainCard.Size = new Size(1200, 1234);
+            _pnlMainCard.Size = new Size(1591, 1234);
             _pnlMainCard.TabIndex = 0;
             _pnlMainCard.Paint += _pnlMainCard_Paint;
             // 
@@ -105,7 +105,7 @@ namespace GOsasun_app.Interfazea
             _dgvPazienteak.RowHeadersWidth = 82;
             _dgvPazienteak.RowTemplate.Height = 50;
             _dgvPazienteak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            _dgvPazienteak.Size = new Size(1100, 180);
+            _dgvPazienteak.Size = new Size(1486, 180);
             _dgvPazienteak.TabIndex = 3;
             // 
             // _lblHistoriala
@@ -134,7 +134,7 @@ namespace GOsasun_app.Interfazea
             _dgvHistoriala.RowHeadersWidth = 82;
             _dgvHistoriala.RowTemplate.Height = 50;
             _dgvHistoriala.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            _dgvHistoriala.Size = new Size(1100, 320);
+            _dgvHistoriala.Size = new Size(1486, 320);
             _dgvHistoriala.TabIndex = 7;
             _dgvHistoriala.Visible = false;
             // 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using GOsasun_app.Modeloa;
@@ -11,7 +11,7 @@ namespace GOsasun_app.DatuBasea
         {
             return new Hitzordua
             {
-                HitzorduId = reader.GetInt32("hitzordu_id"),
+                HitzorduId = reader.GetInt32("id"),
                 PazienteId = reader.GetInt32("paziente_id"),
                 MedikuId = reader.GetInt32("mediku_id"),
                 Data = reader.GetDateTime("data"),
@@ -127,7 +127,7 @@ namespace GOsasun_app.DatuBasea
             {
                 string query = @"UPDATE hitzorduak SET paziente_id=@pid, mediku_id=@mid, data=@data, 
                                         hasiera_ordua=@has, bukaera_ordua=@buk, arrazoia=@arr, egoera=@ego 
-                                 WHERE hitzordu_id=@id";
+                                 WHERE id=@id";
                 using (var cmd = new MySqlCommand(query, kon))
                 {
                     cmd.Parameters.AddWithValue("@pid", h.PazienteId);
@@ -147,7 +147,7 @@ namespace GOsasun_app.DatuBasea
         {
             using (var kon = DatuBaseKonexioa.LortuKonexioa())
             {
-                string query = "DELETE FROM hitzorduak WHERE hitzordu_id = @id";
+                string query = "DELETE FROM hitzorduak WHERE id = @id";
                 using (var cmd = new MySqlCommand(query, kon))
                 {
                     cmd.Parameters.AddWithValue("@id", hitzorduId);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using GOsasun_app.Modeloa;
@@ -14,7 +14,7 @@ namespace GOsasun_app.DatuBasea
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
                 string query = @"
-                    SELECT neurketa_id, paziente_id, tentsio_sistolikoa, 
+                    SELECT id, paziente_id, tentsio_sistolikoa, 
                            tentsio_diastolikoa, pisua_kg, altuera, pultsua_ppm, sintomak, erregistro_data
                     FROM neurketak
                     WHERE paziente_id = @pazienteId
@@ -30,7 +30,7 @@ namespace GOsasun_app.DatuBasea
                         {
                             neurketak.Add(new Neurketa
                             {
-                                NeurketaId = irakurlea.GetInt32("neurketa_id"),
+                                NeurketaId = irakurlea.GetInt32("id"),
                                 PazienteId = irakurlea.GetInt32("paziente_id"),
                                 TentsioSistolikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("tentsio_sistolikoa")) ? (int?)null : irakurlea.GetInt32("tentsio_sistolikoa"),
                                 TentsioDiastolikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("tentsio_diastolikoa")) ? (int?)null : irakurlea.GetInt32("tentsio_diastolikoa"),

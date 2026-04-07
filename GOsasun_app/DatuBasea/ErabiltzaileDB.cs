@@ -12,16 +12,16 @@ namespace GOsasun_app.DatuBasea
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
                 string query = @"
-                    SELECT e.erabiltzaile_id,
+                    SELECT e.id,
                             COALESCE(m.izena, p.izena, h.izena) as izena,
                             COALESCE(m.abizenak, p.abizenak, h.abizenak) as abizena,
                             e.email,
                             r.izena as rol_izena
-                    FROM Erabiltzaileak e
-                    JOIN Rolak r ON e.rol_id = r.rol_id
-                    LEFT JOIN Medikuak m ON e.erabiltzaile_id = m.mediku_id
-                    LEFT JOIN Pazienteak p ON e.erabiltzaile_id = p.paziente_id
-                    LEFT JOIN Harrerako_Langileak h ON e.erabiltzaile_id = h.langile_id
+                    FROM erabiltzaileak e
+                    JOIN rolak r ON e.rol_id = r.id
+                    LEFT JOIN medikuak m ON e.id = m.id
+                    LEFT JOIN pazienteak p ON e.id = p.id
+                    LEFT JOIN harrerako_Langileak h ON e.id = h.id
                     WHERE e.email = @emaila
                     AND e.pasahitza = @pasahitza
                     AND e.aktibo = 1";
@@ -35,18 +35,18 @@ namespace GOsasun_app.DatuBasea
                     {
                         if (irakurlea.Read())
                         {
-                            int id = irakurlea.GetInt32("erabiltzaile_id");
+                            int id = irakurlea.GetInt32("id");
                             string izena = irakurlea.IsDBNull(irakurlea.GetOrdinal("izena")) ? "Erabiltzailea" : irakurlea.GetString("izena");
                             string abizena = irakurlea.IsDBNull(irakurlea.GetOrdinal("abizena")) ? "" : irakurlea.GetString("abizena");
                             string email = irakurlea.GetString("email");
                             string rolIzena = irakurlea.GetString("rol_izena");
 
                             if (rolIzena.Equals("Pazientea", StringComparison.OrdinalIgnoreCase))
-                                return new Pazientea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 3 };
+                                return new Pazientea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 2 };
                             else if (rolIzena.Equals("Medikua", StringComparison.OrdinalIgnoreCase))
-                                return new Medikua { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 2 };
+                                return new Medikua { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 1 };
                             else
-                                return new HarrerakoLangilea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 4 };
+                                return new HarrerakoLangilea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 3 };
                         }
                     }
                 }
@@ -61,12 +61,12 @@ namespace GOsasun_app.DatuBasea
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
                 string query = @"
-                    SELECT e.erabiltzaile_id, e.email, e.pasahitza, e.rol_id, e.aktibo, e.sortze_data,
+                    SELECT e.id, e.email, e.pasahitza, e.rol_id, e.aktibo, e.sortze_data,
                             p.nan, p.izena, p.abizenak, p.jaiotze_data, p.telefonoa, p.odol_taldea,
                             p.azken_altuera, p.azken_pisua, p.egoera_klinikoa, p.irudia
                     FROM mediku_Paziente mp
-                    JOIN pazienteak p ON mp.paziente_id = p.paziente_id
-                    JOIN erabiltzaileak e ON p.paziente_id = e.erabiltzaile_id
+                    JOIN pazienteak p ON mp.paziente_id = p.id
+                    JOIN erabiltzaileak e ON p.id = e.id
                     WHERE mp.mediku_id = @medikuId";
 
                 if (!string.IsNullOrEmpty(bilatzailea))
@@ -88,7 +88,7 @@ namespace GOsasun_app.DatuBasea
                         {
                             pazienteak.Add(new Pazientea
                             {
-                                Id = irakurlea.GetInt32("erabiltzaile_id"),
+                                Id = irakurlea.GetInt32("id"),
                                 Emaila = irakurlea.GetString("email"),
                                 Pasahitza = irakurlea.GetString("pasahitza"),
                                 RolId = irakurlea.GetInt32("rol_id"),
@@ -117,11 +117,11 @@ namespace GOsasun_app.DatuBasea
             List<Pazientea> pazienteak = new List<Pazientea>();
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
-                string query = @"SELECT e.erabiltzaile_id, e.email, e.pasahitza, e.rol_id, e.aktibo, e.sortze_data,
+                string query = @"SELECT e.id, e.email, e.pasahitza, e.rol_id, e.aktibo, e.sortze_data,
                                         p.nan, p.izena, p.abizenak, p.jaiotze_data, p.telefonoa, p.odol_taldea,
                                         p.azken_altuera, p.azken_pisua, p.egoera_klinikoa, p.irudia
                                  FROM pazienteak p
-                                 JOIN erabiltzaileak e ON p.paziente_id = e.erabiltzaile_id";
+                                 JOIN erabiltzaileak e ON p.id = e.id";
                 using (var komandoa = new MySqlCommand(query, konexioa))
                 using (var irakurlea = komandoa.ExecuteReader())
                 {
@@ -129,7 +129,7 @@ namespace GOsasun_app.DatuBasea
                     {
                         pazienteak.Add(new Pazientea
                         {
-                            Id = irakurlea.GetInt32("erabiltzaile_id"),
+                            Id = irakurlea.GetInt32("id"),
                             Emaila = irakurlea.GetString("email"),
                             Izena = irakurlea.GetString("izena"),
                             Abizenak = irakurlea.GetString("abizenak"),
@@ -146,9 +146,9 @@ namespace GOsasun_app.DatuBasea
             List<Medikua> medikuak = new List<Medikua>();
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
-                string query = @"SELECT e.erabiltzaile_id, e.email, m.izena, m.abizenak
+                string query = @"SELECT e.id, e.email, m.izena, m.abizenak
                                  FROM medikuak m
-                                 JOIN erabiltzaileak e ON m.mediku_id = e.erabiltzaile_id";
+                                 JOIN erabiltzaileak e ON m.id = e.id";
                 using (var komandoa = new MySqlCommand(query, konexioa))
                 using (var irakurlea = komandoa.ExecuteReader())
                 {
@@ -156,7 +156,7 @@ namespace GOsasun_app.DatuBasea
                     {
                         medikuak.Add(new Medikua
                         {
-                            Id = irakurlea.GetInt32("erabiltzaile_id"),
+                            Id = irakurlea.GetInt32("id"),
                             Emaila = irakurlea.GetString("email"),
                             Izena = irakurlea.GetString("izena"),
                             Abizenak = irakurlea.GetString("abizenak")
@@ -172,9 +172,9 @@ namespace GOsasun_app.DatuBasea
             List<HarrerakoLangilea> harrerakoak = new List<HarrerakoLangilea>();
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
-                string query = @"SELECT e.erabiltzaile_id, e.email, h.izena, h.abizenak
-                                 FROM harrerako_langileak h
-                                 JOIN erabiltzaileak e ON h.langile_id = e.erabiltzaile_id";
+                string query = @"SELECT e.id, e.email, h.izena, h.abizenak
+                                 FROM harrerako_Langileak h
+                                 JOIN erabiltzaileak e ON h.id = e.id";
                 using (var komandoa = new MySqlCommand(query, konexioa))
                 using (var irakurlea = komandoa.ExecuteReader())
                 {
@@ -182,7 +182,7 @@ namespace GOsasun_app.DatuBasea
                     {
                         harrerakoak.Add(new HarrerakoLangilea
                         {
-                            Id = irakurlea.GetInt32("erabiltzaile_id"),
+                            Id = irakurlea.GetInt32("id"),
                             Emaila = irakurlea.GetString("email"),
                             Izena = irakurlea.GetString("izena"),
                             Abizenak = irakurlea.GetString("abizenak")
@@ -200,7 +200,7 @@ namespace GOsasun_app.DatuBasea
             {
                 try
                 {
-                    string q1 = "INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza) VALUES (@email, @pass, 3, 1, @hizkuntza); SELECT LAST_INSERT_ID();";
+                    string q1 = "INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza) VALUES (@email, @pass, 2, 1, @hizkuntza); SELECT LAST_INSERT_ID();";
                     using (var cmd1 = new MySqlCommand(q1, konexioa, transakzioa))
                     {
                         cmd1.Parameters.AddWithValue("@email", p.Emaila);
@@ -209,7 +209,7 @@ namespace GOsasun_app.DatuBasea
                         int newId = Convert.ToInt32(cmd1.ExecuteScalar());
 
                         string q2 = @"INSERT INTO pazienteak 
-                                    (paziente_id, nan, izena, abizenak, sexua, jaiotze_data, telefonoa, helbidea, herria, posta_kodea, egoera_klinikoa, irudia) 
+                                    (id, nan, izena, abizenak, sexua, jaiotze_data, telefonoa, helbidea, herria, posta_kodea, egoera_klinikoa, irudia) 
                                     VALUES (@id, @nan, @izena, @abizenak, @sexua, @jaiotze, @telefonoa, @helbidea, @herria, @posta, 'Alta', 'img/lehenetsia_pazientea.png')";
                         using (var cmd2 = new MySqlCommand(q2, konexioa, transakzioa))
                         {
@@ -245,7 +245,7 @@ namespace GOsasun_app.DatuBasea
             {
                 try
                 {
-                    string q1 = "INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza) VALUES (@email, @pass, 2, 1, @hizkuntza); SELECT LAST_INSERT_ID();";
+                    string q1 = "INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza) VALUES (@email, @pass, 1, 1, @hizkuntza); SELECT LAST_INSERT_ID();";
                     using (var cmd1 = new MySqlCommand(q1, konexioa, transakzioa))
                     {
                         cmd1.Parameters.AddWithValue("@email", m.Emaila);
@@ -254,7 +254,7 @@ namespace GOsasun_app.DatuBasea
                         int newId = Convert.ToInt32(cmd1.ExecuteScalar());
 
                         string q2 = @"INSERT INTO medikuak 
-                                    (mediku_id, izena, abizenak, jaiotze_data, elkargokide_zenbakia, espezialitatea, kontsulta, lanaldia, telefonoa, irudia) 
+                                    (id, izena, abizenak, jaiotze_data, elkargokide_zenbakia, espezialitatea, kontsulta, lanaldia, telefonoa, irudia) 
                                     VALUES (@id, @izena, @abizenak, @jaiotze, @elkargokide, @espezialitatea, @kontsulta, @lanaldia, @telefonoa, 'img/lehenetsia_medikua.png')";
                         using (var cmd2 = new MySqlCommand(q2, konexioa, transakzioa))
                         {
@@ -289,7 +289,7 @@ namespace GOsasun_app.DatuBasea
             {
                 try
                 {
-                    string q1 = "INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza) VALUES (@email, @pass, 4, 1, @hizkuntza); SELECT LAST_INSERT_ID();";
+                    string q1 = "INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza) VALUES (@email, @pass, 3, 1, @hizkuntza); SELECT LAST_INSERT_ID();";
                     using (var cmd1 = new MySqlCommand(q1, konexioa, transakzioa))
                     {
                         cmd1.Parameters.AddWithValue("@email", h.Emaila);
@@ -297,8 +297,8 @@ namespace GOsasun_app.DatuBasea
                         cmd1.Parameters.AddWithValue("@hizkuntza", h.Hizkuntza);
                         int newId = Convert.ToInt32(cmd1.ExecuteScalar());
 
-                        string q2 = @"INSERT INTO harrerako_langileak 
-                                    (langile_id, izena, abizenak, txanda, jaiotze_data, telefonoa) 
+                        string q2 = @"INSERT INTO harrerako_Langileak 
+                                    (id, izena, abizenak, txanda, jaiotze_data, telefonoa) 
                                     VALUES (@id, @izena, @abizenak, @txanda, @jaiotze, @telefonoa)";
                         using (var cmd2 = new MySqlCommand(q2, konexioa, transakzioa))
                         {
