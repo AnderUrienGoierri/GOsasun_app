@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Ports;
@@ -15,8 +15,17 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
 {
     /// <summary>
     /// Beurer BM58 tentsiometroarekin USB bidez komunikatzeko zerbitzua.
-    /// curzon01/bm58 Python inplementazioan oinarritua, Serie eta HID euskarriarekin.
     /// </summary>
+    public class BM58RawRecord
+    {
+        public byte[] Data { get; set; }
+        public int Index { get; set; }
+        public int UserId { get; set; } // 1 edo 2
+
+        public bool IsU1 => UserId == 1;
+        public bool IsU2 => UserId == 2;
+    }
+
     public class BM58Driver
     {
         private const int BaudRate = 4800;
@@ -171,8 +180,9 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
                 byte[] payload = new byte[8];
                 if (Mode == ProtocolMode.MicrodiaTunnel)
                 {
-                    // Tunnel Packets (Sonix): [ID=0x07, Length, Data0, Data1, ...]
-                    if (buffer[0] == 0x07 && n >= 3) {
+                    // Tunnel Packets (Sonix/Microdia): [ID=0x07/0x08, Length/ID, Data0, Data1, ...]
+                    // In some Beurer versions, it's [08, 08, Sys, Dia...]
+                    if ((buffer[0] == 0x07 || buffer[0] == 0x08) && n >= 3) {
                         Array.Copy(buffer, 2, payload, 0, Math.Min(n - 2, 8));
                     } else {
                         Array.Copy(buffer, 1, payload, 0, Math.Min(n - 1, 8));
@@ -252,177 +262,163 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
             return null;
         }
 
-        /// <summary>
-        /// Neurriak irakurtzen ditu, aukeratutako kanalaren arabera.
-        /// </summary>
-        public Neurketa IrakurriAzkenNeurria(string identifier, bool isHid, int pazienteId)
+        public List<BM58RawRecord> IrakurriErrekordGuztiak(string identifier, bool isHid)
         {
+            var records = new List<BM58RawRecord>();
             IChannel? channel = null;
             try
             {
-                if (isHid)
-                {
-                    var device = DeviceList.Local.GetHidDevices(Beurer_VID, Beurer_PID).FirstOrDefault();
-                    if (device == null) throw new Exception("HID gailua deskonektatu da.");
-                    channel = new HidChannel(device);
-                }
-                else
-                {
-                    channel = new SerialChannel(identifier);
-                }
+                channel = KonektatuGailura(identifier, isHid);
+                channel.Write(new byte[] { 0xA4 }); // Init
+                Thread.Sleep(200);
 
-                HidChannel? hid = channel as HidChannel;
-                if (hid == null) throw new Exception("HID ez dago erabilgarri.");
+                // FASE 1: USER 1 (0xA6 + 0-59 indizeak)
+                IrakurriBankua(channel, records, 1, 0xA6);
 
+                // FASE 2: USER 2 (0xA7 + 0-59 indizeak)
+                IrakurriBankua(channel, records, 2, 0xA7);
+
+                channel.Write(new byte[] { 0xA5 }); // End
+                return records;
+            }
+            finally { channel?.Dispose(); }
+        }
+
+        private void IrakurriBankua(IChannel channel, List<BM58RawRecord> records, int userId, byte cmd)
+        {
+            // FASE 2 bada (U2), seguruagoa da lehenik Ending eta Re-Init egitea bankua aldatzeko
+            if (userId == 2) {
+                try { 
+                    channel.Write(new byte[] { 0xA5 }); Thread.Sleep(300);
+                    channel.Write(new byte[] { 0xA4 }); Thread.Sleep(300);
+                } catch { }
+            }
+
+            try { 
+                channel.Write(new byte[] { cmd }); 
+                Thread.Sleep(800); // Itxaronaldi luzeagoa banku aldaketarentzat
+                channel.DiscardInBuffer();
+            } catch { }
+
+            byte[] lastData = null;
+            int hutsikJarraian = 0;
+
+            for (int idx = 0; idx < 60; idx++)
+            {
+                if (hutsikJarraian >= 8) break; 
+
+                bool aurkitua = false;
+                for (int saialdia = 0; saialdia < 3; saialdia++) 
+                {
+                    try {
+                        channel.Write(new byte[] { 0xA3, (byte)idx });
+                        Thread.Sleep(70); 
+                        byte[] data = channel.ReadPayload();
+
+                        if (data != null && data.Length >= 8) {
+                            // U2 bita (0x80) data batean etortzen da bankua bereizteko.
+                            // BM58 "Andon" barne-modeloak data[4] (hilabetea) erabiltzen du. Batzuek data[3] (urtea).
+                            bool isU2Month = (data[4] & 0x80) != 0;
+                            bool isU2Year = (data[3] & 0x80) != 0;
+                            bool trueU2Bit = isU2Month || isU2Year;
+
+                            int benetakoHila = data[4] & 0x7F; // 0x80 bita ezabatu hilabete erreala jakiteko
+                            
+                            bool datuaOn = (data[0] > 10 && data[0] < 250); 
+                            bool hilaOn = (benetakoHila >= 1 && benetakoHila <= 12);
+                            bool egunaOn = (data[5] >= 1 && data[5] <= 31);
+
+                            if (datuaOn && hilaOn && egunaOn) {
+                                bool isConsecutiveDuplicate = lastData != null && data.SequenceEqual(lastData);
+                                bool alreadyExists = records.Any(r => r.Data.SequenceEqual(data)); // Bankua aldatzean huts egin badu U1 berriro ez irakurtzeko
+                                
+                                if (!isConsecutiveDuplicate && !alreadyExists) {
+                                    // Gailuak tentsio guztiak irakurtzen ditu segidan banku bakoitzetik, errealitatea isU2Bit da.
+                                    int benetakoUserId = trueU2Bit ? 2 : 1; 
+                                    
+                                    Debug.WriteLine($"[BM58] Baliozkoa - Jatorrizko U{userId} -> Benetako U{benetakoUserId} Index: {idx} Data: {BitConverter.ToString(data)}");
+                                    records.Add(new BM58RawRecord { Data = data, Index = idx, UserId = benetakoUserId });
+                                    lastData = data;
+                                    aurkitua = true;
+                                    hutsikJarraian = 0;
+                                }
+                            }
+                            break; // Adaptive Retry
+                        }
+                    } catch { }
+                }
+                if (!aurkitua) {
+                    hutsikJarraian++;
+                }
+            }
+        }
+
+        public Neurketa? KalkulatuBatezbestekoa(List<BM58RawRecord> records, int pazienteId, int memoria)
+        {
+            if (records == null || records.Count == 0) return null;
+            long sSisi = 0, sDia = 0, sPul = 0;
+            int count = 0;
+            bool filterU2 = (memoria == 2);
+
+            foreach (var r in records)
+            {
+                if ((filterU2 ? r.IsU2 : r.IsU1))
+                {
+                    int si = r.Data[0] + 25, di = r.Data[1] + 25, pu = r.Data[2];
+                    if (si > 0 && si < 400 && di > 0 && di < 400) {
+                        sSisi += si; sDia += di; sPul += pu; count++;
+                    }
+                }
+            }
+
+            if (count == 0) throw new Exception($"Ez da U{memoria} memoriako neurketarik aurkitu (indizeetan oinarrituta).");
+
+            return new Neurketa {
+                PazienteId = pazienteId,
+                TentsioSistolikoa = (int)Math.Round((double)sSisi / count),
+                TentsioDiastolikoa = (int)Math.Round((double)sDia / count),
+                PultsuaPpm = (int)Math.Round((double)sPul / count),
+                ErregistroData = DateTime.Now,
+                Sintomak = $"U{memoria} Batezbestekoa (A) - {count} neurketa (Indize blokea)."
+            };
+        }
+
+        public class MemoriaInformazioa { public int U1Kopurua, U2Kopurua, Denetara; }
+        public MemoriaInformazioa AnalizatuErrekordak(List<BM58RawRecord> records)
+        {
+            var info = new MemoriaInformazioa { Denetara = records.Count };
+            foreach (var r in records) { if (r.UserId == 2) info.U2Kopurua++; else info.U1Kopurua++; }
+            return info;
+        }
+
+        private IChannel KonektatuGailura(string identifier, bool isHid)
+        {
+            if (isHid)
+            {
+                var device = DeviceList.Local.GetHidDevices(Beurer_VID, Beurer_PID).FirstOrDefault();
+                if (device == null) throw new Exception("HID gailua ez da aurkitu.");
+                var hid = new HidChannel(device);
                 hid.ConfigureBaudRate();
-                Thread.Sleep(1000); 
+                Thread.Sleep(500);
 
-                // 2. Handshake Nagusia - BRUTE FORCE AURKIKUNTZA
+                // Handshake
                 bool ok = false;
-                var modesToTry = new[] { 
-                    HidChannel.ProtocolMode.MicrodiaTunnel, 
-                    HidChannel.ProtocolMode.ReportId8Raw,
-                    HidChannel.ProtocolMode.ReportId0,
-                    HidChannel.ProtocolMode.Raw 
-                };
-
-                Debug.WriteLine("[BM58] Brute force handshake hasaten...");
-
-                foreach (var mode in modesToTry)
+                foreach (var mode in new[] { HidChannel.ProtocolMode.MicrodiaTunnel, HidChannel.ProtocolMode.ReportId8Raw, HidChannel.ProtocolMode.ReportId0, HidChannel.ProtocolMode.Raw })
                 {
                     hid.Mode = mode;
-                    Debug.WriteLine($"[BM58] Saiatzen Mode: {mode} (Padded Handshake)...");
-
-                    for (int i = 0; i < 6; i++) 
-                    {
-                        channel.DiscardInBuffer();
-                        channel.Write(new byte[] { 0xAA }); // Shake Signal
-                        Thread.Sleep(200); 
-                        
-                        try {
-                            byte resp = channel.ReadByte();
-                            if (resp == 0x55) { 
-                                Debug.WriteLine($"[BM58] SHAKE SUCCESS! Mode: {mode}");
-                                
-                                // ID Confirmations (0xA4) are critical to clear the PC Busy state
-                                // Logs show 4 identification parts are requested
-                                Debug.WriteLine("[BM58] ID Confirmations (4 attempts) bidaltzen...");
-                                for (int j = 0; j < 4; j++) {
-                                    channel.Write(new byte[] { 0xA4 });
-                                    Thread.Sleep(150);
-                                    try { channel.ReadPayload(); } catch { } // Kontsumitu ID zati osoa
-                                }
-
-                                ok = true; 
-                                break; 
-                            }
-                        } catch { }
-                        Thread.Sleep(300);
+                    for (int i = 0; i < 3; i++) {
+                        hid.Write(new byte[] { 0xAA });
+                        Thread.Sleep(200);
+                        try { if (hid.ReadByte() == 0x55) { ok = true; break; } } catch { }
                     }
                     if (ok) break;
                 }
-                if (!ok) throw new Exception("Gailua ez dago prest (Handshake errorea: PC Er ekiditeko ziurtatu pantailan 'PC' agertzen dela).");
-
-                // 2. Errekor kopurua (A2)
-                Debug.WriteLine("[BM58] Errekor kopurua eskatzen (0xA2)...");
-                channel.Write(new byte[] { 0xA2 });
-                Thread.Sleep(100);
-                int count = channel.ReadByte();
-                Debug.WriteLine($"[BM58] Errekor kopurua: {count}");
-                if (count <= 0) throw new Exception("Ez dago neurketarik gailuan (Record count <= 0).");
-
-                // 3. Irakurri azken errekorra (A3 + index)
-                Debug.WriteLine($"[BM58] Azken errekorra irakurtzen (0xA3 {count:X2})...");
-                channel.Write(new byte[] { 0xA3, (byte)count });
-                Thread.Sleep(200);
-                
-                // GARRANTZITSUA: Irakurri byte guztiak REPORT BAKARREAN (HID atomic read)
-                byte[] data = channel.ReadPayload();
-                Debug.WriteLine($"[BM58] Errecords-eko datu esanguratsuak: {BitConverter.ToString(data)}");
-
-                // Check finalization
-                try {
-                    channel.Write(new byte[] { 0xA5 }); // End Communication sig
-                    Thread.Sleep(50);
-                    channel.ReadPayload();
-                } catch { }
-
-                // Beurer data starts with 0xAC or similar in some cases, but official logs show 
-                // formatted records. We'll use the mapping from the logger.
-
-                // Itzuli Neurketa objektu berria (OBP logika)
-                // Irakurritako datuen mapping-a (Logs-etan oinarritua):
-                // 56 2b 41 01 02 0b 34 08 -> 1. errekorra
-                // Byte-en esanahia (0-indizea):
-                // 0: Sistole-25 (e.g., 0x56 = 86 + 25 = 111)
-                // 1: Diastole-25 (e.g., 0x2b = 43 + 25 = 68)
-                // 2: Pultsua (e.g., 0x41 = 65)
-                // 3: Hilabetea (0x01 = Jan)
-                // 4: Eguna (0x02 = 2nd)
-                // 5: Ordua (0x0b = 11)
-                // 6: Minutua (0x34 = 52)
-                // 7: Urtea (0x08 = 2008?)
-                
-                DateTime azkenData;
-                try
-                {
-                    azkenData = new DateTime(2000 + data[7], data[3], data[4], data[5], data[6], 0);
-                }
-                catch
-                {
-                    azkenData = DateTime.Now; // Tentsiometroko erlojuak balio okerrak bidaliz gero, uneko data jarriko da
-                }
-
-                return new Neurketa
-                {
-                    PazienteId = pazienteId,
-                    TentsioSistolikoa = data[0] + 25,
-                    TentsioDiastolikoa = data[1] + 25,
-                    PultsuaPpm = data[2],
-                    ErregistroData = azkenData,
-                    Sintomak = "" 
-                };
+                if (!ok) throw new Exception("Handshake-ak huts egin du.");
+                return hid;
             }
-            finally
-            {
-                channel?.Dispose();
-            }
+            return new SerialChannel(identifier);
         }
 
-        public void GordeXML(Neurketa neurria)
-        {
-            // Erabiltzaileak eskatutako formatu zehatza txantiloiaren arabera
-            XDocument doc = new XDocument(
-                new XDeclaration("1.0", "utf-8", "yes"),
-                new XElement("Neurketak",
-                    new XElement("Neurketa",
-                        new XElement("erregistro_data", neurria.ErregistroData.ToString("yyyy-MM-dd HH:mm:ss")),
-                        new XElement("paziente_id", neurria.PazienteId),
-                        new XElement("altuera", ""),
-                        new XElement("pisua", ""),
-                        new XElement("tentsio_sistolikoa", neurria.TentsioSistolikoa),
-                        new XElement("tentsio_diastolikoa", neurria.TentsioDiastolikoa),
-                        new XElement("pultsua_ppm", neurria.PultsuaPpm)
-                    )
-                )
-            );
 
-            // Fitxategi izen dinamikoa
-            string fitxategiIzena = $"TENS_{neurria.ErregistroData:yyyy-MM-dd_HH-mm-ss}.xml";
-
-            // 1. Proiektuko backup karpeta
-            string proiektuBidea = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "xml");
-            if (!Directory.Exists(proiektuBidea)) Directory.CreateDirectory(proiektuBidea);
-            doc.Save(Path.Combine(proiektuBidea, fitxategiIzena));
-
-            // 2. Apache karpeta (Aplication Interface)
-            string apacheBidea = @"C:\Apache24-64\htdocs\neurketak";
-            try
-            {
-                if (!Directory.Exists(apacheBidea)) Directory.CreateDirectory(apacheBidea);
-                doc.Save(Path.Combine(apacheBidea, fitxategiIzena));
-            }
-            catch { }
-        }
     }
 }
