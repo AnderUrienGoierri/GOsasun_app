@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -164,6 +164,7 @@ namespace GOsasun_app.Interfazea
 
                 if (_neurketaKontrolatzailea.GordeNeurketa(berria))
                 {
+                    _neurketaKontrolatzailea.EsportatuXML(berria);
                     MessageBox.Show("Neurketa ondo gorde da.", "Kuztiz ondo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     KargatuPazientearenHistoriala(_hautatutakoPazientea.Id);
                 }
