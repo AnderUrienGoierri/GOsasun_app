@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 
 namespace GOsasun_app.Modeloa
 {
@@ -17,6 +18,12 @@ namespace GOsasun_app.Modeloa
         public string? XmlBidea { get; set; }
         public string? Diagnostikoa { get; set; }
         public bool Aktibo { get; set; } = true;
+        public List<ErrezetaBotika> Botikak { get; set; } = new List<ErrezetaBotika>();
+        
+        // UI-rako eta Bilaketetarako ezaugarri gehigarriak
+        public string? PazienteIzenOsoa { get; set; }
+        public string? PazienteNan { get; set; }
+        public DateTime? HitzorduData { get; set; }
 
         public Errezeta() { }
 

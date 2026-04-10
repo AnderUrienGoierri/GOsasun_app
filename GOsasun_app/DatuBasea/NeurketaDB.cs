@@ -14,8 +14,8 @@ namespace GOsasun_app.DatuBasea
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
                 string query = @"
-                    SELECT id, paziente_id, tentsio_sistolikoa, 
-                           tentsio_diastolikoa, pisua_kg, altuera, pultsua_ppm, sintomak, erregistro_data
+                    SELECT id, paziente_id, tentsio_sistolikoa,
+                            tentsio_diastolikoa, pisua_kg, altuera, pultsua_ppm, sintomak, erregistro_data
                     FROM neurketak
                     WHERE paziente_id = @pazienteId
                     ORDER BY erregistro_data DESC";
@@ -54,9 +54,9 @@ namespace GOsasun_app.DatuBasea
                 using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
                 {
                     string query = @"
-                        INSERT INTO neurketak (paziente_id, tentsio_sistolikoa, 
-                                             tentsio_diastolikoa, pisua_kg, altuera, pultsua_ppm, sintomak, erregistro_data)
-                        VALUES (@pazienteId, @tentsioSistolikoa, 
+                        INSERT INTO neurketak (paziente_id, tentsio_sistolikoa,
+                                                tentsio_diastolikoa, pisua_kg, altuera, pultsua_ppm, sintomak, erregistro_data)
+                        VALUES (@pazienteId, @tentsioSistolikoa,
                                 @tentsioDiastolikoa, @pisuaKg, @altuera, @pultsuaPpm, @sintomak, @erregistroData)";
 
                     using (var komandoa = new MySqlCommand(query, konexioa))

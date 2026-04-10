@@ -34,11 +34,11 @@ namespace GOsasun_app.DatuBasea
             {
                 string query = @"
                     SELECT h.*, 
-                           p.izena as p_izena, p.abizenak as p_abizena,
-                           m.izena as m_izena, m.abizenak as m_abizena
+                            p.izena as p_izena, p.abizenak as p_abizena,
+                            m.izena as m_izena, m.abizenak as m_abizena
                     FROM hitzorduak h
-                    JOIN pazienteak p ON h.paziente_id = p.paziente_id
-                    JOIN medikuak m ON h.mediku_id = m.mediku_id
+                    JOIN pazienteak p ON h.paziente_id = p.id
+                    JOIN medikuak m ON h.mediku_id = m.id
                     ORDER BY h.data DESC, h.hasiera_ordua DESC";
                 using (var cmd = new MySqlCommand(query, kon))
                 using (var reader = cmd.ExecuteReader())
@@ -56,11 +56,11 @@ namespace GOsasun_app.DatuBasea
             {
                 string query = @"
                     SELECT h.*, 
-                           p.izena as p_izena, p.abizenak as p_abizena,
-                           m.izena as m_izena, m.abizenak as m_abizena
+                            p.izena as p_izena, p.abizenak as p_abizena,
+                            m.izena as m_izena, m.abizenak as m_abizena
                     FROM hitzorduak h
-                    JOIN pazienteak p ON h.paziente_id = p.paziente_id
-                    JOIN medikuak m ON h.mediku_id = m.mediku_id
+                    JOIN pazienteak p ON h.paziente_id = p.id
+                    JOIN medikuak m ON h.mediku_id = m.id
                     WHERE h.paziente_id = @id
                     ORDER BY h.data DESC, h.hasiera_ordua DESC";
                 using (var cmd = new MySqlCommand(query, kon))
@@ -82,11 +82,11 @@ namespace GOsasun_app.DatuBasea
             {
                 string query = @"
                     SELECT h.*, 
-                           p.izena as p_izena, p.abizenak as p_abizena,
-                           m.izena as m_izena, m.abizenak as m_abizena
+                            p.izena as p_izena, p.abizenak as p_abizena,
+                            m.izena as m_izena, m.abizenak as m_abizena
                     FROM hitzorduak h
-                    JOIN pazienteak p ON h.paziente_id = p.paziente_id
-                    JOIN medikuak m ON h.mediku_id = m.mediku_id
+                    JOIN pazienteak p ON h.paziente_id = p.id
+                    JOIN medikuak m ON h.mediku_id = m.id
                     WHERE h.mediku_id = @id
                     ORDER BY h.data DESC, h.hasiera_ordua DESC";
                 using (var cmd = new MySqlCommand(query, kon))
@@ -106,7 +106,7 @@ namespace GOsasun_app.DatuBasea
             using (var kon = DatuBaseKonexioa.LortuKonexioa())
             {
                 string query = @"INSERT INTO hitzorduak (paziente_id, mediku_id, data, hasiera_ordua, bukaera_ordua, arrazoia, egoera) 
-                                 VALUES (@pid, @mid, @data, @has, @buk, @arr, @ego)";
+                                VALUES (@pid, @mid, @data, @has, @buk, @arr, @ego)";
                 using (var cmd = new MySqlCommand(query, kon))
                 {
                     cmd.Parameters.AddWithValue("@pid", h.PazienteId);
@@ -127,7 +127,7 @@ namespace GOsasun_app.DatuBasea
             {
                 string query = @"UPDATE hitzorduak SET paziente_id=@pid, mediku_id=@mid, data=@data, 
                                         hasiera_ordua=@has, bukaera_ordua=@buk, arrazoia=@arr, egoera=@ego 
-                                 WHERE id=@id";
+                                WHERE id=@id";
                 using (var cmd = new MySqlCommand(query, kon))
                 {
                     cmd.Parameters.AddWithValue("@pid", h.PazienteId);

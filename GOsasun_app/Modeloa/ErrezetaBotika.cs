@@ -1,4 +1,4 @@
-﻿namespace GOsasun_app.Modeloa
+namespace GOsasun_app.Modeloa
 {
     /// <summary>
     /// Errezeta eta botika baten arteko lotura (dosia eta maiztasuna) biltzen duen klasea.
@@ -11,6 +11,8 @@
         public int BotikaId { get; set; }
         public string? Dosia { get; set; }
         public string? Maiztasuna { get; set; }
+        
+        public string? BotikaIzena { get; set; }
 
         public ErrezetaBotika() { }
 
