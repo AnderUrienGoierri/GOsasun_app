@@ -5,7 +5,7 @@ Osasun kudeaketarako aplikazio integrala (Medikuak, Pazienteak eta Harrerako lan
 ## Ezaugarriak
 - **Medikua**: Errezeten kudeaketa, pazienteen zerrenda, neurketak.
 - **Pazientea**: Nire neurketak, errezetak ikusi, osasuna.
-- **Harrerakoa**: Erabiltzaileen kudeaketa, hitzorduak, neurketa eskuzkoak.
+- **Harrerakoa**: Erabiltzaileen kudeaketa, hitzorduak.
 
 ## Azken Eguneraketak
 - Errezeten moduluaren inplementazio osoa (CRUD).

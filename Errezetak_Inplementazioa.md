@@ -12,7 +12,7 @@ Medikuaren moduluan errezeten kudeaketa egonkorra izateko emandako pausoak:
    - `BotikaDB` klasea: Medikamentuen zerrenda kudeatzeko.
 
 3. **Interfazearen Birmoldaketa (UI Refactoring)**:
-   - Pantaila guztiak subfolder-etan antolatu dira: `Medikua/`, `Pazientea/`, `Harrerakoa/`.
+   - Pantaila guztiak subfolder-etan antolatu dira: `Medikua/` (errezetak eta neurketak), `Pazientea/`, `Harrerakoa/`.
    - `OinarriPantaila` klasea sortu da goiburua eta nabigazioa bateratzeko.
 
 4. **Errezeta Pantaila Berriak**:
