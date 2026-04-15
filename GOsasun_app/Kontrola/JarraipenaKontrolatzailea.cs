@@ -12,7 +12,10 @@ namespace GOsasun_app.Kontrola
     /// </summary>
     public class JarraipenaKontrolatzailea
     {
+        // ---------------------------SORTU OBJETUA------------------------------------------------------    
         private readonly JarraipenaDB _db = new JarraipenaDB();
+
+        // ---------------------------LORTU------------------------------------------------------        
 
         /// <summary>
         /// Paziente baten jarraipen guztien zerrenda lortzen du.

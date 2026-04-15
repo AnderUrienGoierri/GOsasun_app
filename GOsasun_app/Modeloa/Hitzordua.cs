@@ -30,8 +30,8 @@ namespace GOsasun_app.Modeloa
         public Hitzordua() { }
 
         public Hitzordua(int hitzorduId, int pazienteId, int osasunLangileId, DateTime data,
-                         TimeSpan hasieraOrdua, TimeSpan? bukaeraOrdua, string? arrazoia,
-                         string egoera, DateTime sortzeData)
+                        TimeSpan hasieraOrdua, TimeSpan? bukaeraOrdua, string? arrazoia,
+                        string egoera, DateTime sortzeData)
         {
             HitzorduId = hitzorduId;
             PazienteId = pazienteId;

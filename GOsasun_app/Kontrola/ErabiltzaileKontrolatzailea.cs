@@ -10,9 +10,10 @@ namespace GOsasun_app.Kontrola
     /// </summary>
     public class ErabiltzaileKontrolatzailea
     {
+        // ---------------------------SORTU OBJETUA------------------------------------------------------    
         private readonly ErabiltzaileDB _db = new ErabiltzaileDB();
 
-// ------------------------------------------------------------
+        // ---------------------------LORTU------------------------------------------------------        
 
         /// <summary>
         /// Erabiltzailea datu-basean egiaztatzen du email eta pasahitz bidez.
@@ -22,7 +23,7 @@ namespace GOsasun_app.Kontrola
             return _db.Login(emaila, pasahitza);
         }
 
-// ------------------------LORTU------------------------------------
+        // ------------------------LORTU------------------------------------
 
         /// <summary>
         /// Osasun langile bati esleitutako pazienteen zerrenda lortzen du.

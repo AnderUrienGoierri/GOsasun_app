@@ -12,7 +12,10 @@ namespace GOsasun_app.Kontrola
     /// </summary>
     public class NeurketaKontrolatzailea
     {
+        // ---------------------------SORTU OBJETUA------------------------------------------------------    
         private readonly NeurketaDB _db = new NeurketaDB();
+
+        // ---------------------------LORTU------------------------------------------------------        
 
         /// <summary>
         /// Paziente baten neurketa guztien zerrenda lortzen du.
@@ -22,6 +25,8 @@ namespace GOsasun_app.Kontrola
             return _db.LortuPazientearenNeurketak(pazienteId);
         }
 
+        // ---------------------------GEHITU------------------------------------------------------        
+
         /// <summary>
         /// Neurketa berri bat gordetzen du datu-basean.
         /// </summary>
@@ -29,6 +34,8 @@ namespace GOsasun_app.Kontrola
         {
             return _db.GordeNeurketa(neurketa);
         }
+
+        // ---------------------------ESPORTATU------------------------------------------------------  
 
         /// <summary>
         /// Neurketa baten datuak XML formatuan esportatzen ditu web zerbitzariaren karpetara.
