@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using GOsasun_app.Modeloa;
 
-namespace GOsasun_app.DatuBasea
+namespace GOsasun_app.Repositorioa
 {
     public class ErrezetaDB
     {
@@ -16,15 +16,15 @@ namespace GOsasun_app.DatuBasea
                 {
                     // Errezetak taulan txertatu
                     string insertErrezetaQuery = @"
-                        INSERT INTO errezetak (hitzordu_id, mediku_id, paziente_id, igorpen_data, iraungitze_data, xml_fitxategia_bidea, diagnostiko_laburra, aktibo)
-                        VALUES (@hitzorduId, @medikuId, @pazienteId, @igorpenData, @iraungitzeData, @xmlBidea, @diagnostikoa, @aktibo);
+                        INSERT INTO errezetak (hitzordu_id, osasun_langile_id, paziente_id, igorpen_data, iraungitze_data, xml_fitxategia_bidea, diagnostiko_laburra, aktibo)
+                        VALUES (@hitzorduId, @langileId, @pazienteId, @igorpenData, @iraungitzeData, @xmlBidea, @diagnostikoa, @aktibo);
                         SELECT LAST_INSERT_ID();";
 
                     int errezetaId;
                     using (var cmd = new MySqlCommand(insertErrezetaQuery, konexioa, transakzioa))
                     {
                         cmd.Parameters.AddWithValue("@hitzorduId", (object?)errezeta.HitzorduId ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@medikuId", errezeta.MedikuId);
+                        cmd.Parameters.AddWithValue("@langileId", errezeta.OsasunLangileId);
                         cmd.Parameters.AddWithValue("@pazienteId", errezeta.PazienteId);
                         cmd.Parameters.AddWithValue("@igorpenData", errezeta.IgorpenData);
                         cmd.Parameters.AddWithValue("@iraungitzeData", (object?)errezeta.IraungitzeData ?? DBNull.Value);
@@ -64,7 +64,7 @@ namespace GOsasun_app.DatuBasea
             }
         }
 
-        public List<Errezeta> LortuMedikuarenErrezetak(int medikuId)
+        public List<Errezeta> LortuOsasunLangilearenErrezetak(int langileId)
         {
             var errezetak = new List<Errezeta>();
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
@@ -77,12 +77,12 @@ namespace GOsasun_app.DatuBasea
                     FROM errezetak e
                     JOIN pazienteak p ON e.paziente_id = p.id
                     LEFT JOIN hitzorduak h ON e.hitzordu_id = h.id
-                    WHERE e.mediku_id = @medikuId AND e.aktibo = 1
+                    WHERE e.osasun_langile_id = @langileId AND e.aktibo = 1
                     ORDER BY e.igorpen_data DESC";
 
                 using (var cmd = new MySqlCommand(query, konexioa))
                 {
-                    cmd.Parameters.AddWithValue("@medikuId", medikuId);
+                    cmd.Parameters.AddWithValue("@langileId", langileId);
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
@@ -91,7 +91,7 @@ namespace GOsasun_app.DatuBasea
                             {
                                 ErrezetaId = Convert.ToInt32(reader["ErrezetaId"]),
                                 HitzorduId = reader["hitzordu_id"] != DBNull.Value ? Convert.ToInt32(reader["hitzordu_id"]) : null,
-                                MedikuId = medikuId,
+                                OsasunLangileId = langileId,
                                 PazienteId = Convert.ToInt32(reader["paziente_id"]),
                                 IgorpenData = Convert.ToDateTime(reader["igorpen_data"]),
                                 IraungitzeData = reader["iraungitze_data"] != DBNull.Value ? Convert.ToDateTime(reader["iraungitze_data"]) : null,
@@ -151,14 +151,14 @@ namespace GOsasun_app.DatuBasea
                         UPDATE errezetak 
                         SET iraungitze_data = @iraungitzeData, 
                             diagnostiko_laburra = @diagnostikoa
-                        WHERE id = @errezetaId AND mediku_id = @medikuId";
+                        WHERE id = @errezetaId AND osasun_langile_id = @langileId";
 
                     using (var cmd = new MySqlCommand(updateErrezetaQuery, konexioa, transakzioa))
                     {
                         cmd.Parameters.AddWithValue("@iraungitzeData", (object?)errezeta.IraungitzeData ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@diagnostikoa", (object?)errezeta.Diagnostikoa ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@errezetaId", errezeta.ErrezetaId);
-                        cmd.Parameters.AddWithValue("@medikuId", errezeta.MedikuId); // Segurtasun plusa
+                        cmd.Parameters.AddWithValue("@langileId", errezeta.OsasunLangileId); // Segurtasun plusa
                         cmd.ExecuteNonQuery();
                     }
 

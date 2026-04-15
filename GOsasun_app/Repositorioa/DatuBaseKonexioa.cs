@@ -7,7 +7,7 @@
 
 using MySql.Data.MySqlClient;
 
-namespace GOsasun_app.DatuBasea
+namespace GOsasun_app.Repositorioa
 {
     /// <summary>
     /// MySQL datu-baserako konexioa kudeatzeko klase estatikoa.

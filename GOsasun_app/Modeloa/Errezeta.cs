@@ -11,7 +11,7 @@ namespace GOsasun_app.Modeloa
     {
         public int ErrezetaId { get; set; }
         public int? HitzorduId { get; set; }
-        public int MedikuId { get; set; }
+        public int OsasunLangileId { get; set; }
         public int PazienteId { get; set; }
         public DateTime IgorpenData { get; set; }
         public DateTime? IraungitzeData { get; set; }
@@ -27,13 +27,13 @@ namespace GOsasun_app.Modeloa
 
         public Errezeta() { }
 
-        public Errezeta(int errezetaId, int? hitzorduId, int medikuId, int pazienteId,
+        public Errezeta(int errezetaId, int? hitzorduId, int osasunLangileId, int pazienteId,
                         DateTime igorpenData, DateTime? iraungitzeData, string? xmlBidea,
                         string? diagnostikoa, bool aktibo)
         {
             ErrezetaId = errezetaId;
             HitzorduId = hitzorduId;
-            MedikuId = medikuId;
+            OsasunLangileId = osasunLangileId;
             PazienteId = pazienteId;
             IgorpenData = igorpenData;
             IraungitzeData = iraungitzeData;

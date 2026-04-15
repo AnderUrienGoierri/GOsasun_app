@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -82,7 +82,7 @@ namespace GOsasun_app.Interfazea
             try
             {
                 string bilaketa = _txtPazienteBilatu.Text.Trim();
-                var list = _erabiltzaileKontrolatzailea.LortuMedikuarenPazienteak(_erabiltzailea!.Id, bilaketa);
+                var list = _erabiltzaileKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea!.Id, bilaketa);
                 
                 _dgvPazienteak.DataSource = null;
                 _dgvPazienteak.DataSource = list;

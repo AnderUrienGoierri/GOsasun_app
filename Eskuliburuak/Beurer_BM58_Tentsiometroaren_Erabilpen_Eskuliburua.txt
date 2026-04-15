@@ -1,0 +1,31 @@
+Beurer BM58 Tentsiometroaren Erabilpen Eskuliburua
+Gida honen helburua Beurer BM58 tentsiometroaren oinarrizko erabilpena eta ordenagailuarekiko konexioa era errazean azaltzea da. Jarraitu beheko urratsak gailua behar bezala erabiltzeko.
+1. Memoria modua: Datuak ikusi eta ezabatu (Erreseteatu)
+Tentsiometroak bi erabiltzaile ezberdinen datuak gordetzeko gaitasuna du (U1 eta U2).
+Gordetako datuak ikusteko:
+Gailua itzalita edo egonean dagoela, ukitu pantailako MEM botoia.
+Pantailan azken aldian erabilitako erabiltzailearen (U1 edo U2) gordetako neurketen batezbestekoa agertuko da.
+Erabiltzailez aldatu nahi baduzu (U1-etik U2-ra edo alderantziz), ukitu pizteko/itzaltzeko botoia (START/STOP) edo erabiltzailearen ikonoa.
+Ukitu MEM botoia berriro ere neurketak banan-banan ikusteko (berrienetik zaharrenera agertuko dira).
+Memoria zerotik hasteko (Erreseteatu):
+Sartu garbitu nahi duzun erabiltzailearen memorian (U1 edo U2), goian azaldu bezala, MEM botoia ukituta.
+Datu bat pantailan ikusten ari zarenean, eduki sakatuta MEM botoia 3-5 segundoz.
+Pantailan "CLR" hizkiak agertuko dira. Horrek esan nahi du erabiltzaile horren memoria guztiz garbitu dela eta zerotik hasteko prest dagoela.
+2. Neurketa modua: Nola hartu tentsioa
+Neurketa fidagarria lortzeko, garrantzitsua da lasai egotea eta besokoa (mahuka) ondo jartzea.
+Pausoak:
+Prestaketa: Eseri aulki batean bizkarra ondo bermatuta. Besokoa ezkerreko besoan jarri, ukondotik 2-3 zentimetro gorago. Hodiak esku-ahurraren norabidea jarraitu behar du, besoaren erdialdetik.
+Jarrera: Jarri besoa mahai baten gainean, besokoa bihotzaren parean egon dadin. Ez hitz egin eta ez mugitu neurketak irauten duen bitartean.
+Piztu eta neurtu: Ukitu START/STOP botoia. Pantailako elementu guztiak argituko dira une batez eta, ondoren, besokoa automatikoki puzten hasiko da.
+Emaitza: Gailuak presioa poliki-poliki askatuko du. Neurketa amaitzean, pantailan hiru datu agertuko dira: Presio Sistolikoa (alta), Presio Diastolikoa (baxua) eta Pultsua (bihotz-taupadak). Datu hauek automatikoki gordeko dira aktibatuta dagoen erabiltzailearen memorian.
+3. Ordenagailura konektatzea (USB bidez)
+Zure neurketak ordenagailura pasatzeko, tentsiometroa PC-arekin komunikatu behar da.
+Hartu tentsiometroarekin batera datorren USB kablea eta konektatu mutur bat gailuan eta bestea ordenagailuko USB atakan.
+Konektatu bezain laster, tentsiometroaren pantailan "PC" hizkiak agertu behar dira argi eta garbi.
+Arazoak konpontzeko oharra: Pantailan ez bada "PC" agertzen, saiatu hasierako botoia (START/STOP) sakatuta mantentzen segundo batzuetan. Hala ere ez bada agertzen, kendu pilak une batez, jarri berriro eta errepikatu konexio-prozesua.
+4. Datuen inportazioa ordenagailura
+Tentsiometroa behar bezala konektatuta dagoenean (pantailan "PC" agertzen denean), datuak deskargatzeko prest zaude.
+Ireki ordenagailuan datuak jasotzeko prestatu duzun aplikazioa edo softwarea (adibidez, GOsasun aplikazioa).
+Bilatu aplikazioan "Datuak inportatu", "Irakurri tentsiometroa" edo antzeko funtzioa duen botoia eta sakatu.
+Aplikazioak automatikoki konektatuko du tentsiometroarekin eta U1 zein U2 memorietan dauden datu guztiak (tentsioa, pultsua, data eta ordua) deskargatuko ditu.
+Prozesua amaitzean, deskonektatu USB kablea. Zure datuak jada ordenagailuan ikusteko eta aztertzeko prest egongo dira.

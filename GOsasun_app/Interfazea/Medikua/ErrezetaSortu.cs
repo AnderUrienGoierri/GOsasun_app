@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using GOsasun_app.Modeloa;
-using GOsasun_app.DatuBasea;
+using GOsasun_app.Repositorioa;
 
 namespace GOsasun_app.Interfazea
 {
@@ -113,7 +113,7 @@ namespace GOsasun_app.Interfazea
         {
             if (_erabiltzailea != null && _erabiltzailea is Medikua m)
             {
-                pazienteak = erabiltzaileDB.LortuMedikuarenPazienteak(_erabiltzailea.Id, bilatzailea);
+                pazienteak = erabiltzaileDB.LortuLangilearenPazienteak(_erabiltzailea.Id, bilatzailea);
                 
                 // Fallback: If not found in doctor's list (e.g. editing an old prescription), search all patients
                 if (pazienteak.Count == 0 && !string.IsNullOrEmpty(bilatzailea))

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -23,12 +23,18 @@ namespace GOsasun_app.Interfazea
         {
             InitializeComponent();
             _kontrolatzailea = new ErabiltzaileKontrolatzailea();
+            
+            // Izenburua aldatu rolaran arabera
+            if (_erabiltzailea is HarrerakoLangilea)
+            {
+                lblIzenburua.Text = "PAZIENTEEN KUDEAKETA";
+            }
+
             KonfiguratuTaula();
             KargatuPazienteak();
 
             // Gertaerak
             txtBilatu.TextChanged += TxtBilatu_TextChanged;
-            dgvPazienteak.CellDoubleClick += DgvPazienteak_CellDoubleClick;
         }
 
         private void KonfiguratuTaula()
@@ -41,8 +47,38 @@ namespace GOsasun_app.Interfazea
             dgvPazienteak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Abizenak", HeaderText = "Abizenak", Name = "Abizenak", SortMode = DataGridViewColumnSortMode.Programmatic });
             dgvPazienteak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "EgoeraKlinikoa", HeaderText = "Egoera", Name = "EgoeraKlinikoa", SortMode = DataGridViewColumnSortMode.Programmatic });
 
+            // Editatu eta Ezabatu botoiak (Harrerako langilearentzat soilik agian? Erabiltzaileak harrerakoak eskatu du)
+            if (_erabiltzailea is HarrerakoLangilea)
+            {
+                DataGridViewButtonColumn btnEdit = new DataGridViewButtonColumn();
+                btnEdit.HeaderText = "Akzioak";
+                btnEdit.Text = "Editatu";
+                btnEdit.Name = "btnEditatu";
+                btnEdit.UseColumnTextForButtonValue = true;
+                btnEdit.FlatStyle = FlatStyle.Flat;
+                btnEdit.DefaultCellStyle.BackColor = Color.FromArgb(52, 152, 219);
+                btnEdit.DefaultCellStyle.ForeColor = Color.White;
+                dgvPazienteak.Columns.Add(btnEdit);
+
+                DataGridViewButtonColumn btnDelete = new DataGridViewButtonColumn();
+                btnDelete.HeaderText = "";
+                btnDelete.Text = "Ezabatu";
+                btnDelete.Name = "btnEzabatu";
+                btnDelete.UseColumnTextForButtonValue = true;
+                btnDelete.FlatStyle = FlatStyle.Flat;
+                btnDelete.DefaultCellStyle.BackColor = Color.FromArgb(231, 76, 60);
+                btnDelete.DefaultCellStyle.ForeColor = Color.White;
+                dgvPazienteak.Columns.Add(btnDelete);
+            }
+
             // Kurtsorea aldatu "esteka" efektua emateko
-            dgvPazienteak.Cursor = Cursors.Hand;
+            dgvPazienteak.Cursor = Cursors.Default; // Kurtsorea lehenetsia grid osorako
+            dgvPazienteak.CellMouseEnter += (s, e) => {
+                if (e.RowIndex >= 0 && (e.ColumnIndex == dgvPazienteak.Columns["btnEditatu"]?.Index || e.ColumnIndex == dgvPazienteak.Columns["btnEzabatu"]?.Index))
+                    dgvPazienteak.Cursor = Cursors.Hand;
+                else
+                    dgvPazienteak.Cursor = Cursors.Default;
+            };
 
             // Ordenazioa gaitu (header click)
             dgvPazienteak.ColumnHeaderMouseClick += DgvPazienteak_ColumnHeaderMouseClick;
@@ -93,7 +129,15 @@ namespace GOsasun_app.Interfazea
         {
             try
             {
-                _pazienteak = _kontrolatzailea.LortuMedikuarenPazienteak(_erabiltzailea!.Id, testua);
+                if (_erabiltzailea is HarrerakoLangilea)
+                {
+                    _pazienteak = _kontrolatzailea.LortuGuztiakPazienteak(testua);
+                }
+                else
+                {
+                    _pazienteak = _kontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea!.Id, testua);
+                }
+                
                 dgvPazienteak.DataSource = null;
                 dgvPazienteak.DataSource = _pazienteak;
             }
@@ -109,29 +153,46 @@ namespace GOsasun_app.Interfazea
             KargatuPazienteak(txtBilatu.Text.Trim());
         }
 
-        private void DgvPazienteak_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+        private void dgvPazienteak_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex < 0) return;
+
+            var pazientea = dgvPazienteak.Rows[e.RowIndex].DataBoundItem as Pazientea;
+            if (pazientea == null) return;
+
+            // Editatu botoia
+            if (dgvPazienteak.Columns[e.ColumnIndex].Name == "btnEditatu")
             {
-                var pazientea = dgvPazienteak.Rows[e.RowIndex].DataBoundItem as Pazientea;
-                if (pazientea != null)
+                // Ireki informazio zehatza (editatzeko aukerarik badugu bertan)
+                // Oraintxe bertan PazienteXehetasunak bakarrik erakusteko da, 
+                // baina erabiltzaileari editatzen utzi nahi diogu.
+                IrekiFormularioa(new PazienteXehetasunak(pazientea)); 
+            }
+            // Ezabatu botoia
+            else if (dgvPazienteak.Columns[e.ColumnIndex].Name == "btnEzabatu")
+            {
+                var emaitza = MessageBox.Show($"Ziur zaude {pazientea.IzenOsoa} pazientea ezabatu (desaktibatu) nahi duzula?", 
+                    "Berretsi ezabatzea", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                
+                if (emaitza == DialogResult.Yes)
                 {
-                    // Xehetasun pantaila ireki (sortzeko dago)
-                    IrekiFormularioa(new PazienteXehetasunak(pazientea));
+                    if (_kontrolatzailea.EzabatuPazientea(pazientea.Id))
+                    {
+                        MessageBox.Show("Pazientea ondo desaktibatu da.", "Arrakasta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        KargatuPazienteak(txtBilatu.Text.Trim());
+                    }
+                    else
+                    {
+                        MessageBox.Show("Errorea gertatu da pazientea desaktibatzean.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
-
         private void IrekiFormularioa(Form formularioa)
         {
             formularioa.FormClosed += (s, e) => this.Show();
             this.Hide();
             formularioa.Show();
-        }
-
-        private void dgvPazienteak_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }

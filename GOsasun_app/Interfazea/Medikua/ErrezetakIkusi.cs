@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Drawing;
 using GOsasun_app.Modeloa;
-using GOsasun_app.DatuBasea;
+using GOsasun_app.Repositorioa;
 
 namespace GOsasun_app.Interfazea
 {

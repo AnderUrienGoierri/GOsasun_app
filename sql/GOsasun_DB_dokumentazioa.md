@@ -63,13 +63,13 @@ Bistak taula konplexuen arteko `JOIN`ak sinplifikatzeko erabiltzen dira. Hona he
 
 | Bista Izena | Deskribapena | Non erabiltzen da? (PHP) |
 | :--- | :--- | :--- |
-| **`V_Login`** | Erabiltzailearen kredentzialak eta rola bateratzen ditu. | `php_hasiera/login.php` |
-| **`V_Pazientea`** | Pazientearen datuak eta erabiltzaile kontua batzen ditu. | `php_pazientea/index.php`, `paziente_info.php` |
-| **`V_Medikua`** | Mediku profesionalaren eta kontuaren datu guztiak. | `php_medikua/index.php` |
-| **`V_Mediku_Pazienteak`** | Mediku bati esleitutako pazienteen zerrenda osoa. | `php_medikua/pazienteak.php` |
-| **`V_Hitzorduak_Osoa`** | Hitzorduak, pazienteen eta medikuen izenekin batera. | `php_harrera/hitzorduak.php`, `hitzordu_xehetasuna.php` |
-| **`V_Harrera`** | Harrerako langileen eta haien kontuen informazioa. | `php_harrera/index.php` |
-| **`V_Abisuak_Osoa`** | Pazienteei zuzendutako abisu klinikoak eta pertsonalak. | `php_medikua/abisuak.php` |
+| **`V_Login`** | Erabiltzailearen kredentzialak eta rola bateratzen ditu. | `php_orri_hasierakoak/login.php` |
+| **`V_Pazientea`** | Pazientearen datuak eta erabiltzaile kontua batzen ditu. | `php_pazienteak/index.php`, `paziente_info.php` |
+| **`V_Medikua`** | Mediku profesionalaren eta kontuaren datu guztiak. | `php_osasun_langileak/index.php` |
+| **`V_Mediku_Pazienteak`** | Mediku bati esleitutako pazienteen zerrenda osoa. | `php_osasun_langileak/pazienteak.php` |
+| **`V_Hitzorduak_Osoa`** | Hitzorduak, pazienteen eta medikuen izenekin batera. | `php_harrera_langileak/hitzorduak.php`, `hitzordu_xehetasuna.php` |
+| **`V_Harrera`** | Harrerako langileen eta haien kontuen informazioa. | `php_harrera_langileak/index.php` |
+| **`V_Abisuak_Osoa`** | Pazienteei zuzendutako abisu klinikoak eta pertsonalak. | `php_osasun_langileak/abisuak.php` |
 
 ---
 

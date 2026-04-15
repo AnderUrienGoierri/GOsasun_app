@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace GOsasun_app.Modeloa
 {
@@ -8,28 +8,26 @@ namespace GOsasun_app.Modeloa
     /// </summary>
     public class Dokumentua
     {
-        public int DokumentuId { get; set; }
-        public int PazienteId { get; set; }
-        public int IgotzaileId { get; set; }
+        public int Id { get; set; }
+        public int JarraipenaId { get; set; }
         public string FitxategiIzena { get; set; } = string.Empty;
         public string BideaZerbitzarian { get; set; } = string.Empty;
-        public string? Mota { get; set; }
-        public DateTime IgotzeData { get; set; } = DateTime.Now;
+        public string? DokumentuIzena { get; set; }
         public string? Deskribapena { get; set; }
+        public DateTime IgotzeData { get; set; } = DateTime.Now;
 
         public Dokumentua() { }
 
-        public Dokumentua(int dokumentuId, int pazienteId, int igotzaileId, string fitxategiIzena,
-                          string bideaZerbitzarian, string? mota, DateTime igotzeData, string? deskribapena)
+        public Dokumentua(int id, int jarraipenaId, string fitxategiIzena,
+                          string bideaZerbitzarian, string? dokumentuIzena, string? deskribapena, DateTime igotzeData)
         {
-            DokumentuId = dokumentuId;
-            PazienteId = pazienteId;
-            IgotzaileId = igotzaileId;
+            Id = id;
+            JarraipenaId = jarraipenaId;
             FitxategiIzena = fitxategiIzena;
             BideaZerbitzarian = bideaZerbitzarian;
-            Mota = mota;
-            IgotzeData = igotzeData;
+            DokumentuIzena = dokumentuIzena;
             Deskribapena = deskribapena;
+            IgotzeData = igotzeData;
         }
     }
 }

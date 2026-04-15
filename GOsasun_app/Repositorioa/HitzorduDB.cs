@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using GOsasun_app.Modeloa;
 
-namespace GOsasun_app.DatuBasea
+namespace GOsasun_app.Repositorioa
 {
     public class HitzorduDB
     {
@@ -13,7 +13,7 @@ namespace GOsasun_app.DatuBasea
             {
                 HitzorduId = reader.GetInt32("id"),
                 PazienteId = reader.GetInt32("paziente_id"),
-                MedikuId = reader.GetInt32("mediku_id"),
+                OsasunLangileId = reader.GetInt32("osasun_langile_id"),
                 Data = reader.GetDateTime("data"),
                 HasieraOrdua = reader.GetTimeSpan("hasiera_ordua"),
                 BukaeraOrdua = reader.IsDBNull(reader.GetOrdinal("bukaera_ordua")) ? (TimeSpan?)null : reader.GetTimeSpan("bukaera_ordua"),
@@ -22,8 +22,8 @@ namespace GOsasun_app.DatuBasea
                 SortzeData = reader.GetDateTime("sortze_data"),
                 PazienteIzena = reader.IsDBNull(reader.GetOrdinal("p_izena")) ? null : reader.GetString("p_izena"),
                 PazienteAbizenak = reader.IsDBNull(reader.GetOrdinal("p_abizena")) ? null : reader.GetString("p_abizena"),
-                MedikuIzena = reader.IsDBNull(reader.GetOrdinal("m_izena")) ? null : reader.GetString("m_izena"),
-                MedikuAbizenak = reader.IsDBNull(reader.GetOrdinal("m_abizena")) ? null : reader.GetString("m_abizena")
+                OsasunLangileIzena = reader.IsDBNull(reader.GetOrdinal("m_izena")) ? null : reader.GetString("m_izena"),
+                OsasunLangileAbizenak = reader.IsDBNull(reader.GetOrdinal("m_abizena")) ? null : reader.GetString("m_abizena")
             };
         }
 
@@ -34,11 +34,11 @@ namespace GOsasun_app.DatuBasea
             {
                 string query = @"
                     SELECT h.*, 
-                            p.izena as p_izena, p.abizenak as p_abizena,
-                            m.izena as m_izena, m.abizenak as m_abizena
+                            ep.izena as p_izena, ep.abizenak as p_abizena,
+                            em.izena as m_izena, em.abizenak as m_abizena
                     FROM hitzorduak h
-                    JOIN pazienteak p ON h.paziente_id = p.id
-                    JOIN medikuak m ON h.mediku_id = m.id
+                    JOIN erabiltzaileak ep ON h.paziente_id = ep.id
+                    JOIN erabiltzaileak em ON h.osasun_langile_id = em.id
                     ORDER BY h.data DESC, h.hasiera_ordua DESC";
                 using (var cmd = new MySqlCommand(query, kon))
                 using (var reader = cmd.ExecuteReader())
@@ -56,11 +56,11 @@ namespace GOsasun_app.DatuBasea
             {
                 string query = @"
                     SELECT h.*, 
-                            p.izena as p_izena, p.abizenak as p_abizena,
-                            m.izena as m_izena, m.abizenak as m_abizena
+                            ep.izena as p_izena, ep.abizenak as p_abizena,
+                            em.izena as m_izena, em.abizenak as m_abizena
                     FROM hitzorduak h
-                    JOIN pazienteak p ON h.paziente_id = p.id
-                    JOIN medikuak m ON h.mediku_id = m.id
+                    JOIN erabiltzaileak ep ON h.paziente_id = ep.id
+                    JOIN erabiltzaileak em ON h.osasun_langile_id = em.id
                     WHERE h.paziente_id = @id
                     ORDER BY h.data DESC, h.hasiera_ordua DESC";
                 using (var cmd = new MySqlCommand(query, kon))
@@ -75,23 +75,23 @@ namespace GOsasun_app.DatuBasea
             return hitzorduak;
         }
 
-        public List<Hitzordua> LortuMedikuarenHitzorduak(int medikuId)
+        public List<Hitzordua> LortuOsasunLangilearenHitzorduak(int langileId)
         {
             List<Hitzordua> hitzorduak = new List<Hitzordua>();
             using (var kon = DatuBaseKonexioa.LortuKonexioa())
             {
                 string query = @"
                     SELECT h.*, 
-                            p.izena as p_izena, p.abizenak as p_abizena,
-                            m.izena as m_izena, m.abizenak as m_abizena
+                            ep.izena as p_izena, ep.abizenak as p_abizena,
+                            em.izena as m_izena, em.abizenak as m_abizena
                     FROM hitzorduak h
-                    JOIN pazienteak p ON h.paziente_id = p.id
-                    JOIN medikuak m ON h.mediku_id = m.id
-                    WHERE h.mediku_id = @id
+                    JOIN erabiltzaileak ep ON h.paziente_id = ep.id
+                    JOIN erabiltzaileak em ON h.osasun_langile_id = em.id
+                    WHERE h.osasun_langile_id = @id
                     ORDER BY h.data DESC, h.hasiera_ordua DESC";
                 using (var cmd = new MySqlCommand(query, kon))
                 {
-                    cmd.Parameters.AddWithValue("@id", medikuId);
+                    cmd.Parameters.AddWithValue("@id", langileId);
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read()) hitzorduak.Add(MapHitzordua(reader));
@@ -105,12 +105,12 @@ namespace GOsasun_app.DatuBasea
         {
             using (var kon = DatuBaseKonexioa.LortuKonexioa())
             {
-                string query = @"INSERT INTO hitzorduak (paziente_id, mediku_id, data, hasiera_ordua, bukaera_ordua, arrazoia, egoera) 
+                string query = @"INSERT INTO hitzorduak (paziente_id, osasun_langile_id, data, hasiera_ordua, bukaera_ordua, arrazoia, egoera) 
                                 VALUES (@pid, @mid, @data, @has, @buk, @arr, @ego)";
                 using (var cmd = new MySqlCommand(query, kon))
                 {
                     cmd.Parameters.AddWithValue("@pid", h.PazienteId);
-                    cmd.Parameters.AddWithValue("@mid", h.MedikuId);
+                    cmd.Parameters.AddWithValue("@mid", h.OsasunLangileId);
                     cmd.Parameters.AddWithValue("@data", h.Data);
                     cmd.Parameters.AddWithValue("@has", h.HasieraOrdua);
                     cmd.Parameters.AddWithValue("@buk", (object?)h.BukaeraOrdua ?? DBNull.Value);
@@ -125,13 +125,13 @@ namespace GOsasun_app.DatuBasea
         {
             using (var kon = DatuBaseKonexioa.LortuKonexioa())
             {
-                string query = @"UPDATE hitzorduak SET paziente_id=@pid, mediku_id=@mid, data=@data, 
+                string query = @"UPDATE hitzorduak SET paziente_id=@pid, osasun_langile_id=@mid, data=@data, 
                                         hasiera_ordua=@has, bukaera_ordua=@buk, arrazoia=@arr, egoera=@ego 
                                 WHERE id=@id";
                 using (var cmd = new MySqlCommand(query, kon))
                 {
                     cmd.Parameters.AddWithValue("@pid", h.PazienteId);
-                    cmd.Parameters.AddWithValue("@mid", h.MedikuId);
+                    cmd.Parameters.AddWithValue("@mid", h.OsasunLangileId);
                     cmd.Parameters.AddWithValue("@data", h.Data);
                     cmd.Parameters.AddWithValue("@has", h.HasieraOrdua);
                     cmd.Parameters.AddWithValue("@buk", (object?)h.BukaeraOrdua ?? DBNull.Value);

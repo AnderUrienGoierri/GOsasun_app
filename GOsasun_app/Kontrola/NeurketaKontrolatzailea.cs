@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using GOsasun_app.Modeloa;
-using GOsasun_app.DatuBasea;
+using GOsasun_app.Repositorioa;
 using System.IO;
 using System.Xml.Linq;
 using System;

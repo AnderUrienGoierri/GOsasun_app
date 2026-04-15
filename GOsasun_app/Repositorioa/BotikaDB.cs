@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using GOsasun_app.Modeloa;
 
-namespace GOsasun_app.DatuBasea
+namespace GOsasun_app.Repositorioa
 {
     public class BotikaDB
     {

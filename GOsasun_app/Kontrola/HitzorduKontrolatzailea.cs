@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using GOsasun_app.Modeloa;
-using GOsasun_app.DatuBasea;
+using GOsasun_app.Repositorioa;
 
 namespace GOsasun_app.Kontrola
 {
     public class HitzorduKontrolatzailea
     {
         private readonly HitzorduDB _db = new HitzorduDB();
+
+// ---------------------------LORTU------------------------------------------------------        
 
         public List<Hitzordua> LortuHitzorduGuztiak()
         {
@@ -23,15 +25,21 @@ namespace GOsasun_app.Kontrola
             return _db.LortuMedikuarenHitzorduak(medikuId);
         }
 
+// ---------------------------GEHITU------------------------------------------------------        
+
         public void GehituHitzordua(Hitzordua h)
         {
             _db.GehituHitzordua(h);
         }
 
+// ---------------------------EGUNERATU------------------------------------------------------  
+
         public void EguneratuHitzordua(Hitzordua h)
         {
             _db.EguneratuHitzordua(h);
         }
+
+// ---------------------------EZABATU------------------------------------------------------  
 
         public void EzabatuHitzordua(int hitzorduId)
         {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace GOsasun_app.Modeloa
 {
@@ -10,7 +10,7 @@ namespace GOsasun_app.Modeloa
     {
         public int HitzorduId { get; set; }
         public int PazienteId { get; set; }
-        public int MedikuId { get; set; }
+        public int OsasunLangileId { get; set; }
         public DateTime Data { get; set; }
         public TimeSpan HasieraOrdua { get; set; }
         public TimeSpan? BukaeraOrdua { get; set; }
@@ -21,21 +21,21 @@ namespace GOsasun_app.Modeloa
         // Propietate gehigarriak Grid-erako (JOIN bidez beteak)
         public string? PazienteIzena { get; set; }
         public string? PazienteAbizenak { get; set; }
-        public string? MedikuIzena { get; set; }
-        public string? MedikuAbizenak { get; set; }
+        public string? OsasunLangileIzena { get; set; }
+        public string? OsasunLangileAbizenak { get; set; }
 
         public string PazienteIzenOsoa => $"{PazienteIzena} {PazienteAbizenak}".Trim();
-        public string MedikuIzenOsoa => $"{MedikuIzena} {MedikuAbizenak}".Trim();
+        public string OsasunLangileIzenOsoa => $"{OsasunLangileIzena} {OsasunLangileAbizenak}".Trim();
 
         public Hitzordua() { }
 
-        public Hitzordua(int hitzorduId, int pazienteId, int medikuId, DateTime data,
+        public Hitzordua(int hitzorduId, int pazienteId, int osasunLangileId, DateTime data,
                          TimeSpan hasieraOrdua, TimeSpan? bukaeraOrdua, string? arrazoia,
                          string egoera, DateTime sortzeData)
         {
             HitzorduId = hitzorduId;
             PazienteId = pazienteId;
-            MedikuId = medikuId;
+            OsasunLangileId = osasunLangileId;
             Data = data;
             HasieraOrdua = hasieraOrdua;
             BukaeraOrdua = bukaeraOrdua;

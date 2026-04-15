@@ -1,0 +1,415 @@
+using System;
+using System.Collections.Generic;
+using MySql.Data.MySqlClient;
+using GOsasun_app.Modeloa;
+
+namespace GOsasun_app.Repositorioa
+{
+    public class ErabiltzaileDB
+    {
+        public Erabiltzailea? Login(string emaila, string pasahitza)
+        {
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            {
+                string query = @"
+                    SELECT e.id, e.izena, e.abizenak, e.email, r.izena as rol_izena
+                    FROM erabiltzaileak e
+                    JOIN rolak r ON e.rol_id = r.id
+                    WHERE e.email = @emaila
+                    AND e.pasahitza = @pasahitza
+                    AND e.aktibo = 1";
+
+                using (var komandoa = new MySqlCommand(query, konexioa))
+                {
+                    komandoa.Parameters.AddWithValue("@emaila", emaila);
+                    komandoa.Parameters.AddWithValue("@pasahitza", pasahitza);
+
+                    using (var irakurlea = komandoa.ExecuteReader())
+                    {
+                        if (irakurlea.Read())
+                        {
+                            int id = irakurlea.GetInt32("id");
+                            string izena = irakurlea.GetString("izena");
+                            string abizena = irakurlea.GetString("abizenak");
+                            string email = irakurlea.GetString("email");
+                            string rolIzena = irakurlea.GetString("rol_izena");
+
+                            if (rolIzena.Equals("Pazientea", StringComparison.OrdinalIgnoreCase))
+                                return new Pazientea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 2 };
+                            else if (rolIzena.Equals("OsasunLangilea", StringComparison.OrdinalIgnoreCase) || rolIzena.Equals("Medikua", StringComparison.OrdinalIgnoreCase))
+                                return new OsasunLangilea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 1 };
+                            else
+                                return new HarrerakoLangilea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 3 };
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        public List<Pazientea> LortuLangilearenPazienteak(int langileId, string? bilatzailea = null)
+        {
+            List<Pazientea> pazienteak = new List<Pazientea>();
+
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            {
+                string query = @"
+                    SELECT e.id, e.email, e.pasahitza, e.rol_id, e.aktibo, e.sortze_data,
+                            e.nan, e.izena, e.abizenak, e.jaiotze_data, e.telefonoa, e.irudia,
+                            p.sexua, p.odol_taldea, p.azken_altuera, p.azken_pisua, p.egoera_klinikoa
+                    FROM pazientek_langileak pl
+                    JOIN erabiltzaileak e ON pl.paziente_id = e.id
+                    LEFT JOIN pazienteak p ON e.id = p.id
+                    WHERE pl.langile_id = @langileId AND e.aktibo = 1";
+
+                if (!string.IsNullOrEmpty(bilatzailea))
+                {
+                    query += " AND (e.izena LIKE @testua OR e.abizenak LIKE @testua OR e.nan LIKE @testua)";
+                }
+
+                using (var komandoa = new MySqlCommand(query, konexioa))
+                {
+                    komandoa.Parameters.AddWithValue("@langileId", langileId);
+                    if (!string.IsNullOrEmpty(bilatzailea))
+                    {
+                        komandoa.Parameters.AddWithValue("@testua", "%" + bilatzailea + "%");
+                    }
+
+                    using (var irakurlea = komandoa.ExecuteReader())
+                    {
+                        while (irakurlea.Read())
+                        {
+                            pazienteak.Add(new Pazientea
+                            {
+                                Id = irakurlea.GetInt32("id"),
+                                Emaila = irakurlea.GetString("email"),
+                                Pasahitza = irakurlea.GetString("pasahitza"),
+                                RolId = irakurlea.GetInt32("rol_id"),
+                                Aktibo = irakurlea.GetBoolean("aktibo"),
+                                SortzeData = irakurlea.GetDateTime("sortze_data"),
+                                Nan = irakurlea.GetString("nan"),
+                                Izena = irakurlea.GetString("izena"),
+                                Abizenak = irakurlea.GetString("abizenak"),
+                                JaiotzeData = irakurlea.IsDBNull(irakurlea.GetOrdinal("jaiotze_data")) ? DateTime.MinValue : irakurlea.GetDateTime("jaiotze_data"),
+                                Telefonoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("telefonoa")) ? null : irakurlea.GetString("telefonoa"),
+                                OdolTaldea = irakurlea.IsDBNull(irakurlea.GetOrdinal("odol_taldea")) ? null : irakurlea.GetString("odol_taldea"),
+                                AzkenAltuera = irakurlea.IsDBNull(irakurlea.GetOrdinal("azken_altuera")) ? (decimal?)null : irakurlea.GetDecimal("azken_altuera"),
+                                AzkenPisua = irakurlea.IsDBNull(irakurlea.GetOrdinal("azken_pisua")) ? (decimal?)null : irakurlea.GetDecimal("azken_pisua"),
+                                EgoeraKlinikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("egoera_klinikoa")) ? "Alta" : irakurlea.GetString("egoera_klinikoa"),
+                                Irudia = irakurlea.GetString("irudia")
+                            });
+                        }
+                    }
+                }
+            }
+            return pazienteak;
+        }
+
+        public List<Pazientea> LortuGuztiakPazienteak(string? bilatzailea = null)
+        {
+            List<Pazientea> pazienteak = new List<Pazientea>();
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            {
+                string query = @"SELECT e.id, e.email, e.pasahitza, e.rol_id, e.aktibo, e.sortze_data,
+                                        e.nan, e.izena, e.abizenak, e.jaiotze_data, e.telefonoa, e.irudia,
+                                        p.sexua, p.odol_taldea, p.azken_altuera, p.azken_pisua, p.egoera_klinikoa
+                                 FROM erabiltzaileak e
+                                 LEFT JOIN pazienteak p ON e.id = p.id
+                                 WHERE e.rol_id = 2 AND e.aktibo = 1";
+
+                if (!string.IsNullOrEmpty(bilatzailea))
+                {
+                    query += " AND (e.izena LIKE @testua OR e.abizenak LIKE @testua OR e.nan LIKE @testua)";
+                }
+
+                using (var komandoa = new MySqlCommand(query, konexioa))
+                {
+                    if (!string.IsNullOrEmpty(bilatzailea))
+                    {
+                        komandoa.Parameters.AddWithValue("@testua", "%" + bilatzailea + "%");
+                    }
+
+                    using (var irakurlea = komandoa.ExecuteReader())
+                    {
+                        while (irakurlea.Read())
+                        {
+                            pazienteak.Add(new Pazientea
+                            {
+                                Id = irakurlea.GetInt32("id"),
+                                Emaila = irakurlea.GetString("email"),
+                                Izena = irakurlea.GetString("izena"),
+                                Abizenak = irakurlea.GetString("abizenak"),
+                                Nan = irakurlea.GetString("nan"),
+                                EgoeraKlinikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("egoera_klinikoa")) ? "Alta" : irakurlea.GetString("egoera_klinikoa")
+                            });
+                        }
+                    }
+                }
+            }
+            return pazienteak;
+        }
+
+        public List<OsasunLangilea> LortuGuztiakOsasunLangileak()
+        {
+            List<OsasunLangilea> langileak = new List<OsasunLangilea>();
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            {
+                string query = @"SELECT e.id, e.email, e.izena, e.abizenak
+                                 FROM osasun_langileak ol
+                                 JOIN erabiltzaileak e ON ol.id = e.id
+                                 WHERE e.aktibo = 1";
+                using (var komandoa = new MySqlCommand(query, konexioa))
+                using (var irakurlea = komandoa.ExecuteReader())
+                {
+                    while (irakurlea.Read())
+                    {
+                        langileak.Add(new OsasunLangilea
+                        {
+                            Id = irakurlea.GetInt32("id"),
+                            Emaila = irakurlea.GetString("email"),
+                            Izena = irakurlea.GetString("izena"),
+                            Abizenak = irakurlea.GetString("abizenak")
+                        });
+                    }
+                }
+            }
+            return langileak;
+        }
+
+        public List<HarrerakoLangilea> LortuGuztiakHarrerakoak()
+        {
+            List<HarrerakoLangilea> harrerakoak = new List<HarrerakoLangilea>();
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            {
+                string query = @"SELECT e.id, e.email, e.izena, e.abizenak
+                                 FROM harrerako_langileak hl
+                                 JOIN erabiltzaileak e ON hl.id = e.id
+                                 WHERE e.aktibo = 1";
+                using (var komandoa = new MySqlCommand(query, konexioa))
+                using (var irakurlea = komandoa.ExecuteReader())
+                {
+                    while (irakurlea.Read())
+                    {
+                        harrerakoak.Add(new HarrerakoLangilea
+                        {
+                            Id = irakurlea.GetInt32("id"),
+                            Emaila = irakurlea.GetString("email"),
+                            Izena = irakurlea.GetString("izena"),
+                            Abizenak = irakurlea.GetString("abizenak")
+                        });
+                    }
+                }
+            }
+            return harrerakoak;
+        }
+
+        public bool SortuPazientea(Pazientea p)
+        {
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            using (var transakzioa = konexioa.BeginTransaction())
+            {
+                try
+                {
+                    string q1 = @"INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza, nan, izena, abizenak, jaiotze_data, telefonoa, helbidea, herria, posta_kodea, irudia) 
+                                  VALUES (@email, @pass, 2, 1, @hizkuntza, @nan, @izena, @abizenak, @jaiotze, @telefonoa, @helbidea, @herria, @posta, 'img/lehenetsia.png'); 
+                                  SELECT LAST_INSERT_ID();";
+                    using (var cmd1 = new MySqlCommand(q1, konexioa, transakzioa))
+                    {
+                        cmd1.Parameters.AddWithValue("@email", p.Emaila);
+                        cmd1.Parameters.AddWithValue("@pass", p.Pasahitza);
+                        cmd1.Parameters.AddWithValue("@hizkuntza", p.Hizkuntza);
+                        cmd1.Parameters.AddWithValue("@nan", p.Nan);
+                        cmd1.Parameters.AddWithValue("@izena", p.Izena);
+                        cmd1.Parameters.AddWithValue("@abizenak", p.Abizenak);
+                        cmd1.Parameters.AddWithValue("@jaiotze", p.JaiotzeData);
+                        cmd1.Parameters.AddWithValue("@telefonoa", (object?)p.Telefonoa ?? DBNull.Value);
+                        cmd1.Parameters.AddWithValue("@helbidea", (object?)p.Helbidea ?? DBNull.Value);
+                        cmd1.Parameters.AddWithValue("@herria", (object?)p.Herria ?? DBNull.Value);
+                        cmd1.Parameters.AddWithValue("@posta", (object?)p.PostaKodea ?? DBNull.Value);
+                        int newId = Convert.ToInt32(cmd1.ExecuteScalar());
+
+                        string q2 = @"INSERT INTO pazienteak (id, sexua, odol_taldea, azken_altuera, azken_pisua, egoera_klinikoa) 
+                                    VALUES (@id, @sexua, @odol, @altuera, @pisua, 'Alta')";
+                        using (var cmd2 = new MySqlCommand(q2, konexioa, transakzioa))
+                        {
+                            cmd2.Parameters.AddWithValue("@id", newId);
+                            cmd2.Parameters.AddWithValue("@sexua", p.Sexua);
+                            cmd2.Parameters.AddWithValue("@odol", (object?)p.OdolTaldea ?? DBNull.Value);
+                            cmd2.Parameters.AddWithValue("@altuera", (object?)p.AzkenAltuera ?? DBNull.Value);
+                            cmd2.Parameters.AddWithValue("@pisua", (object?)p.AzkenPisua ?? DBNull.Value);
+                            cmd2.ExecuteNonQuery();
+                        }
+                    }
+                    transakzioa.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transakzioa.Rollback();
+                    Console.WriteLine($"Errorea: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+
+        public bool SortuOsasunLangilea(OsasunLangilea m)
+        {
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            using (var transakzioa = konexioa.BeginTransaction())
+            {
+                try
+                {
+                    string q1 = @"INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza, izena, abizenak, jaiotze_data, telefonoa, nan, irudia) 
+                                  VALUES (@email, @pass, 1, 1, @hizkuntza, @izena, @abizenak, @jaiotze, @telefonoa, @nan, 'img/lehenetsia.png'); 
+                                  SELECT LAST_INSERT_ID();";
+                    using (var cmd1 = new MySqlCommand(q1, konexioa, transakzioa))
+                    {
+                        cmd1.Parameters.AddWithValue("@email", m.Emaila);
+                        cmd1.Parameters.AddWithValue("@pass", m.Pasahitza);
+                        cmd1.Parameters.AddWithValue("@hizkuntza", m.Hizkuntza);
+                        cmd1.Parameters.AddWithValue("@izena", m.Izena);
+                        cmd1.Parameters.AddWithValue("@abizenak", m.Abizenak);
+                        cmd1.Parameters.AddWithValue("@jaiotze", m.JaiotzeData);
+                        cmd1.Parameters.AddWithValue("@telefonoa", (object?)m.Telefonoa ?? DBNull.Value);
+                        cmd1.Parameters.AddWithValue("@nan", m.Nan);
+                        int newId = Convert.ToInt32(cmd1.ExecuteScalar());
+
+                        string q2 = @"INSERT INTO osasun_langileak 
+                                    (id, elkargokide_zenbakia, espezialitatea, kontsulta, lanaldia) 
+                                    VALUES (@id, @elkargokide, @espezialitatea, @kontsulta, @lanaldia)";
+                        using (var cmd2 = new MySqlCommand(q2, konexioa, transakzioa))
+                        {
+                            cmd2.Parameters.AddWithValue("@id", newId);
+                            cmd2.Parameters.AddWithValue("@elkargokide", m.ElkargokideZenbakia);
+                            cmd2.Parameters.AddWithValue("@espezialitatea", m.Espezialitatea);
+                            cmd2.Parameters.AddWithValue("@kontsulta", (object?)m.Kontsulta ?? DBNull.Value);
+                            cmd2.Parameters.AddWithValue("@lanaldia", m.Lanaldia);
+                            cmd2.ExecuteNonQuery();
+                        }
+                    }
+                    transakzioa.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transakzioa.Rollback();
+                    Console.WriteLine($"Errorea: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+
+        public bool SortuHarrerakoa(HarrerakoLangilea h)
+        {
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            using (var transakzioa = konexioa.BeginTransaction())
+            {
+                try
+                {
+                    string q1 = @"INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza, izena, abizenak, jaiotze_data, telefonoa, irudia) 
+                                  VALUES (@email, @pass, 3, 1, @hizkuntza, @izena, @abizenak, @jaiotze, @telefonoa, 'img/lehenetsia.png'); 
+                                  SELECT LAST_INSERT_ID();";
+                    using (var cmd1 = new MySqlCommand(q1, konexioa, transakzioa))
+                    {
+                        cmd1.Parameters.AddWithValue("@email", h.Emaila);
+                        cmd1.Parameters.AddWithValue("@pass", h.Pasahitza);
+                        cmd1.Parameters.AddWithValue("@hizkuntza", h.Hizkuntza);
+                        cmd1.Parameters.AddWithValue("@izena", h.Izena);
+                        cmd1.Parameters.AddWithValue("@abizenak", h.Abizenak);
+                        cmd1.Parameters.AddWithValue("@jaiotze", h.JaiotzeData);
+                        cmd1.Parameters.AddWithValue("@telefonoa", (object?)h.Telefonoa ?? DBNull.Value);
+                        int newId = Convert.ToInt32(cmd1.ExecuteScalar());
+
+                        string q2 = @"INSERT INTO harrerako_langileak (id, txanda) VALUES (@id, @txanda)";
+                        using (var cmd2 = new MySqlCommand(q2, konexioa, transakzioa))
+                        {
+                            cmd2.Parameters.AddWithValue("@id", newId);
+                            cmd2.Parameters.AddWithValue("@txanda", h.Txanda);
+                            cmd2.ExecuteNonQuery();
+                        }
+                    }
+                    transakzioa.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transakzioa.Rollback();
+                    Console.WriteLine($"Errorea: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+
+        public bool EzabatuPazientea(int id)
+        {
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            {
+                string query = "UPDATE erabiltzaileak SET aktibo = 0 WHERE id = @id";
+                using (var komandoa = new MySqlCommand(query, konexioa))
+                {
+                    komandoa.Parameters.AddWithValue("@id", id);
+                    return komandoa.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
+        public bool EguneratuPazientea(Pazientea p)
+        {
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            using (var transakzioa = konexioa.BeginTransaction())
+            {
+                try
+                {
+                    string q1 = @"UPDATE erabiltzaileak SET 
+                                    email = @email, 
+                                    izena = @izena, 
+                                    abizenak = @abizenak, 
+                                    nan = @nan, 
+                                    jaiotze_data = @jaiotze, 
+                                    telefonoa = @telefonoa, 
+                                    helbidea = @helbidea, 
+                                    herria = @herria, 
+                                    posta_kodea = @posta
+                                  WHERE id = @id";
+                    using (var cmd1 = new MySqlCommand(q1, konexioa, transakzioa))
+                    {
+                        cmd1.Parameters.AddWithValue("@id", p.Id);
+                        cmd1.Parameters.AddWithValue("@email", p.Emaila);
+                        cmd1.Parameters.AddWithValue("@izena", p.Izena);
+                        cmd1.Parameters.AddWithValue("@abizenak", p.Abizenak);
+                        cmd1.Parameters.AddWithValue("@nan", p.Nan);
+                        cmd1.Parameters.AddWithValue("@jaiotze", p.JaiotzeData);
+                        cmd1.Parameters.AddWithValue("@telefonoa", (object?)p.Telefonoa ?? DBNull.Value);
+                        cmd1.Parameters.AddWithValue("@helbidea", (object?)p.Helbidea ?? DBNull.Value);
+                        cmd1.Parameters.AddWithValue("@herria", (object?)p.Herria ?? DBNull.Value);
+                        cmd1.Parameters.AddWithValue("@posta", (object?)p.PostaKodea ?? DBNull.Value);
+                        cmd1.ExecuteNonQuery();
+                    }
+
+                    string q2 = @"UPDATE pazienteak SET 
+                                    sexua = @sexua, 
+                                    odol_taldea = @odol, 
+                                    egoera_klinikoa = @egoera
+                                  WHERE id = @id";
+                    using (var cmd2 = new MySqlCommand(q2, konexioa, transakzioa))
+                    {
+                        cmd2.Parameters.AddWithValue("@id", p.Id);
+                        cmd2.Parameters.AddWithValue("@sexua", p.Sexua);
+                        cmd2.Parameters.AddWithValue("@odol", (object?)p.OdolTaldea ?? DBNull.Value);
+                        cmd2.Parameters.AddWithValue("@egoera", p.EgoeraKlinikoa);
+                        cmd2.ExecuteNonQuery();
+                    }
+
+                    transakzioa.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transakzioa.Rollback();
+                    Console.WriteLine($"Errorea: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-﻿using GOsasun_app.Modeloa;
+using GOsasun_app.Modeloa;
 using GOsasun_app.Kontrola.Zerbitzuak;
 using GOsasun_app.Kontrola;
 using System.Collections.Generic;
@@ -244,7 +244,7 @@ namespace GOsasun_app.Interfazea
             {
                 if (_erabiltzaileKontrolatzailea != null && _erabiltzailea != null)
                 {
-                    _pazienteak = _erabiltzaileKontrolatzailea.LortuMedikuarenPazienteak(_erabiltzailea.Id);
+                    _pazienteak = _erabiltzaileKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea.Id);
                     GordeDgvDatuak(_pazienteak);
                 }
             }
