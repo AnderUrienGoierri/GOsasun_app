@@ -13,7 +13,7 @@ namespace GOsasun_app.Modeloa
         public decimal? AzkenAltuera { get; set; }
         public decimal? AzkenPisua { get; set; }
         public string EgoeraKlinikoa { get; set; } = "Alta";
-        
+
         public System.Collections.ArrayList OsasunLangileak { get; set; } = new System.Collections.ArrayList();
 
         public override string Rola => "Pazientea";

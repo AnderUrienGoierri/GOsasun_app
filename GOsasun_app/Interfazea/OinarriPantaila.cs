@@ -2,12 +2,13 @@
 // OinarriPantaila.cs - Formulario oinarria (Base Form)
 // ============================================================
 // Formulario guztiek heredatzen duten oinarri klasea.
-// Egurrezko atzeko planoa, GoiburuBarra eta atzera-botoia
+// Portadako atzeko planoa, GoiburuBarra eta atzera-botoia
 // kudeatzen ditu.
 // ============================================================
 
 using GOsasun_app.Interfazea.Kontrolak;
 using GOsasun_app.Modeloa;
+using System.ComponentModel;
 
 namespace GOsasun_app.Interfazea
 {
@@ -17,6 +18,10 @@ namespace GOsasun_app.Interfazea
     /// </summary>
     public partial class OinarriPantaila : Form
     {
+        private static readonly Size PortadaIrudiTamaina = new Size(1514, 1394);
+        private static readonly Size OinarriPantailaTamaina = new Size(1902, 1394);
+        private static readonly Color PortadaAtzekoKolorea = Color.FromArgb(214, 224, 229);
+
         // Erabiltzaile informazioa (OOP)
         protected Erabiltzailea? _erabiltzailea;
 
@@ -28,7 +33,8 @@ namespace GOsasun_app.Interfazea
             InitializeComponent();
             KonfiguratuFormularioa();
             KargatuBaliabideak();
-            
+            EgokituPortadarenNeurrira();
+
             // Atzera botoiaren gertaera lehenetsia
             if (_atzeraBotoia != null)
             {
@@ -44,7 +50,7 @@ namespace GOsasun_app.Interfazea
             : this()
         {
             _erabiltzailea = erabiltzailea;
-            
+
             // Goiburuko barra informazioarekin eguneratu
             if (_goiburuBarra != null)
             {
@@ -58,10 +64,13 @@ namespace GOsasun_app.Interfazea
         // -----------------------------------------------------------
         private void KonfiguratuFormularioa()
         {
-            // Orain Diseinatzailean jarritako tamaina eta estiloa erabiliko dira
             this.StartPosition = FormStartPosition.CenterScreen;
             this.DoubleBuffered = true;
             this.Text = "GOsasun";
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.ClientSize = OinarriPantailaTamaina;
+            this.BackColor = PortadaAtzekoKolorea;
 
             // Eduki panela konfiguratu
             KonfiguratuEdukiPanela(_edukiPanela);
@@ -80,19 +89,115 @@ namespace GOsasun_app.Interfazea
         // -----------------------------------------------------------
         protected void KargatuBaliabideak()
         {
-            if (this.DesignMode) return;
-
-            // Egurrezko atzeko planoa
-            string atzekoPlanoaBidea = Path.Combine(Application.StartupPath, "img", "wood_background.png");
-            if (File.Exists(atzekoPlanoaBidea))
+            string? atzekoPlanoaBidea = BilatuPortadaBidea();
+            if (!string.IsNullOrEmpty(atzekoPlanoaBidea) && File.Exists(atzekoPlanoaBidea))
             {
                 this.BackgroundImage = Image.FromFile(atzekoPlanoaBidea);
-                this.BackgroundImageLayout = ImageLayout.Tile;
+                this.BackgroundImageLayout = ImageLayout.Center;
+                if (_edukiPanela != null)
+                {
+                    _edukiPanela.BackgroundImage = this.BackgroundImage;
+                    _edukiPanela.BackgroundImageLayout = ImageLayout.Center;
+                }
+                this.ClientSize = new Size(Math.Max(OinarriPantailaTamaina.Width, this.BackgroundImage.Width), Math.Max(OinarriPantailaTamaina.Height, this.BackgroundImage.Height));
             }
             else
             {
-                this.BackColor = Color.FromArgb(139, 119, 101);
+                this.BackColor = PortadaAtzekoKolorea;
+                if (_edukiPanela != null)
+                {
+                    _edukiPanela.BackgroundImage = null;
+                }
+                this.ClientSize = OinarriPantailaTamaina;
             }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            EgokituPortadarenNeurrira();
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            EgokituPortadarenNeurrira();
+        }
+
+        private void EgokituPortadarenNeurrira()
+        {
+            Size irudiTamaina = this.BackgroundImage?.Size ?? PortadaIrudiTamaina;
+            Size helmugaTamaina = new Size(
+                Math.Max(OinarriPantailaTamaina.Width, irudiTamaina.Width),
+                Math.Max(OinarriPantailaTamaina.Height, irudiTamaina.Height));
+
+            if (this.ClientSize != helmugaTamaina)
+            {
+                this.ClientSize = helmugaTamaina;
+            }
+
+            if (_goiburuBarra != null)
+            {
+                _goiburuBarra.Width = helmugaTamaina.Width;
+            }
+
+            if (_edukiPanela != null)
+            {
+                _edukiPanela.Location = new Point(0, _goiburuBarra.Bottom);
+                _edukiPanela.Size = new Size(helmugaTamaina.Width, helmugaTamaina.Height - _goiburuBarra.Height);
+            }
+
+            if (_atzeraBotoia != null)
+            {
+                _atzeraBotoia.BringToFront();
+            }
+        }
+
+        private static string? BilatuPortadaBidea()
+        {
+            foreach (string root in LortuBilaketaErroak())
+            {
+                string[] saioak = {
+                    Path.Combine(root, "img", "png", "app_portada.png"),
+                    Path.Combine(root, "GOsasun_app", "img", "png", "app_portada.png")
+                };
+
+                string? aurkitua = saioak.FirstOrDefault(File.Exists);
+                if (!string.IsNullOrEmpty(aurkitua)) return aurkitua;
+            }
+
+            return null;
+        }
+
+        protected bool DiseinuModuan()
+        {
+            return LicenseManager.UsageMode == LicenseUsageMode.Designtime || DesignMode || (Site?.DesignMode ?? false);
+        }
+
+        private static IEnumerable<string> LortuBilaketaErroak()
+        {
+            HashSet<string> erroak = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            string?[] hasierakoak = {
+                Application.StartupPath,
+                AppContext.BaseDirectory,
+                Directory.GetCurrentDirectory(),
+                Environment.CurrentDirectory,
+                Path.GetDirectoryName(typeof(OinarriPantaila).Assembly.Location)
+            };
+
+            foreach (string? hasiera in hasierakoak)
+            {
+                if (string.IsNullOrWhiteSpace(hasiera) || !Directory.Exists(hasiera)) continue;
+
+                DirectoryInfo? karpeta = new DirectoryInfo(hasiera);
+                while (karpeta != null)
+                {
+                    erroak.Add(karpeta.FullName);
+                    karpeta = karpeta.Parent;
+                }
+            }
+
+            return erroak;
         }
 
         // -----------------------------------------------------------
@@ -116,7 +221,7 @@ namespace GOsasun_app.Interfazea
 
             // Ikonoa kargatu
             string ikonoBidea = Path.Combine(Application.StartupPath, "img", "icons", ikonoFitxategia);
-            
+
             // Garapen moduko fallback-ak
             if (!File.Exists(ikonoBidea))
             {

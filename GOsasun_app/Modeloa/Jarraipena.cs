@@ -23,8 +23,8 @@ namespace GOsasun_app.Modeloa
         public Jarraipena() { }
 
         public Jarraipena(int id, int pazienteId, int? osasunLangileId, int? tentsioSistolikoa,
-                         int? tentsioDiastolikoa, decimal? pisuaKg, decimal? altuera, int? pultsuaPpm,
-                         string? oharrak, string? bideaZerbitzarian, DateTime erregistroData)
+                        int? tentsioDiastolikoa, decimal? pisuaKg, decimal? altuera, int? pultsuaPpm,
+                        string? oharrak, string? bideaZerbitzarian, DateTime erregistroData)
         {
             Id = id;
             PazienteId = pazienteId;

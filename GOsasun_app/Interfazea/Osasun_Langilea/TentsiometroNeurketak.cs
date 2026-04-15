@@ -18,13 +18,19 @@ namespace GOsasun_app.Interfazea
     /// </summary>
     public partial class TentsiometroNeurketak : OinarriPantaila
     {
+        private enum InportazioMota
+        {
+            AzkenNeurketa,
+            Batezbestekoa
+        }
+
         private readonly BM58Driver _driver = new BM58Driver();
         private string? _portuIzena;
         private bool _isHid;
         private CancellationTokenSource? _searchCts;
         private List<Pazientea> _pazienteak = new List<Pazientea>();
         private readonly ErabiltzaileKontrolatzailea _erabiltzaileKontrolatzailea = new ErabiltzaileKontrolatzailea();
-        private readonly NeurketaKontrolatzailea _neurketaKontrolatzailea = new NeurketaKontrolatzailea();
+        private readonly JarraipenaKontrolatzailea _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
 
         public TentsiometroNeurketak(Erabiltzailea medikua)
             : base(medikua)
@@ -82,7 +88,7 @@ namespace GOsasun_app.Interfazea
         {
             try
             {
-                var neurketak = _neurketaKontrolatzailea.LortuPazientearenNeurketak(pazienteId);
+                var jarraipenak = _jarraipenaKontrolatzailea.LortuPazientearenJarraipenak(pazienteId);
                 
                 DataTable dt = new DataTable();
                 dt.Columns.Add("Data", typeof(DateTime));
@@ -91,9 +97,9 @@ namespace GOsasun_app.Interfazea
                 dt.Columns.Add("Pultsua", typeof(int));
                 dt.Columns.Add("Pisua", typeof(decimal));
                 dt.Columns.Add("Altuera", typeof(decimal));
-                dt.Columns.Add("Sintomak", typeof(string));
+                dt.Columns.Add("Oharrak", typeof(string));
 
-                foreach (var n in neurketak)
+                foreach (var n in jarraipenak)
                 {
                     dt.Rows.Add(
                         n.ErregistroData,
@@ -102,7 +108,7 @@ namespace GOsasun_app.Interfazea
                         (object?)n.PultsuaPpm ?? DBNull.Value,
                         (object?)n.PisuaKg ?? DBNull.Value,
                         (object?)n.Altuera ?? DBNull.Value,
-                        n.Sintomak ?? ""
+                        n.Oharrak ?? ""
                     );
                 }
 
@@ -386,15 +392,23 @@ namespace GOsasun_app.Interfazea
                     if (selectForm.ShowDialog(this) != DialogResult.OK) return;
                 }
 
-                // 4. Kalkulatu eta Gorde
-                var neurria = _driver.KalkulatuBatezbestekoa(guztiak, pazienteId, aukeratutakoMemoria);
+                // 4. Hautatu inportazio mota
+                var inportazioMota = EskatuInportazioMota(aukeratutakoMemoria);
+                if (!inportazioMota.HasValue) return;
+
+                // 5. Kalkulatu eta Gorde
+                var neurria = inportazioMota == InportazioMota.AzkenNeurketa
+                    ? _driver.LortuAzkenNeurketa(guztiak, pazienteId, aukeratutakoMemoria)
+                    : _driver.KalkulatuBatezbestekoa(guztiak, pazienteId, aukeratutakoMemoria);
+
                 if (neurria != null)
                 {
-                    bool gordeta = _neurketaKontrolatzailea.GordeNeurketa(neurria);
+                    bool gordeta = _jarraipenaKontrolatzailea.GordeJarraipena(neurria);
                     
                     if (gordeta) {
-                        _neurketaKontrolatzailea.EsportatuXML(neurria);
-                        MessageBox.Show($"U{aukeratutakoMemoria} neurketa inportatu da:\nSistole: {neurria.TentsioSistolikoa}\nDiastole: {neurria.TentsioDiastolikoa}\nPultsua: {neurria.PultsuaPpm}", "Inportazio Arrakastatsua", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        _jarraipenaKontrolatzailea.EsportatuXML(neurria);
+                        string motaTestua = inportazioMota == InportazioMota.AzkenNeurketa ? "Azken neurketa" : "Batazbestekoa";
+                        MessageBox.Show($"U{aukeratutakoMemoria} memoriako {motaTestua.ToLower()} inportatu da:\nSistole: {neurria.TentsioSistolikoa}\nDiastole: {neurria.TentsioDiastolikoa}\nPultsua: {neurria.PultsuaPpm}", "Inportazio Arrakastatsua", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();
                     } else {
                         MessageBox.Show("Ezin izan da datu-basean gorde.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -410,6 +424,64 @@ namespace GOsasun_app.Interfazea
         private void _pnlMainCard_Paint(object sender, PaintEventArgs e)
         {
             // Visual Studio Designerrak behar duen gertaera-kudeatzailea.
+        }
+
+        private InportazioMota? EskatuInportazioMota(int memoria)
+        {
+            using (var selectForm = new Form())
+            {
+                selectForm.Text = "Hautatu Inportazio Mota";
+                selectForm.Size = new Size(640, 360);
+                selectForm.StartPosition = FormStartPosition.CenterParent;
+                selectForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+                selectForm.MaximizeBox = false;
+                selectForm.MinimizeBox = false;
+
+                InportazioMota? aukeratutakoMota = null;
+
+                var lblMsg = new Label {
+                    Text = $"U{memoria} memoria hautatu duzu.\nZer inportatu nahi duzu?",
+                    Dock = DockStyle.Top,
+                    Height = 110,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Font = new Font(this.Font.FontFamily, 11, FontStyle.Bold)
+                };
+
+                var btnAzkena = new Button {
+                    Text = "Azken neurketa\n(01 posizioan gordeta)",
+                    Size = new Size(270, 100),
+                    Location = new Point(30, 130),
+                    BackColor = Color.FromArgb(52, 152, 219),
+                    ForeColor = Color.White,
+                    Font = new Font(this.Font.FontFamily, 9, FontStyle.Bold)
+                };
+
+                var btnBatezbestekoa = new Button {
+                    Text = "Batazbestekoa\n(memoria osokoa)",
+                    Size = new Size(270, 100),
+                    Location = new Point(320, 130),
+                    BackColor = Color.FromArgb(46, 204, 113),
+                    ForeColor = Color.White,
+                    Font = new Font(this.Font.FontFamily, 9, FontStyle.Bold)
+                };
+
+                var btnUtzi = new Button {
+                    Text = "Utzi",
+                    DialogResult = DialogResult.Cancel,
+                    Dock = DockStyle.Bottom,
+                    Height = 50
+                };
+
+                btnAzkena.Click += (s, e) => { aukeratutakoMota = InportazioMota.AzkenNeurketa; selectForm.DialogResult = DialogResult.OK; };
+                btnBatezbestekoa.Click += (s, e) => { aukeratutakoMota = InportazioMota.Batezbestekoa; selectForm.DialogResult = DialogResult.OK; };
+
+                selectForm.Controls.Add(lblMsg);
+                selectForm.Controls.Add(btnAzkena);
+                selectForm.Controls.Add(btnBatezbestekoa);
+                selectForm.Controls.Add(btnUtzi);
+
+                return selectForm.ShowDialog(this) == DialogResult.OK ? aukeratutakoMota : null;
+            }
         }
     }
 }

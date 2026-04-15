@@ -19,7 +19,7 @@ namespace GOsasun_app.Modeloa
         public string? Diagnostikoa { get; set; }
         public bool Aktibo { get; set; } = true;
         public List<ErrezetaBotika> Botikak { get; set; } = new List<ErrezetaBotika>();
-        
+
         // UI-rako eta Bilaketetarako ezaugarri gehigarriak
         public string? PazienteIzenOsoa { get; set; }
         public string? PazienteNan { get; set; }

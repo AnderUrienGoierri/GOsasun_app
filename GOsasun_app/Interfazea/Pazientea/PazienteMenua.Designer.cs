@@ -24,9 +24,7 @@ namespace GOsasun_app.Interfazea
             ComponentResourceManager resources = new ComponentResourceManager(typeof(PazienteMenua));
             btnNeurketak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             btnErrezetak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            btnKontaktua = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             btnGrafikak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            btnAbisuak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             _edukiPanela.SuspendLayout();
             SuspendLayout();
             // 
@@ -34,9 +32,7 @@ namespace GOsasun_app.Interfazea
             // 
             _edukiPanela.Controls.Add(btnNeurketak);
             _edukiPanela.Controls.Add(btnErrezetak);
-            _edukiPanela.Controls.Add(btnKontaktua);
             _edukiPanela.Controls.Add(btnGrafikak);
-            _edukiPanela.Controls.Add(btnAbisuak);
             _edukiPanela.Size = new Size(1902, 1177);
             // 
             // _goiburuBarra
@@ -71,47 +67,19 @@ namespace GOsasun_app.Interfazea
             btnErrezetak.TabIndex = 1;
             btnErrezetak.Testua = "NIRE ERREZETAK";
             // 
-            // btnKontaktua
-            // 
-            btnKontaktua.BackColor = Color.White;
-            btnKontaktua.BorderBiribiltasuna = 24;
-            btnKontaktua.Ikonoa = (Image)resources.GetObject("btnKontaktua.Ikonoa");
-            btnKontaktua.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
-            btnKontaktua.Location = new Point(1263, 43);
-            btnKontaktua.Margin = new Padding(37, 43, 37, 43);
-            btnKontaktua.Name = "btnKontaktua";
-            btnKontaktua.Padding = new Padding(19, 21, 19, 21);
-            btnKontaktua.Size = new Size(576, 512);
-            btnKontaktua.TabIndex = 2;
-            btnKontaktua.Testua = "KONTAKTUA";
-            // 
             // btnGrafikak
             // 
             btnGrafikak.BackColor = Color.White;
             btnGrafikak.BorderBiribiltasuna = 24;
             btnGrafikak.Ikonoa = (Image)resources.GetObject("btnGrafikak.Ikonoa");
             btnGrafikak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
-            btnGrafikak.Location = new Point(37, 597);
+            btnGrafikak.Location = new Point(1263, 43);
             btnGrafikak.Margin = new Padding(37, 43, 37, 43);
             btnGrafikak.Name = "btnGrafikak";
             btnGrafikak.Padding = new Padding(19, 21, 19, 21);
             btnGrafikak.Size = new Size(576, 512);
-            btnGrafikak.TabIndex = 3;
+            btnGrafikak.TabIndex = 2;
             btnGrafikak.Testua = "GRAFIKAK";
-            // 
-            // btnAbisuak
-            // 
-            btnAbisuak.BackColor = Color.White;
-            btnAbisuak.BorderBiribiltasuna = 24;
-            btnAbisuak.Ikonoa = (Image)resources.GetObject("btnAbisuak.Ikonoa");
-            btnAbisuak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
-            btnAbisuak.Location = new Point(650, 597);
-            btnAbisuak.Margin = new Padding(37, 43, 37, 43);
-            btnAbisuak.Name = "btnAbisuak";
-            btnAbisuak.Padding = new Padding(19, 21, 19, 21);
-            btnAbisuak.Size = new Size(576, 512);
-            btnAbisuak.TabIndex = 4;
-            btnAbisuak.Testua = "ABISUAK";
             // 
             // PazienteMenua
             // 
@@ -129,8 +97,6 @@ namespace GOsasun_app.Interfazea
 
         private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnNeurketak;
         private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnErrezetak;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnKontaktua;
         private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnGrafikak;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnAbisuak;
     }
 }

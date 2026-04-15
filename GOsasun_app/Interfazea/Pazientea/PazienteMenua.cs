@@ -32,9 +32,7 @@ namespace GOsasun_app.Interfazea
                 
                 btnNeurketak.Ikonoa = Image.FromFile(Path.Combine(iconsPath, "neurketak.png"));
                 btnErrezetak.Ikonoa = Image.FromFile(Path.Combine(iconsPath, "errezetak.png"));
-                btnKontaktua.Ikonoa = Image.FromFile(Path.Combine(iconsPath, "kontaktua.png"));
                 btnGrafikak.Ikonoa = Image.FromFile(Path.Combine(iconsPath, "grafikak.png"));
-                btnAbisuak.Ikonoa = Image.FromFile(Path.Combine(iconsPath, "abisua.png"));
             }
             catch (Exception ex)
             {
@@ -47,16 +45,14 @@ namespace GOsasun_app.Interfazea
         {
             btnNeurketak.Click += (s, e) => IrekiFormularioa(new NireNeurketak(_erabiltzailea!));
             btnErrezetak.Click += (s, e) => IrekiFormularioa(new ErrezetaSortu(_erabiltzailea!));
-            btnKontaktua.Click += (s, e) => IrekiFormularioa(new Kontaktua(_erabiltzailea!));
             btnGrafikak.Click += (s, e) => IrekiFormularioa(new Grafikak(_erabiltzailea!));
-            btnAbisuak.Click += (s, e) => IrekiFormularioa(new Abisuak(_erabiltzailea!));
 
             // Hitzorduak botoia erantsi dinamikoki
             var btnHitzorduak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia
             {
                 Testua = "NIRE HITZORDUAK",
                 Size = new System.Drawing.Size(576, 512),
-                Location = new System.Drawing.Point(1263, 597), // Eskuinean behean kokatuta (edo 1150 bada ilara berria behar bada)
+                Location = new System.Drawing.Point(650, 597),
                 BackColor = System.Drawing.Color.White,
                 BorderBiribiltasuna = 24,
                 KartaKolorea = System.Drawing.Color.FromArgb(230, 255, 255, 255),

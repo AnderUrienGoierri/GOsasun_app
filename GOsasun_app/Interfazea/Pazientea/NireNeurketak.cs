@@ -14,7 +14,7 @@ namespace GOsasun_app.Interfazea
 {
     public partial class NireNeurketak : OinarriPantaila
     {
-        private readonly NeurketaKontrolatzailea _neurketaKontrolatzailea = new NeurketaKontrolatzailea();
+        private readonly JarraipenaKontrolatzailea _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
 
         public NireNeurketak() : base()
         {
@@ -51,12 +51,12 @@ namespace GOsasun_app.Interfazea
 
             try
             {
-                var neurketak = _neurketaKontrolatzailea.LortuPazientearenNeurketak(_erabiltzailea.Id);
+                var jarraipenak = _jarraipenaKontrolatzailea.LortuPazientearenJarraipenak(_erabiltzailea.Id);
 
                 // Dataren arabera filtratu behar bada
                 if (dataFiltroa.HasValue)
                 {
-                    neurketak = neurketak.Where(n => n.ErregistroData.Date == dataFiltroa.Value).ToList();
+                    jarraipenak = jarraipenak.Where(n => n.ErregistroData.Date == dataFiltroa.Value).ToList();
                 }
 
                 // DataTable bat erabili dgv-rako, ordenazio eta filtrazio hobea izateko
@@ -67,9 +67,9 @@ namespace GOsasun_app.Interfazea
                 dt.Columns.Add("Pultsua", typeof(int));
                 dt.Columns.Add("Pisua", typeof(decimal));
                 dt.Columns.Add("Altuera", typeof(decimal));
-                dt.Columns.Add("Sintomak", typeof(string));
+                dt.Columns.Add("Oharrak", typeof(string));
 
-                foreach (var n in neurketak)
+                foreach (var n in jarraipenak)
                 {
                     dt.Rows.Add(
                         n.ErregistroData,
@@ -78,7 +78,7 @@ namespace GOsasun_app.Interfazea
                         (object?)n.PultsuaPpm ?? DBNull.Value,
                         (object?)n.PisuaKg ?? DBNull.Value,
                         (object?)n.Altuera ?? DBNull.Value,
-                        n.Sintomak ?? ""
+                        n.Oharrak ?? ""
                     );
                 }
 
@@ -104,8 +104,9 @@ namespace GOsasun_app.Interfazea
 
                     // Zabalera doikuntzak
                     dgvHistoriala.Columns["Data"].Width = 280;
-                    dgvHistoriala.Columns["Sintomak"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dgvHistoriala.Columns["Sintomak"].MinimumWidth = 200;
+                    dgvHistoriala.Columns["Oharrak"].HeaderText = "Oharrak";
+                    dgvHistoriala.Columns["Oharrak"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvHistoriala.Columns["Oharrak"].MinimumWidth = 200;
                 }
             }
             catch (Exception ex)

@@ -23,7 +23,7 @@ namespace GOsasun_app.Interfazea
         private void KonfiguratuGertaerak()
         {
             btnPazienteak.Click += (s, e) => IrekiKudeaketa("Pazientea");
-            btnMedikuak.Click += (s, e) => IrekiKudeaketa("Medikua");
+            btnMedikuak.Click += (s, e) => IrekiKudeaketa("Osasun Langilea");
             btnLangileak.Click += (s, e) => IrekiKudeaketa("Harrerako Langilea");
             btnHitzorduak.Click += (s, e) =>
             {

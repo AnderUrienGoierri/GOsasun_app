@@ -7,6 +7,58 @@ namespace GOsasun_app.Repositorioa
 {
     public class JarraipenaDB
     {
+        public List<JarraipenZerrendaItem> LortuJarraipenGuztiak(string? bilaketa = null)
+        {
+            List<JarraipenZerrendaItem> jarraipenak = new List<JarraipenZerrendaItem>();
+
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            {
+                string query = @"
+                    SELECT j.id, j.paziente_id, e.nan, e.izena, e.abizenak, j.tentsio_sistolikoa,
+                           j.tentsio_diastolikoa, j.pisua_kg, j.altuera, j.pultsua_ppm,
+                           j.oharrak, j.erregistro_data, COUNT(d.id) AS dokumentu_kopurua
+                    FROM jarraipenak j
+                    JOIN erabiltzaileak e ON e.id = j.paziente_id
+                    LEFT JOIN dokumentuak d ON d.jarraipena_id = j.id
+                    WHERE (@testua IS NULL OR e.nan LIKE @testua OR e.izena LIKE @testua OR e.abizenak LIKE @testua)
+                    GROUP BY j.id, j.paziente_id, e.nan, e.izena, e.abizenak, j.tentsio_sistolikoa,
+                             j.tentsio_diastolikoa, j.pisua_kg, j.altuera, j.pultsua_ppm,
+                             j.oharrak, j.erregistro_data
+                    ORDER BY j.erregistro_data DESC";
+
+                using (var komandoa = new MySqlCommand(query, konexioa))
+                {
+                    string? testua = string.IsNullOrWhiteSpace(bilaketa) ? null : $"%{bilaketa.Trim()}%";
+                    komandoa.Parameters.AddWithValue("@testua", (object?)testua ?? DBNull.Value);
+
+                    using (var irakurlea = komandoa.ExecuteReader())
+                    {
+                        while (irakurlea.Read())
+                        {
+                            jarraipenak.Add(new JarraipenZerrendaItem
+                            {
+                                Id = irakurlea.GetInt32("id"),
+                                PazienteId = irakurlea.GetInt32("paziente_id"),
+                                PazienteNan = irakurlea.GetString("nan"),
+                                PazienteIzena = irakurlea.GetString("izena"),
+                                PazienteAbizenak = irakurlea.GetString("abizenak"),
+                                TentsioSistolikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("tentsio_sistolikoa")) ? (int?)null : irakurlea.GetInt32("tentsio_sistolikoa"),
+                                TentsioDiastolikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("tentsio_diastolikoa")) ? (int?)null : irakurlea.GetInt32("tentsio_diastolikoa"),
+                                PisuaKg = irakurlea.IsDBNull(irakurlea.GetOrdinal("pisua_kg")) ? (decimal?)null : irakurlea.GetDecimal("pisua_kg"),
+                                Altuera = irakurlea.IsDBNull(irakurlea.GetOrdinal("altuera")) ? (decimal?)null : irakurlea.GetDecimal("altuera"),
+                                PultsuaPpm = irakurlea.IsDBNull(irakurlea.GetOrdinal("pultsua_ppm")) ? (int?)null : irakurlea.GetInt32("pultsua_ppm"),
+                                Oharrak = irakurlea.IsDBNull(irakurlea.GetOrdinal("oharrak")) ? null : irakurlea.GetString("oharrak"),
+                                ErregistroData = irakurlea.GetDateTime("erregistro_data"),
+                                DokumentuKopurua = irakurlea.GetInt32("dokumentu_kopurua")
+                            });
+                        }
+                    }
+                }
+            }
+
+            return jarraipenak;
+        }
+
         public List<Jarraipena> LortuPazientearenJarraipenak(int pazienteId)
         {
             List<Jarraipena> jarraipenak = new List<Jarraipena>();
@@ -49,6 +101,46 @@ namespace GOsasun_app.Repositorioa
             return jarraipenak;
         }
 
+        public Jarraipena? LortuJarraipena(int jarraipenaId)
+        {
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            {
+                string query = @"
+                    SELECT id, paziente_id, osasun_langile_id, tentsio_sistolikoa,
+                           tentsio_diastolikoa, pisua_kg, altuera, pultsua_ppm, oharrak, bidea_zerbitzarian, erregistro_data
+                    FROM jarraipenak
+                    WHERE id = @jarraipenaId";
+
+                using (var komandoa = new MySqlCommand(query, konexioa))
+                {
+                    komandoa.Parameters.AddWithValue("@jarraipenaId", jarraipenaId);
+
+                    using (var irakurlea = komandoa.ExecuteReader())
+                    {
+                        if (irakurlea.Read())
+                        {
+                            return new Jarraipena
+                            {
+                                Id = irakurlea.GetInt32("id"),
+                                PazienteId = irakurlea.GetInt32("paziente_id"),
+                                OsasunLangileId = irakurlea.IsDBNull(irakurlea.GetOrdinal("osasun_langile_id")) ? (int?)null : irakurlea.GetInt32("osasun_langile_id"),
+                                TentsioSistolikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("tentsio_sistolikoa")) ? (int?)null : irakurlea.GetInt32("tentsio_sistolikoa"),
+                                TentsioDiastolikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("tentsio_diastolikoa")) ? (int?)null : irakurlea.GetInt32("tentsio_diastolikoa"),
+                                PisuaKg = irakurlea.IsDBNull(irakurlea.GetOrdinal("pisua_kg")) ? (decimal?)null : irakurlea.GetDecimal("pisua_kg"),
+                                Altuera = irakurlea.IsDBNull(irakurlea.GetOrdinal("altuera")) ? (decimal?)null : irakurlea.GetDecimal("altuera"),
+                                PultsuaPpm = irakurlea.IsDBNull(irakurlea.GetOrdinal("pultsua_ppm")) ? (int?)null : irakurlea.GetInt32("pultsua_ppm"),
+                                Oharrak = irakurlea.IsDBNull(irakurlea.GetOrdinal("oharrak")) ? null : irakurlea.GetString("oharrak"),
+                                BideaZerbitzarian = irakurlea.IsDBNull(irakurlea.GetOrdinal("bidea_zerbitzarian")) ? null : irakurlea.GetString("bidea_zerbitzarian"),
+                                ErregistroData = irakurlea.GetDateTime("erregistro_data")
+                            };
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
         public bool GordeJarraipena(Jarraipena jarraipena)
         {
             try
@@ -82,6 +174,20 @@ namespace GOsasun_app.Repositorioa
             {
                 System.Diagnostics.Debug.WriteLine("Errorea jarraipena gordetzean: " + ex.Message);
                 return false;
+            }
+        }
+
+        public bool EzabatuJarraipena(int jarraipenaId)
+        {
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            {
+                string query = "DELETE FROM jarraipenak WHERE id = @jarraipenaId";
+
+                using (var komandoa = new MySqlCommand(query, konexioa))
+                {
+                    komandoa.Parameters.AddWithValue("@jarraipenaId", jarraipenaId);
+                    return komandoa.ExecuteNonQuery() > 0;
+                }
             }
         }
     }

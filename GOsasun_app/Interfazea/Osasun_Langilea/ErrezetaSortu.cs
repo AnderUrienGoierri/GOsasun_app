@@ -111,7 +111,7 @@ namespace GOsasun_app.Interfazea
 
         private void EguneratuPazienteak(string bilatzailea)
         {
-            if (_erabiltzailea != null && _erabiltzailea is Medikua m)
+            if (_erabiltzailea != null && _erabiltzailea is OsasunLangilea)
             {
                 pazienteak = erabiltzaileDB.LortuLangilearenPazienteak(_erabiltzailea.Id, bilatzailea);
                 
@@ -238,7 +238,7 @@ namespace GOsasun_app.Interfazea
 
             Errezeta berria = new Errezeta
             {
-                MedikuId = _erabiltzailea.Id,
+                OsasunLangileId = _erabiltzailea.Id,
                 PazienteId = paz.Id,
                 IgorpenData = DateTime.Now,
                 IraungitzeData = dtpIraungitzeData.Value,

@@ -8,6 +8,7 @@
 
 using GOsasun_app.Modeloa;
 using GOsasun_app.Kontrola;
+using System.ComponentModel;
 
 namespace GOsasun_app.Interfazea
 {
@@ -17,6 +18,7 @@ namespace GOsasun_app.Interfazea
     /// </summary>
     public partial class SaioaHasi : Form
     {
+        private static readonly Size PortadaTamaina = new Size(1514, 1394);
         private readonly ErabiltzaileKontrolatzailea _kontrolatzailea;
 
         // Eraikitzailea
@@ -37,39 +39,24 @@ namespace GOsasun_app.Interfazea
             this.MaximizeBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.DoubleBuffered = true;
+            this.ClientSize = PortadaTamaina;
         }
 
         // Irudiak kargatu
         private void KargatuBaliabideak()
         {
-            if (this.DesignMode) return;
+            string? atzekoPlanoaBidea = BilatuPortadaBidea();
 
-            string bgIzena = "wood_background.png";
-            string atzekoPlanoaBidea = Path.Combine(Application.StartupPath, "img", bgIzena);
-
-            if (!File.Exists(atzekoPlanoaBidea))
-            {
-                string root = Directory.GetCurrentDirectory();
-                string[] saioak = {
-                    Path.Combine(root, "img", bgIzena),
-                    Path.Combine(root, "GOsasun_app", "img", bgIzena),
-                    Path.Combine(root, "..", "..", "..", "img", bgIzena),
-                    Path.Combine(root, "..", "..", "..", "GOsasun_app", "img", bgIzena)
-                };
-                foreach (string s in saioak)
-                {
-                    if (File.Exists(s)) { atzekoPlanoaBidea = s; break; }
-                }
-            }
-
-            if (File.Exists(atzekoPlanoaBidea))
+            if (!string.IsNullOrEmpty(atzekoPlanoaBidea) && File.Exists(atzekoPlanoaBidea))
             {
                 this.BackgroundImage = Image.FromFile(atzekoPlanoaBidea);
-                this.BackgroundImageLayout = ImageLayout.Tile;
+                this.BackgroundImageLayout = ImageLayout.None;
+                this.ClientSize = this.BackgroundImage.Size;
             }
             else
             {
-                this.BackColor = Color.FromArgb(139, 119, 101);
+                this.BackColor = Color.FromArgb(235, 242, 247);
+                this.ClientSize = PortadaTamaina;
             }
 
             string logoIzena = "GOsasun_logo_whatsap.png";
@@ -112,6 +99,48 @@ namespace GOsasun_app.Interfazea
             }
         }
 
+        private static string? BilatuPortadaBidea()
+        {
+            foreach (string root in LortuBilaketaErroak())
+            {
+                string[] saioak = {
+                    Path.Combine(root, "img", "png", "app_portada.png"),
+                    Path.Combine(root, "GOsasun_app", "img", "png", "app_portada.png")
+                };
+
+                string? aurkitua = saioak.FirstOrDefault(File.Exists);
+                if (!string.IsNullOrEmpty(aurkitua)) return aurkitua;
+            }
+
+            return null;
+        }
+
+        private static IEnumerable<string> LortuBilaketaErroak()
+        {
+            HashSet<string> erroak = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            string?[] hasierakoak = {
+                Application.StartupPath,
+                AppContext.BaseDirectory,
+                Directory.GetCurrentDirectory(),
+                Environment.CurrentDirectory,
+                Path.GetDirectoryName(typeof(SaioaHasi).Assembly.Location)
+            };
+
+            foreach (string? hasiera in hasierakoak)
+            {
+                if (string.IsNullOrWhiteSpace(hasiera) || !Directory.Exists(hasiera)) continue;
+
+                DirectoryInfo? karpeta = new DirectoryInfo(hasiera);
+                while (karpeta != null)
+                {
+                    erroak.Add(karpeta.FullName);
+                    karpeta = karpeta.Parent;
+                }
+            }
+
+            return erroak;
+        }
+
 
         private void LoginPanela_Paint(object? sender, PaintEventArgs e)
         {
@@ -147,9 +176,9 @@ namespace GOsasun_app.Interfazea
                 if (erabiltzaileaObj != null)
                 {
                     Form menuForm;
-                    if (erabiltzaileaObj is Medikua)
+                    if (erabiltzaileaObj is OsasunLangilea)
                     {
-                        menuForm = new MedikuMenua(erabiltzaileaObj);
+                        menuForm = new MenuaOsasunLangilea(erabiltzaileaObj);
                     }
                     else if (erabiltzaileaObj is Pazientea)
                     {

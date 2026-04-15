@@ -43,9 +43,9 @@
             _loginPanela.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)_logoPicture).BeginInit();
             SuspendLayout();
-            // 
+            //
             // _loginPanela
-            // 
+            //
             _loginPanela.BackColor = Color.FromArgb(240, 255, 255, 255);
             _loginPanela.Controls.Add(_logoPicture);
             _loginPanela.Controls.Add(_tituluLabel);
@@ -57,15 +57,15 @@
             _loginPanela.Controls.Add(_loginBotoia);
             _loginPanela.Controls.Add(_itzaliBotoia);
             _loginPanela.Controls.Add(_mezuLabel);
-            _loginPanela.Location = new Point(455, 30);
+            _loginPanela.Location = new Point(421, 235);
             _loginPanela.Name = "_loginPanela";
             _loginPanela.Padding = new Padding(30);
             _loginPanela.Size = new Size(672, 924);
             _loginPanela.TabIndex = 0;
             _loginPanela.Paint += _loginPanela_Paint;
-            // 
+            //
             // _logoPicture
-            // 
+            //
             _logoPicture.BackColor = Color.Transparent;
             _logoPicture.Image = (Image)resources.GetObject("_logoPicture.Image");
             _logoPicture.Location = new Point(145, 6);
@@ -74,9 +74,9 @@
             _logoPicture.SizeMode = PictureBoxSizeMode.Zoom;
             _logoPicture.TabIndex = 0;
             _logoPicture.TabStop = false;
-            // 
+            //
             // _tituluLabel
-            // 
+            //
             _tituluLabel.AutoSize = true;
             _tituluLabel.BackColor = Color.Transparent;
             _tituluLabel.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
@@ -86,9 +86,9 @@
             _tituluLabel.Size = new Size(348, 100);
             _tituluLabel.TabIndex = 1;
             _tituluLabel.Text = "GOsasun";
-            // 
+            //
             // _erabiltzaileLabel
-            // 
+            //
             _erabiltzaileLabel.AutoSize = true;
             _erabiltzaileLabel.BackColor = Color.Transparent;
             _erabiltzaileLabel.Font = new Font("Segoe UI", 13F);
@@ -98,9 +98,9 @@
             _erabiltzaileLabel.Size = new Size(120, 47);
             _erabiltzaileLabel.TabIndex = 2;
             _erabiltzaileLabel.Text = "Emaila";
-            // 
+            //
             // _erabiltzaileTextBox
-            // 
+            //
             _erabiltzaileTextBox.BorderStyle = BorderStyle.FixedSingle;
             _erabiltzaileTextBox.Font = new Font("Segoe UI", 12F);
             _erabiltzaileTextBox.Location = new Point(147, 365);
@@ -108,9 +108,9 @@
             _erabiltzaileTextBox.PlaceholderText = "Zure emaila...";
             _erabiltzaileTextBox.Size = new Size(360, 50);
             _erabiltzaileTextBox.TabIndex = 3;
-            // 
+            //
             // _pasahitzaLabel
-            // 
+            //
             _pasahitzaLabel.AutoSize = true;
             _pasahitzaLabel.BackColor = Color.Transparent;
             _pasahitzaLabel.Font = new Font("Segoe UI", 13F);
@@ -120,9 +120,9 @@
             _pasahitzaLabel.Size = new Size(164, 47);
             _pasahitzaLabel.TabIndex = 4;
             _pasahitzaLabel.Text = "Pasahitza";
-            // 
+            //
             // _pasahitzaTextBox
-            // 
+            //
             _pasahitzaTextBox.BorderStyle = BorderStyle.FixedSingle;
             _pasahitzaTextBox.Font = new Font("Segoe UI", 12F);
             _pasahitzaTextBox.Location = new Point(147, 485);
@@ -131,9 +131,9 @@
             _pasahitzaTextBox.Size = new Size(360, 50);
             _pasahitzaTextBox.TabIndex = 5;
             _pasahitzaTextBox.UseSystemPasswordChar = true;
-            // 
+            //
             // _erakutsiPasahitza
-            // 
+            //
             _erakutsiPasahitza.AutoSize = true;
             _erakutsiPasahitza.BackColor = Color.Transparent;
             _erakutsiPasahitza.Font = new Font("Segoe UI", 11F);
@@ -144,9 +144,9 @@
             _erakutsiPasahitza.TabIndex = 6;
             _erakutsiPasahitza.Text = "Erakutsi pasahitza";
             _erakutsiPasahitza.UseVisualStyleBackColor = false;
-            // 
+            //
             // _loginBotoia
-            // 
+            //
             _loginBotoia.BackColor = Color.FromArgb(46, 204, 113);
             _loginBotoia.Cursor = Cursors.Hand;
             _loginBotoia.FlatAppearance.BorderSize = 0;
@@ -160,9 +160,9 @@
             _loginBotoia.Text = "SARTU";
             _loginBotoia.UseVisualStyleBackColor = false;
             _loginBotoia.Click += _loginBotoia_Click;
-            // 
+            //
             // _itzaliBotoia
-            // 
+            //
             _itzaliBotoia.BackColor = Color.FromArgb(231, 76, 60);
             _itzaliBotoia.Cursor = Cursors.Hand;
             _itzaliBotoia.FlatAppearance.BorderSize = 0;
@@ -175,9 +175,9 @@
             _itzaliBotoia.TabIndex = 9;
             _itzaliBotoia.Text = "ITZALI";
             _itzaliBotoia.UseVisualStyleBackColor = false;
-            // 
+            //
             // _mezuLabel
-            // 
+            //
             _mezuLabel.AutoSize = true;
             _mezuLabel.BackColor = Color.Transparent;
             _mezuLabel.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
@@ -187,11 +187,12 @@
             _mezuLabel.Size = new Size(0, 41);
             _mezuLabel.TabIndex = 8;
             _mezuLabel.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
             // SaioaHasi
-            // 
+            //
             AcceptButton = _loginBotoia;
-            ClientSize = new Size(1600, 1000);
+            BackgroundImageLayout = ImageLayout.None;
+            ClientSize = new Size(1514, 1394);
             Controls.Add(_loginPanela);
             Name = "SaioaHasi";
             _loginPanela.ResumeLayout(false);

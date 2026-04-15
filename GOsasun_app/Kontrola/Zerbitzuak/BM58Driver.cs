@@ -32,7 +32,7 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
         private const int Beurer_VID = 0x0C45;
         private const int Beurer_PID = 0x7406;
 
-        // TentsioNeurria kenduta OBP logika jarraitzeko (Neurketa modeloa erabiliko da)
+        // TentsioNeurria kenduta OBP logika jarraitzeko (Jarraipena modeloa erabiliko da)
 
         #region Komunikazio Abstrakzioa
         private interface IChannel : IDisposable
@@ -353,34 +353,67 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
             }
         }
 
-        public Neurketa? KalkulatuBatezbestekoa(List<BM58RawRecord> records, int pazienteId, int memoria)
+        public Jarraipena? KalkulatuBatezbestekoa(List<BM58RawRecord> records, int pazienteId, int memoria)
         {
             if (records == null || records.Count == 0) return null;
             long sSisi = 0, sDia = 0, sPul = 0;
             int count = 0;
-            bool filterU2 = (memoria == 2);
 
-            foreach (var r in records)
+            foreach (var r in LortuMemoriakoErrekordak(records, memoria))
             {
-                if ((filterU2 ? r.IsU2 : r.IsU1))
-                {
-                    int si = r.Data[0] + 25, di = r.Data[1] + 25, pu = r.Data[2];
-                    if (si > 0 && si < 400 && di > 0 && di < 400) {
-                        sSisi += si; sDia += di; sPul += pu; count++;
-                    }
+                int si = r.Data[0] + 25, di = r.Data[1] + 25, pu = r.Data[2];
+                if (si > 0 && si < 400 && di > 0 && di < 400) {
+                    sSisi += si; sDia += di; sPul += pu; count++;
                 }
             }
 
             if (count == 0) throw new Exception($"Ez da U{memoria} memoriako neurketarik aurkitu (indizeetan oinarrituta).");
 
-            return new Neurketa {
+            return new Jarraipena {
                 PazienteId = pazienteId,
                 TentsioSistolikoa = (int)Math.Round((double)sSisi / count, MidpointRounding.AwayFromZero),
                 TentsioDiastolikoa = (int)Math.Round((double)sDia / count, MidpointRounding.AwayFromZero),
                 PultsuaPpm = (int)Math.Round((double)sPul / count, MidpointRounding.AwayFromZero),
                 ErregistroData = DateTime.Now,
-                Sintomak = $"U{memoria} Batezbestekoa (A) - {count} neurketa (Indize blokea)."
+                Oharrak = $"U{memoria} batezbestekoa - {count} neurketa (indize blokea)."
             };
+        }
+
+        public Jarraipena? LortuAzkenNeurketa(List<BM58RawRecord> records, int pazienteId, int memoria)
+        {
+            if (records == null || records.Count == 0) return null;
+
+            var azkena = LortuMemoriakoErrekordak(records, memoria).FirstOrDefault();
+            if (azkena == null)
+            {
+                throw new Exception($"Ez da U{memoria} memoriako neurketarik aurkitu (01 posizioa hartzeko).");
+            }
+
+            int si = azkena.Data[0] + 25;
+            int di = azkena.Data[1] + 25;
+            int pu = azkena.Data[2];
+
+            if (si <= 0 || si >= 400 || di <= 0 || di >= 400)
+            {
+                throw new Exception($"U{memoria} memoriako 01 posizioko neurketa ez da baliozkoa.");
+            }
+
+            return new Jarraipena {
+                PazienteId = pazienteId,
+                TentsioSistolikoa = si,
+                TentsioDiastolikoa = di,
+                PultsuaPpm = pu,
+                ErregistroData = DateTime.Now,
+                Oharrak = $"U{memoria} azken neurketa - 01 posizioa (indizea: {azkena.Index:00})."
+            };
+        }
+
+        private IEnumerable<BM58RawRecord> LortuMemoriakoErrekordak(List<BM58RawRecord> records, int memoria)
+        {
+            bool filterU2 = memoria == 2;
+            return records
+                .Where(r => filterU2 ? r.IsU2 : r.IsU1)
+                .OrderBy(r => r.Index);
         }
 
         public class MemoriaInformazioa { public int U1Kopurua, U2Kopurua, Denetara; }

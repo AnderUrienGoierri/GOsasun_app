@@ -14,6 +14,7 @@ namespace GOsasun_app.Kontrola
     {
         // ---------------------------SORTU OBJETUA------------------------------------------------------    
         private readonly JarraipenaDB _db = new JarraipenaDB();
+        private readonly DokumentuaDB _dokumentuaDb = new DokumentuaDB();
 
         // ---------------------------LORTU------------------------------------------------------        
 
@@ -25,12 +26,37 @@ namespace GOsasun_app.Kontrola
             return _db.LortuPazientearenJarraipenak(pazienteId);
         }
 
+        public List<JarraipenZerrendaItem> LortuJarraipenGuztiak(string? bilaketa = null)
+        {
+            return _db.LortuJarraipenGuztiak(bilaketa);
+        }
+
+        public Jarraipena? LortuJarraipena(int jarraipenaId)
+        {
+            return _db.LortuJarraipena(jarraipenaId);
+        }
+
         /// <summary>
         /// Jarraipen berri bat gordetzen du datu-basean.
         /// </summary>
         public bool GordeJarraipena(Jarraipena jarraipena)
         {
             return _db.GordeJarraipena(jarraipena);
+        }
+
+        public bool EzabatuJarraipena(int jarraipenaId)
+        {
+            return _db.EzabatuJarraipena(jarraipenaId);
+        }
+
+        public List<Dokumentua> LortuJarraipenarenDokumentuak(int jarraipenaId)
+        {
+            return _dokumentuaDb.LortuJarraipenarenDokumentuak(jarraipenaId);
+        }
+
+        public bool GordeDokumentua(Dokumentua dokumentua)
+        {
+            return _dokumentuaDb.GordeDokumentua(dokumentua);
         }
 
         /// <summary>

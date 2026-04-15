@@ -19,7 +19,7 @@ namespace GOsasun_app.Modeloa
         public Dokumentua() { }
 
         public Dokumentua(int id, int jarraipenaId, string fitxategiIzena,
-                          string bideaZerbitzarian, string? dokumentuIzena, string? deskribapena, DateTime igotzeData)
+                        string bideaZerbitzarian, string? dokumentuIzena, string? deskribapena, DateTime igotzeData)
         {
             Id = id;
             JarraipenaId = jarraipenaId;

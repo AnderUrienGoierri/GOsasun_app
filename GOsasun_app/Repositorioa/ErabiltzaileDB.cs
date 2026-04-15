@@ -7,12 +7,16 @@ namespace GOsasun_app.Repositorioa
 {
     public class ErabiltzaileDB
     {
+        private const int OsasunLangileaRolId = 1;
+        private const int PazienteaRolId = 2;
+        private const int HarreraRolId = 3;
+
         public Erabiltzailea? Login(string emaila, string pasahitza)
         {
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
                 string query = @"
-                    SELECT e.id, e.izena, e.abizenak, e.email, r.izena as rol_izena
+                    SELECT e.id, e.izena, e.abizenak, e.email, e.rol_id, r.izena as rol_izena
                     FROM erabiltzaileak e
                     JOIN rolak r ON e.rol_id = r.id
                     WHERE e.email = @emaila
@@ -32,19 +36,30 @@ namespace GOsasun_app.Repositorioa
                             string izena = irakurlea.GetString("izena");
                             string abizena = irakurlea.GetString("abizenak");
                             string email = irakurlea.GetString("email");
-                            string rolIzena = irakurlea.GetString("rol_izena");
+                            int rolId = irakurlea.GetInt32("rol_id");
+                            string rolIzena = NormalizatuRolIzena(irakurlea.GetString("rol_izena"));
 
-                            if (rolIzena.Equals("Pazientea", StringComparison.OrdinalIgnoreCase))
-                                return new Pazientea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 2 };
-                            else if (rolIzena.Equals("OsasunLangilea", StringComparison.OrdinalIgnoreCase) || rolIzena.Equals("Medikua", StringComparison.OrdinalIgnoreCase))
-                                return new OsasunLangilea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 1 };
-                            else
-                                return new HarrerakoLangilea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = 3 };
+                            if (rolId == PazienteaRolId || rolIzena == "pazientea")
+                            {
+                                return new Pazientea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = rolId };
+                            }
+
+                            if (rolId == OsasunLangileaRolId || rolIzena == "osasunlangilea" || rolIzena == "medikua")
+                            {
+                                return new OsasunLangilea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = rolId };
+                            }
+
+                            return new HarrerakoLangilea { Id = id, Izena = izena, Abizenak = abizena, Emaila = email, RolId = rolId == 0 ? HarreraRolId : rolId };
                         }
                     }
                 }
             }
             return null;
+        }
+
+        private static string NormalizatuRolIzena(string rolIzena)
+        {
+            return rolIzena.Replace(" ", string.Empty).Trim().ToLowerInvariant();
         }
 
         public List<Pazientea> LortuLangilearenPazienteak(int langileId, string? bilatzailea = null)

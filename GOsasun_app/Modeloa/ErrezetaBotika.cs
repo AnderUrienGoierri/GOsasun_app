@@ -11,7 +11,7 @@ namespace GOsasun_app.Modeloa
         public int BotikaId { get; set; }
         public string? Dosia { get; set; }
         public string? Maiztasuna { get; set; }
-        
+
         public string? BotikaIzena { get; set; }
 
         public ErrezetaBotika() { }

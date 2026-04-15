@@ -39,8 +39,8 @@ namespace GOsasun_app.Modeloa
         protected Erabiltzailea() { }
 
         protected Erabiltzailea(int id, string emaila, string pasahitza, int rolId, string nan, string izena, string abizenak, 
-                               DateTime jaiotzeData, string? telefonoa, string? helbidea, string? herria, string? postaKodea, 
-                               string irudia, bool aktibo, DateTime sortzeData, string hizkuntza = "Euskara")
+                                DateTime jaiotzeData, string? telefonoa, string? helbidea, string? herria, string? postaKodea, 
+                                string irudia, bool aktibo, DateTime sortzeData, string hizkuntza = "Euskara")
         {
             Id = id;
             Emaila = emaila;

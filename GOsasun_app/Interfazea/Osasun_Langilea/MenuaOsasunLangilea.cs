@@ -1,7 +1,7 @@
-﻿// MedikuMenua.cs - Medikuaren Menua (Doctor Menu)
+﻿// MenuaOsasunLangilea.cs - Osasun langilearen menu nagusia
 // ============================================================
 // Aplikazioaren sarrera nagusia login egin ondoren.
-// Erabiltzailearen rolaren arabera (Pazientea/Medikua)
+// Erabiltzailearen rolaren arabera (Pazientea/OsasunLangilea)
 // txartelak dinamikoki kargatzen ditu.
 // ============================================================
 
@@ -14,17 +14,17 @@ namespace GOsasun_app.Interfazea
     /// Menu nagusiaren formularioa.
     /// Rolaren arabera txartel desberdinak erakusten ditu.
     /// </summary>
-    public partial class MedikuMenua : OinarriPantaila
+    public partial class MenuaOsasunLangilea : OinarriPantaila
     {
         // -----------------------------------------------------------
         // Eraikitzailea
         // -----------------------------------------------------------
-        public MedikuMenua() : base()
+        public MenuaOsasunLangilea() : base()
         {
             InitializeComponent();
         }
 
-        public MedikuMenua(Erabiltzailea erabiltzailea)
+        public MenuaOsasunLangilea(Erabiltzailea erabiltzailea)
             : base(erabiltzailea)
         {
             InitializeComponent();
@@ -34,18 +34,16 @@ namespace GOsasun_app.Interfazea
         private void KonfiguratuGertaerak()
         {
             btnPazienteak.Click += (s, e) => IrekiFormularioa(new PazienteenZerrenda(_erabiltzailea!));
-            btnKontaktua.Click += (s, e) => IrekiFormularioa(new Kontaktua(_erabiltzailea!));
-            btnNeurketak.Click += (s, e) => IrekiFormularioa(new NeurketaMotak(_erabiltzailea!));
+            btnNeurketak.Click += (s, e) => IrekiFormularioa(new Jarraipenak(_erabiltzailea!));
             btnErrezetak.Click += (s, e) => IrekiFormularioa(new ErrezetakMenua(_erabiltzailea!));
             btnGrafikak.Click += (s, e) => IrekiFormularioa(new Grafikak(_erabiltzailea!));
-            btnAbisuak.Click += (s, e) => IrekiFormularioa(new Abisuak(_erabiltzailea!));
 
-            // Hitzorduak botoia dinamikoki gehitu (Grid 3x3 posizio berria)
+            // Hitzorduak botoia dinamikoki gehitu
             var btnHitzorduak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia
             {
                 Testua = "HITZORDUAK",
                 Size = new System.Drawing.Size(576, 512),
-                Location = new System.Drawing.Point(37, 1150),
+                Location = new System.Drawing.Point(650, 597),
                 BackColor = System.Drawing.Color.White,
                 BorderBiribiltasuna = 24,
                 KartaKolorea = System.Drawing.Color.FromArgb(230, 255, 255, 255),
@@ -56,8 +54,6 @@ namespace GOsasun_app.Interfazea
 
             btnHitzorduak.Click += (s, e) => IrekiFormularioa(new HitzorduakKontsultatzea(_erabiltzailea!));
             
-            // Panela luzatu botoi berria sartzeko eta kontrola gehitu
-            _edukiPanela.Size = new System.Drawing.Size(_edukiPanela.Width, _edukiPanela.Height + 550);
             _edukiPanela.Controls.Add(btnHitzorduak);
         }
 

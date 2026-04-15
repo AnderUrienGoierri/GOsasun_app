@@ -38,7 +38,7 @@ namespace GOsasun_app.Interfazea
             dgvHitzorduak.RowTemplate.Height = 35;
 
             dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "PazienteIzenOsoa", HeaderText = "Pazientea", Width = 280 });
-            dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "MedikuIzenOsoa", HeaderText = "Medikua", Width = 280 });
+            dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "OsasunLangileIzenOsoa", HeaderText = "Osasun langilea", Width = 280 });
             dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Data", HeaderText = "Data", Width = 150, DefaultCellStyle = new DataGridViewCellStyle { Format = "yyyy-MM-dd" } });
             dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "HasieraOrdua", HeaderText = "Hasiera", Width = 120 });
             dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Egoera", HeaderText = "Egoera", Width = 150 });
@@ -54,7 +54,7 @@ namespace GOsasun_app.Interfazea
                 cmbPazienteak.DisplayMember = "IzenOsoa";
                 cmbPazienteak.ValueMember = "Id";
 
-                var medikuak = _erabiltzaileKontrolatzailea.LortuGuztiakMedikuak();
+                var medikuak = _erabiltzaileKontrolatzailea.LortuGuztiakOsasunLangileak();
                 cmbMedikuak.DataSource = medikuak;
                 cmbMedikuak.DisplayMember = "IzenOsoa";
                 cmbMedikuak.ValueMember = "Id";
@@ -104,7 +104,7 @@ namespace GOsasun_app.Interfazea
                     txtArrazoia.Text = hitzordua.Arrazoia ?? "";
                     cmbEgoera.SelectedItem = hitzordua.Egoera;
                     cmbPazienteak.SelectedValue = hitzordua.PazienteId;
-                    cmbMedikuak.SelectedValue = hitzordua.MedikuId;
+                    cmbMedikuak.SelectedValue = hitzordua.OsasunLangileId;
 
                     btnGorde.Text = "Gorde Aldaketak";
                 }
@@ -115,7 +115,7 @@ namespace GOsasun_app.Interfazea
         {
             if (cmbPazienteak.SelectedValue == null || cmbMedikuak.SelectedValue == null)
             {
-                MessageBox.Show("Pazientea eta Medikua aukeratu behar dira.");
+                MessageBox.Show("Pazientea eta osasun langilea aukeratu behar dira.");
                 return;
             }
 
@@ -125,7 +125,7 @@ namespace GOsasun_app.Interfazea
                 {
                     HitzorduId = _aukeratutakoHitzorduId,
                     PazienteId = (int)cmbPazienteak.SelectedValue,
-                    MedikuId = (int)cmbMedikuak.SelectedValue,
+                    OsasunLangileId = (int)cmbMedikuak.SelectedValue,
                     Data = dtpData.Value.Date,
                     HasieraOrdua = dtpHasiera.Value.TimeOfDay,
                     BukaeraOrdua = dtpBukaera.Value.TimeOfDay,

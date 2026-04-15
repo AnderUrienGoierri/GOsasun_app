@@ -16,3 +16,5 @@ osscache
 *.sln.docstates
 *.slnx
 build_errors.txt
+
+pasahitzak.txt

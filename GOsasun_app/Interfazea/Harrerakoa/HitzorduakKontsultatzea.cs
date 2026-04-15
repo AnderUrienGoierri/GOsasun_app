@@ -31,13 +31,13 @@ namespace GOsasun_app.Interfazea
             dgvHitzorduak.ColumnHeadersHeight = 40;
             dgvHitzorduak.RowTemplate.Height = 35;
 
-            if (_erabiltzailea is Medikua)
+            if (_erabiltzailea is OsasunLangilea)
             {
                 dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "PazienteIzenOsoa", HeaderText = "Pazientea", Width = 400 });
             }
             else
             {
-                dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "MedikuIzenOsoa", HeaderText = "Medikua", Width = 400 });
+                dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "OsasunLangileIzenOsoa", HeaderText = "Osasun langilea", Width = 400 });
             }
             dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Data", HeaderText = "Data", Width = 180, DefaultCellStyle = new DataGridViewCellStyle { Format = "yyyy-MM-dd" } });
             dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "HasieraOrdua", HeaderText = "Hasiera", Width = 140 });
@@ -50,9 +50,9 @@ namespace GOsasun_app.Interfazea
         {
             try
             {
-                if (_erabiltzailea is Medikua m)
+                if (_erabiltzailea is OsasunLangilea m)
                 {
-                    _hitzorduGuztiak = _kontrolatzailea.LortuMedikuarenHitzorduak(m.Id);
+                    _hitzorduGuztiak = _kontrolatzailea.LortuOsasunLangilearenHitzorduak(m.Id);
                 }
                 else if (_erabiltzailea is Pazientea p)
                 {

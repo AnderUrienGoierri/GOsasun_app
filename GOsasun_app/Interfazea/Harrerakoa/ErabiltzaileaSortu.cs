@@ -49,7 +49,7 @@ namespace GOsasun_app.Interfazea
                 lblHelbidea.Visible = txtHelbidea.Visible = true;
                 lblHerria.Visible = txtHerria.Visible = txtPostaKodea.Visible = true;
             }
-            else if (_rolIzena == "Medikua")
+            else if (_rolIzena == "Osasun Langilea" || _rolIzena == "OsasunLangilea" || _rolIzena == "Medikua")
             {
                 lblJaiotzeData.Visible = dtpJaiotzeData.Visible = true;
                 lblTelefonoa.Visible = txtTelefonoa.Visible = true;
@@ -101,9 +101,9 @@ namespace GOsasun_app.Interfazea
                 };
                 ondoGordeta = _kontrolatzailea.SortuPazientea(p);
             }
-            else if (_rolIzena == "Medikua")
+            else if (_rolIzena == "Osasun Langilea" || _rolIzena == "OsasunLangilea" || _rolIzena == "Medikua")
             {
-                Medikua m = new Medikua
+                OsasunLangilea m = new OsasunLangilea
                 {
                     Emaila = txtEmaila.Text,
                     Pasahitza = txtPasahitza.Text,
@@ -117,7 +117,7 @@ namespace GOsasun_app.Interfazea
                     Lanaldia = cmbLanaldia.SelectedItem?.ToString() ?? "Osoa",
                     Telefonoa = txtTelefonoa.Text
                 };
-                ondoGordeta = _kontrolatzailea.SortuMedikua(m);
+                ondoGordeta = _kontrolatzailea.SortuOsasunLangilea(m);
             }
             else if (_rolIzena == "Harrerako Langilea")
             {

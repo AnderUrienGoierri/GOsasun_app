@@ -89,7 +89,7 @@ namespace GOsasun_app.Interfazea
         {
             if (_erabiltzailea != null)
             {
-                errezetakGuztiak = errezetaDB.LortuMedikuarenErrezetak(_erabiltzailea.Id);
+                errezetakGuztiak = errezetaDB.LortuOsasunLangilearenErrezetak(_erabiltzailea.Id);
                 IragaziDatuak();
             }
         }

@@ -34,12 +34,6 @@ namespace GOsasun_app.Kontrola
             return _db.LortuLangilearenPazienteak(langileId, bilatzailea);
         }
 
-        public List<OsasunLangilea> LortuPazientearenLangileak(int paziente_id, string? bilatzailea = null)
-
-        {
-            return _db.LortuPazientearenLangileak(paziente_id, bilatzailea);
-        }
-
         /// <summary>
         /// Sistema osoko paziente guztien zerrenda lortzen du.
         /// </summary>
@@ -87,28 +81,9 @@ namespace GOsasun_app.Kontrola
         {
             return _db.EzabatuPazientea(id);
         }
-        public bool EzabatuOsasunLangilea(int id)
-        {
-            return _db.EzabatuOsasunLangilea(id);
-        }
-        public bool EzabatuHarrerakoa(int id)
-        {
-            return _db.EzabatuHarrerakoa(id);
-        }
-
-// ------------------------EGUNERATU------------------------------------
-
         public bool EguneratuPazientea(Pazientea p)
         {
             return _db.EguneratuPazientea(p);
-        }
-        public bool EguneratuOsasunLangilea(OsasunLangilea m)
-        {
-            return _db.EguneratuOsasunLangilea(m);
-        }
-        public bool EguneratuHarrerakoa(HarrerakoLangilea h)
-        {
-            return _db.EguneratuHarrerakoa(h);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace GOsasun_app.Interfazea
     public partial class EskuzkoNeurketak : OinarriPantaila
     {
         private readonly ErabiltzaileKontrolatzailea _erabiltzaileKontrolatzailea;
-        private readonly NeurketaKontrolatzailea _neurketaKontrolatzailea;
+        private readonly JarraipenaKontrolatzailea _jarraipenaKontrolatzailea;
         private readonly bool _isPisua;
         private Pazientea? _hautatutakoPazientea;
 
@@ -20,7 +20,7 @@ namespace GOsasun_app.Interfazea
         {
             InitializeComponent();
             _erabiltzaileKontrolatzailea = new ErabiltzaileKontrolatzailea();
-            _neurketaKontrolatzailea = new NeurketaKontrolatzailea();
+            _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
             _isPisua = isPisua;
 
             KonfiguratuPantaila();
@@ -74,7 +74,7 @@ namespace GOsasun_app.Interfazea
                 }
             };
 
-            _btnGorde.Click += (s, e) => GordeNeurketa();
+            _btnGorde.Click += (s, e) => GordeJarraipena();
         }
 
         private void PazienteakBatu()
@@ -108,23 +108,23 @@ namespace GOsasun_app.Interfazea
         {
             try
             {
-                var neurketak = _neurketaKontrolatzailea.LortuPazientearenNeurketak(pazienteId);
+                var jarraipenak = _jarraipenaKontrolatzailea.LortuPazientearenJarraipenak(pazienteId);
                 
                 DataTable dt = new DataTable();
                 dt.Columns.Add("Data", typeof(DateTime));
                 if (_isPisua) dt.Columns.Add("Pisua", typeof(decimal));
                 else dt.Columns.Add("Altuera", typeof(decimal));
-                dt.Columns.Add("Sintomak", typeof(string));
+                dt.Columns.Add("Oharrak", typeof(string));
 
-                foreach (var n in neurketak)
+                foreach (var n in jarraipenak)
                 {
                     if (_isPisua && n.PisuaKg.HasValue)
                     {
-                        dt.Rows.Add(n.ErregistroData, n.PisuaKg.Value, n.Sintomak ?? "-");
+                        dt.Rows.Add(n.ErregistroData, n.PisuaKg.Value, n.Oharrak ?? "-");
                     }
                     else if (!_isPisua && n.Altuera.HasValue)
                     {
-                        dt.Rows.Add(n.ErregistroData, n.Altuera.Value, n.Sintomak ?? "-");
+                        dt.Rows.Add(n.ErregistroData, n.Altuera.Value, n.Oharrak ?? "-");
                     }
                 }
 
@@ -146,31 +146,32 @@ namespace GOsasun_app.Interfazea
             }
         }
 
-        private void GordeNeurketa()
+        private void GordeJarraipena()
         {
             if (_hautatutakoPazientea == null) return;
 
             try
             {
-                Neurketa berria = new Neurketa
+                Jarraipena berria = new Jarraipena
                 {
                     PazienteId = _hautatutakoPazientea.Id,
                     ErregistroData = DateTime.Now,
-                    Sintomak = "Eskuzko sarrera"
+                    OsasunLangileId = _erabiltzailea?.Id,
+                    Oharrak = "Eskuzko sarrera"
                 };
 
                 if (_isPisua) berria.PisuaKg = _numBalioa.Value;
                 else berria.Altuera = _numBalioa.Value;
 
-                if (_neurketaKontrolatzailea.GordeNeurketa(berria))
+                if (_jarraipenaKontrolatzailea.GordeJarraipena(berria))
                 {
-                    _neurketaKontrolatzailea.EsportatuXML(berria);
-                    MessageBox.Show("Neurketa ondo gorde da.", "Kuztiz ondo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _jarraipenaKontrolatzailea.EsportatuXML(berria);
+                    MessageBox.Show("Jarraipena ondo gorde da.", "Kuztiz ondo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     KargatuPazientearenHistoriala(_hautatutakoPazientea.Id);
                 }
                 else
                 {
-                    MessageBox.Show("Errorea neurketa gordetzean.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Errorea jarraipena gordetzean.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
