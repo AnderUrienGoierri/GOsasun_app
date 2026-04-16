@@ -23,15 +23,15 @@ namespace GOsasun_app.Interfazea
             btnErrezetakIkusi = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             _edukiPanela.SuspendLayout();
             SuspendLayout();
-            // 
+            //
             // _edukiPanela
-            // 
+            //
             _edukiPanela.Controls.Add(btnErrezetaSortu);
             _edukiPanela.Controls.Add(btnErrezetakIkusi);
             _edukiPanela.Size = new Size(1902, 1153);
-            // 
+            //
             // btnErrezetaSortu
-            // 
+            //
             btnErrezetaSortu.BackColor = Color.White;
             btnErrezetaSortu.BorderBiribiltasuna = 24;
             btnErrezetaSortu.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
@@ -42,9 +42,9 @@ namespace GOsasun_app.Interfazea
             btnErrezetaSortu.Size = new Size(550, 450);
             btnErrezetaSortu.TabIndex = 0;
             btnErrezetaSortu.Testua = "ERREZETA SORTU";
-            // 
+            //
             // btnErrezetakIkusi
-            // 
+            //
             btnErrezetakIkusi.BackColor = Color.White;
             btnErrezetakIkusi.BorderBiribiltasuna = 24;
             btnErrezetakIkusi.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
@@ -55,9 +55,9 @@ namespace GOsasun_app.Interfazea
             btnErrezetakIkusi.Size = new Size(550, 450);
             btnErrezetakIkusi.TabIndex = 2;
             btnErrezetakIkusi.Testua = "ERREZETAK IKUSI";
-            // 
+            //
             // ErrezetakMenua
-            // 
+            //
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1902, 1334);

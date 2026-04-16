@@ -34,6 +34,80 @@ namespace GOsasun_app.Interfazea
             _goiburuBarra.Width = ClientSize.Width;
             _edukiPanela.Size = new Size(ClientSize.Width, _edukiPanela.Height);
             lblFitxaMota.Text = "PAZIENTEAREN FITXA MEDIKOA";
+            KonfiguratuTxartelenEdukia();
+        }
+
+        private void KonfiguratuTxartelenEdukia()
+        {
+            KonfiguratuArgazkiaAtala();
+            KonfiguratuIdentifikazioAtala();
+            KonfiguratuHarremanAtala();
+            KonfiguratuKlinikoAtala();
+        }
+
+        private void KonfiguratuArgazkiaAtala()
+        {
+            lblArgazkiAzalpena.Text = "Argazkia edo identifikazio bisuala. Daturik ez badago, irudi lehenetsi klinikoa erakusten da.";
+            lblArgazkiAzalpena.AutoSize = false;
+            lblArgazkiAzalpena.Size = new Size(242, 104);
+        }
+
+        private void KonfiguratuIdentifikazioAtala()
+        {
+            KonfiguratuSectionTitle(lblIdentifikazioa, "IDENTIFIKAZIOA", 28);
+
+            KonfiguratuField(lblNanTitulua, "NAN / DNI", 28, 86);
+            KonfiguratuValue(lblNanBalioa, "---", 28, 118, 230);
+
+            KonfiguratuField(lblJaiotzeDataTitulua, "JAIOTZE DATA", 318, 86);
+            KonfiguratuValue(lblJaiotzeDataBalioa, "---", 318, 118, 230);
+
+            KonfiguratuField(lblAdinaTitulua, "ADINA", 28, 202);
+            KonfiguratuValue(lblAdinaBalioa, "---", 28, 234, 230);
+
+            KonfiguratuField(lblSexuaTitulua, "SEXUA", 318, 202);
+            KonfiguratuValue(lblSexuaBalioa, "---", 318, 234, 230);
+        }
+
+        private void KonfiguratuHarremanAtala()
+        {
+            KonfiguratuSectionTitle(lblHarremana, "HARREMANETARAKO DATUAK", 28);
+
+            KonfiguratuField(lblEmailaTitulua, "EMAILA", 28, 86);
+            lblEmailaTitulua.Size = new Size(360, 28);
+            KonfiguratuValue(lblEmailaBalioa, "---", 28, 118, 500);
+
+            KonfiguratuField(lblTelefonoaTitulua, "TELEFONOA", 592, 86);
+            lblTelefonoaTitulua.Size = new Size(180, 28);
+            KonfiguratuValue(lblTelefonoaBalioa, "---", 592, 118, 170);
+
+            KonfiguratuField(lblHelbideaTitulua, "HELBIDEA", 28, 206);
+            lblHelbideaTitulua.Size = new Size(360, 28);
+            KonfiguratuValue(lblHelbideaBalioa, "---", 28, 238, 500);
+            lblHelbideaBalioa.Height = 62;
+
+            KonfiguratuField(lblHerriaTitulua, "HERRIA / POSTA KODEA", 592, 206);
+            lblHerriaTitulua.Size = new Size(190, 28);
+            KonfiguratuValue(lblHerriaBalioa, "---", 592, 238, 170);
+            lblHerriaBalioa.Height = 62;
+        }
+
+        private void KonfiguratuKlinikoAtala()
+        {
+            KonfiguratuSectionTitle(lblKlinikoa, "LABURPEN KLINIKOA", 32);
+
+            KonfiguratuField(lblOdolTaldeaTitulua, "ODOL TALDEA", 32, 104);
+            KonfiguratuValue(lblOdolTaldeaBalioa, "---", 32, 138, 340);
+
+            KonfiguratuField(lblAltueraTitulua, "AZKEN ALTUERA", 430, 104);
+            KonfiguratuValue(lblAltueraBalioa, "---", 430, 138, 340);
+
+            KonfiguratuField(lblPisuaTitulua, "AZKEN PISUA", 32, 286);
+            KonfiguratuValue(lblPisuaBalioa, "---", 32, 320, 360);
+
+            KonfiguratuField(lblEgoeraTitulua, "EGOERA KLINIKOA", 430, 286);
+            KonfiguratuValue(lblEgoeraBalioa, "---", 430, 320, 500);
+            lblEgoeraBalioa.Height = 62;
         }
 
         private void BeteDatuak()
@@ -165,6 +239,11 @@ namespace GOsasun_app.Interfazea
             graphics.DrawLine(crossPen, 210, 206, 210, 242);
 
             return bitmap;
+        }
+
+        private void pnlKlinikoa_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

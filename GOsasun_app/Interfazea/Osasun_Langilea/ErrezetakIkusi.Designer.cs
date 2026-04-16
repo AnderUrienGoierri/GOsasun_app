@@ -30,20 +30,20 @@ namespace GOsasun_app.Interfazea
             ((ISupportInitialize)dgvErrezetak).BeginInit();
             ((ISupportInitialize)dgvBotikak).BeginInit();
             SuspendLayout();
-            // 
+            //
             // _edukiPanela
-            // 
+            //
             _edukiPanela.Controls.Add(lblIzenburua);
             _edukiPanela.Controls.Add(pnlEzkerra);
             _edukiPanela.Controls.Add(pnlEskuina);
             _edukiPanela.Size = new Size(1902, 1263);
-            // 
+            //
             // _atzeraBotoia
-            // 
+            //
             _atzeraBotoia.FlatAppearance.BorderSize = 0;
-            // 
+            //
             // pnlEzkerra
-            // 
+            //
             pnlEzkerra.BackColor = Color.White;
             pnlEzkerra.Controls.Add(lblFiltroa);
             pnlEzkerra.Controls.Add(txtBilatuPaz);
@@ -54,49 +54,49 @@ namespace GOsasun_app.Interfazea
             pnlEzkerra.Name = "pnlEzkerra";
             pnlEzkerra.Size = new Size(400, 1094);
             pnlEzkerra.TabIndex = 1;
-            // 
+            //
             // lblFiltroa
-            // 
+            //
             lblFiltroa.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblFiltroa.Location = new Point(20, 30);
             lblFiltroa.Name = "lblFiltroa";
             lblFiltroa.Size = new Size(360, 64);
             lblFiltroa.TabIndex = 0;
             lblFiltroa.Text = "Pazientea Bilatu (NAN, Izena):";
-            // 
+            //
             // txtBilatuPaz
-            // 
+            //
             txtBilatuPaz.Font = new Font("Segoe UI", 12F);
             txtBilatuPaz.Location = new Point(20, 118);
             txtBilatuPaz.Name = "txtBilatuPaz";
             txtBilatuPaz.Size = new Size(360, 50);
             txtBilatuPaz.TabIndex = 1;
-            // 
+            //
             // lblEgutegia
-            // 
+            //
             lblEgutegia.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblEgutegia.Location = new Point(20, 190);
             lblEgutegia.Name = "lblEgutegia";
             lblEgutegia.Size = new Size(360, 64);
             lblEgutegia.TabIndex = 2;
             lblEgutegia.Text = "Data Bidezko Filtroa:";
-            // 
+            //
             // mcDataFiltroa
-            // 
+            //
             mcDataFiltroa.Location = new Point(32, 278);
             mcDataFiltroa.Name = "mcDataFiltroa";
             mcDataFiltroa.TabIndex = 3;
-            // 
+            //
             // btnGarbituFiltroak
-            // 
+            //
             btnGarbituFiltroak.Location = new Point(20, 480);
             btnGarbituFiltroak.Name = "btnGarbituFiltroak";
             btnGarbituFiltroak.Size = new Size(360, 50);
             btnGarbituFiltroak.TabIndex = 4;
             btnGarbituFiltroak.Text = "FILTROAK GARBITU";
-            // 
+            //
             // pnlEskuina
-            // 
+            //
             pnlEskuina.BackColor = Color.White;
             pnlEskuina.Controls.Add(dgvErrezetak);
             pnlEskuina.Controls.Add(dgvBotikak);
@@ -106,9 +106,9 @@ namespace GOsasun_app.Interfazea
             pnlEskuina.Name = "pnlEskuina";
             pnlEskuina.Size = new Size(1410, 1094);
             pnlEskuina.TabIndex = 2;
-            // 
+            //
             // dgvErrezetak
-            // 
+            //
             dgvErrezetak.AllowUserToAddRows = false;
             dgvErrezetak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvErrezetak.ColumnHeadersHeight = 46;
@@ -120,9 +120,9 @@ namespace GOsasun_app.Interfazea
             dgvErrezetak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvErrezetak.Size = new Size(1368, 500);
             dgvErrezetak.TabIndex = 0;
-            // 
+            //
             // dgvBotikak
-            // 
+            //
             dgvBotikak.AllowUserToAddRows = false;
             dgvBotikak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvBotikak.ColumnHeadersHeight = 46;
@@ -134,9 +134,9 @@ namespace GOsasun_app.Interfazea
             dgvBotikak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvBotikak.Size = new Size(1368, 330);
             dgvBotikak.TabIndex = 4;
-            // 
+            //
             // btnEditatu
-            // 
+            //
             btnEditatu.BackColor = Color.SteelBlue;
             btnEditatu.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             btnEditatu.ForeColor = Color.White;
@@ -146,9 +146,9 @@ namespace GOsasun_app.Interfazea
             btnEditatu.TabIndex = 1;
             btnEditatu.Text = "ERREZETA EDITATU";
             btnEditatu.UseVisualStyleBackColor = false;
-            // 
+            //
             // btnEzabatu
-            // 
+            //
             btnEzabatu.BackColor = Color.IndianRed;
             btnEzabatu.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             btnEzabatu.ForeColor = Color.White;
@@ -158,9 +158,9 @@ namespace GOsasun_app.Interfazea
             btnEzabatu.TabIndex = 2;
             btnEzabatu.Text = "ERREZETA EZABATU";
             btnEzabatu.UseVisualStyleBackColor = false;
-            // 
+            //
             // lblIzenburua
-            // 
+            //
             lblIzenburua.BackColor = Color.Transparent;
             lblIzenburua.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
             lblIzenburua.ForeColor = Color.White;
@@ -170,9 +170,9 @@ namespace GOsasun_app.Interfazea
             lblIzenburua.TabIndex = 0;
             lblIzenburua.Text = "ERREZETEN ZERRENDA ETA KUDEAKETA";
             lblIzenburua.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
             // ErrezetakIkusi
-            // 
+            //
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1902, 1444);

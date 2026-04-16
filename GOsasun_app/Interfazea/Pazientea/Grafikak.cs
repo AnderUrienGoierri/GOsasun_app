@@ -519,10 +519,10 @@ namespace GOsasun_app.Interfazea
                 graphics,
                 "Legenda klinikoa",
                 legendTitleFont,
-                new Rectangle(legendArea.Left + 16, legendArea.Top + 12, legendArea.Width - 32, 28),
+                new Rectangle(legendArea.Left + 18, legendArea.Top + 16, legendArea.Width - 36, 38),
                 textColor,
-                TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
-            graphics.DrawLine(dividerPen, legendArea.Left + 14, legendArea.Top + 48, legendArea.Right - 14, legendArea.Top + 48);
+                TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.PreserveGraphicsClipping);
+            graphics.DrawLine(dividerPen, legendArea.Left + 14, legendArea.Top + 58, legendArea.Right - 14, legendArea.Top + 58);
 
             List<(DateTime Data, double Balioa)> puntuGuztiak = _unekoSerieak.SelectMany(seriea => seriea.Puntuak).ToList();
             double minX = puntuGuztiak.Min(p => p.Data.ToOADate());
@@ -606,7 +606,7 @@ namespace GOsasun_app.Interfazea
             graphics.DrawString(_ardatzYIzenburua, axisFont, textBrush, new PointF(plotArea.Left, plotArea.Top - 38));
             graphics.DrawString("Data", axisFont, textBrush, new PointF(plotArea.Right - 50, plotArea.Bottom + 96));
 
-            float legendaY = legendArea.Top + 66;
+            float legendaY = legendArea.Top + 76;
             foreach (GrafikoSeriea seriea in _unekoSerieak)
             {
                 using Pen legendPen = new Pen(seriea.Kolorea, seriea.Etena ? 2f : 3f)

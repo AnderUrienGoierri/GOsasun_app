@@ -59,15 +59,15 @@ namespace GOsasun_app.Interfazea
         private void EguneratuBotikaGrid()
         {
             bsBotikak.DataSource = null;
-            
+
             if (dgvErrezetak.SelectedRows.Count == 0) return;
 
             var cellValue = dgvErrezetak.SelectedRows[0].Cells["ErrezetaId"].Value;
             if (cellValue == null) return;
-            
+
             int id = Convert.ToInt32(cellValue);
             var aurkitua = errezetakGuztiak.FirstOrDefault(x => x.ErrezetaId == id);
-            
+
             if (aurkitua != null && aurkitua.Botikak != null && aurkitua.Botikak.Count > 0)
             {
                 bsBotikak.DataSource = aurkitua.Botikak.Select(b => new {
@@ -75,7 +75,7 @@ namespace GOsasun_app.Interfazea
                     b.Dosia,
                     b.Maiztasuna
                 }).ToList();
-                
+
                 if (dgvBotikak.Columns.Count > 0)
                 {
                     dgvBotikak.Columns["Botika"].HeaderText = "Botika";
@@ -118,14 +118,14 @@ namespace GOsasun_app.Interfazea
         private void IragaziDatuak()
         {
             string query = txtBilatuPaz.Text.ToLower();
-            var iragazita = errezetakGuztiak.Where(e => 
-                (string.IsNullOrEmpty(query) || 
-                 (e.PazienteNan != null && e.PazienteNan.ToLower().Contains(query)) ||
-                 (e.PazienteIzenOsoa != null && e.PazienteIzenOsoa.ToLower().Contains(query)))
+            var iragazita = errezetakGuztiak.Where(e =>
+                (string.IsNullOrEmpty(query) ||
+                (e.PazienteNan != null && e.PazienteNan.ToLower().Contains(query)) ||
+                (e.PazienteIzenOsoa != null && e.PazienteIzenOsoa.ToLower().Contains(query)))
                 &&
-                (!filtroData.HasValue || 
-                 e.IgorpenData.Date == filtroData.Value || 
-                 (e.HitzorduData.HasValue && e.HitzorduData.Value.Date == filtroData.Value))
+                (!filtroData.HasValue ||
+                e.IgorpenData.Date == filtroData.Value ||
+                (e.HitzorduData.HasValue && e.HitzorduData.Value.Date == filtroData.Value))
             ).ToList();
 
             dgvErrezetak.CurrentCell = null;
@@ -168,7 +168,7 @@ namespace GOsasun_app.Interfazea
 
                 int id = Convert.ToInt32(cellValue);
                 var aurkitua = errezetakGuztiak.FirstOrDefault(x => x.ErrezetaId == id);
-                
+
                 if (aurkitua != null && _erabiltzailea != null)
                 {
                     var editForm = new ErrezetaSortu(_erabiltzailea, aurkitua);

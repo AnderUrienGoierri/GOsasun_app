@@ -120,7 +120,7 @@ namespace GOsasun_app.Interfazea
 
                 string bilaketa = _txtPazienteBilatu.Text.Trim();
                 var list = _erabiltzaileKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea!.Id, bilaketa);
-                
+
                 _dgvPazienteak.DataSource = null;
                 _dgvPazienteak.DataSource = list;
 
@@ -128,7 +128,7 @@ namespace GOsasun_app.Interfazea
                 if (_dgvPazienteak.Columns.Count > 0)
                 {
                     foreach (DataGridViewColumn col in _dgvPazienteak.Columns) col.Visible = false;
-                    
+
                     _dgvPazienteak.Columns["Izena"].Visible = true;
                     _dgvPazienteak.Columns["Abizenak"].Visible = true;
                     _dgvPazienteak.Columns["Nan"].Visible = true;
@@ -146,7 +146,7 @@ namespace GOsasun_app.Interfazea
             try
             {
                 var jarraipenak = _jarraipenaKontrolatzailea.LortuPazientearenJarraipenak(pazienteId);
-                
+
                 DataTable dt = new DataTable();
                 dt.Columns.Add("Data", typeof(DateTime));
                 if (_isPisua) dt.Columns.Add("Pisua", typeof(decimal));
@@ -166,7 +166,7 @@ namespace GOsasun_app.Interfazea
                 }
 
                 _dgvHistoriala.DataSource = dt;
-                
+
                 if (_dgvHistoriala.Columns.Count > 0)
                 {
                     _dgvHistoriala.Columns["Data"].DefaultCellStyle.Format = "yyyy/MM/dd HH:mm";

@@ -1077,7 +1077,7 @@ namespace GOsasun_app.Interfazea
 
             using Form form = new Form();
             form.Text = $"Oharrak - {jarraipena.PazienteIzenOsoa}";
-            form.Size = new Size(900, 560);
+            form.ClientSize = new Size(900, 600);
             form.StartPosition = FormStartPosition.CenterParent;
             form.FormBorderStyle = FormBorderStyle.FixedDialog;
             form.MaximizeBox = false;
@@ -1086,13 +1086,32 @@ namespace GOsasun_app.Interfazea
             Panel edukiaPanela = new Panel
             {
                 Dock = DockStyle.Fill,
-                Padding = new Padding(14, 14, 14, 18)
+                Padding = new Padding(14, 14, 14, 14)
+            };
+
+            Panel botoiPanela = new Panel
+            {
+                Dock = DockStyle.Bottom,
+                Height = 92,
+                Padding = new Padding(14, 10, 14, 18)
+            };
+
+            FlowLayoutPanel botoiEdukiontzia = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Right,
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                FlowDirection = FlowDirection.LeftToRight,
+                WrapContents = false,
+                Padding = new Padding(0),
+                Margin = new Padding(0)
             };
 
             TextBox txtOharrak = new TextBox
             {
                 Location = new Point(14, 14),
-                Size = new Size(852, 430),
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                Size = new Size(852, 466),
                 ReadOnly = false,
                 Multiline = true,
                 ScrollBars = ScrollBars.Vertical,
@@ -1104,7 +1123,7 @@ namespace GOsasun_app.Interfazea
             {
                 Text = "Utzi",
                 Size = new Size(120, 46),
-                Location = new Point(606, 458),
+                Margin = new Padding(0, 0, 14, 0),
                 DialogResult = DialogResult.Cancel
             };
 
@@ -1112,7 +1131,7 @@ namespace GOsasun_app.Interfazea
             {
                 Text = "Gorde aldaketak",
                 Size = new Size(200, 46),
-                Location = new Point(666, 458),
+                Margin = new Padding(0),
                 BackColor = Color.FromArgb(41, 128, 185),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat
@@ -1135,9 +1154,11 @@ namespace GOsasun_app.Interfazea
             };
 
             edukiaPanela.Controls.Add(txtOharrak);
-            edukiaPanela.Controls.Add(btnUtzi);
-            edukiaPanela.Controls.Add(btnGorde);
+            botoiEdukiontzia.Controls.Add(btnUtzi);
+            botoiEdukiontzia.Controls.Add(btnGorde);
+            botoiPanela.Controls.Add(botoiEdukiontzia);
             form.Controls.Add(edukiaPanela);
+            form.Controls.Add(botoiPanela);
             form.AcceptButton = btnGorde;
             form.CancelButton = btnUtzi;
             form.ShowDialog(this);

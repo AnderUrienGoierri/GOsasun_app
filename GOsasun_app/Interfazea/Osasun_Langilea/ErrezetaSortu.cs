@@ -83,11 +83,11 @@ namespace GOsasun_app.Interfazea
             {
                 lblIzenburua.Text = "ERREZETA EDITATU";
                 btnSortuErrezeta.Text = "ERREZETA EGUNERATU";
-                
+
                 txtBilatuPaz.Text = _editatzekoErrezeta.PazienteNan;
                 txtDiagnostikoa.Text = _editatzekoErrezeta.Diagnostikoa;
                 if (_editatzekoErrezeta.IraungitzeData.HasValue) dtpIraungitzeData.Value = _editatzekoErrezeta.IraungitzeData.Value;
-                
+
                 foreach(var eb in _editatzekoErrezeta.Botikak)
                 {
                     saskia.Add(new ErrezetaBotikaItem
@@ -98,7 +98,7 @@ namespace GOsasun_app.Interfazea
                         Maiztasuna = eb.Maiztasuna ?? ""
                     });
                 }
-                
+
                 // Aukeratu pazientea grid-ean NAN-aren arabera txukuntzea (TextChangeds kargatzen ari dena)
                 EguneratuSaskia();
             }
@@ -114,7 +114,7 @@ namespace GOsasun_app.Interfazea
             if (_erabiltzailea != null && _erabiltzailea is OsasunLangilea)
             {
                 pazienteak = erabiltzaileDB.LortuLangilearenPazienteak(_erabiltzailea.Id, bilatzailea);
-                
+
                 // Fallback: If not found in doctor's list (e.g. editing an old prescription), search all patients
                 if (pazienteak.Count == 0 && !string.IsNullOrEmpty(bilatzailea))
                 {
@@ -202,7 +202,7 @@ namespace GOsasun_app.Interfazea
             {
                 _editatzekoErrezeta.Diagnostikoa = txtDiagnostikoa.Text;
                 _editatzekoErrezeta.IraungitzeData = dtpIraungitzeData.Value;
-                
+
                 _editatzekoErrezeta.Botikak.Clear();
                 foreach (var s in saskia)
                 {
