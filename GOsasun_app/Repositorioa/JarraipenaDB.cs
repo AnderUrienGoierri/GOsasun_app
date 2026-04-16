@@ -7,9 +7,9 @@ namespace GOsasun_app.Repositorioa
 {
     public class JarraipenaDB
     {
-        public List<JarraipenZerrendaItem> LortuJarraipenGuztiak(string? bilaketa = null)
+        public List<Jarraipena> LortuJarraipenGuztiak(string? bilaketa = null, DateTime? hasieraData = null, DateTime? amaieraData = null, int? pazienteId = null)
         {
-            List<JarraipenZerrendaItem> jarraipenak = new List<JarraipenZerrendaItem>();
+            List<Jarraipena> jarraipenak = new List<Jarraipena>();
 
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
@@ -20,7 +20,10 @@ namespace GOsasun_app.Repositorioa
                     FROM jarraipenak j
                     JOIN erabiltzaileak e ON e.id = j.paziente_id
                     LEFT JOIN dokumentuak d ON d.jarraipena_id = j.id
-                    WHERE (@testua IS NULL OR e.nan LIKE @testua OR e.izena LIKE @testua OR e.abizenak LIKE @testua)
+                                        WHERE (@testua IS NULL OR e.nan LIKE @testua OR e.izena LIKE @testua OR e.abizenak LIKE @testua OR j.oharrak LIKE @testua)
+                                            AND (@hasieraData IS NULL OR j.erregistro_data >= @hasieraData)
+                                            AND (@amaieraData IS NULL OR j.erregistro_data < @amaieraData)
+                                            AND (@pazienteId IS NULL OR j.paziente_id = @pazienteId)
                     GROUP BY j.id, j.paziente_id, e.nan, e.izena, e.abizenak, j.tentsio_sistolikoa,
                              j.tentsio_diastolikoa, j.pisua_kg, j.altuera, j.pultsua_ppm,
                              j.oharrak, j.erregistro_data
@@ -30,24 +33,27 @@ namespace GOsasun_app.Repositorioa
                 {
                     string? testua = string.IsNullOrWhiteSpace(bilaketa) ? null : $"%{bilaketa.Trim()}%";
                     komandoa.Parameters.AddWithValue("@testua", (object?)testua ?? DBNull.Value);
+                                        komandoa.Parameters.AddWithValue("@hasieraData", (object?)hasieraData?.Date ?? DBNull.Value);
+                                        komandoa.Parameters.AddWithValue("@amaieraData", (object?)amaieraData?.Date.AddDays(1) ?? DBNull.Value);
+                    komandoa.Parameters.AddWithValue("@pazienteId", (object?)pazienteId ?? DBNull.Value);
 
                     using (var irakurlea = komandoa.ExecuteReader())
                     {
                         while (irakurlea.Read())
                         {
-                            jarraipenak.Add(new JarraipenZerrendaItem
+                            jarraipenak.Add(new Jarraipena
                             {
                                 Id = irakurlea.GetInt32("id"),
                                 PazienteId = irakurlea.GetInt32("paziente_id"),
-                                PazienteNan = irakurlea.GetString("nan"),
-                                PazienteIzena = irakurlea.GetString("izena"),
-                                PazienteAbizenak = irakurlea.GetString("abizenak"),
+                                PazienteNan = DatuBaseTestua.Zuzendu(irakurlea.GetString("nan")),
+                                PazienteIzena = DatuBaseTestua.Zuzendu(irakurlea.GetString("izena")),
+                                PazienteAbizenak = DatuBaseTestua.Zuzendu(irakurlea.GetString("abizenak")),
                                 TentsioSistolikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("tentsio_sistolikoa")) ? (int?)null : irakurlea.GetInt32("tentsio_sistolikoa"),
                                 TentsioDiastolikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("tentsio_diastolikoa")) ? (int?)null : irakurlea.GetInt32("tentsio_diastolikoa"),
                                 PisuaKg = irakurlea.IsDBNull(irakurlea.GetOrdinal("pisua_kg")) ? (decimal?)null : irakurlea.GetDecimal("pisua_kg"),
                                 Altuera = irakurlea.IsDBNull(irakurlea.GetOrdinal("altuera")) ? (decimal?)null : irakurlea.GetDecimal("altuera"),
                                 PultsuaPpm = irakurlea.IsDBNull(irakurlea.GetOrdinal("pultsua_ppm")) ? (int?)null : irakurlea.GetInt32("pultsua_ppm"),
-                                Oharrak = irakurlea.IsDBNull(irakurlea.GetOrdinal("oharrak")) ? null : irakurlea.GetString("oharrak"),
+                                Oharrak = irakurlea.IsDBNull(irakurlea.GetOrdinal("oharrak")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("oharrak")),
                                 ErregistroData = irakurlea.GetDateTime("erregistro_data"),
                                 DokumentuKopurua = irakurlea.GetInt32("dokumentu_kopurua")
                             });
@@ -90,8 +96,8 @@ namespace GOsasun_app.Repositorioa
                                 PisuaKg = irakurlea.IsDBNull(irakurlea.GetOrdinal("pisua_kg")) ? (decimal?)null : irakurlea.GetDecimal("pisua_kg"),
                                 Altuera = irakurlea.IsDBNull(irakurlea.GetOrdinal("altuera")) ? (decimal?)null : irakurlea.GetDecimal("altuera"),
                                 PultsuaPpm = irakurlea.IsDBNull(irakurlea.GetOrdinal("pultsua_ppm")) ? (int?)null : irakurlea.GetInt32("pultsua_ppm"),
-                                Oharrak = irakurlea.IsDBNull(irakurlea.GetOrdinal("oharrak")) ? null : irakurlea.GetString("oharrak"),
-                                BideaZerbitzarian = irakurlea.IsDBNull(irakurlea.GetOrdinal("bidea_zerbitzarian")) ? null : irakurlea.GetString("bidea_zerbitzarian"),
+                                Oharrak = irakurlea.IsDBNull(irakurlea.GetOrdinal("oharrak")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("oharrak")),
+                                BideaZerbitzarian = irakurlea.IsDBNull(irakurlea.GetOrdinal("bidea_zerbitzarian")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("bidea_zerbitzarian")),
                                 ErregistroData = irakurlea.GetDateTime("erregistro_data")
                             });
                         }
@@ -129,8 +135,8 @@ namespace GOsasun_app.Repositorioa
                                 PisuaKg = irakurlea.IsDBNull(irakurlea.GetOrdinal("pisua_kg")) ? (decimal?)null : irakurlea.GetDecimal("pisua_kg"),
                                 Altuera = irakurlea.IsDBNull(irakurlea.GetOrdinal("altuera")) ? (decimal?)null : irakurlea.GetDecimal("altuera"),
                                 PultsuaPpm = irakurlea.IsDBNull(irakurlea.GetOrdinal("pultsua_ppm")) ? (int?)null : irakurlea.GetInt32("pultsua_ppm"),
-                                Oharrak = irakurlea.IsDBNull(irakurlea.GetOrdinal("oharrak")) ? null : irakurlea.GetString("oharrak"),
-                                BideaZerbitzarian = irakurlea.IsDBNull(irakurlea.GetOrdinal("bidea_zerbitzarian")) ? null : irakurlea.GetString("bidea_zerbitzarian"),
+                                Oharrak = irakurlea.IsDBNull(irakurlea.GetOrdinal("oharrak")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("oharrak")),
+                                BideaZerbitzarian = irakurlea.IsDBNull(irakurlea.GetOrdinal("bidea_zerbitzarian")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("bidea_zerbitzarian")),
                                 ErregistroData = irakurlea.GetDateTime("erregistro_data")
                             };
                         }
@@ -141,7 +147,7 @@ namespace GOsasun_app.Repositorioa
             return null;
         }
 
-        public bool GordeJarraipena(Jarraipena jarraipena)
+        public int? GordeJarraipenaEtaLortuId(Jarraipena jarraipena)
         {
             try
             {
@@ -151,7 +157,8 @@ namespace GOsasun_app.Repositorioa
                         INSERT INTO jarraipenak (paziente_id, osasun_langile_id, tentsio_sistolikoa,
                                                 tentsio_diastolikoa, pisua_kg, altuera, pultsua_ppm, oharrak, bidea_zerbitzarian, erregistro_data)
                         VALUES (@pazienteId, @langileId, @tentsioSistolikoa,
-                                @tentsioDiastolikoa, @pisuaKg, @altuera, @pultsuaPpm, @oharrak, @bidea, @erregistroData)";
+                                @tentsioDiastolikoa, @pisuaKg, @altuera, @pultsuaPpm, @oharrak, @bidea, @erregistroData);
+                        SELECT LAST_INSERT_ID();";
 
                     using (var komandoa = new MySqlCommand(query, konexioa))
                     {
@@ -166,15 +173,21 @@ namespace GOsasun_app.Repositorioa
                         komandoa.Parameters.AddWithValue("@bidea", (object?)jarraipena.BideaZerbitzarian ?? DBNull.Value);
                         komandoa.Parameters.AddWithValue("@erregistroData", jarraipena.ErregistroData);
 
-                        return komandoa.ExecuteNonQuery() > 0;
+                        object? emaitza = komandoa.ExecuteScalar();
+                        return emaitza == null ? null : Convert.ToInt32(emaitza);
                     }
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Errorea jarraipena gordetzean: " + ex.Message);
-                return false;
+                return null;
             }
+        }
+
+        public bool GordeJarraipena(Jarraipena jarraipena)
+        {
+            return GordeJarraipenaEtaLortuId(jarraipena).HasValue;
         }
 
         public bool EzabatuJarraipena(int jarraipenaId)

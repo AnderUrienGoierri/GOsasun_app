@@ -21,7 +21,6 @@ namespace GOsasun_app.Interfazea
 
         private void InitializeComponent()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(HarreraMenua));
             btnPazienteak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             btnMedikuak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             btnLangileak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
@@ -45,7 +44,6 @@ namespace GOsasun_app.Interfazea
             // 
             btnPazienteak.BackColor = Color.White;
             btnPazienteak.BorderBiribiltasuna = 24;
-            btnPazienteak.Ikonoa = (Image)resources.GetObject("btnPazienteak.Ikonoa");
             btnPazienteak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnPazienteak.Location = new Point(37, 43);
             btnPazienteak.Margin = new Padding(37, 43, 37, 43);
@@ -60,7 +58,6 @@ namespace GOsasun_app.Interfazea
             // 
             btnMedikuak.BackColor = Color.White;
             btnMedikuak.BorderBiribiltasuna = 24;
-            btnMedikuak.Ikonoa = (Image)resources.GetObject("btnMedikuak.Ikonoa");
             btnMedikuak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnMedikuak.Location = new Point(650, 43);
             btnMedikuak.Margin = new Padding(37, 43, 37, 43);
@@ -68,7 +65,7 @@ namespace GOsasun_app.Interfazea
             btnMedikuak.Padding = new Padding(19, 21, 19, 21);
             btnMedikuak.Size = new Size(576, 512);
             btnMedikuak.TabIndex = 1;
-            btnMedikuak.Testua = "MEDIKUAK KUDEATU";
+            btnMedikuak.Testua = "OSASUN LANGILEAK KUDEATU";
             btnMedikuak.TestuKolorea = Color.FromArgb(50, 50, 50);
             // 
             // btnLangileak
@@ -76,7 +73,6 @@ namespace GOsasun_app.Interfazea
             btnLangileak.BackColor = Color.White;
             btnLangileak.BorderBiribiltasuna = 24;
             btnLangileak.Font = new Font("Segoe UI", 9F);
-            btnLangileak.Ikonoa = (Image)resources.GetObject("btnLangileak.Ikonoa");
             btnLangileak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnLangileak.Location = new Point(1263, 43);
             btnLangileak.Margin = new Padding(37, 43, 37, 43);
@@ -92,7 +88,6 @@ namespace GOsasun_app.Interfazea
             // 
             btnHitzorduak.BackColor = Color.White;
             btnHitzorduak.BorderBiribiltasuna = 24;
-            btnHitzorduak.Ikonoa = (Image)resources.GetObject("btnHitzorduak.Ikonoa");
             btnHitzorduak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnHitzorduak.Location = new Point(37, 597);
             btnHitzorduak.Margin = new Padding(37, 43, 37, 43);

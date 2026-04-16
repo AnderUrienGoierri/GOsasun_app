@@ -20,11 +20,11 @@ namespace GOsasun_app.Repositorioa
                         botikak.Add(new Botika
                         {
                             BotikaId = irakurlea.GetInt32("id"),
-                            Izena = irakurlea.GetString("izena"),
-                            IzenKimikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("izen_kimikoa")) ? null : irakurlea.GetString("izen_kimikoa"),
-                            NomenklaturaKimikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("nomenklatura_kimikoa")) ? null : irakurlea.GetString("nomenklatura_kimikoa"),
-                            EraginFokoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("eragin_fokoa")) ? null : irakurlea.GetString("eragin_fokoa"),
-                            Aktibitatea = irakurlea.IsDBNull(irakurlea.GetOrdinal("aktibitatea")) ? null : irakurlea.GetString("aktibitatea")
+                            Izena = DatuBaseTestua.Zuzendu(irakurlea.GetString("izena")),
+                            IzenKimikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("izen_kimikoa")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("izen_kimikoa")),
+                            NomenklaturaKimikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("nomenklatura_kimikoa")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("nomenklatura_kimikoa")),
+                            EraginFokoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("eragin_fokoa")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("eragin_fokoa")),
+                            Aktibitatea = irakurlea.IsDBNull(irakurlea.GetOrdinal("aktibitatea")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("aktibitatea"))
                         });
                     }
                 }

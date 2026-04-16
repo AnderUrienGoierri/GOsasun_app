@@ -33,9 +33,9 @@ namespace GOsasun_app.Repositorioa
                         if (irakurlea.Read())
                         {
                             int id = irakurlea.GetInt32("id");
-                            string izena = irakurlea.GetString("izena");
-                            string abizena = irakurlea.GetString("abizenak");
-                            string email = irakurlea.GetString("email");
+                            string izena = DatuBaseTestua.Zuzendu(irakurlea.GetString("izena"));
+                            string abizena = DatuBaseTestua.Zuzendu(irakurlea.GetString("abizenak"));
+                            string email = DatuBaseTestua.Zuzendu(irakurlea.GetString("email"));
                             int rolId = irakurlea.GetInt32("rol_id");
                             string rolIzena = NormalizatuRolIzena(irakurlea.GetString("rol_izena"));
 
@@ -62,7 +62,7 @@ namespace GOsasun_app.Repositorioa
             return rolIzena.Replace(" ", string.Empty).Trim().ToLowerInvariant();
         }
 
-        public List<Pazientea> LortuLangilearenPazienteak(int langileId, string? bilatzailea = null)
+        public List<Pazientea> LortuLangilearenPazienteak(int langileId, string? bilatzailea = null, string? egoeraFiltroa = null)
         {
             List<Pazientea> pazienteak = new List<Pazientea>();
 
@@ -70,12 +70,13 @@ namespace GOsasun_app.Repositorioa
             {
                 string query = @"
                     SELECT e.id, e.email, e.pasahitza, e.rol_id, e.aktibo, e.sortze_data,
-                            e.nan, e.izena, e.abizenak, e.jaiotze_data, e.telefonoa, e.irudia,
+                        e.nan, e.izena, e.abizenak, e.jaiotze_data, e.telefonoa, e.helbidea, e.herria, e.posta_kodea, e.irudia,
                             p.sexua, p.odol_taldea, p.azken_altuera, p.azken_pisua, p.egoera_klinikoa
                     FROM pazientek_langileak pl
                     JOIN erabiltzaileak e ON pl.paziente_id = e.id
                     LEFT JOIN pazienteak p ON e.id = p.id
-                    WHERE pl.langile_id = @langileId AND e.aktibo = 1";
+                                        WHERE pl.langile_id = @langileId AND e.aktibo = 1
+                                            AND (@egoeraFiltroa IS NULL OR COALESCE(p.egoera_klinikoa, 'Alta') = @egoeraFiltroa)";
 
                 if (!string.IsNullOrEmpty(bilatzailea))
                 {
@@ -85,6 +86,7 @@ namespace GOsasun_app.Repositorioa
                 using (var komandoa = new MySqlCommand(query, konexioa))
                 {
                     komandoa.Parameters.AddWithValue("@langileId", langileId);
+                    komandoa.Parameters.AddWithValue("@egoeraFiltroa", (object?)NormalizatuEgoeraFiltroa(egoeraFiltroa) ?? DBNull.Value);
                     if (!string.IsNullOrEmpty(bilatzailea))
                     {
                         komandoa.Parameters.AddWithValue("@testua", "%" + bilatzailea + "%");
@@ -97,21 +99,25 @@ namespace GOsasun_app.Repositorioa
                             pazienteak.Add(new Pazientea
                             {
                                 Id = irakurlea.GetInt32("id"),
-                                Emaila = irakurlea.GetString("email"),
+                                Emaila = DatuBaseTestua.Zuzendu(irakurlea.GetString("email")),
                                 Pasahitza = irakurlea.GetString("pasahitza"),
                                 RolId = irakurlea.GetInt32("rol_id"),
                                 Aktibo = irakurlea.GetBoolean("aktibo"),
                                 SortzeData = irakurlea.GetDateTime("sortze_data"),
-                                Nan = irakurlea.GetString("nan"),
-                                Izena = irakurlea.GetString("izena"),
-                                Abizenak = irakurlea.GetString("abizenak"),
+                                Nan = DatuBaseTestua.Zuzendu(irakurlea.GetString("nan")),
+                                Izena = DatuBaseTestua.Zuzendu(irakurlea.GetString("izena")),
+                                Abizenak = DatuBaseTestua.Zuzendu(irakurlea.GetString("abizenak")),
                                 JaiotzeData = irakurlea.IsDBNull(irakurlea.GetOrdinal("jaiotze_data")) ? DateTime.MinValue : irakurlea.GetDateTime("jaiotze_data"),
-                                Telefonoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("telefonoa")) ? null : irakurlea.GetString("telefonoa"),
-                                OdolTaldea = irakurlea.IsDBNull(irakurlea.GetOrdinal("odol_taldea")) ? null : irakurlea.GetString("odol_taldea"),
+                                Telefonoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("telefonoa")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("telefonoa")),
+                                Helbidea = irakurlea.IsDBNull(irakurlea.GetOrdinal("helbidea")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("helbidea")),
+                                Herria = irakurlea.IsDBNull(irakurlea.GetOrdinal("herria")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("herria")),
+                                PostaKodea = irakurlea.IsDBNull(irakurlea.GetOrdinal("posta_kodea")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("posta_kodea")),
+                                OdolTaldea = irakurlea.IsDBNull(irakurlea.GetOrdinal("odol_taldea")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("odol_taldea")),
+                                Sexua = irakurlea.IsDBNull(irakurlea.GetOrdinal("sexua")) ? "-" : DatuBaseTestua.Zuzendu(irakurlea.GetString("sexua")),
                                 AzkenAltuera = irakurlea.IsDBNull(irakurlea.GetOrdinal("azken_altuera")) ? (decimal?)null : irakurlea.GetDecimal("azken_altuera"),
                                 AzkenPisua = irakurlea.IsDBNull(irakurlea.GetOrdinal("azken_pisua")) ? (decimal?)null : irakurlea.GetDecimal("azken_pisua"),
-                                EgoeraKlinikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("egoera_klinikoa")) ? "Alta" : irakurlea.GetString("egoera_klinikoa"),
-                                Irudia = irakurlea.GetString("irudia")
+                                EgoeraKlinikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("egoera_klinikoa")) ? "Alta" : DatuBaseTestua.Zuzendu(irakurlea.GetString("egoera_klinikoa")),
+                                Irudia = irakurlea.IsDBNull(irakurlea.GetOrdinal("irudia")) ? "img/lehenetsia.png" : DatuBaseTestua.Zuzendu(irakurlea.GetString("irudia"))
                             });
                         }
                     }
@@ -120,17 +126,18 @@ namespace GOsasun_app.Repositorioa
             return pazienteak;
         }
 
-        public List<Pazientea> LortuGuztiakPazienteak(string? bilatzailea = null)
+                public List<Pazientea> LortuGuztiakPazienteak(string? bilatzailea = null, string? egoeraFiltroa = null)
         {
             List<Pazientea> pazienteak = new List<Pazientea>();
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
                 string query = @"SELECT e.id, e.email, e.pasahitza, e.rol_id, e.aktibo, e.sortze_data,
-                                        e.nan, e.izena, e.abizenak, e.jaiotze_data, e.telefonoa, e.irudia,
+                                                                                e.nan, e.izena, e.abizenak, e.jaiotze_data, e.telefonoa, e.helbidea, e.herria, e.posta_kodea, e.irudia,
                                         p.sexua, p.odol_taldea, p.azken_altuera, p.azken_pisua, p.egoera_klinikoa
                                  FROM erabiltzaileak e
                                  LEFT JOIN pazienteak p ON e.id = p.id
-                                 WHERE e.rol_id = 2 AND e.aktibo = 1";
+                                                                 WHERE e.rol_id = 2 AND e.aktibo = 1
+                                                                     AND (@egoeraFiltroa IS NULL OR COALESCE(p.egoera_klinikoa, 'Alta') = @egoeraFiltroa)";
 
                 if (!string.IsNullOrEmpty(bilatzailea))
                 {
@@ -139,6 +146,7 @@ namespace GOsasun_app.Repositorioa
 
                 using (var komandoa = new MySqlCommand(query, konexioa))
                 {
+                    komandoa.Parameters.AddWithValue("@egoeraFiltroa", (object?)NormalizatuEgoeraFiltroa(egoeraFiltroa) ?? DBNull.Value);
                     if (!string.IsNullOrEmpty(bilatzailea))
                     {
                         komandoa.Parameters.AddWithValue("@testua", "%" + bilatzailea + "%");
@@ -151,17 +159,42 @@ namespace GOsasun_app.Repositorioa
                             pazienteak.Add(new Pazientea
                             {
                                 Id = irakurlea.GetInt32("id"),
-                                Emaila = irakurlea.GetString("email"),
-                                Izena = irakurlea.GetString("izena"),
-                                Abizenak = irakurlea.GetString("abizenak"),
-                                Nan = irakurlea.GetString("nan"),
-                                EgoeraKlinikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("egoera_klinikoa")) ? "Alta" : irakurlea.GetString("egoera_klinikoa")
+                                Emaila = DatuBaseTestua.Zuzendu(irakurlea.GetString("email")),
+                                Pasahitza = irakurlea.IsDBNull(irakurlea.GetOrdinal("pasahitza")) ? string.Empty : irakurlea.GetString("pasahitza"),
+                                RolId = irakurlea.GetInt32("rol_id"),
+                                Aktibo = irakurlea.GetBoolean("aktibo"),
+                                SortzeData = irakurlea.GetDateTime("sortze_data"),
+                                Izena = DatuBaseTestua.Zuzendu(irakurlea.GetString("izena")),
+                                Abizenak = DatuBaseTestua.Zuzendu(irakurlea.GetString("abizenak")),
+                                Nan = DatuBaseTestua.Zuzendu(irakurlea.GetString("nan")),
+                                JaiotzeData = irakurlea.IsDBNull(irakurlea.GetOrdinal("jaiotze_data")) ? DateTime.MinValue : irakurlea.GetDateTime("jaiotze_data"),
+                                Telefonoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("telefonoa")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("telefonoa")),
+                                Helbidea = irakurlea.IsDBNull(irakurlea.GetOrdinal("helbidea")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("helbidea")),
+                                Herria = irakurlea.IsDBNull(irakurlea.GetOrdinal("herria")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("herria")),
+                                PostaKodea = irakurlea.IsDBNull(irakurlea.GetOrdinal("posta_kodea")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("posta_kodea")),
+                                Sexua = irakurlea.IsDBNull(irakurlea.GetOrdinal("sexua")) ? "-" : DatuBaseTestua.Zuzendu(irakurlea.GetString("sexua")),
+                                OdolTaldea = irakurlea.IsDBNull(irakurlea.GetOrdinal("odol_taldea")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("odol_taldea")),
+                                AzkenAltuera = irakurlea.IsDBNull(irakurlea.GetOrdinal("azken_altuera")) ? (decimal?)null : irakurlea.GetDecimal("azken_altuera"),
+                                AzkenPisua = irakurlea.IsDBNull(irakurlea.GetOrdinal("azken_pisua")) ? (decimal?)null : irakurlea.GetDecimal("azken_pisua"),
+                                EgoeraKlinikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("egoera_klinikoa")) ? "Alta" : DatuBaseTestua.Zuzendu(irakurlea.GetString("egoera_klinikoa"))
                             });
                         }
                     }
                 }
             }
             return pazienteak;
+        }
+
+        private static string? NormalizatuEgoeraFiltroa(string? egoeraFiltroa)
+        {
+            if (string.IsNullOrWhiteSpace(egoeraFiltroa)) return null;
+
+            return egoeraFiltroa.Trim().ToLowerInvariant() switch
+            {
+                "alta" or "altan" => "Alta",
+                "baja" or "bajan" => "Baja",
+                _ => null
+            };
         }
 
         public List<OsasunLangilea> LortuGuztiakOsasunLangileak()
@@ -181,14 +214,62 @@ namespace GOsasun_app.Repositorioa
                         langileak.Add(new OsasunLangilea
                         {
                             Id = irakurlea.GetInt32("id"),
-                            Emaila = irakurlea.GetString("email"),
-                            Izena = irakurlea.GetString("izena"),
-                            Abizenak = irakurlea.GetString("abizenak")
+                            Emaila = DatuBaseTestua.Zuzendu(irakurlea.GetString("email")),
+                            Izena = DatuBaseTestua.Zuzendu(irakurlea.GetString("izena")),
+                            Abizenak = DatuBaseTestua.Zuzendu(irakurlea.GetString("abizenak"))
                         });
                     }
                 }
             }
             return langileak;
+        }
+
+        public Pazientea? LortuPazientea(int pazienteId)
+        {
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            {
+                string query = @"
+                    SELECT e.id, e.email, e.pasahitza, e.rol_id, e.aktibo, e.sortze_data,
+                           e.nan, e.izena, e.abizenak, e.jaiotze_data, e.telefonoa, e.helbidea, e.herria, e.posta_kodea, e.irudia,
+                           p.sexua, p.odol_taldea, p.azken_altuera, p.azken_pisua, p.egoera_klinikoa
+                    FROM erabiltzaileak e
+                    LEFT JOIN pazienteak p ON e.id = p.id
+                    WHERE e.id = @id AND e.rol_id = 2 AND e.aktibo = 1";
+
+                using (var komandoa = new MySqlCommand(query, konexioa))
+                {
+                    komandoa.Parameters.AddWithValue("@id", pazienteId);
+
+                    using (var irakurlea = komandoa.ExecuteReader())
+                    {
+                        if (!irakurlea.Read()) return null;
+
+                        return new Pazientea
+                        {
+                            Id = irakurlea.GetInt32("id"),
+                            Emaila = DatuBaseTestua.Zuzendu(irakurlea.GetString("email")),
+                            Pasahitza = irakurlea.IsDBNull(irakurlea.GetOrdinal("pasahitza")) ? string.Empty : irakurlea.GetString("pasahitza"),
+                            RolId = irakurlea.GetInt32("rol_id"),
+                            Aktibo = irakurlea.GetBoolean("aktibo"),
+                            SortzeData = irakurlea.GetDateTime("sortze_data"),
+                            Nan = DatuBaseTestua.Zuzendu(irakurlea.GetString("nan")),
+                            Izena = DatuBaseTestua.Zuzendu(irakurlea.GetString("izena")),
+                            Abizenak = DatuBaseTestua.Zuzendu(irakurlea.GetString("abizenak")),
+                            JaiotzeData = irakurlea.IsDBNull(irakurlea.GetOrdinal("jaiotze_data")) ? DateTime.MinValue : irakurlea.GetDateTime("jaiotze_data"),
+                            Telefonoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("telefonoa")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("telefonoa")),
+                            Helbidea = irakurlea.IsDBNull(irakurlea.GetOrdinal("helbidea")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("helbidea")),
+                            Herria = irakurlea.IsDBNull(irakurlea.GetOrdinal("herria")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("herria")),
+                            PostaKodea = irakurlea.IsDBNull(irakurlea.GetOrdinal("posta_kodea")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("posta_kodea")),
+                            Sexua = irakurlea.IsDBNull(irakurlea.GetOrdinal("sexua")) ? "-" : DatuBaseTestua.Zuzendu(irakurlea.GetString("sexua")),
+                            OdolTaldea = irakurlea.IsDBNull(irakurlea.GetOrdinal("odol_taldea")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("odol_taldea")),
+                            AzkenAltuera = irakurlea.IsDBNull(irakurlea.GetOrdinal("azken_altuera")) ? (decimal?)null : irakurlea.GetDecimal("azken_altuera"),
+                            AzkenPisua = irakurlea.IsDBNull(irakurlea.GetOrdinal("azken_pisua")) ? (decimal?)null : irakurlea.GetDecimal("azken_pisua"),
+                            EgoeraKlinikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("egoera_klinikoa")) ? "Alta" : DatuBaseTestua.Zuzendu(irakurlea.GetString("egoera_klinikoa")),
+                            Irudia = irakurlea.IsDBNull(irakurlea.GetOrdinal("irudia")) ? "img/lehenetsia.png" : DatuBaseTestua.Zuzendu(irakurlea.GetString("irudia"))
+                        };
+                    }
+                }
+            }
         }
 
         public List<HarrerakoLangilea> LortuGuztiakHarrerakoak()
@@ -208,9 +289,9 @@ namespace GOsasun_app.Repositorioa
                         harrerakoak.Add(new HarrerakoLangilea
                         {
                             Id = irakurlea.GetInt32("id"),
-                            Emaila = irakurlea.GetString("email"),
-                            Izena = irakurlea.GetString("izena"),
-                            Abizenak = irakurlea.GetString("abizenak")
+                            Emaila = DatuBaseTestua.Zuzendu(irakurlea.GetString("email")),
+                            Izena = DatuBaseTestua.Zuzendu(irakurlea.GetString("izena")),
+                            Abizenak = DatuBaseTestua.Zuzendu(irakurlea.GetString("abizenak"))
                         });
                     }
                 }

@@ -22,13 +22,23 @@ namespace GOsasun_app.Interfazea
         public MenuaOsasunLangilea() : base()
         {
             InitializeComponent();
+            KargatuIkonoak();
         }
 
         public MenuaOsasunLangilea(Erabiltzailea erabiltzailea)
             : base(erabiltzailea)
         {
             InitializeComponent();
+            KargatuIkonoak();
             KonfiguratuGertaerak();
+        }
+
+        private void KargatuIkonoak()
+        {
+            btnPazienteak.Ikonoa = KargatuIkonoIrudia("users.svg");
+            btnNeurketak.Ikonoa = KargatuIkonoIrudia("stethoscope.svg");
+            btnErrezetak.Ikonoa = KargatuIkonoIrudia("pill.svg");
+            btnGrafikak.Ikonoa = KargatuIkonoIrudia("line-chart.svg");
         }
 
         private void KonfiguratuGertaerak()
@@ -37,6 +47,22 @@ namespace GOsasun_app.Interfazea
             btnNeurketak.Click += (s, e) => IrekiFormularioa(new Jarraipenak(_erabiltzailea!));
             btnErrezetak.Click += (s, e) => IrekiFormularioa(new ErrezetakMenua(_erabiltzailea!));
             btnGrafikak.Click += (s, e) => IrekiFormularioa(new Grafikak(_erabiltzailea!));
+
+            var btnDokumentuak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia
+            {
+                Testua = "DOKUMENTUAK",
+                Size = new System.Drawing.Size(576, 512),
+                Location = new System.Drawing.Point(1263, 597),
+                BackColor = System.Drawing.Color.White,
+                BorderBiribiltasuna = 24,
+                KartaKolorea = System.Drawing.Color.FromArgb(230, 255, 255, 255),
+                Padding = new Padding(19, 21, 19, 21)
+            };
+
+            btnDokumentuak.Ikonoa = KargatuIkonoIrudia("dokumentuak.svg");
+
+            btnDokumentuak.Click += (s, e) => IrekiFormularioa(new Dokumentuak(_erabiltzailea!));
+            _edukiPanela.Controls.Add(btnDokumentuak);
 
             // Hitzorduak botoia dinamikoki gehitu
             var btnHitzorduak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia
@@ -50,7 +76,7 @@ namespace GOsasun_app.Interfazea
                 Padding = new Padding(19, 21, 19, 21)
             };
             
-            try { btnHitzorduak.Ikonoa = System.Drawing.Image.FromFile(System.IO.Path.Combine(Application.StartupPath, "img", "icons", "hitzorduak.png")); } catch { }
+            btnHitzorduak.Ikonoa = KargatuIkonoIrudia("calendar-days.svg");
 
             btnHitzorduak.Click += (s, e) => IrekiFormularioa(new HitzorduakKontsultatzea(_erabiltzailea!));
             

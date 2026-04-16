@@ -9,13 +9,21 @@ namespace GOsasun_app.Interfazea
         public ErrezetakMenua() : base()
         {
             InitializeComponent();
+            KargatuIkonoak();
         }
 
         public ErrezetakMenua(Erabiltzailea u) : base(u)
         {
             InitializeComponent();
+            KargatuIkonoak();
             btnErrezetaSortu.Click += (s, e) => IrekiFormularioa(new ErrezetaSortu(_erabiltzailea!));
             btnErrezetakIkusi.Click += (s, e) => IrekiFormularioa(new ErrezetakIkusi(_erabiltzailea!));
+        }
+
+        private void KargatuIkonoak()
+        {
+            btnErrezetaSortu.Ikonoa = KargatuIkonoIrudia("clipboard-pen.svg");
+            btnErrezetakIkusi.Ikonoa = KargatuIkonoIrudia("pill.svg");
         }
 
         private void IrekiFormularioa(Form form)

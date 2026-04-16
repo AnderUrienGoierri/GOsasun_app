@@ -9,6 +9,7 @@
 using GOsasun_app.Interfazea.Kontrolak;
 using GOsasun_app.Modeloa;
 using System.ComponentModel;
+using Svg;
 
 namespace GOsasun_app.Interfazea
 {
@@ -21,6 +22,7 @@ namespace GOsasun_app.Interfazea
         private static readonly Size PortadaIrudiTamaina = new Size(1514, 1394);
         private static readonly Size OinarriPantailaTamaina = new Size(1902, 1394);
         private static readonly Color PortadaAtzekoKolorea = Color.FromArgb(214, 224, 229);
+        private Image? _atzekoPlanoaIrudia;
 
         // Erabiltzaile informazioa (OOP)
         protected Erabiltzailea? _erabiltzailea;
@@ -80,7 +82,11 @@ namespace GOsasun_app.Interfazea
         {
             panela.Dock = DockStyle.Fill;
             panela.AutoScroll = true;
-            panela.BackColor = Color.Transparent;
+            panela.BackColor = PortadaAtzekoKolorea;
+            panela.Paint -= EdukiPanela_Paint; 
+            panela.Paint += EdukiPanela_Paint;
+            panela.Resize -= EdukiPanela_Resize;
+            panela.Resize += EdukiPanela_Resize;
             // Padding manualki kudeatuko dugu elementuen X,Y bitartez diseinatzailean
         }
 
@@ -92,21 +98,31 @@ namespace GOsasun_app.Interfazea
             string? atzekoPlanoaBidea = BilatuPortadaBidea();
             if (!string.IsNullOrEmpty(atzekoPlanoaBidea) && File.Exists(atzekoPlanoaBidea))
             {
-                this.BackgroundImage = Image.FromFile(atzekoPlanoaBidea);
-                this.BackgroundImageLayout = ImageLayout.Center;
+                _atzekoPlanoaIrudia?.Dispose();
+                using Image jatorrizkoIrudia = Image.FromFile(atzekoPlanoaBidea);
+                _atzekoPlanoaIrudia = new Bitmap(jatorrizkoIrudia);
+
+                this.BackgroundImage = null;
                 if (_edukiPanela != null)
                 {
-                    _edukiPanela.BackgroundImage = this.BackgroundImage;
-                    _edukiPanela.BackgroundImageLayout = ImageLayout.Center;
+                    _edukiPanela.BackgroundImage = null;
+                    _edukiPanela.Invalidate();
                 }
-                this.ClientSize = new Size(Math.Max(OinarriPantailaTamaina.Width, this.BackgroundImage.Width), Math.Max(OinarriPantailaTamaina.Height, this.BackgroundImage.Height));
+
+                int goiburuAltuera = _goiburuBarra?.Height ?? 0;
+                this.ClientSize = new Size(
+                    Math.Max(OinarriPantailaTamaina.Width, _atzekoPlanoaIrudia.Width),
+                    Math.Max(OinarriPantailaTamaina.Height, _atzekoPlanoaIrudia.Height + goiburuAltuera));
             }
             else
             {
+                _atzekoPlanoaIrudia?.Dispose();
+                _atzekoPlanoaIrudia = null;
                 this.BackColor = PortadaAtzekoKolorea;
                 if (_edukiPanela != null)
                 {
                     _edukiPanela.BackgroundImage = null;
+                    _edukiPanela.Invalidate();
                 }
                 this.ClientSize = OinarriPantailaTamaina;
             }
@@ -126,10 +142,11 @@ namespace GOsasun_app.Interfazea
 
         private void EgokituPortadarenNeurrira()
         {
-            Size irudiTamaina = this.BackgroundImage?.Size ?? PortadaIrudiTamaina;
+            int goiburuAltuera = _goiburuBarra?.Height ?? 0;
+            Size irudiTamaina = _atzekoPlanoaIrudia?.Size ?? PortadaIrudiTamaina;
             Size helmugaTamaina = new Size(
                 Math.Max(OinarriPantailaTamaina.Width, irudiTamaina.Width),
-                Math.Max(OinarriPantailaTamaina.Height, irudiTamaina.Height));
+                Math.Max(OinarriPantailaTamaina.Height, irudiTamaina.Height + goiburuAltuera));
 
             if (this.ClientSize != helmugaTamaina)
             {
@@ -143,14 +160,39 @@ namespace GOsasun_app.Interfazea
 
             if (_edukiPanela != null)
             {
-                _edukiPanela.Location = new Point(0, _goiburuBarra.Bottom);
-                _edukiPanela.Size = new Size(helmugaTamaina.Width, helmugaTamaina.Height - _goiburuBarra.Height);
+                int goiburuBehea = _goiburuBarra?.Bottom ?? 0;
+                _edukiPanela.Location = new Point(0, goiburuBehea);
+                _edukiPanela.Size = new Size(helmugaTamaina.Width, helmugaTamaina.Height - goiburuAltuera);
+                _edukiPanela.Invalidate();
             }
 
             if (_atzeraBotoia != null)
             {
                 _atzeraBotoia.BringToFront();
             }
+        }
+
+        private void EdukiPanela_Resize(object? sender, EventArgs e)
+        {
+            _edukiPanela?.Invalidate();
+        }
+
+        private void EdukiPanela_Paint(object? sender, PaintEventArgs e)
+        {
+            if (sender is not Panel panela)
+            {
+                return;
+            }
+
+            e.Graphics.Clear(PortadaAtzekoKolorea);
+
+            if (_atzekoPlanoaIrudia == null)
+            {
+                return;
+            }
+
+            int x = Math.Max(0, (panela.ClientSize.Width - _atzekoPlanoaIrudia.Width) / 2);
+            e.Graphics.DrawImage(_atzekoPlanoaIrudia, x, 0, _atzekoPlanoaIrudia.Width, _atzekoPlanoaIrudia.Height);
         }
 
         private static string? BilatuPortadaBidea()
@@ -219,32 +261,49 @@ namespace GOsasun_app.Interfazea
                 Margin = new Padding(20) // Tartea txartelen artean
             };
 
-            // Ikonoa kargatu
-            string ikonoBidea = Path.Combine(Application.StartupPath, "img", "icons", ikonoFitxategia);
-
-            // Garapen moduko fallback-ak
-            if (!File.Exists(ikonoBidea))
-            {
-                string root = Directory.GetCurrentDirectory();
-                string[] saioak = {
-                    Path.Combine(root, "img", "icons", ikonoFitxategia),
-                    Path.Combine(root, "GOsasun_app", "img", "icons", ikonoFitxategia),
-                    Path.Combine(root, "..", "..", "..", "img", "icons", ikonoFitxategia),
-                    Path.Combine(root, "..", "..", "..", "GOsasun_app", "img", "icons", ikonoFitxategia)
-                };
-
-                foreach (string s in saioak)
-                {
-                    if (File.Exists(s)) { ikonoBidea = s; break; }
-                }
-            }
-
-            if (File.Exists(ikonoBidea))
-            {
-                txartela.Ikonoa = Image.FromFile(ikonoBidea);
-            }
+            txartela.Ikonoa = KargatuIkonoIrudia(ikonoFitxategia);
 
             return txartela;
+        }
+
+        protected Image? KargatuIkonoIrudia(string fitxategiIzena, Color? svgKolorea = null, int svgTamaina = 256)
+        {
+            string? svgBidea = BilatuBaliabidea("img", "svg", fitxategiIzena);
+            if (string.IsNullOrWhiteSpace(svgBidea) || !File.Exists(svgBidea))
+            {
+                return null;
+            }
+
+            try
+            {
+                string svgEdukia = File.ReadAllText(svgBidea);
+                string ordezkoKolorea = ColorTranslator.ToHtml(svgKolorea ?? Color.FromArgb(44, 62, 80));
+                svgEdukia = svgEdukia.Replace("currentColor", ordezkoKolorea, StringComparison.OrdinalIgnoreCase);
+
+                using MemoryStream memoria = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(svgEdukia));
+                SvgDocument svg = SvgDocument.Open<SvgDocument>(memoria);
+                return svg.Draw(svgTamaina, svgTamaina);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private static string? BilatuBaliabidea(string karpetaNagusia, string azpiKarpeta, string fitxategiIzena)
+        {
+            foreach (string root in LortuBilaketaErroak())
+            {
+                string[] aukerak = {
+                    Path.Combine(root, karpetaNagusia, azpiKarpeta, fitxategiIzena),
+                    Path.Combine(root, "GOsasun_app", karpetaNagusia, azpiKarpeta, fitxategiIzena)
+                };
+
+                string? aurkitua = aukerak.FirstOrDefault(File.Exists);
+                if (!string.IsNullOrWhiteSpace(aurkitua)) return aurkitua;
+            }
+
+            return null;
         }
 
         // -----------------------------------------------------------

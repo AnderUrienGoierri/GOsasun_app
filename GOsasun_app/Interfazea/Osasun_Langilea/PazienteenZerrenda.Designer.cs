@@ -22,6 +22,9 @@
             dgvPazienteak = new DataGridView();
             lblIzenburua = new Label();
             pnlBilatzailea = new Panel();
+            chkBajan = new CheckBox();
+            chkAltan = new CheckBox();
+            chkPazienteGuztiak = new CheckBox();
             txtBilatu = new TextBox();
             lblBilatu = new Label();
             _edukiPanela.SuspendLayout();
@@ -98,6 +101,9 @@
             // pnlBilatzailea
             // 
             pnlBilatzailea.BackColor = Color.Transparent;
+            pnlBilatzailea.Controls.Add(chkBajan);
+            pnlBilatzailea.Controls.Add(chkAltan);
+            pnlBilatzailea.Controls.Add(chkPazienteGuztiak);
             pnlBilatzailea.Controls.Add(txtBilatu);
             pnlBilatzailea.Controls.Add(lblBilatu);
             pnlBilatzailea.Dock = DockStyle.Top;
@@ -106,6 +112,44 @@
             pnlBilatzailea.Name = "pnlBilatzailea";
             pnlBilatzailea.Size = new Size(1894, 107);
             pnlBilatzailea.TabIndex = 2;
+            // 
+            // chkBajan
+            // 
+            chkBajan.AutoSize = true;
+            chkBajan.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+            chkBajan.ForeColor = Color.White;
+            chkBajan.Location = new Point(1505, 28);
+            chkBajan.Name = "chkBajan";
+            chkBajan.Size = new Size(114, 42);
+            chkBajan.TabIndex = 4;
+            chkBajan.Text = "Bajan";
+            chkBajan.UseVisualStyleBackColor = true;
+            // 
+            // chkAltan
+            // 
+            chkAltan.AutoSize = true;
+            chkAltan.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+            chkAltan.ForeColor = Color.White;
+            chkAltan.Location = new Point(1383, 28);
+            chkAltan.Name = "chkAltan";
+            chkAltan.Size = new Size(113, 42);
+            chkAltan.TabIndex = 3;
+            chkAltan.Text = "Altan";
+            chkAltan.UseVisualStyleBackColor = true;
+            // 
+            // chkPazienteGuztiak
+            // 
+            chkPazienteGuztiak.AutoSize = true;
+            chkPazienteGuztiak.Checked = true;
+            chkPazienteGuztiak.CheckState = CheckState.Checked;
+            chkPazienteGuztiak.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+            chkPazienteGuztiak.ForeColor = Color.White;
+            chkPazienteGuztiak.Location = new Point(1070, 28);
+            chkPazienteGuztiak.Name = "chkPazienteGuztiak";
+            chkPazienteGuztiak.Size = new Size(304, 42);
+            chkPazienteGuztiak.TabIndex = 2;
+            chkPazienteGuztiak.Text = "Paziente guztiak ikusi";
+            chkPazienteGuztiak.UseVisualStyleBackColor = true;
             // 
             // txtBilatu
             // 
@@ -151,5 +195,8 @@
         private System.Windows.Forms.Panel pnlBilatzailea;
         private System.Windows.Forms.TextBox txtBilatu;
         private System.Windows.Forms.Label lblBilatu;
+        private System.Windows.Forms.CheckBox chkBajan;
+        private System.Windows.Forms.CheckBox chkAltan;
+        private System.Windows.Forms.CheckBox chkPazienteGuztiak;
     }
 }

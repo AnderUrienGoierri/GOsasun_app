@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using GOsasun_app.Interfazea.Kontrolak;
 using GOsasun_app.Modeloa;
 using GOsasun_app.Kontrola;
+using Svg;
 
 namespace GOsasun_app.Interfazea
 {
@@ -15,8 +18,11 @@ namespace GOsasun_app.Interfazea
     /// </summary>
     public partial class PazienteenZerrenda : OinarriPantaila
     {
+        private const int EkintzaZutabeZabalera = 160;
+        private const int EkintzaIkonoTamaina = 22;
         private readonly ErabiltzaileKontrolatzailea _kontrolatzailea;
         private List<Pazientea> _pazienteak = new List<Pazientea>();
+        private readonly Dictionary<string, Bitmap?> _ekintzaIkonoak = new Dictionary<string, Bitmap?>();
 
         public PazienteenZerrenda(Erabiltzailea medikua)
             : base(medikua)
@@ -28,26 +34,43 @@ namespace GOsasun_app.Interfazea
             if (_erabiltzailea is HarrerakoLangilea)
             {
                 lblIzenburua.Text = "PAZIENTEEN KUDEAKETA";
+                chkPazienteGuztiak.Checked = true;
+                chkPazienteGuztiak.Enabled = false;
+            }
+            else
+            {
+                chkPazienteGuztiak.Checked = false;
             }
 
             KonfiguratuTaula();
+            KargatuEkintzaIkonoak();
             KargatuPazienteak();
 
             // Gertaerak
             txtBilatu.TextChanged += TxtBilatu_TextChanged;
+            chkPazienteGuztiak.CheckedChanged += PazienteMotaFiltroa_CheckedChanged;
+            chkAltan.CheckedChanged += EgoeraFiltroa_CheckedChanged;
+            chkBajan.CheckedChanged += EgoeraFiltroa_CheckedChanged;
         }
 
         private void KonfiguratuTaula()
         {
             dgvPazienteak.AutoGenerateColumns = false;
+            dgvPazienteak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvPazienteak.Columns.Clear();
 
-            // Zutabeak definitu
-            dgvPazienteak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Nan", HeaderText = "NAN", Name = "Nan", SortMode = DataGridViewColumnSortMode.Programmatic });
-            dgvPazienteak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Izena", HeaderText = "Izena", Name = "Izena", SortMode = DataGridViewColumnSortMode.Programmatic });
-            dgvPazienteak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Abizenak", HeaderText = "Abizenak", Name = "Abizenak", SortMode = DataGridViewColumnSortMode.Programmatic });
-            dgvPazienteak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "EgoeraKlinikoa", HeaderText = "Egoera", Name = "EgoeraKlinikoa", SortMode = DataGridViewColumnSortMode.Programmatic });
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("Nan", "NAN", 150));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("Izena", "Izena", 140));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("Abizenak", "Abizenak", 190));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("Emaila", "Emaila", 240));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("Telefonoa", "Telefonoa", 135));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("JaiotzeData", "Jaiotze data", 130, "yyyy/MM/dd"));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("Sexua", "Sexua", 110));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("OdolTaldea", "Odol taldea", 120));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("AzkenAltuera", "Altuera", 110, "N2"));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("AzkenPisua", "Pisua", 110, "N2"));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("EgoeraKlinikoa", "Egoera", 110));
 
-            // Editatu eta Ezabatu botoiak (Harrerako langilearentzat soilik agian? Erabiltzaileak harrerakoak eskatu du)
             if (_erabiltzailea is HarrerakoLangilea)
             {
                 DataGridViewButtonColumn btnEdit = new DataGridViewButtonColumn();
@@ -70,18 +93,216 @@ namespace GOsasun_app.Interfazea
                 btnDelete.DefaultCellStyle.ForeColor = Color.White;
                 dgvPazienteak.Columns.Add(btnDelete);
             }
+            else
+            {
+                dgvPazienteak.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    DataPropertyName = "IzenOsoa",
+                    HeaderText = "EKINTZAK",
+                    Name = "Ekintzak",
+                    Width = EkintzaZutabeZabalera,
+                    SortMode = DataGridViewColumnSortMode.NotSortable,
+                    ReadOnly = true,
+                    DefaultCellStyle = new DataGridViewCellStyle
+                    {
+                        Alignment = DataGridViewContentAlignment.MiddleCenter
+                    }
+                });
+            }
 
-            // Kurtsorea aldatu "esteka" efektua emateko
-            dgvPazienteak.Cursor = Cursors.Default; // Kurtsorea lehenetsia grid osorako
+            dgvPazienteak.Cursor = Cursors.Default;
             dgvPazienteak.CellMouseEnter += (s, e) => {
-                if (e.RowIndex >= 0 && (e.ColumnIndex == dgvPazienteak.Columns["btnEditatu"]?.Index || e.ColumnIndex == dgvPazienteak.Columns["btnEzabatu"]?.Index))
+                DataGridViewColumn? editZutabea = dgvPazienteak.Columns["btnEditatu"];
+                DataGridViewColumn? ezabatuZutabea = dgvPazienteak.Columns["btnEzabatu"];
+
+                if (e.RowIndex >= 0 && ((editZutabea != null && e.ColumnIndex == editZutabea.Index)
+                    || (ezabatuZutabea != null && e.ColumnIndex == ezabatuZutabea.Index)
+                    || EkintzakZutabeaDa(e.ColumnIndex)))
                     dgvPazienteak.Cursor = Cursors.Hand;
                 else
                     dgvPazienteak.Cursor = Cursors.Default;
             };
 
-            // Ordenazioa gaitu (header click)
             dgvPazienteak.ColumnHeaderMouseClick += DgvPazienteak_ColumnHeaderMouseClick;
+            dgvPazienteak.CellPainting += DgvPazienteak_CellPainting;
+            dgvPazienteak.CellMouseClick += DgvPazienteak_CellMouseClick;
+        }
+
+        private static DataGridViewTextBoxColumn SortuTestuZutabea(string propertyName, string headerText, int width, string? format = null)
+        {
+            return new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = propertyName,
+                HeaderText = headerText,
+                Name = propertyName,
+                Width = width,
+                SortMode = DataGridViewColumnSortMode.Programmatic,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = format ?? string.Empty,
+                    Alignment = DataGridViewContentAlignment.MiddleCenter
+                },
+                HeaderCell = { Style = { Alignment = DataGridViewContentAlignment.MiddleCenter } }
+            };
+        }
+
+        private void KargatuEkintzaIkonoak()
+        {
+            if (_erabiltzailea is HarrerakoLangilea) return;
+
+            _ekintzaIkonoak["fitxa"] = KargatuSvgIkonoa("eye.svg");
+            _ekintzaIkonoak["jarraipena"] = KargatuSvgIkonoa("stethoscope.svg");
+        }
+
+        private static Bitmap? KargatuSvgIkonoa(string fileName)
+        {
+            string? bidea = BilatuSvgBidea(fileName);
+            if (string.IsNullOrWhiteSpace(bidea) || !File.Exists(bidea)) return null;
+
+            try
+            {
+                string svg = File.ReadAllText(bidea).Replace("currentColor", "#FFFFFF", StringComparison.OrdinalIgnoreCase);
+                using MemoryStream memoria = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(svg));
+                SvgDocument dokumentua = SvgDocument.Open<SvgDocument>(memoria);
+                return dokumentua.Draw(EkintzaIkonoTamaina, EkintzaIkonoTamaina);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private static string? BilatuSvgBidea(string fileName)
+        {
+            string[] erroak =
+            {
+                Application.StartupPath,
+                AppContext.BaseDirectory,
+                Directory.GetCurrentDirectory(),
+                Environment.CurrentDirectory,
+                Path.GetDirectoryName(typeof(PazienteenZerrenda).Assembly.Location) ?? string.Empty
+            };
+
+            foreach (string hasiera in erroak.Where(Directory.Exists))
+            {
+                DirectoryInfo? karpeta = new DirectoryInfo(hasiera);
+                while (karpeta != null)
+                {
+                    string[] aukerak =
+                    {
+                        Path.Combine(karpeta.FullName, "img", "svg", fileName),
+                        Path.Combine(karpeta.FullName, "GOsasun_app", "img", "svg", fileName)
+                    };
+
+                    string? aurkitua = aukerak.FirstOrDefault(File.Exists);
+                    if (!string.IsNullOrWhiteSpace(aurkitua)) return aurkitua;
+                    karpeta = karpeta.Parent;
+                }
+            }
+
+            return null;
+        }
+
+        private bool EkintzakZutabeaDa(int columnIndex)
+        {
+            return columnIndex >= 0
+                && columnIndex < dgvPazienteak.Columns.Count
+                && string.Equals(dgvPazienteak.Columns[columnIndex].Name, "Ekintzak", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static Dictionary<string, Rectangle> LortuEkintzaBotoiak(Rectangle cellBounds)
+        {
+            int buttonSize = 42;
+            int spacing = 14;
+            int totalWidth = (buttonSize * 2) + spacing;
+            int left = cellBounds.Left + Math.Max(10, (cellBounds.Width - totalWidth) / 2);
+            int top = cellBounds.Top + Math.Max(6, (cellBounds.Height - buttonSize) / 2);
+
+            return new Dictionary<string, Rectangle>
+            {
+                ["fitxa"] = new Rectangle(left, top, buttonSize, buttonSize),
+                ["jarraipena"] = new Rectangle(left + buttonSize + spacing, top, buttonSize, buttonSize)
+            };
+        }
+
+        private void DgvPazienteak_CellPainting(object? sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (!EkintzakZutabeaDa(e.ColumnIndex) || e.RowIndex < 0 || e.Graphics == null) return;
+
+            e.PaintBackground(e.CellBounds, true);
+            e.Paint(e.ClipBounds, DataGridViewPaintParts.Border);
+
+            foreach (KeyValuePair<string, Rectangle> botoia in LortuEkintzaBotoiak(e.CellBounds))
+            {
+                MarraztuEkintzaBotoia(e.Graphics, botoia.Key, botoia.Value);
+            }
+
+            e.Handled = true;
+        }
+
+        private void MarraztuEkintzaBotoia(Graphics graphics, string ekintza, Rectangle rectangle)
+        {
+            Color kolorea = Color.FromArgb(192, 57, 43);
+            string fallbackIkurra = ekintza == "fitxa" ? "F" : "J";
+
+            using GraphicsPath path = SortuBiribildua(rectangle, 12);
+            using SolidBrush brush = new SolidBrush(kolorea);
+            using Pen pen = new Pen(Color.White, 1);
+
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            graphics.FillPath(brush, path);
+            graphics.DrawPath(pen, path);
+
+            if (_ekintzaIkonoak.TryGetValue(ekintza, out Bitmap? ikonoa) && ikonoa != null)
+            {
+                int left = rectangle.Left + ((rectangle.Width - ikonoa.Width) / 2);
+                int top = rectangle.Top + ((rectangle.Height - ikonoa.Height) / 2);
+                graphics.DrawImage(ikonoa, new Rectangle(left, top, ikonoa.Width, ikonoa.Height));
+            }
+            else
+            {
+                TextRenderer.DrawText(graphics, fallbackIkurra, new Font("Segoe UI", 10F, FontStyle.Bold), rectangle, Color.White,
+                    TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+            }
+        }
+
+        private static GraphicsPath SortuBiribildua(Rectangle bounds, int radius)
+        {
+            GraphicsPath path = new GraphicsPath();
+            int diameter = radius * 2;
+            path.AddArc(bounds.Left, bounds.Top, diameter, diameter, 180, 90);
+            path.AddArc(bounds.Right - diameter, bounds.Top, diameter, diameter, 270, 90);
+            path.AddArc(bounds.Right - diameter, bounds.Bottom - diameter, diameter, diameter, 0, 90);
+            path.AddArc(bounds.Left, bounds.Bottom - diameter, diameter, diameter, 90, 90);
+            path.CloseFigure();
+            return path;
+        }
+
+        private void DgvPazienteak_CellMouseClick(object? sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (!EkintzakZutabeaDa(e.ColumnIndex) || e.RowIndex < 0) return;
+
+            Pazientea? pazientea = dgvPazienteak.Rows[e.RowIndex].DataBoundItem as Pazientea;
+            if (pazientea == null) return;
+
+            Rectangle cellBounds = dgvPazienteak.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+            Point posizioa = new Point(cellBounds.Left + e.X, cellBounds.Top + e.Y);
+
+            foreach (KeyValuePair<string, Rectangle> botoia in LortuEkintzaBotoiak(cellBounds))
+            {
+                if (!botoia.Value.Contains(posizioa)) continue;
+
+                if (botoia.Key == "fitxa")
+                {
+                    IrekiFormularioa(new PazienteXehetasunak(pazientea));
+                }
+                else if (_erabiltzailea != null)
+                {
+                    IrekiFormularioa(new Jarraipenak(_erabiltzailea, pazientea.Id, pazientea.IzenOsoa));
+                }
+
+                break;
+            }
         }
 
         // Ordenatzeko aldagaiak
@@ -129,13 +350,18 @@ namespace GOsasun_app.Interfazea
         {
             try
             {
+                string? egoeraFiltroa = LortuEgoeraFiltroa();
                 if (_erabiltzailea is HarrerakoLangilea)
                 {
-                    _pazienteak = _kontrolatzailea.LortuGuztiakPazienteak(testua);
+                    _pazienteak = _kontrolatzailea.LortuGuztiakPazienteak(testua, egoeraFiltroa);
+                }
+                else if (chkPazienteGuztiak.Checked)
+                {
+                    _pazienteak = _kontrolatzailea.LortuGuztiakPazienteak(testua, egoeraFiltroa);
                 }
                 else
                 {
-                    _pazienteak = _kontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea!.Id, testua);
+                    _pazienteak = _kontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea!.Id, testua, egoeraFiltroa);
                 }
                 
                 dgvPazienteak.DataSource = null;
@@ -149,8 +375,40 @@ namespace GOsasun_app.Interfazea
 
         private void TxtBilatu_TextChanged(object? sender, EventArgs e)
         {
-            // DB mailan bilaketa egiten dugu (erabiltzaileak eskatu bezala)
             KargatuPazienteak(txtBilatu.Text.Trim());
+        }
+
+        private void PazienteMotaFiltroa_CheckedChanged(object? sender, EventArgs e)
+        {
+            if (_erabiltzailea is HarrerakoLangilea) return;
+            KargatuPazienteak(txtBilatu.Text.Trim());
+        }
+
+        private void EgoeraFiltroa_CheckedChanged(object? sender, EventArgs e)
+        {
+            if (sender is not CheckBox aukeratutakoCheck) return;
+
+            if (!aukeratutakoCheck.Checked)
+            {
+                return;
+            }
+
+            foreach (CheckBox check in new[] { chkAltan, chkBajan })
+            {
+                if (!ReferenceEquals(check, aukeratutakoCheck))
+                {
+                    check.Checked = false;
+                }
+            }
+
+            KargatuPazienteak(txtBilatu.Text.Trim());
+        }
+
+        private string? LortuEgoeraFiltroa()
+        {
+            if (chkAltan.Checked) return "Alta";
+            if (chkBajan.Checked) return "Baja";
+            return null;
         }
 
         private void dgvPazienteak_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -159,6 +417,11 @@ namespace GOsasun_app.Interfazea
 
             var pazientea = dgvPazienteak.Rows[e.RowIndex].DataBoundItem as Pazientea;
             if (pazientea == null) return;
+
+            if (EkintzakZutabeaDa(e.ColumnIndex))
+            {
+                return;
+            }
 
             // Editatu botoia
             if (dgvPazienteak.Columns[e.ColumnIndex].Name == "btnEditatu")

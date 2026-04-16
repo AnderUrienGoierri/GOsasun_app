@@ -4,12 +4,12 @@ using GOsasun_app.Repositorioa;
 
 namespace GOsasun_app.Kontrola
 {
-    public class HitzorduKontrolatzailea 
+    public class HitzorduKontrolatzailea
     {
-        // ---------------------------SORTU OBJETUA------------------------------------------------------    
+        // ---------------------------SORTU OBJETUA------------------------------------------------------
         private readonly HitzorduDB _db = new HitzorduDB();
 
-        // ---------------------------LORTU------------------------------------------------------        
+        // ---------------------------LORTU------------------------------------------------------
 
         public List<Hitzordua> LortuHitzorduGuztiak()
         {
@@ -26,21 +26,21 @@ namespace GOsasun_app.Kontrola
             return _db.LortuOsasunLangilearenHitzorduak(osasunLangileId);
         }
 
-        // ---------------------------GEHITU------------------------------------------------------        
+        // ---------------------------GEHITU------------------------------------------------------
 
         public void GehituHitzordua(Hitzordua h)
         {
             _db.GehituHitzordua(h);
         }
 
-        // ---------------------------EGUNERATU------------------------------------------------------  
+        // ---------------------------EGUNERATU------------------------------------------------------
 
         public void EguneratuHitzordua(Hitzordua h)
         {
             _db.EguneratuHitzordua(h);
         }
 
-        // ---------------------------EZABATU------------------------------------------------------  
+        // ---------------------------EZABATU------------------------------------------------------
 
         public void EzabatuHitzordua(int hitzorduId)
         {

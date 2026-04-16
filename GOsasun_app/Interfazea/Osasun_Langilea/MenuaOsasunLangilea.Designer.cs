@@ -21,7 +21,6 @@ namespace GOsasun_app.Interfazea
 
         private void InitializeComponent()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(MenuaOsasunLangilea));
             btnPazienteak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             btnNeurketak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             btnErrezetak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
@@ -41,7 +40,6 @@ namespace GOsasun_app.Interfazea
             // 
             btnPazienteak.BackColor = Color.White;
             btnPazienteak.BorderBiribiltasuna = 24;
-            btnPazienteak.Ikonoa = (Image)resources.GetObject("btnPazienteak.Ikonoa");
             btnPazienteak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnPazienteak.Location = new Point(37, 43);
             btnPazienteak.Margin = new Padding(37, 43, 37, 43);
@@ -55,7 +53,6 @@ namespace GOsasun_app.Interfazea
             // 
             btnNeurketak.BackColor = Color.White;
             btnNeurketak.BorderBiribiltasuna = 24;
-            btnNeurketak.Ikonoa = (Image)resources.GetObject("btnNeurketak.Ikonoa");
             btnNeurketak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnNeurketak.Location = new Point(650, 43);
             btnNeurketak.Margin = new Padding(37, 43, 37, 43);
@@ -69,7 +66,6 @@ namespace GOsasun_app.Interfazea
             // 
             btnErrezetak.BackColor = Color.White;
             btnErrezetak.BorderBiribiltasuna = 24;
-            btnErrezetak.Ikonoa = (Image)resources.GetObject("btnErrezetak.Ikonoa");
             btnErrezetak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnErrezetak.Location = new Point(1263, 43);
             btnErrezetak.Margin = new Padding(37, 43, 37, 43);
@@ -83,7 +79,6 @@ namespace GOsasun_app.Interfazea
             // 
             btnGrafikak.BackColor = Color.White;
             btnGrafikak.BorderBiribiltasuna = 24;
-            btnGrafikak.Ikonoa = (Image)resources.GetObject("btnGrafikak.Ikonoa");
             btnGrafikak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnGrafikak.Location = new Point(37, 597);
             btnGrafikak.Margin = new Padding(37, 43, 37, 43);

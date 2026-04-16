@@ -10,10 +10,10 @@ namespace GOsasun_app.Kontrola
     /// </summary>
     public class ErabiltzaileKontrolatzailea
     {
-        // ---------------------------SORTU OBJETUA------------------------------------------------------    
+        // ---------------------------SORTU OBJETUA----------------------------------------------
         private readonly ErabiltzaileDB _db = new ErabiltzaileDB();
 
-        // ---------------------------LORTU------------------------------------------------------        
+        // ---------------------------LORTU------------------------------------------------------
 
         /// <summary>
         /// Erabiltzailea datu-basean egiaztatzen du email eta pasahitz bidez.
@@ -28,18 +28,18 @@ namespace GOsasun_app.Kontrola
         /// <summary>
         /// Osasun langile bati esleitutako pazienteen zerrenda lortzen du.
         /// </summary>
-        public List<Pazientea> LortuLangilearenPazienteak(int langileId, string? bilatzailea = null)
+        public List<Pazientea> LortuLangilearenPazienteak(int langileId, string? bilatzailea = null, string? egoeraFiltroa = null)
 
         {
-            return _db.LortuLangilearenPazienteak(langileId, bilatzailea);
+            return _db.LortuLangilearenPazienteak(langileId, bilatzailea, egoeraFiltroa);
         }
 
         /// <summary>
         /// Sistema osoko paziente guztien zerrenda lortzen du.
         /// </summary>
-        public List<Pazientea> LortuGuztiakPazienteak(string? bilatzailea = null)
+        public List<Pazientea> LortuGuztiakPazienteak(string? bilatzailea = null, string? egoeraFiltroa = null)
         {
-            return _db.LortuGuztiakPazienteak(bilatzailea);
+            return _db.LortuGuztiakPazienteak(bilatzailea, egoeraFiltroa);
         }
 
         /// <summary>
@@ -48,6 +48,11 @@ namespace GOsasun_app.Kontrola
         public List<OsasunLangilea> LortuGuztiakOsasunLangileak()
         {
             return _db.LortuGuztiakOsasunLangileak();
+        }
+
+        public Pazientea? LortuPazientea(int pazienteId)
+        {
+            return _db.LortuPazientea(pazienteId);
         }
 
         /// <summary>

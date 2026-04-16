@@ -21,7 +21,6 @@ namespace GOsasun_app.Interfazea
 
         private void InitializeComponent()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(PazienteMenua));
             btnNeurketak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             btnErrezetak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             btnGrafikak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
@@ -43,7 +42,6 @@ namespace GOsasun_app.Interfazea
             // 
             btnNeurketak.BackColor = Color.White;
             btnNeurketak.BorderBiribiltasuna = 24;
-            btnNeurketak.Ikonoa = (Image)resources.GetObject("btnNeurketak.Ikonoa");
             btnNeurketak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnNeurketak.Location = new Point(37, 43);
             btnNeurketak.Margin = new Padding(37, 43, 37, 43);
@@ -51,13 +49,12 @@ namespace GOsasun_app.Interfazea
             btnNeurketak.Padding = new Padding(19, 21, 19, 21);
             btnNeurketak.Size = new Size(576, 512);
             btnNeurketak.TabIndex = 0;
-            btnNeurketak.Testua = "NIRE NEURKETAK";
+            btnNeurketak.Testua = "NIRE JARRAIPENAK";
             // 
             // btnErrezetak
             // 
             btnErrezetak.BackColor = Color.White;
             btnErrezetak.BorderBiribiltasuna = 24;
-            btnErrezetak.Ikonoa = (Image)resources.GetObject("btnErrezetak.Ikonoa");
             btnErrezetak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnErrezetak.Location = new Point(650, 43);
             btnErrezetak.Margin = new Padding(37, 43, 37, 43);
@@ -71,7 +68,6 @@ namespace GOsasun_app.Interfazea
             // 
             btnGrafikak.BackColor = Color.White;
             btnGrafikak.BorderBiribiltasuna = 24;
-            btnGrafikak.Ikonoa = (Image)resources.GetObject("btnGrafikak.Ikonoa");
             btnGrafikak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnGrafikak.Location = new Point(1263, 43);
             btnGrafikak.Margin = new Padding(37, 43, 37, 43);

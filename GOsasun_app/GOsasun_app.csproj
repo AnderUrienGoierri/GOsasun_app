@@ -11,10 +11,12 @@
   <ItemGroup>
     <PackageReference Include="HidSharp" Version="2.6.4" />
     <PackageReference Include="MySql.Data" Version="9.*" />
+    <PackageReference Include="QuestPDF" Version="2024.*" />
+    <PackageReference Include="Svg" Version="3.4.7" />
     <PackageReference Include="System.IO.Ports" Version="10.*" />
     <PackageReference Include="System.Management" Version="10.0.5" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Content Include="Assets\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

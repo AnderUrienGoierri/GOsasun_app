@@ -17,13 +17,13 @@ namespace GOsasun_app.Repositorioa
                 Data = reader.GetDateTime("data"),
                 HasieraOrdua = reader.GetTimeSpan("hasiera_ordua"),
                 BukaeraOrdua = reader.IsDBNull(reader.GetOrdinal("bukaera_ordua")) ? (TimeSpan?)null : reader.GetTimeSpan("bukaera_ordua"),
-                Arrazoia = reader.IsDBNull(reader.GetOrdinal("arrazoia")) ? null : reader.GetString("arrazoia"),
-                Egoera = reader.GetString("egoera"),
+                Arrazoia = reader.IsDBNull(reader.GetOrdinal("arrazoia")) ? null : DatuBaseTestua.Zuzendu(reader.GetString("arrazoia")),
+                Egoera = DatuBaseTestua.Zuzendu(reader.GetString("egoera")),
                 SortzeData = reader.GetDateTime("sortze_data"),
-                PazienteIzena = reader.IsDBNull(reader.GetOrdinal("p_izena")) ? null : reader.GetString("p_izena"),
-                PazienteAbizenak = reader.IsDBNull(reader.GetOrdinal("p_abizena")) ? null : reader.GetString("p_abizena"),
-                OsasunLangileIzena = reader.IsDBNull(reader.GetOrdinal("m_izena")) ? null : reader.GetString("m_izena"),
-                OsasunLangileAbizenak = reader.IsDBNull(reader.GetOrdinal("m_abizena")) ? null : reader.GetString("m_abizena")
+                PazienteIzena = reader.IsDBNull(reader.GetOrdinal("p_izena")) ? null : DatuBaseTestua.Zuzendu(reader.GetString("p_izena")),
+                PazienteAbizenak = reader.IsDBNull(reader.GetOrdinal("p_abizena")) ? null : DatuBaseTestua.Zuzendu(reader.GetString("p_abizena")),
+                OsasunLangileIzena = reader.IsDBNull(reader.GetOrdinal("m_izena")) ? null : DatuBaseTestua.Zuzendu(reader.GetString("m_izena")),
+                OsasunLangileAbizenak = reader.IsDBNull(reader.GetOrdinal("m_abizena")) ? null : DatuBaseTestua.Zuzendu(reader.GetString("m_abizena"))
             };
         }
 

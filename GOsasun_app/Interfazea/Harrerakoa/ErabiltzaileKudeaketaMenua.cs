@@ -23,6 +23,8 @@ namespace GOsasun_app.Interfazea
             this.Text = $"GOsasun - {_rolIzena} Kudeaketa";
             btnSortu.Testua = $"{_rolIzena.ToUpper()} SORTU";
             btnZerrendatu.Testua = $"{_rolIzena.ToUpper()}AK ZERRENDATU";
+            btnSortu.Ikonoa = KargatuIkonoIrudia("plus-circle.svg");
+            btnZerrendatu.Ikonoa = KargatuIkonoIrudia("list.svg");
         }
 
         private void KonfiguratuGertaerak()

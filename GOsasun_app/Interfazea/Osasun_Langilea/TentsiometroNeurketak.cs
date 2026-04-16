@@ -431,7 +431,7 @@ namespace GOsasun_app.Interfazea
             using (var selectForm = new Form())
             {
                 selectForm.Text = "Hautatu Inportazio Mota";
-                selectForm.Size = new Size(640, 360);
+                selectForm.ClientSize = new Size(760, 420);
                 selectForm.StartPosition = FormStartPosition.CenterParent;
                 selectForm.FormBorderStyle = FormBorderStyle.FixedDialog;
                 selectForm.MaximizeBox = false;
@@ -442,34 +442,34 @@ namespace GOsasun_app.Interfazea
                 var lblMsg = new Label {
                     Text = $"U{memoria} memoria hautatu duzu.\nZer inportatu nahi duzu?",
                     Dock = DockStyle.Top,
-                    Height = 110,
+                    Height = 140,
                     TextAlign = ContentAlignment.MiddleCenter,
-                    Font = new Font(this.Font.FontFamily, 11, FontStyle.Bold)
+                    Font = new Font(this.Font.FontFamily, 12, FontStyle.Bold)
                 };
 
                 var btnAzkena = new Button {
                     Text = "Azken neurketa\n(01 posizioan gordeta)",
-                    Size = new Size(270, 100),
-                    Location = new Point(30, 130),
+                    Size = new Size(340, 120),
+                    Location = new Point(30, 155),
                     BackColor = Color.FromArgb(52, 152, 219),
                     ForeColor = Color.White,
-                    Font = new Font(this.Font.FontFamily, 9, FontStyle.Bold)
+                    Font = new Font(this.Font.FontFamily, 10, FontStyle.Bold)
                 };
 
                 var btnBatezbestekoa = new Button {
                     Text = "Batazbestekoa\n(memoria osokoa)",
-                    Size = new Size(270, 100),
-                    Location = new Point(320, 130),
+                    Size = new Size(340, 120),
+                    Location = new Point(390, 155),
                     BackColor = Color.FromArgb(46, 204, 113),
                     ForeColor = Color.White,
-                    Font = new Font(this.Font.FontFamily, 9, FontStyle.Bold)
+                    Font = new Font(this.Font.FontFamily, 10, FontStyle.Bold)
                 };
 
                 var btnUtzi = new Button {
                     Text = "Utzi",
                     DialogResult = DialogResult.Cancel,
                     Dock = DockStyle.Bottom,
-                    Height = 50
+                    Height = 52
                 };
 
                 btnAzkena.Click += (s, e) => { aukeratutakoMota = InportazioMota.AzkenNeurketa; selectForm.DialogResult = DialogResult.OK; };

@@ -34,15 +34,15 @@ INSERT INTO erabiltzaileak (id, email, pasahitza, rol_id, hizkuntza, nan, izena,
 (28, 'txiki.n@gosasun.eus', '1234', 1, 'Euskara', '000000028', 'Nerea', 'Txiki', '1980-08-02', '622888999', 'Miracruz 2', 'Donostia', '20001', 'img/png/medikua_28.png', 1),
 (29, 'handi.a@gosasun.eus', '1234', 1, 'Euskara', '000000029', 'Andoni', 'Handia', '1975-03-22', '622999000', 'Colon de Larreategui 3', 'Bilbo', '48001', 'img/png/medikua_29.png', 1),
 (30, 'luze.o@gosasun.eus', '1234', 1, 'Euskara', '000000030', 'Ostaizka', 'Luze', '1991-07-10', '633000111', 'Lersundi 12', 'Bilbo', '48009', 'img/png/medikua_30.png', 1),
-(31, 'motz.i@gosasun.eus', '1234', 1, 'Euskara', '000000031', 'IÃ±aki', 'Motza', '1973-11-28', '633111222', 'San Antonio 22', 'Gasteiz', '01005', 'img/png/medikua_31.png', 1),
+(31, 'motz.i@gosasun.eus', '1234', 1, 'Euskara', '000000031', 'Iñaki', 'Motza', '1973-11-28', '633111222', 'San Antonio 22', 'Gasteiz', '01005', 'img/png/medikua_31.png', 1),
 (32, 'gorri.e@gosasun.eus', '1234', 1, 'Euskara', '000000032', 'Eider', 'Gorrotxategi', '1988-05-05', '633222333', 'Beato Tomas de Zumarraga 12', 'Gasteiz', '01008', 'img/png/medikua_32.png', 1),
 (33, 'beltza.k@gosasun.eus', '1234', 1, 'Euskara', '000000033', 'Kattalin', 'Beltza', '1978-02-14', '633333444', 'Easo 14', 'Donostia', '20006', 'img/png/medikua_33.png', 1),
 (34, 'zilar.j@gosasun.eus', '1234', 1, 'Euskara', '000000034', 'Julen', 'Zilar', '1985-09-08', '633444555', 'Getaria 5', 'Donostia', '20005', 'img/png/medikua_34.png', 1),
-(35, 'urre.m@gosasun.eus', '1234', 1, 'Euskara', '000000035', 'Malen', 'Urreisti', '1970-04-25', '633555666', 'IbaÃ±ez de Bilbao 3', 'Bilbo', '48001', 'img/png/medikua_35.png', 1),
+(35, 'urre.m@gosasun.eus', '1234', 1, 'Euskara', '000000035', 'Malen', 'Urreisti', '1970-04-25', '633555666', 'Ibañez de Bilbao 3', 'Bilbo', '48001', 'img/png/medikua_35.png', 1),
 (36, 'kobre.p@gosasun.eus', '1234', 1, 'Euskara', '000000036', 'Peio', 'Kobre', '1983-12-12', '633666777', 'Alameda Urquijo 12', 'Bilbo', '48008', 'img/png/medikua_36.png', 1),
 (37, 'burni.a@gosasun.eus', '1234', 1, 'Euskara', '000000037', 'Ane', 'Burnik', '1990-06-30', '633777888', 'General Alava 12', 'Gasteiz', '01005', 'img/png/medikua_37.png', 1),
 (38, 'leku.n@gosasun.eus', '1234', 1, 'Euskara', '000000038', 'Nekane', 'Lekuona', '1976-01-18', '633888999', 'Portal de Castila 12', 'Gasteiz', '01007', 'img/png/medikua_38.png', 1),
-(39, 'toki.l@gosasun.eus', '1234', 1, 'Euskara', '000000039', 'Laureano', 'Toki', '1981-08-05', '633999000', 'PeÃ±a y GoÃ±i 5', 'Donostia', '20002', 'img/png/medikua_39.png', 1),
+(39, 'toki.l@gosasun.eus', '1234', 1, 'Euskara', '000000039', 'Laureano', 'Toki', '1981-08-05', '633999000', 'Peña y Goñi 5', 'Donostia', '20002', 'img/png/medikua_39.png', 1),
 (40, 'zoko.m@gosasun.eus', '1234', 1, 'Euskara', '000000040', 'Miren', 'Zokotza', '1967-03-28', '644000111', 'Fuenterrabia 10', 'Donostia', '20005', 'img/png/medikua_40.png', 1),
 (41, 'ibil.j@gosasun.eus', '1234', 1, 'Euskara', '000000041', 'Joseba', 'Ibil', '1989-10-15', '644111222', 'Campo Volantin 12', 'Bilbo', '48007', 'img/png/medikua_41.png', 1),
 (42, 'geld.k@gosasun.eus', '1234', 1, 'Euskara', '000000042', 'Karlos', 'Geldi', '1974-05-02', '644222333', 'Mazarredo 2', 'Bilbo', '48001', 'img/png/medikua_42.png', 1),
@@ -50,7 +50,7 @@ INSERT INTO erabiltzaileak (id, email, pasahitza, rol_id, hizkuntza, nan, izena,
 (44, 'osasun.o@gosasun.eus', '1234', 1, 'Euskara', '000000044', 'Oier', 'Osasun', '1980-07-08', '644444555', 'Av. de Santiago 12', 'Gasteiz', '01003', 'img/png/medikua_44.png', 1),
 (45, 'gaitz.r@gosasun.eus', '1234', 1, 'Euskara', '000000045', 'Ramuntxo', 'Gaitz', '1975-02-25', '644555666', 'Zubieta 12', 'Donostia', '20007', 'img/png/medikua_45.png', 1),
 (46, 'senda.m@gosasun.eus', '1234', 1, 'Euskara', '000000046', 'Maialen', 'Senda', '1992-09-12', '644666777', 'Alameda del Boulevard 12', 'Donostia', '20003', 'img/png/medikua_46.png', 1),
-(47, 'trata.i@gosasun.eus', '1234', 1, 'Euskara', '000000047', 'IÃ±igo', 'Trata', '1979-04-30', '644777888', 'Muelle del Arenal 12', 'Bilbo', '48005', 'img/png/medikua_47.png', 1),
+(47, 'trata.i@gosasun.eus', '1234', 1, 'Euskara', '000000047', 'Iñigo', 'Trata', '1979-04-30', '644777888', 'Muelle del Arenal 12', 'Bilbo', '48005', 'img/png/medikua_47.png', 1),
 (48, 'bide.a@gosasun.eus', '1234', 1, 'Euskara', '000000048', 'Alazne', 'Bide', '1984-11-18', '644888999', 'Ledesma 12', 'Bilbo', '48001', 'img/png/medikua_48.png', 1),
 (49, 'mendi.j@gosasun.eus', '1234', 1, 'Euskara', '000000049', 'Jon', 'Mendi', '1968-06-05', '644999000', 'San Antonio 12', 'Gasteiz', '01005', 'img/png/medikua_49.png', 1),
 (50, 'haran.k@gosasun.eus', '1234', 1, 'Euskara', '000000050', 'Katalin', 'Haran', '1987-01-22', '655000111', 'Portal de Foronda 12', 'Gasteiz', '01010', 'img/png/medikua_50.png', 1),
@@ -76,9 +76,9 @@ INSERT INTO erabiltzaileak (id, email, pasahitza, rol_id, hizkuntza, nan, izena,
 (70, 'malen.s@paziente.eus', '1234', 2, 'Euskara', '21212121T', 'Malen', 'Sancho', '1986-08-08', '677000111', 'Abando 2', 'Bilbo', '48001', 'img/png/pazientea_70.png', 1),
 (71, 'xabier.e@paziente.eus', '1234', 2, 'Euskara', '23232323U', 'Xabier', 'Etxabe', '1962-03-20', '677111222', 'Urbieta 15', 'Donostia', '20006', 'img/png/pazientea_71.png', 1),
 (72, 'haizea.t@paziente.eus', '1234', 2, 'Euskara', '24242424V', 'Haizea', 'Torres', '1994-10-05', '677222333', 'San Bizente 8', 'Bilbo', '48001', 'img/png/pazientea_72.png', 1),
-(73, 'beÃ±at.m@paziente.eus', '1234', 2, 'Euskara', '25252525W', 'BeÃ±at', 'Mendez', '1972-05-18', '677333444', 'Lehendakari Agirre 22', 'Bilbo', '48014', 'img/png/pazientea_73.png', 1),
+(73, 'beñat.m@paziente.eus', '1234', 2, 'Euskara', '25252525W', 'Beñat', 'Mendez', '1972-05-18', '677333444', 'Lehendakari Agirre 22', 'Bilbo', '48014', 'img/png/pazientea_73.png', 1),
 (74, 'maddi.r@paziente.eus', '1234', 2, 'Euskara', '26262626X', 'Maddi', 'Romero', '1989-12-30', '677444555', 'Gros 12', 'Donostia', '20001', 'img/png/pazientea_74.png', 1),
-(75, 'eÃ±aut.a@paziente.eus', '1234', 2, 'Euskara', '27272727Y', 'EÃ±aut', 'Alustiza', '1952-08-14', '677555666', 'Ariznabarra 5', 'Gasteiz', '01015', 'img/png/pazientea_75.png', 1),
+(75, 'eñaut.a@paziente.eus', '1234', 2, 'Euskara', '27272727Y', 'Eñaut', 'Alustiza', '1952-08-14', '677555666', 'Ariznabarra 5', 'Gasteiz', '01015', 'img/png/pazientea_75.png', 1),
 (76, 'june.p@paziente.eus', '1234', 2, 'Euskara', '28282828Z', 'June', 'Pascual', '2001-02-25', '677666777', 'San Martin 3', 'Tolosa', '20400', 'img/png/pazientea_76.png', 1),
 (77, 'peio.o@paziente.eus', '1234', 2, 'Euskara', '29292929A', 'Peio', 'Otxoa', '1966-09-10', '677777888', 'Benta Berri 1', 'Donostia', '20018', 'img/png/pazientea_77.png', 1),
 (78, 'laia.z@paziente.eus', '1234', 2, 'Euskara', '30303030B', 'Laia', 'Zelai', '1984-04-22', '677888999', 'Alde Zaharra 4', 'Hondarribia', '20280', 'img/png/pazientea_78.png', 1),
@@ -281,12 +281,12 @@ VALUES (1, 51),
     (19, 72),
     -- Haizea
     (4, 73),
-    -- Beâ”œâ–’at
+    -- Beñat
     (14, 74),
     -- Maddi
     (16, 75),
     (32, 75),
-    -- Eâ”œâ–’aut
+    -- Eñaut
     (3, 76),
     -- June
     (1, 77),
@@ -752,7 +752,7 @@ INSERT INTO jarraipenak (
         62.8,
         1.63,
         72,
-        'Buruko miâ”œâ–’a.'
+        'Buruko mina.'
     ),
     (
         74,
@@ -948,7 +948,7 @@ VALUES -- Gaurkoak (2026-02-22 da sistema dataren arabera)
         '2026-02-22',
         '12:00:00',
         '12:30:00',
-        'Buruko miâ”œâ–’a gogorra',
+        'Buruko mina gogorra',
         'Zain'
     ),
     (
@@ -1274,7 +1274,7 @@ VALUES -- Gaurkoak (2026-02-22 da sistema dataren arabera)
         '2026-04-28',
         '11:45:00',
         '12:15:00',
-        'Buruko miâ”œâ–’en bilakaera',
+        'Buruko minen bilakaera',
         'Zain'
     ),
     (
@@ -33555,7 +33555,7 @@ VALUES (
         'Antibiotikoa'
     ),
     (
-        'Amoxicilina/ClavulÃ¡nico',
+        'Amoxicilina/Clavulánico',
         'Amoxizilina eta azido klabulanikoa',
         'C16H19N3O5S-C8H9NO5',
         'Bakterioen pareta',

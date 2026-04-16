@@ -10,6 +10,9 @@ namespace GOsasun_app.Modeloa
     {
         public int Id { get; set; }
         public int PazienteId { get; set; }
+        public string PazienteNan { get; set; } = string.Empty;
+        public string PazienteIzena { get; set; } = string.Empty;
+        public string PazienteAbizenak { get; set; } = string.Empty;
         public int? OsasunLangileId { get; set; }
         public int? TentsioSistolikoa { get; set; }
         public int? TentsioDiastolikoa { get; set; }
@@ -19,6 +22,9 @@ namespace GOsasun_app.Modeloa
         public string? Oharrak { get; set; }
         public string? BideaZerbitzarian { get; set; }
         public DateTime ErregistroData { get; set; } = DateTime.Now;
+        public int DokumentuKopurua { get; set; }
+        public string EkintzakTestua => "Ikusi | Gehitu | Dokumentuak | Ezabatu";
+        public string PazienteIzenOsoa => $"{PazienteAbizenak}, {PazienteIzena}";
 
         public Jarraipena() { }
 
