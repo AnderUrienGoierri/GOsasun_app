@@ -14,6 +14,8 @@ namespace GOsasun_app.Interfazea
         private readonly ErabiltzaileKontrolatzailea _erabiltzaileKontrolatzailea;
         private readonly JarraipenaKontrolatzailea _jarraipenaKontrolatzailea;
         private readonly bool _isPisua;
+        private readonly int? _pazienteIdAurrehautatu;
+        private readonly string? _pazienteIzenburua;
         private Pazientea? _hautatutakoPazientea;
 
         public EskuzkoNeurketak(Erabiltzailea erabiltzailea, bool isPisua) : base(erabiltzailea)
@@ -22,6 +24,22 @@ namespace GOsasun_app.Interfazea
             _erabiltzaileKontrolatzailea = new ErabiltzaileKontrolatzailea();
             _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
             _isPisua = isPisua;
+            _pazienteIdAurrehautatu = null;
+            _pazienteIzenburua = null;
+
+            KonfiguratuPantaila();
+            KonfiguratuGertaerak();
+            PazienteakBatu();
+        }
+
+        public EskuzkoNeurketak(Erabiltzailea erabiltzailea, bool isPisua, int pazienteId, string? pazienteIzenburua = null) : base(erabiltzailea)
+        {
+            InitializeComponent();
+            _erabiltzaileKontrolatzailea = new ErabiltzaileKontrolatzailea();
+            _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
+            _isPisua = isPisua;
+            _pazienteIdAurrehautatu = pazienteId;
+            _pazienteIzenburua = pazienteIzenburua;
 
             KonfiguratuPantaila();
             KonfiguratuGertaerak();
@@ -85,6 +103,33 @@ namespace GOsasun_app.Interfazea
             {
                 PrestatuPazienteModua();
             }
+            else if (_pazienteIdAurrehautatu.HasValue)
+            {
+                PrestatuAurrehautatutakoPazientea();
+            }
+        }
+
+        private void PrestatuAurrehautatutakoPazientea()
+        {
+            Pazientea? aurkitutakoa = _erabiltzaileKontrolatzailea.LortuPazientea(_pazienteIdAurrehautatu!.Value);
+            _hautatutakoPazientea = aurkitutakoa ?? new Pazientea
+            {
+                Id = _pazienteIdAurrehautatu.Value,
+                Izena = _pazienteIzenburua ?? "Pazientea"
+            };
+
+            _lblBilatu.Text = string.IsNullOrWhiteSpace(_pazienteIzenburua)
+                ? "1. Pazientearen aurreko jarraipenak:"
+                : $"1. {_pazienteIzenburua} pazientearen aurreko jarraipenak:";
+            _txtPazienteBilatu.Visible = false;
+            _dgvPazienteak.Visible = false;
+            _lblHistoriala.Location = new Point(50, 190);
+            _lblHistoriala.Text = "2. Jarraipenen historiala:";
+            _dgvHistoriala.Location = new Point(50, 245);
+            _pnlSarrera.Location = new Point(50, 525);
+            _pnlSarrera.Visible = true;
+
+            KargatuPazientearenHistoriala(_hautatutakoPazientea.Id);
         }
 
         private void PrestatuPazienteModua()
@@ -113,7 +158,7 @@ namespace GOsasun_app.Interfazea
         {
             try
             {
-                if (_erabiltzailea?.DaPazientea() == true)
+                if (_erabiltzailea?.DaPazientea() == true || _pazienteIdAurrehautatu.HasValue)
                 {
                     return;
                 }

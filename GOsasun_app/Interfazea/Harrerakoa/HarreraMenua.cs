@@ -29,6 +29,7 @@ namespace GOsasun_app.Interfazea
             btnMedikuak.Ikonoa = KargatuIkonoIrudia("stethoscope.svg");
             btnLangileak.Ikonoa = KargatuIkonoIrudia("user-cog.svg");
             btnHitzorduak.Ikonoa = KargatuIkonoIrudia("calendar-days.svg");
+            btnDokumentuak.Ikonoa = KargatuIkonoIrudia("dokumentuak.svg");
         }
 
         private void KonfiguratuGertaerak()
@@ -44,21 +45,7 @@ namespace GOsasun_app.Interfazea
                 h.Show();
             };
 
-            var btnDokumentuak = new MenuTxartelBotoia
-            {
-                Testua = "DOKUMENTUAK",
-                Size = new Size(576, 512),
-                Location = new Point(650, 597),
-                BackColor = Color.White,
-                BorderBiribiltasuna = 24,
-                KartaKolorea = Color.FromArgb(230, 255, 255, 255),
-                Padding = new Padding(19, 21, 19, 21)
-            };
-
-            btnDokumentuak.Ikonoa = KargatuIkonoIrudia("dokumentuak.svg");
-
             btnDokumentuak.Click += (s, e) => IrekiFormularioa(new Dokumentuak(_erabiltzailea!));
-            _edukiPanela.Controls.Add(btnDokumentuak);
         }
 
         private void IrekiKudeaketa(string rolIzena)

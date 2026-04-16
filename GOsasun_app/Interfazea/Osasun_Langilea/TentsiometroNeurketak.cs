@@ -31,11 +31,15 @@ namespace GOsasun_app.Interfazea
         private List<Pazientea> _pazienteak = new List<Pazientea>();
         private readonly ErabiltzaileKontrolatzailea _erabiltzaileKontrolatzailea = new ErabiltzaileKontrolatzailea();
         private readonly JarraipenaKontrolatzailea _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
+        private readonly int? _pazienteIdAurrehautatu;
+        private readonly string? _pazienteIzenburua;
 
         public TentsiometroNeurketak(Erabiltzailea medikua)
             : base(medikua)
         {
             InitializeComponent();
+            _pazienteIdAurrehautatu = null;
+            _pazienteIzenburua = null;
             
             // UI Egokitzapena: _lblStatus-i espazio gehiago eman
             _lblStatus.Location = new Point(3, 50);
@@ -48,6 +52,26 @@ namespace GOsasun_app.Interfazea
             _lblHistoriala.Top = 600;
             _dgvHistoriala.Top = 660;
             
+            KonfiguratuGertaerak();
+            HasieraEstatuaEzarri();
+        }
+
+        public TentsiometroNeurketak(Erabiltzailea medikua, int pazienteId, string? pazienteIzenburua = null)
+            : base(medikua)
+        {
+            InitializeComponent();
+            _pazienteIdAurrehautatu = pazienteId;
+            _pazienteIzenburua = pazienteIzenburua;
+
+            _lblStatus.Location = new Point(3, 50);
+            _lblStatus.Height = 220;
+
+            _lblBilatu.Top = 280;
+            _txtPazienteBilatu.Top = 335;
+            _dgvPazienteak.Top = 405;
+            _lblHistoriala.Top = 600;
+            _dgvHistoriala.Top = 660;
+
             KonfiguratuGertaerak();
             HasieraEstatuaEzarri();
         }
@@ -80,7 +104,7 @@ namespace GOsasun_app.Interfazea
                     _dgvHistoriala.Visible = false;
                 }
             };
-            
+
             _dgvPazienteak.CellDoubleClick += (s, e) => { if (_btnInportatu.Enabled) DatuakInportatu(); };
         }
 
@@ -89,7 +113,7 @@ namespace GOsasun_app.Interfazea
             try
             {
                 var jarraipenak = _jarraipenaKontrolatzailea.LortuPazientearenJarraipenak(pazienteId);
-                
+
                 DataTable dt = new DataTable();
                 dt.Columns.Add("Data", typeof(DateTime));
                 dt.Columns.Add("Sistole", typeof(int));
@@ -231,6 +255,18 @@ namespace GOsasun_app.Interfazea
                 _btnInportatu.Enabled = true;
                 _lblStatus.Text += "\nInportatu zure neurketa orain.";
             }
+            else if (_pazienteIdAurrehautatu.HasValue)
+            {
+                _lblBilatu.Visible = false;
+                _txtPazienteBilatu.Visible = false;
+                _dgvPazienteak.Visible = false;
+                _btnInportatu.Visible = true;
+                _btnInportatu.Enabled = true;
+                _lblStatus.Text += string.IsNullOrWhiteSpace(_pazienteIzenburua)
+                    ? "\nInportatu pazientearen neurketa orain."
+                    : $"\nInportatu {_pazienteIzenburua} pazientearen neurketa orain.";
+                KargatuPazientearenHistoriala(_pazienteIdAurrehautatu.Value);
+            }
             else
             {
                 _lblBilatu.Visible = true;
@@ -294,6 +330,10 @@ namespace GOsasun_app.Interfazea
             if (_erabiltzailea != null && _erabiltzailea.DaPazientea())
             {
                 pazienteId = _erabiltzailea.Id;
+            }
+            else if (_pazienteIdAurrehautatu.HasValue)
+            {
+                pazienteId = _pazienteIdAurrehautatu.Value;
             }
             else
             {

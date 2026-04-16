@@ -21,12 +21,15 @@ namespace GOsasun_app.Interfazea
     {
         private readonly ErabiltzaileKontrolatzailea _erabiltzaileKontrolatzailea = new ErabiltzaileKontrolatzailea();
         private readonly JarraipenaKontrolatzailea _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
+        private readonly int? _pazienteIdAurrehautatu;
+        private readonly string? _pazienteIzenburua;
 
         // -----------------------------------------------------------
         // Eraikitzailea
         // -----------------------------------------------------------
         public JarraipenMotak() : base()
         {
+            _pazienteIdAurrehautatu = null;
             InitializeComponent();
             KargatuIkonoak();
         }
@@ -34,9 +37,29 @@ namespace GOsasun_app.Interfazea
         public JarraipenMotak(Erabiltzailea erabiltzailea)
             : base(erabiltzailea)
         {
+            _pazienteIdAurrehautatu = null;
             InitializeComponent();
             KargatuIkonoak();
             KonfiguratuGertaerak();
+        }
+
+        public JarraipenMotak(Erabiltzailea erabiltzailea, int pazienteId, string? pazienteIzenburua = null)
+            : base(erabiltzailea)
+        {
+            _pazienteIdAurrehautatu = pazienteId;
+            _pazienteIzenburua = pazienteIzenburua;
+            InitializeComponent();
+            KargatuIkonoak();
+            KonfiguratuGertaerak();
+            EguneratuIzenburua();
+        }
+
+        private void EguneratuIzenburua()
+        {
+            if (_pazienteIdAurrehautatu.HasValue && !string.IsNullOrWhiteSpace(_pazienteIzenburua))
+            {
+                Text = $"GOsasun - Jarraipen Motak - {_pazienteIzenburua}";
+            }
         }
 
         private void KargatuIkonoak()
@@ -50,13 +73,31 @@ namespace GOsasun_app.Interfazea
         private void KonfiguratuGertaerak()
         {
             // Tentsiometroa: Pantaila berria ireki
-            btnTentsiometroa.Click += (s, e) => IrekiFormularioa(new TentsiometroNeurketak(_erabiltzailea!));
+            btnTentsiometroa.Click += (s, e) =>
+            {
+                Form formularioa = _pazienteIdAurrehautatu.HasValue
+                    ? new TentsiometroNeurketak(_erabiltzailea!, _pazienteIdAurrehautatu.Value, _pazienteIzenburua)
+                    : new TentsiometroNeurketak(_erabiltzailea!);
+                IrekiFormularioa(formularioa);
+            };
 
             // Pisua: eskuzko sarrera
-            btnPisua.Click += (s, e) => IrekiFormularioa(new EskuzkoNeurketak(_erabiltzailea!, true));
+            btnPisua.Click += (s, e) =>
+            {
+                Form formularioa = _pazienteIdAurrehautatu.HasValue
+                    ? new EskuzkoNeurketak(_erabiltzailea!, true, _pazienteIdAurrehautatu.Value, _pazienteIzenburua)
+                    : new EskuzkoNeurketak(_erabiltzailea!, true);
+                IrekiFormularioa(formularioa);
+            };
 
             // Altuera: eskuzko sarrera
-            btnAltuera.Click += (s, e) => IrekiFormularioa(new EskuzkoNeurketak(_erabiltzailea!, false));
+            btnAltuera.Click += (s, e) =>
+            {
+                Form formularioa = _pazienteIdAurrehautatu.HasValue
+                    ? new EskuzkoNeurketak(_erabiltzailea!, false, _pazienteIdAurrehautatu.Value, _pazienteIzenburua)
+                    : new EskuzkoNeurketak(_erabiltzailea!, false);
+                IrekiFormularioa(formularioa);
+            };
 
             btnOharra.Click += (s, e) => SortuOharJarraipena();
         }
@@ -116,9 +157,9 @@ namespace GOsasun_app.Interfazea
             if (_erabiltzailea == null) return;
 
             List<Pazientea> pazienteak = new List<Pazientea>();
-            int? pazienteId = _erabiltzailea.DaPazientea() ? _erabiltzailea.Id : null;
+            int? pazienteId = _erabiltzailea.DaPazientea() ? _erabiltzailea.Id : _pazienteIdAurrehautatu;
 
-            if (!_erabiltzailea.DaPazientea())
+            if (!_erabiltzailea.DaPazientea() && !_pazienteIdAurrehautatu.HasValue)
             {
                 pazienteak = _erabiltzaileKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea.Id)
                     .OrderBy(p => p.IzenOsoa)
@@ -138,13 +179,13 @@ namespace GOsasun_app.Interfazea
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 MaximizeBox = false,
                 MinimizeBox = false,
-                ClientSize = new Size(760, _erabiltzailea.DaPazientea() ? 360 : 450)
+                ClientSize = new Size(760, (_erabiltzailea.DaPazientea() || _pazienteIdAurrehautatu.HasValue) ? 360 : 450)
             };
 
             int hurrengoY = 22;
             ComboBox? cmbPazienteak = null;
 
-            if (!_erabiltzailea.DaPazientea())
+            if (!_erabiltzailea.DaPazientea() && !_pazienteIdAurrehautatu.HasValue)
             {
                 Label lblPazientea = new Label
                 {
@@ -191,6 +232,13 @@ namespace GOsasun_app.Interfazea
             };
             elkarrizketa.Controls.Add(txtOharrak);
 
+            const int botoiAltuera = 50;
+            const int btnUtziZabalera = 170;
+            const int btnGordeZabalera = 220;
+            const int botoiArtekoTartea = 16;
+            const int eskuinekoMarjina = 24;
+            int botoienGoikoa = elkarrizketa.ClientSize.Height - 70;
+
             Button btnUtzi = new Button
             {
                 Text = "Utzi",
@@ -199,8 +247,8 @@ namespace GOsasun_app.Interfazea
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
                 Font = new Font("Segoe UI", 10.5F, FontStyle.Bold),
-                Location = new Point(396, elkarrizketa.ClientSize.Height - 62),
-                Size = new Size(160, 42)
+                Location = new Point(elkarrizketa.ClientSize.Width - eskuinekoMarjina - btnGordeZabalera - botoiArtekoTartea - btnUtziZabalera, botoienGoikoa),
+                Size = new Size(btnUtziZabalera, botoiAltuera)
             };
             btnUtzi.FlatAppearance.BorderSize = 0;
 
@@ -211,8 +259,8 @@ namespace GOsasun_app.Interfazea
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
                 Font = new Font("Segoe UI", 10.5F, FontStyle.Bold),
-                Location = new Point(576, elkarrizketa.ClientSize.Height - 62),
-                Size = new Size(160, 42)
+                Location = new Point(elkarrizketa.ClientSize.Width - eskuinekoMarjina - btnGordeZabalera, botoienGoikoa),
+                Size = new Size(btnGordeZabalera, botoiAltuera)
             };
             btnGorde.FlatAppearance.BorderSize = 0;
             btnGorde.Click += (s, e) =>

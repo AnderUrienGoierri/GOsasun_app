@@ -20,6 +20,7 @@
             lblIzena = new Label();
             lblAzpiInformazioa = new Label();
             lblEgoeraBadge = new Label();
+            btnEgoeraMedikoaAldatu = new Button();
             pnlArgazkia = new Panel();
             pbIrudia = new PictureBox();
             lblArgazkiAzalpena = new Label();
@@ -82,6 +83,7 @@
             pnlGoiburua.Controls.Add(lblIzena);
             pnlGoiburua.Controls.Add(lblAzpiInformazioa);
             pnlGoiburua.Controls.Add(lblEgoeraBadge);
+            pnlGoiburua.Controls.Add(btnEgoeraMedikoaAldatu);
             pnlGoiburua.Location = new Point(12, 44);
             pnlGoiburua.Name = "pnlGoiburua";
             pnlGoiburua.Size = new Size(1878, 236);
@@ -128,6 +130,21 @@
             lblEgoeraBadge.TabIndex = 3;
             lblEgoeraBadge.Text = "ALTA";
             lblEgoeraBadge.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnEgoeraMedikoaAldatu
+            // 
+            btnEgoeraMedikoaAldatu.BackColor = Color.FromArgb(41, 128, 185);
+            btnEgoeraMedikoaAldatu.Cursor = Cursors.Hand;
+            btnEgoeraMedikoaAldatu.FlatAppearance.BorderSize = 0;
+            btnEgoeraMedikoaAldatu.FlatStyle = FlatStyle.Flat;
+            btnEgoeraMedikoaAldatu.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnEgoeraMedikoaAldatu.ForeColor = Color.White;
+            btnEgoeraMedikoaAldatu.Location = new Point(1490, 82);
+            btnEgoeraMedikoaAldatu.Name = "btnEgoeraMedikoaAldatu";
+            btnEgoeraMedikoaAldatu.Size = new Size(358, 52);
+            btnEgoeraMedikoaAldatu.TabIndex = 4;
+            btnEgoeraMedikoaAldatu.Text = "EGOERA MEDIKOA ALDATU";
+            btnEgoeraMedikoaAldatu.UseVisualStyleBackColor = false;
             // 
             // pnlArgazkia
             // 
@@ -454,6 +471,7 @@
         private Label lblIzena;
         private Label lblAzpiInformazioa;
         private Label lblEgoeraBadge;
+        private Button btnEgoeraMedikoaAldatu;
         private Panel pnlArgazkia;
         private PictureBox pbIrudia;
         private Label lblArgazkiAzalpena;

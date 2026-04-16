@@ -261,9 +261,9 @@
             _dtpAmaieraData.ShowCheckBox = true;
             _dtpAmaieraData.Size = new Size(520, 47);
             _dtpAmaieraData.TabIndex = 6;
-            // 
+            //
             // _btnFiltroakGarbitu
-            // 
+            //
             _btnFiltroakGarbitu.BackColor = Color.FromArgb(44, 62, 80);
             _btnFiltroakGarbitu.FlatAppearance.BorderSize = 0;
             _btnFiltroakGarbitu.FlatStyle = FlatStyle.Flat;
@@ -276,9 +276,9 @@
             _btnFiltroakGarbitu.TabIndex = 7;
             _btnFiltroakGarbitu.Text = "Filtroak garbitu";
             _btnFiltroakGarbitu.UseVisualStyleBackColor = false;
-            // 
+            //
             // _chkJarraipenGuztiakIkusi
-            // 
+            //
             _chkJarraipenGuztiakIkusi.AutoSize = true;
             _chkJarraipenGuztiakIkusi.BackColor = Color.Transparent;
             _chkJarraipenGuztiakIkusi.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
@@ -290,9 +290,9 @@
             _chkJarraipenGuztiakIkusi.TabIndex = 8;
             _chkJarraipenGuztiakIkusi.Text = "Jarraipen guztiak ikusi";
             _chkJarraipenGuztiakIkusi.UseVisualStyleBackColor = false;
-            // 
+            //
             // _dgvJarraipenak
-            // 
+            //
             _dgvJarraipenak.AllowUserToAddRows = false;
             _dgvJarraipenak.AllowUserToDeleteRows = false;
             _dgvJarraipenak.AllowUserToResizeRows = false;

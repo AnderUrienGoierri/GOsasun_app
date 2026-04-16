@@ -16,7 +16,6 @@ namespace GOsasun_app.Interfazea
     {
         private readonly Pazientea _pazientea;
         private readonly ErabiltzaileKontrolatzailea _kontrolatzailea = new ErabiltzaileKontrolatzailea();
-        private readonly Button _btnEgoeraMedikoaAldatu = new Button();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PazienteXehetasunak() : this(SortuDiseinukoPazientea())
@@ -49,23 +48,8 @@ namespace GOsasun_app.Interfazea
 
         private void KonfiguratuGoiburukoEkintzak()
         {
-            _btnEgoeraMedikoaAldatu.Text = "EGOERA MEDIKOA ALDATU";
-            _btnEgoeraMedikoaAldatu.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            _btnEgoeraMedikoaAldatu.ForeColor = Color.White;
-            _btnEgoeraMedikoaAldatu.BackColor = Color.FromArgb(63, 112, 153);
-            _btnEgoeraMedikoaAldatu.FlatStyle = FlatStyle.Flat;
-            _btnEgoeraMedikoaAldatu.FlatAppearance.BorderSize = 0;
-            _btnEgoeraMedikoaAldatu.Size = new Size(310, 50);
-            _btnEgoeraMedikoaAldatu.Location = new Point(pnlGoiburua.Width - _btnEgoeraMedikoaAldatu.Width - 30, 82);
-            _btnEgoeraMedikoaAldatu.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            _btnEgoeraMedikoaAldatu.Cursor = Cursors.Hand;
-            _btnEgoeraMedikoaAldatu.Click -= BtnEgoeraMedikoaAldatu_Click;
-            _btnEgoeraMedikoaAldatu.Click += BtnEgoeraMedikoaAldatu_Click;
-
-            if (!pnlGoiburua.Controls.Contains(_btnEgoeraMedikoaAldatu))
-            {
-                pnlGoiburua.Controls.Add(_btnEgoeraMedikoaAldatu);
-            }
+            btnEgoeraMedikoaAldatu.Click -= BtnEgoeraMedikoaAldatu_Click;
+            btnEgoeraMedikoaAldatu.Click += BtnEgoeraMedikoaAldatu_Click;
         }
 
         private void KonfiguratuTxartelenEdukia()
@@ -198,8 +182,6 @@ namespace GOsasun_app.Interfazea
             lblEgoeraBadge.BackColor = alta ? Color.FromArgb(223, 245, 232) : Color.FromArgb(252, 231, 230);
             lblEgoeraBadge.ForeColor = alta ? Color.FromArgb(32, 102, 70) : Color.FromArgb(151, 44, 39);
             lblEgoeraBalioa.Text = egoera;
-
-            _btnEgoeraMedikoaAldatu.BackColor = alta ? Color.FromArgb(181, 79, 79) : Color.FromArgb(54, 126, 87);
         }
 
         private void BtnEgoeraMedikoaAldatu_Click(object? sender, EventArgs e)

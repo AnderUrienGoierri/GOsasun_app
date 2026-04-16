@@ -477,8 +477,8 @@ namespace GOsasun_app.Repositorioa
             {
                 try
                 {
-                    string q1 = @"INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza, izena, abizenak, jaiotze_data, telefonoa, nan, irudia) 
-                                  VALUES (@email, @pass, 1, 1, @hizkuntza, @izena, @abizenak, @jaiotze, @telefonoa, @nan, @irudia); 
+                    string q1 = @"INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza, izena, abizenak, jaiotze_data, telefonoa, nan, helbidea, herria, posta_kodea, irudia) 
+                                  VALUES (@email, @pass, 1, 1, @hizkuntza, @izena, @abizenak, @jaiotze, @telefonoa, @nan, @helbidea, @herria, @postaKodea, @irudia); 
                                   SELECT LAST_INSERT_ID();";
                     using (var cmd1 = new MySqlCommand(q1, konexioa, transakzioa))
                     {
@@ -490,6 +490,9 @@ namespace GOsasun_app.Repositorioa
                         cmd1.Parameters.AddWithValue("@jaiotze", m.JaiotzeData);
                         cmd1.Parameters.AddWithValue("@telefonoa", (object?)m.Telefonoa ?? DBNull.Value);
                         cmd1.Parameters.AddWithValue("@nan", m.Nan);
+                        cmd1.Parameters.AddWithValue("@helbidea", (object?)m.Helbidea ?? DBNull.Value);
+                        cmd1.Parameters.AddWithValue("@herria", (object?)m.Herria ?? DBNull.Value);
+                        cmd1.Parameters.AddWithValue("@postaKodea", (object?)m.PostaKodea ?? DBNull.Value);
                         cmd1.Parameters.AddWithValue("@irudia", IrudiLehenetsia);
                         int newId = Convert.ToInt32(cmd1.ExecuteScalar());
 

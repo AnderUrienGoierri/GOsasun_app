@@ -26,30 +26,26 @@
             chkAltan = new CheckBox();
             chkPazienteGuztiak = new CheckBox();
             btnPazienteBerria = new Button();
+            btnOsasunLangileaSortu = new Button();
             txtBilatu = new TextBox();
             lblBilatu = new Label();
             _edukiPanela.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPazienteak).BeginInit();
             pnlBilatzailea.SuspendLayout();
             SuspendLayout();
-            //
+            // 
             // _edukiPanela
-            //
+            // 
             _edukiPanela.Controls.Add(dgvPazienteak);
             _edukiPanela.Controls.Add(pnlBilatzailea);
             _edukiPanela.Controls.Add(lblIzenburua);
-            _edukiPanela.Size = new Size(2360, 1394);
-            //
-            // _goiburuBarra
-            //
-            _goiburuBarra.Size = new Size(2360, 181);
-            //
+            // 
             // _atzeraBotoia
-            //
+            // 
             _atzeraBotoia.FlatAppearance.BorderSize = 0;
-            //
+            // 
             // dgvPazienteak
-            //
+            // 
             dgvPazienteak.AllowUserToAddRows = false;
             dgvPazienteak.AllowUserToDeleteRows = false;
             dgvPazienteak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -76,21 +72,21 @@
             dgvPazienteak.DefaultCellStyle = dataGridViewCellStyle2;
             dgvPazienteak.Dock = DockStyle.Fill;
             dgvPazienteak.EnableHeadersVisualStyles = false;
-            dgvPazienteak.Location = new Point(2, 237);
+            dgvPazienteak.Location = new Point(2, 495);
             dgvPazienteak.Margin = new Padding(6);
             dgvPazienteak.MultiSelect = false;
             dgvPazienteak.Name = "dgvPazienteak";
             dgvPazienteak.ReadOnly = true;
             dgvPazienteak.RowHeadersVisible = false;
             dgvPazienteak.RowHeadersWidth = 82;
-            dgvPazienteak.RowTemplate.Height = 45;
+            dgvPazienteak.RowTemplate.Height = 64;
             dgvPazienteak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPazienteak.Size = new Size(2356, 1155);
+            dgvPazienteak.Size = new Size(1898, 897);
             dgvPazienteak.TabIndex = 1;
             dgvPazienteak.CellContentClick += dgvPazienteak_CellContentClick;
-            //
+            // 
             // lblIzenburua
-            //
+            // 
             lblIzenburua.BackColor = Color.Transparent;
             lblIzenburua.Dock = DockStyle.Top;
             lblIzenburua.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
@@ -98,25 +94,26 @@
             lblIzenburua.Location = new Point(2, 2);
             lblIzenburua.Margin = new Padding(6, 0, 6, 0);
             lblIzenburua.Name = "lblIzenburua";
-            lblIzenburua.Size = new Size(2356, 128);
+            lblIzenburua.Size = new Size(1898, 94);
             lblIzenburua.TabIndex = 0;
             lblIzenburua.Text = "NIRE PAZIENTEAK";
             lblIzenburua.TextAlign = ContentAlignment.MiddleCenter;
-            //
+            // 
             // pnlBilatzailea
-            //
+            // 
             pnlBilatzailea.BackColor = Color.Transparent;
             pnlBilatzailea.Controls.Add(chkBajan);
             pnlBilatzailea.Controls.Add(chkAltan);
             pnlBilatzailea.Controls.Add(chkPazienteGuztiak);
             pnlBilatzailea.Controls.Add(btnPazienteBerria);
+            pnlBilatzailea.Controls.Add(btnOsasunLangileaSortu);
             pnlBilatzailea.Controls.Add(txtBilatu);
             pnlBilatzailea.Controls.Add(lblBilatu);
             pnlBilatzailea.Dock = DockStyle.Top;
-            pnlBilatzailea.Location = new Point(2, 130);
+            pnlBilatzailea.Location = new Point(2, 96);
             pnlBilatzailea.Margin = new Padding(6);
             pnlBilatzailea.Name = "pnlBilatzailea";
-            pnlBilatzailea.Size = new Size(2356, 107);
+            pnlBilatzailea.Size = new Size(1898, 399);
             pnlBilatzailea.TabIndex = 2;
             //
             // chkBajan
@@ -164,13 +161,29 @@
             btnPazienteBerria.FlatStyle = FlatStyle.Flat;
             btnPazienteBerria.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             btnPazienteBerria.ForeColor = Color.White;
-            btnPazienteBerria.Location = new Point(1701, 29);
+            btnPazienteBerria.Location = new Point(136, 102);
             btnPazienteBerria.Margin = new Padding(6);
             btnPazienteBerria.Name = "btnPazienteBerria";
-            btnPazienteBerria.Size = new Size(280, 56);
+            btnPazienteBerria.Size = new Size(394, 56);
             btnPazienteBerria.TabIndex = 5;
             btnPazienteBerria.Text = "Paziente berria gehitu";
             btnPazienteBerria.UseVisualStyleBackColor = false;
+            //
+            // btnOsasunLangileaSortu
+            //
+            btnOsasunLangileaSortu.BackColor = Color.FromArgb(22, 160, 133);
+            btnOsasunLangileaSortu.FlatAppearance.BorderSize = 0;
+            btnOsasunLangileaSortu.FlatStyle = FlatStyle.Flat;
+            btnOsasunLangileaSortu.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+            btnOsasunLangileaSortu.ForeColor = Color.White;
+            btnOsasunLangileaSortu.Location = new Point(548, 102);
+            btnOsasunLangileaSortu.Margin = new Padding(6);
+            btnOsasunLangileaSortu.Name = "btnOsasunLangileaSortu";
+            btnOsasunLangileaSortu.Size = new Size(403, 56);
+            btnOsasunLangileaSortu.TabIndex = 6;
+            btnOsasunLangileaSortu.Text = "Osasun-langilea sortu";
+            btnOsasunLangileaSortu.UseVisualStyleBackColor = false;
+            btnOsasunLangileaSortu.Visible = true;
             //
             // txtBilatu
             //
@@ -198,7 +211,7 @@
             //
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(2360, 1575);
+            ClientSize = new Size(1902, 1575);
             Margin = new Padding(11, 9, 11, 9);
             Name = "PazienteenZerrenda";
             Text = "GOsasun - Pazienteen Zerrenda";
@@ -220,5 +233,6 @@
         private System.Windows.Forms.CheckBox chkAltan;
         private System.Windows.Forms.CheckBox chkPazienteGuztiak;
         private System.Windows.Forms.Button btnPazienteBerria;
+        private System.Windows.Forms.Button btnOsasunLangileaSortu;
     }
 }

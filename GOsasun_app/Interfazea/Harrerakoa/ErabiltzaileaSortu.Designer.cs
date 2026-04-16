@@ -76,7 +76,13 @@ namespace GOsasun_app.Interfazea
             this.btnGorde = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbIrudia)).BeginInit();
             this.pnlForm.SuspendLayout();
+            this._edukiPanela.SuspendLayout();
             this.SuspendLayout();
+            //
+            // _edukiPanela
+            //
+            this._edukiPanela.Controls.Add(this.lblIntegrazioa);
+            this._edukiPanela.Controls.Add(this.pnlForm);
             //
             // lblIntegrazioa
             //
@@ -548,6 +554,8 @@ namespace GOsasun_app.Interfazea
             this.ClientSize = new System.Drawing.Size(1902, 1159);
             this.Name = "ErabiltzaileaSortu";
             this.Text = "Erabiltzaile Berria Sortu";
+            this._edukiPanela.ResumeLayout(false);
+            this._edukiPanela.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbIrudia)).EndInit();
             this.pnlForm.ResumeLayout(false);
             this.pnlForm.PerformLayout();

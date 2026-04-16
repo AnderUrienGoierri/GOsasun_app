@@ -20,8 +20,10 @@ namespace GOsasun_app.Interfazea
     {
         private const int PazienteenZerrendaZabalera = 2360;
         private const int OinarrizkoZutabeZabaleraGuztira = 2100;
-        private const int EkintzaZutabeZabalera = 220;
-        private const int EkintzaIkonoTamaina = 22;
+        private const int EkintzaZutabeZabalera = 260;
+        private const int EkintzaIkonoTamaina = 30;
+        private const int EkintzaBotoiTamaina = 52;
+        private const int PazienteErrenkadaAltuera = 64;
         private readonly ErabiltzaileKontrolatzailea _kontrolatzailea;
         private List<Pazientea> _pazienteak = new List<Pazientea>();
         private readonly Dictionary<string, Bitmap?> _ekintzaIkonoak = new Dictionary<string, Bitmap?>();
@@ -39,12 +41,14 @@ namespace GOsasun_app.Interfazea
                 lblIzenburua.Text = "PAZIENTEEN KUDEAKETA";
                 chkPazienteGuztiak.Checked = true;
                 chkPazienteGuztiak.Enabled = false;
-                btnPazienteBerria.Visible = false;
+                btnPazienteBerria.Visible = true;
+                btnOsasunLangileaSortu.Visible = true;
             }
             else
             {
                 chkPazienteGuztiak.Checked = false;
                 btnPazienteBerria.Visible = true;
+                btnOsasunLangileaSortu.Visible = true;
             }
 
             KonfiguratuTaula();
@@ -57,6 +61,7 @@ namespace GOsasun_app.Interfazea
             chkAltan.CheckedChanged += EgoeraFiltroa_CheckedChanged;
             chkBajan.CheckedChanged += EgoeraFiltroa_CheckedChanged;
             btnPazienteBerria.Click += BtnPazienteBerria_Click;
+            btnOsasunLangileaSortu.Click += BtnOsasunLangileaSortu_Click;
         }
 
         private void KonfiguratuTaula()
@@ -64,6 +69,7 @@ namespace GOsasun_app.Interfazea
             dgvPazienteak.AutoGenerateColumns = false;
             dgvPazienteak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             dgvPazienteak.Columns.Clear();
+            dgvPazienteak.RowTemplate.Height = PazienteErrenkadaAltuera;
 
             dgvPazienteak.Columns.Add(SortuTestuZutabea("Nan", "NAN", LortuDoitutakoZabalera(185)));
             dgvPazienteak.Columns.Add(SortuTestuZutabea("Izena", "Izena", LortuDoitutakoZabalera(150)));
@@ -211,11 +217,19 @@ namespace GOsasun_app.Interfazea
         private void EguneratuBilatzailearenDiseinua()
         {
             int eskuinMuga = pnlBilatzailea.Width - 22;
+            int botoiakGoian = txtBilatu.Bottom + 18;
+            int botoiakEzkerrean = txtBilatu.Left;
+            const int botoienArtekoTartea = 18;
 
             if (btnPazienteBerria.Visible)
             {
-                btnPazienteBerria.Location = new Point(eskuinMuga - btnPazienteBerria.Width, btnPazienteBerria.Location.Y);
-                eskuinMuga = btnPazienteBerria.Left - 18;
+                btnPazienteBerria.Location = new Point(botoiakEzkerrean, botoiakGoian);
+                botoiakEzkerrean = btnPazienteBerria.Right + botoienArtekoTartea;
+            }
+
+            if (btnOsasunLangileaSortu.Visible)
+            {
+                btnOsasunLangileaSortu.Location = new Point(botoiakEzkerrean, botoiakGoian);
             }
 
             chkBajan.Location = new Point(eskuinMuga - chkBajan.Width, chkBajan.Location.Y);
@@ -311,8 +325,8 @@ namespace GOsasun_app.Interfazea
 
         private static Dictionary<string, Rectangle> LortuEkintzaBotoiak(Rectangle cellBounds)
         {
-            int buttonSize = 42;
-            int spacing = 14;
+            int buttonSize = EkintzaBotoiTamaina;
+            int spacing = 18;
             int totalWidth = (buttonSize * 2) + spacing;
             int left = cellBounds.Left + Math.Max(10, (cellBounds.Width - totalWidth) / 2);
             int top = cellBounds.Top + Math.Max(6, (cellBounds.Height - buttonSize) / 2);
@@ -362,7 +376,7 @@ namespace GOsasun_app.Interfazea
             }
             else
             {
-                TextRenderer.DrawText(graphics, fallbackIkurra, new Font("Segoe UI", 10F, FontStyle.Bold), rectangle, Color.White,
+                TextRenderer.DrawText(graphics, fallbackIkurra, new Font("Segoe UI", 12F, FontStyle.Bold), rectangle, Color.White,
                     TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
             }
         }
@@ -399,7 +413,7 @@ namespace GOsasun_app.Interfazea
                 }
                 else if (_erabiltzailea != null)
                 {
-                    IrekiFormularioa(new Jarraipenak(_erabiltzailea, pazientea.Id, pazientea.IzenOsoa));
+                    IrekiFormularioa(new JarraipenMotak(_erabiltzailea, pazientea.Id, pazientea.IzenOsoa));
                 }
 
                 break;
@@ -478,12 +492,24 @@ namespace GOsasun_app.Interfazea
         {
             if (_erabiltzailea == null) return;
 
-            ErabiltzaileaSortu formularioa = new ErabiltzaileaSortu("Pazientea", _erabiltzailea, _erabiltzailea.Id);
+            int? esleitutakoLangileId = _erabiltzailea is OsasunLangilea ? _erabiltzailea.Id : null;
+            ErabiltzaileaSortu formularioa = new ErabiltzaileaSortu("Pazientea", _erabiltzailea, esleitutakoLangileId);
             formularioa.FormClosed += (s, args) =>
             {
                 Show();
                 KargatuPazienteak(txtBilatu.Text.Trim());
             };
+
+            Hide();
+            formularioa.Show();
+        }
+
+        private void BtnOsasunLangileaSortu_Click(object? sender, EventArgs e)
+        {
+            if (_erabiltzailea == null) return;
+
+            ErabiltzaileaSortu formularioa = new ErabiltzaileaSortu("Osasun Langilea", _erabiltzailea);
+            formularioa.FormClosed += (s, args) => Show();
 
             Hide();
             formularioa.Show();

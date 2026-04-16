@@ -28,13 +28,6 @@ namespace GOsasun_app.Interfazea
 
             InitializeComponent();
 
-            // Gehitu kontrol berriak base klaseko eduki-panelera
-            if (_edukiPanela != null)
-            {
-                _edukiPanela.Controls.Add(this.lblIntegrazioa);
-                _edukiPanela.Controls.Add(this.pnlForm);
-            }
-
             KonfiguratuIkuspegia();
             KargatuIrudiLehenetsia();
             KargatuOsasunLangileak();
@@ -76,10 +69,11 @@ namespace GOsasun_app.Interfazea
             {
                 lblJaiotzeData.Visible = dtpJaiotzeData.Visible = true;
                 lblTelefonoa.Visible = txtTelefonoa.Visible = true;
+                lblHelbidea.Visible = txtHelbidea.Visible = true;
+                lblHerria.Visible = txtHerria.Visible = txtPostaKodea.Visible = true;
+                lblNan.Visible = txtNan.Visible = true;
                 lblElkargokide.Visible = txtElkargokide.Visible = txtEspezialitatea.Visible = true;
                 lblKontsulta.Visible = txtKontsulta.Visible = cmbLanaldia.Visible = true;
-                // Medikuak ez du NAN behar sorkuntzan (baina erabiltzailea denez badu ID)
-                lblNan.Visible = txtNan.Visible = false;
             }
             else if (_rolIzena == "Harrerako Langilea")
             {
@@ -262,7 +256,7 @@ namespace GOsasun_app.Interfazea
                 string.IsNullOrWhiteSpace(txtAbizenak.Text) || 
                 string.IsNullOrWhiteSpace(txtEmaila.Text) || 
                 string.IsNullOrWhiteSpace(txtPasahitza.Text) ||
-                (RolPazienteaDa() && string.IsNullOrWhiteSpace(txtNan.Text)))
+                ((RolPazienteaDa() || RolOsasunLangileaDa()) && string.IsNullOrWhiteSpace(txtNan.Text)))
             {
                 MessageBox.Show("(*) markatutako eremuak nahitaezkoak dira.", "Kontuz", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -315,6 +309,7 @@ namespace GOsasun_app.Interfazea
                     Emaila = txtEmaila.Text,
                     Pasahitza = txtPasahitza.Text,
                     Hizkuntza = hizkuntzaSelected,
+                    Nan = txtNan.Text,
                     Izena = txtIzena.Text,
                     Abizenak = txtAbizenak.Text,
                     JaiotzeData = dtpJaiotzeData.Value,
@@ -322,7 +317,10 @@ namespace GOsasun_app.Interfazea
                     Espezialitatea = txtEspezialitatea.Text,
                     Kontsulta = txtKontsulta.Text,
                     Lanaldia = cmbLanaldia.SelectedItem?.ToString() ?? "Osoa",
-                    Telefonoa = txtTelefonoa.Text
+                    Telefonoa = txtTelefonoa.Text,
+                    Helbidea = txtHelbidea.Text,
+                    Herria = txtHerria.Text,
+                    PostaKodea = txtPostaKodea.Text
                 };
                 ondoGordeta = _kontrolatzailea.SortuOsasunLangilea(m, _hautatutakoIrudiBidea);
             }

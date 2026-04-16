@@ -70,9 +70,9 @@
             lblIzenburua.TabIndex = 0;
             lblIzenburua.Text = "ERREZETA BERRIA SORTU";
             lblIzenburua.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
             // pnlEzkerra
-            // 
+            //
             pnlEzkerra.BackColor = Color.Transparent;
             pnlEzkerra.Controls.Add(dgvPazienteak);
             pnlEzkerra.Controls.Add(txtBilatuPaz);
@@ -83,9 +83,9 @@
             pnlEzkerra.Padding = new Padding(10);
             pnlEzkerra.Size = new Size(446, 967);
             pnlEzkerra.TabIndex = 1;
-            // 
+            //
             // dgvPazienteak
-            // 
+            //
             dgvPazienteak.AllowUserToAddRows = false;
             dgvPazienteak.AllowUserToDeleteRows = false;
             dgvPazienteak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;

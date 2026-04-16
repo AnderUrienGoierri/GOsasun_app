@@ -25,11 +25,15 @@ namespace GOsasun_app.Interfazea
             btnNeurketak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             btnErrezetak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             btnGrafikak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
+            btnDokumentuak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
+            btnHitzorduak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             _edukiPanela.SuspendLayout();
             SuspendLayout();
             //
             // _edukiPanela
             //
+            _edukiPanela.Controls.Add(btnDokumentuak);
+            _edukiPanela.Controls.Add(btnHitzorduak);
             _edukiPanela.Controls.Add(btnPazienteak);
             _edukiPanela.Controls.Add(btnNeurketak);
             _edukiPanela.Controls.Add(btnErrezetak);
@@ -88,6 +92,32 @@ namespace GOsasun_app.Interfazea
             btnGrafikak.TabIndex = 3;
             btnGrafikak.Testua = "GRAFIKAK";
             //
+            // btnDokumentuak
+            //
+            btnDokumentuak.BackColor = Color.White;
+            btnDokumentuak.BorderBiribiltasuna = 24;
+            btnDokumentuak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+            btnDokumentuak.Location = new Point(1263, 597);
+            btnDokumentuak.Margin = new Padding(37, 43, 37, 43);
+            btnDokumentuak.Name = "btnDokumentuak";
+            btnDokumentuak.Padding = new Padding(19, 21, 19, 21);
+            btnDokumentuak.Size = new Size(576, 512);
+            btnDokumentuak.TabIndex = 4;
+            btnDokumentuak.Testua = "DOKUMENTUAK";
+            //
+            // btnHitzorduak
+            //
+            btnHitzorduak.BackColor = Color.White;
+            btnHitzorduak.BorderBiribiltasuna = 24;
+            btnHitzorduak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+            btnHitzorduak.Location = new Point(650, 597);
+            btnHitzorduak.Margin = new Padding(37, 43, 37, 43);
+            btnHitzorduak.Name = "btnHitzorduak";
+            btnHitzorduak.Padding = new Padding(19, 21, 19, 21);
+            btnHitzorduak.Size = new Size(576, 512);
+            btnHitzorduak.TabIndex = 5;
+            btnHitzorduak.Testua = "HITZORDUAK";
+            //
             // MenuaOsasunLangilea
             //
             AutoScaleDimensions = new SizeF(13F, 32F);
@@ -107,5 +137,7 @@ namespace GOsasun_app.Interfazea
         private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnNeurketak;
         private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnErrezetak;
         private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnGrafikak;
+        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnDokumentuak;
+        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnHitzorduak;
     }
 }

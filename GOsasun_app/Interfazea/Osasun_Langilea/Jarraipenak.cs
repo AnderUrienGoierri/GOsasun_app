@@ -351,7 +351,13 @@ namespace GOsasun_app.Interfazea
             _dtpAmaieraData.ValueChanged += (s, e) => KargatuIragazkiekin();
             _chkJarraipenGuztiakIkusi.CheckedChanged += (s, e) => BistaratuJarraipenak();
             _btnFiltroakGarbitu.Click += (s, e) => GarbituFiltroak();
-            _btnJarraipenBerria.Click += (s, e) => IrekiFormularioa(new JarraipenMotak(_erabiltzailea!));
+            _btnJarraipenBerria.Click += (s, e) =>
+            {
+                Form formularioa = _pazienteIdFiltroa.HasValue
+                    ? new JarraipenMotak(_erabiltzailea!, _pazienteIdFiltroa.Value, _pazienteIzenburua)
+                    : new JarraipenMotak(_erabiltzailea!);
+                IrekiFormularioa(formularioa);
+            };
             _dgvJarraipenak.ColumnHeaderMouseClick += DgvJarraipenak_ColumnHeaderMouseClick;
             _dgvJarraipenak.CellFormatting += DgvJarraipenak_CellFormatting;
             _dgvJarraipenak.CellPainting += DgvJarraipenak_CellPainting;

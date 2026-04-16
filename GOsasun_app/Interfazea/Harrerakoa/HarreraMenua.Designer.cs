@@ -25,11 +25,13 @@ namespace GOsasun_app.Interfazea
             btnMedikuak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             btnLangileak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             btnHitzorduak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
+            btnDokumentuak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             _edukiPanela.SuspendLayout();
             SuspendLayout();
             //
             // _edukiPanela
             //
+            _edukiPanela.Controls.Add(btnDokumentuak);
             _edukiPanela.Controls.Add(btnPazienteak);
             _edukiPanela.Controls.Add(btnMedikuak);
             _edukiPanela.Controls.Add(btnLangileak);
@@ -98,6 +100,20 @@ namespace GOsasun_app.Interfazea
             btnHitzorduak.Testua = "HITZORDUAK KUDEATU";
             btnHitzorduak.TestuKolorea = Color.FromArgb(50, 50, 50);
             //
+            // btnDokumentuak
+            //
+            btnDokumentuak.BackColor = Color.White;
+            btnDokumentuak.BorderBiribiltasuna = 24;
+            btnDokumentuak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+            btnDokumentuak.Location = new Point(650, 597);
+            btnDokumentuak.Margin = new Padding(37, 43, 37, 43);
+            btnDokumentuak.Name = "btnDokumentuak";
+            btnDokumentuak.Padding = new Padding(19, 21, 19, 21);
+            btnDokumentuak.Size = new Size(576, 512);
+            btnDokumentuak.TabIndex = 4;
+            btnDokumentuak.Testua = "DOKUMENTUAK";
+            btnDokumentuak.TestuKolorea = Color.FromArgb(50, 50, 50);
+            //
             // HarreraMenua
             //
             AutoScaleDimensions = new SizeF(13F, 32F);
@@ -116,5 +132,6 @@ namespace GOsasun_app.Interfazea
         private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnMedikuak;
         private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnLangileak;
         private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnHitzorduak;
+        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnDokumentuak;
     }
 }
