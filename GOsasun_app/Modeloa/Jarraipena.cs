@@ -23,7 +23,7 @@ namespace GOsasun_app.Modeloa
         public string? BideaZerbitzarian { get; set; }
         public DateTime ErregistroData { get; set; } = DateTime.Now;
         public int DokumentuKopurua { get; set; }
-        public string EkintzakTestua => "Ikusi | Gehitu | Dokumentuak | Ezabatu";
+        public string EkintzakTestua => "Ikusi | Editatu | Gehitu | Dokumentuak | Ezabatu";
         public string PazienteIzenOsoa => $"{PazienteAbizenak}, {PazienteIzena}";
 
         public Jarraipena() { }

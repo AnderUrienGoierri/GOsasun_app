@@ -26,11 +26,21 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
         public bool IsU2 => UserId == 2;
     }
 
+    public class BM58KomunikazioSalbuespena : Exception
+    {
+        public BM58KomunikazioSalbuespena(string message)
+            : base(message)
+        {
+        }
+    }
+
     public class BM58Driver
     {
         private const int BaudRate = 4800;
         private const int Beurer_VID = 0x0C45;
         private const int Beurer_PID = 0x7406;
+        private const int HandshakeSaiakeraKopurua = 5;
+        private const int HandshakeItxaronaldiaMs = 250;
 
         // TentsioNeurria kenduta OBP logika jarraitzeko (Jarraipena modeloa erabiliko da)
 
@@ -429,27 +439,74 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
             if (isHid)
             {
                 var device = DeviceList.Local.GetHidDevices(Beurer_VID, Beurer_PID).FirstOrDefault();
-                if (device == null) throw new Exception("HID gailua ez da aurkitu.");
+                if (device == null) throw new BM58KomunikazioSalbuespena("BM58 gailua ez da aurkitu. Ziurtatu USB bidez konektatuta dagoela eta pantailan 'PC' ageri dela.");
                 var hid = new HidChannel(device);
                 hid.ConfigureBaudRate();
-                Thread.Sleep(500);
+                Thread.Sleep(700);
+                hid.DiscardInBuffer();
 
-                // Handshake
                 bool ok = false;
-                foreach (var mode in new[] { HidChannel.ProtocolMode.MicrodiaTunnel, HidChannel.ProtocolMode.ReportId8Raw, HidChannel.ProtocolMode.ReportId0, HidChannel.ProtocolMode.Raw })
+                var protokoloModuak = new[] {
+                    HidChannel.ProtocolMode.MicrodiaTunnel,
+                    HidChannel.ProtocolMode.ReportId8Raw,
+                    HidChannel.ProtocolMode.ReportId0,
+                    HidChannel.ProtocolMode.Raw
+                };
+
+                for (int pasaldia = 0; pasaldia < 2 && !ok; pasaldia++)
                 {
-                    hid.Mode = mode;
-                    for (int i = 0; i < 3; i++) {
-                        hid.Write(new byte[] { 0xAA });
-                        Thread.Sleep(200);
-                        try { if (hid.ReadByte() == 0x55) { ok = true; break; } } catch { }
+                    foreach (var mode in protokoloModuak)
+                    {
+                        hid.Mode = mode;
+                        hid.DiscardInBuffer();
+                        Thread.Sleep(100);
+
+                        for (int saialdia = 0; saialdia < HandshakeSaiakeraKopurua; saialdia++)
+                        {
+                            try
+                            {
+                                hid.DiscardInBuffer();
+                                hid.Write(new byte[] { 0xAA });
+                                Thread.Sleep(HandshakeItxaronaldiaMs + (pasaldia * 100));
+
+                                if (hid.ReadByte() == 0x55)
+                                {
+                                    ok = true;
+                                    break;
+                                }
+                            }
+                            catch
+                            {
+                            }
+                        }
+
+                        if (ok) break;
                     }
-                    if (ok) break;
+
+                    if (!ok)
+                    {
+                        hid.ConfigureBaudRate();
+                        Thread.Sleep(500);
+                    }
                 }
-                if (!ok) throw new Exception("Handshake-ak huts egin du.");
+
+                if (!ok)
+                {
+                    hid.Dispose();
+                    throw new BM58KomunikazioSalbuespena("Ezin izan da BM58 gailuarekin komunikazioa hasi. Ziurtatu gailua piztuta dagoela, pantailan 'PC' ageri dela eta MEM botoia sakatu duzula; gero saiatu berriro.");
+                }
+
                 return hid;
             }
-            return new SerialChannel(identifier);
+
+            try
+            {
+                return new SerialChannel(identifier);
+            }
+            catch (Exception ex)
+            {
+                throw new BM58KomunikazioSalbuespena("Ezin izan da BM58 COM konexioa ireki: " + ex.Message);
+            }
         }
 
 

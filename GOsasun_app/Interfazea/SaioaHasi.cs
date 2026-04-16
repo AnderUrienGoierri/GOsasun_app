@@ -42,6 +42,26 @@ namespace GOsasun_app.Interfazea
             this.ClientSize = PortadaTamaina;
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            ZentratuPantailaLanEremuan();
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            BeginInvoke(new Action(ZentratuPantailaLanEremuan));
+        }
+
+        private void ZentratuPantailaLanEremuan()
+        {
+            Rectangle lanEremua = Screen.FromControl(this).WorkingArea;
+            int x = lanEremua.Left + Math.Max(0, (lanEremua.Width - Width) / 2);
+            int y = lanEremua.Top + Math.Max(0, (lanEremua.Height - Height) / 2);
+            Location = new Point(x, y);
+        }
+
         // Irudiak kargatu
         private void KargatuBaliabideak()
         {

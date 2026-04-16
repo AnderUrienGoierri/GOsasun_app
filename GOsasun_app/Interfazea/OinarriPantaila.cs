@@ -132,12 +132,30 @@ namespace GOsasun_app.Interfazea
         {
             base.OnLoad(e);
             EgokituPortadarenNeurrira();
+            ZentratuPantailaLanEremuan();
         }
 
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
             EgokituPortadarenNeurrira();
+            BeginInvoke(new Action(ZentratuPantailaLanEremuan));
+        }
+
+        protected void ZentratuPantailaLanEremuan()
+        {
+            if (DiseinuModuan())
+            {
+                return;
+            }
+
+            Rectangle lanEremua = Owner != null
+                ? Screen.FromControl(Owner).WorkingArea
+                : Screen.FromControl(this).WorkingArea;
+
+            int x = lanEremua.Left + Math.Max(0, (lanEremua.Width - Width) / 2);
+            int y = lanEremua.Top + Math.Max(0, (lanEremua.Height - Height) / 2);
+            Location = new Point(x, y);
         }
 
         private void EgokituPortadarenNeurrira()

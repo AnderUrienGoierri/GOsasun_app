@@ -11,6 +11,7 @@ namespace GOsasun_app.Interfazea
         {
             if (disposing && (components != null))
             {
+                this.pbIrudia?.Image?.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -56,7 +57,18 @@ namespace GOsasun_app.Interfazea
             this.cmbLanaldia = new System.Windows.Forms.ComboBox();
             this.lblTxanda = new System.Windows.Forms.Label();
             this.cmbTxanda = new System.Windows.Forms.ComboBox();
+            this.lblIrudia = new System.Windows.Forms.Label();
+            this.pbIrudia = new System.Windows.Forms.PictureBox();
+            this.btnIrudiaAukeratu = new System.Windows.Forms.Button();
+            this.lblIrudiFitxategia = new System.Windows.Forms.Label();
+            this.lblOsasunLangilea = new System.Windows.Forms.Label();
+            this.cmbOsasunLangileak = new System.Windows.Forms.ComboBox();
+            this.btnLangileaGehitu = new System.Windows.Forms.Button();
+            this.lblEsleitutakoLangileak = new System.Windows.Forms.Label();
+            this.lstEsleitutakoLangileak = new System.Windows.Forms.ListBox();
+            this.btnLangileaKendu = new System.Windows.Forms.Button();
             this.btnGorde = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pbIrudia)).BeginInit();
             this.pnlForm.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,6 +120,16 @@ namespace GOsasun_app.Interfazea
             this.pnlForm.Controls.Add(this.cmbLanaldia);
             this.pnlForm.Controls.Add(this.lblTxanda);
             this.pnlForm.Controls.Add(this.cmbTxanda);
+            this.pnlForm.Controls.Add(this.lblIrudia);
+            this.pnlForm.Controls.Add(this.pbIrudia);
+            this.pnlForm.Controls.Add(this.btnIrudiaAukeratu);
+            this.pnlForm.Controls.Add(this.lblIrudiFitxategia);
+            this.pnlForm.Controls.Add(this.lblOsasunLangilea);
+            this.pnlForm.Controls.Add(this.cmbOsasunLangileak);
+            this.pnlForm.Controls.Add(this.btnLangileaGehitu);
+            this.pnlForm.Controls.Add(this.lblEsleitutakoLangileak);
+            this.pnlForm.Controls.Add(this.lstEsleitutakoLangileak);
+            this.pnlForm.Controls.Add(this.btnLangileaKendu);
             this.pnlForm.Controls.Add(this.btnGorde);
             this.pnlForm.Location = new System.Drawing.Point(50, 110);
             this.pnlForm.Name = "pnlForm";
@@ -345,16 +367,123 @@ namespace GOsasun_app.Interfazea
             this.cmbTxanda.Location = new System.Drawing.Point(300, 810);
             this.cmbTxanda.Size = new System.Drawing.Size(600, 48);
             // 
+            // lblIrudia
+            // 
+            this.lblIrudia.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.lblIrudia.Location = new System.Drawing.Point(40, 890);
+            this.lblIrudia.Name = "lblIrudia";
+            this.lblIrudia.Size = new System.Drawing.Size(200, 40);
+            this.lblIrudia.TabIndex = 21;
+            this.lblIrudia.Text = "Irudia:";
+            // 
+            // pbIrudia
+            // 
+            this.pbIrudia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbIrudia.Location = new System.Drawing.Point(300, 890);
+            this.pbIrudia.Name = "pbIrudia";
+            this.pbIrudia.Size = new System.Drawing.Size(180, 180);
+            this.pbIrudia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbIrudia.TabIndex = 22;
+            this.pbIrudia.TabStop = false;
+            // 
+            // btnIrudiaAukeratu
+            // 
+            this.btnIrudiaAukeratu.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
+            this.btnIrudiaAukeratu.FlatAppearance.BorderSize = 0;
+            this.btnIrudiaAukeratu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnIrudiaAukeratu.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnIrudiaAukeratu.ForeColor = System.Drawing.Color.White;
+            this.btnIrudiaAukeratu.Location = new System.Drawing.Point(520, 905);
+            this.btnIrudiaAukeratu.Name = "btnIrudiaAukeratu";
+            this.btnIrudiaAukeratu.Size = new System.Drawing.Size(250, 56);
+            this.btnIrudiaAukeratu.TabIndex = 23;
+            this.btnIrudiaAukeratu.Text = "Irudia aukeratu";
+            this.btnIrudiaAukeratu.UseVisualStyleBackColor = false;
+            // 
+            // lblIrudiFitxategia
+            // 
+            this.lblIrudiFitxategia.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblIrudiFitxategia.Location = new System.Drawing.Point(520, 980);
+            this.lblIrudiFitxategia.Name = "lblIrudiFitxategia";
+            this.lblIrudiFitxategia.Size = new System.Drawing.Size(380, 90);
+            this.lblIrudiFitxategia.TabIndex = 24;
+            this.lblIrudiFitxategia.Text = "Irudi lehenetsia";
+            // 
+            // lblOsasunLangilea
+            // 
+            this.lblOsasunLangilea.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.lblOsasunLangilea.Location = new System.Drawing.Point(40, 1100);
+            this.lblOsasunLangilea.Name = "lblOsasunLangilea";
+            this.lblOsasunLangilea.Size = new System.Drawing.Size(240, 40);
+            this.lblOsasunLangilea.TabIndex = 25;
+            this.lblOsasunLangilea.Text = "Osasun langilea(k):";
+            // 
+            // cmbOsasunLangileak
+            // 
+            this.cmbOsasunLangileak.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.cmbOsasunLangileak.FormattingEnabled = true;
+            this.cmbOsasunLangileak.Location = new System.Drawing.Point(300, 1100);
+            this.cmbOsasunLangileak.Name = "cmbOsasunLangileak";
+            this.cmbOsasunLangileak.Size = new System.Drawing.Size(450, 48);
+            this.cmbOsasunLangileak.TabIndex = 26;
+            // 
+            // btnLangileaGehitu
+            // 
+            this.btnLangileaGehitu.BackColor = System.Drawing.Color.FromArgb(39, 174, 96);
+            this.btnLangileaGehitu.FlatAppearance.BorderSize = 0;
+            this.btnLangileaGehitu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLangileaGehitu.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
+            this.btnLangileaGehitu.ForeColor = System.Drawing.Color.White;
+            this.btnLangileaGehitu.Location = new System.Drawing.Point(770, 1096);
+            this.btnLangileaGehitu.Name = "btnLangileaGehitu";
+            this.btnLangileaGehitu.Size = new System.Drawing.Size(130, 56);
+            this.btnLangileaGehitu.TabIndex = 27;
+            this.btnLangileaGehitu.Text = "Gehitu";
+            this.btnLangileaGehitu.UseVisualStyleBackColor = false;
+            // 
+            // lblEsleitutakoLangileak
+            // 
+            this.lblEsleitutakoLangileak.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
+            this.lblEsleitutakoLangileak.Location = new System.Drawing.Point(300, 1165);
+            this.lblEsleitutakoLangileak.Name = "lblEsleitutakoLangileak";
+            this.lblEsleitutakoLangileak.Size = new System.Drawing.Size(360, 40);
+            this.lblEsleitutakoLangileak.TabIndex = 28;
+            this.lblEsleitutakoLangileak.Text = "Esleitutako osasun langileak";
+            // 
+            // lstEsleitutakoLangileak
+            // 
+            this.lstEsleitutakoLangileak.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            this.lstEsleitutakoLangileak.FormattingEnabled = true;
+            this.lstEsleitutakoLangileak.ItemHeight = 37;
+            this.lstEsleitutakoLangileak.Location = new System.Drawing.Point(300, 1210);
+            this.lstEsleitutakoLangileak.Name = "lstEsleitutakoLangileak";
+            this.lstEsleitutakoLangileak.Size = new System.Drawing.Size(600, 152);
+            this.lstEsleitutakoLangileak.TabIndex = 29;
+            // 
+            // btnLangileaKendu
+            // 
+            this.btnLangileaKendu.BackColor = System.Drawing.Color.FromArgb(192, 57, 43);
+            this.btnLangileaKendu.FlatAppearance.BorderSize = 0;
+            this.btnLangileaKendu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLangileaKendu.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
+            this.btnLangileaKendu.ForeColor = System.Drawing.Color.White;
+            this.btnLangileaKendu.Location = new System.Drawing.Point(920, 1210);
+            this.btnLangileaKendu.Name = "btnLangileaKendu";
+            this.btnLangileaKendu.Size = new System.Drawing.Size(180, 56);
+            this.btnLangileaKendu.TabIndex = 30;
+            this.btnLangileaKendu.Text = "Kendu";
+            this.btnLangileaKendu.UseVisualStyleBackColor = false;
+            // 
             // btnGorde
             // 
             this.btnGorde.BackColor = System.Drawing.Color.FromArgb(0, 150, 136);
             this.btnGorde.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGorde.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.btnGorde.ForeColor = System.Drawing.Color.White;
-            this.btnGorde.Location = new System.Drawing.Point(350, 900);
+            this.btnGorde.Location = new System.Drawing.Point(350, 1390);
             this.btnGorde.Name = "btnGorde";
             this.btnGorde.Size = new System.Drawing.Size(300, 60);
-            this.btnGorde.TabIndex = 20;
+            this.btnGorde.TabIndex = 31;
             this.btnGorde.Text = "GORDE";
             this.btnGorde.UseVisualStyleBackColor = false;
             this.btnGorde.Click += new System.EventHandler(this.btnGorde_Click);
@@ -366,6 +495,7 @@ namespace GOsasun_app.Interfazea
             this.ClientSize = new System.Drawing.Size(1902, 1159);
             this.Name = "ErabiltzaileaSortu";
             this.Text = "Erabiltzaile Berria Sortu";
+            ((System.ComponentModel.ISupportInitialize)(this.pbIrudia)).EndInit();
             this.pnlForm.ResumeLayout(false);
             this.pnlForm.PerformLayout();
             this.ResumeLayout(false);
@@ -409,6 +539,16 @@ namespace GOsasun_app.Interfazea
         private System.Windows.Forms.ComboBox cmbTxanda;
         private System.Windows.Forms.Label lblHizkuntza;
         private System.Windows.Forms.ComboBox cmbHizkuntza;
+        private System.Windows.Forms.Label lblIrudia;
+        private System.Windows.Forms.PictureBox pbIrudia;
+        private System.Windows.Forms.Button btnIrudiaAukeratu;
+        private System.Windows.Forms.Label lblIrudiFitxategia;
+        private System.Windows.Forms.Label lblOsasunLangilea;
+        private System.Windows.Forms.ComboBox cmbOsasunLangileak;
+        private System.Windows.Forms.Button btnLangileaGehitu;
+        private System.Windows.Forms.Label lblEsleitutakoLangileak;
+        private System.Windows.Forms.ListBox lstEsleitutakoLangileak;
+        private System.Windows.Forms.Button btnLangileaKendu;
         private System.Windows.Forms.Button btnGorde;
     }
 }

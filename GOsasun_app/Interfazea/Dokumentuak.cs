@@ -6,6 +6,8 @@ namespace GOsasun_app.Interfazea
 {
     public partial class Dokumentuak : OinarriPantaila
     {
+        private const int DokumentuakPantailaZabalera = 2150;
+        private const int GehienezkoErregistroDefektuz = 10;
         private const int EkintzaIkonoTamaina = 20;
         private const int EkintzaBotoiTamaina = 40;
         private const int EkintzaBotoienTartea = 12;
@@ -39,6 +41,7 @@ namespace GOsasun_app.Interfazea
         private void HasieratuPantaila()
         {
             Text = "GOsasun - Dokumentuak";
+            EzarriFormularioZabalera();
 
             _azalpenaLabel.Text = DaPazientea()
                 ? "Zure dokumentu klinikoak kontsultatu eta ireki ditzakezu hemen."
@@ -56,12 +59,22 @@ namespace GOsasun_app.Interfazea
             _bilatuBotoia.Click += (s, e) => KargatuDokumentuak();
             _garbituBotoia.Click += (s, e) => GarbituIragazkia();
             _dokumentuBerriaBotoia.Click += (s, e) => SortuDokumentuBerria();
+            _jarraipenGuztiakCheckBox.CheckedChanged += (s, e) => KargatuDokumentuak();
             _dokumentuakGrid.DataSource = _bindingSource;
 
             KargatuEkintzaIkonoak();
             _dokumentuBerriaBotoia.Image = _dokumentuBerriaIkonoa;
+            _jarraipenGuztiakCheckBox.Visible = !DaPazientea();
+            _jarraipenGuztiakCheckBox.Checked = false;
 
             KonfiguratuZutabeak();
+        }
+
+        private void EzarriFormularioZabalera()
+        {
+            ClientSize = new Size(DokumentuakPantailaZabalera, ClientSize.Height);
+            _goiburuBarra.Width = DokumentuakPantailaZabalera;
+            _edukiPanela.Size = new Size(DokumentuakPantailaZabalera, _edukiPanela.Height);
         }
 
         private void KargatuEkintzaIkonoak()
@@ -178,17 +191,26 @@ namespace GOsasun_app.Interfazea
                 .Where(dokumentua => DataTarteanDago(dokumentua.IgotzeData, hasieraData, amaieraData))
                 .ToList();
 
+            List<Dokumentua> ordenatutakoDokumentuak = AplikatuOrdenazioa(dokumentuak);
+            bool dokumentuGuztiakErakutsi = DaPazientea() || _jarraipenGuztiakCheckBox.Checked;
+            List<Dokumentua> bistaratzekoDokumentuak = dokumentuGuztiakErakutsi
+                ? ordenatutakoDokumentuak
+                : ordenatutakoDokumentuak.Take(GehienezkoErregistroDefektuz).ToList();
+
             _dokumentuak.Clear();
-            _dokumentuak.AddRange(AplikatuOrdenazioa(dokumentuak));
+            _dokumentuak.AddRange(bistaratzekoDokumentuak);
             _bindingSource.DataSource = null;
             _bindingSource.DataSource = _dokumentuak.ToList();
             EzarriOrdenazioIkurra();
 
-            _egoeraLabel.Text = _dokumentuak.Count == 0
+            int guztira = ordenatutakoDokumentuak.Count;
+            _egoeraLabel.Text = guztira == 0
                 ? "Ez da dokumenturik aurkitu."
-                : _dokumentuak.Count == 1
+                : guztira == 1
                     ? "Dokumentu 1 aurkitu da."
-                    : $"{_dokumentuak.Count} dokumentu aurkitu dira.";
+                    : dokumentuGuztiakErakutsi || guztira <= GehienezkoErregistroDefektuz
+                        ? $"{guztira} dokumentu aurkitu dira."
+                        : $"{_dokumentuak.Count} dokumentu erakusten dira lehenetsita ({guztira} guztira).";
         }
 
         private void GarbituIragazkia()

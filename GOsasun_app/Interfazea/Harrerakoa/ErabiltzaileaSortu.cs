@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using GOsasun_app.Kontrola;
 using GOsasun_app.Modeloa;
@@ -7,13 +11,19 @@ namespace GOsasun_app.Interfazea
 {
     public partial class ErabiltzaileaSortu : OinarriPantaila
     {
-        private string _rolIzena;
-        private ErabiltzaileKontrolatzailea _kontrolatzailea;
+        private const string IrudiLehenetsia = "img/png/irudi_lehenetsia.png";
+        private readonly string _rolIzena;
+        private readonly ErabiltzaileKontrolatzailea _kontrolatzailea;
+        private readonly int? _esleitutakoLangileId;
+        private readonly List<OsasunLangilea> _langileGuztiak = new List<OsasunLangilea>();
+        private readonly List<OsasunLangilea> _hautatutakoLangileak = new List<OsasunLangilea>();
+        private string? _hautatutakoIrudiBidea;
 
-        public ErabiltzaileaSortu(string rolIzena, Erabiltzailea unekoLangilea) : base(unekoLangilea)
+        public ErabiltzaileaSortu(string rolIzena, Erabiltzailea unekoLangilea, int? esleitutakoLangileId = null) : base(unekoLangilea)
         {
             _rolIzena = rolIzena;
             _kontrolatzailea = new ErabiltzaileKontrolatzailea();
+            _esleitutakoLangileId = esleitutakoLangileId;
             
             InitializeComponent();
 
@@ -25,6 +35,8 @@ namespace GOsasun_app.Interfazea
             }
 
             KonfiguratuIkuspegia();
+            KargatuIrudiLehenetsia();
+            KargatuOsasunLangileak();
         }
 
         private void KonfiguratuIkuspegia()
@@ -40,16 +52,20 @@ namespace GOsasun_app.Interfazea
             lblElkargokide.Visible = txtElkargokide.Visible = txtEspezialitatea.Visible = false;
             lblKontsulta.Visible = txtKontsulta.Visible = cmbLanaldia.Visible = false;
             lblTxanda.Visible = cmbTxanda.Visible = false;
+            lblOsasunLangilea.Visible = cmbOsasunLangileak.Visible = btnLangileaGehitu.Visible = false;
+            lblEsleitutakoLangileak.Visible = lstEsleitutakoLangileak.Visible = btnLangileaKendu.Visible = false;
 
-            if (_rolIzena == "Pazientea")
+            if (RolPazienteaDa())
             {
                 lblSexua.Visible = cmbSexua.Visible = true;
                 lblJaiotzeData.Visible = dtpJaiotzeData.Visible = true;
                 lblTelefonoa.Visible = txtTelefonoa.Visible = true;
                 lblHelbidea.Visible = txtHelbidea.Visible = true;
                 lblHerria.Visible = txtHerria.Visible = txtPostaKodea.Visible = true;
+                lblOsasunLangilea.Visible = cmbOsasunLangileak.Visible = btnLangileaGehitu.Visible = true;
+                lblEsleitutakoLangileak.Visible = lstEsleitutakoLangileak.Visible = btnLangileaKendu.Visible = true;
             }
-            else if (_rolIzena == "Osasun Langilea" || _rolIzena == "OsasunLangilea" || _rolIzena == "Medikua")
+            else if (RolOsasunLangileaDa())
             {
                 lblJaiotzeData.Visible = dtpJaiotzeData.Visible = true;
                 lblTelefonoa.Visible = txtTelefonoa.Visible = true;
@@ -65,6 +81,171 @@ namespace GOsasun_app.Interfazea
                 lblTxanda.Visible = cmbTxanda.Visible = true;
                 lblNan.Visible = txtNan.Visible = false;
             }
+
+            cmbHizkuntza.SelectedIndex = 0;
+            cmbSexua.SelectedIndex = 0;
+            cmbLanaldia.SelectedIndex = 0;
+            cmbTxanda.SelectedIndex = 0;
+
+            cmbOsasunLangileak.DropDownStyle = ComboBoxStyle.DropDown;
+            cmbOsasunLangileak.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbOsasunLangileak.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+            btnIrudiaAukeratu.Click += BtnIrudiaAukeratu_Click;
+            btnLangileaGehitu.Click += BtnLangileaGehitu_Click;
+            btnLangileaKendu.Click += BtnLangileaKendu_Click;
+        }
+
+        private bool RolPazienteaDa()
+        {
+            return string.Equals(_rolIzena, "Pazientea", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private bool RolOsasunLangileaDa()
+        {
+            return string.Equals(_rolIzena, "Osasun Langilea", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(_rolIzena, "OsasunLangilea", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(_rolIzena, "Medikua", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private void KargatuOsasunLangileak()
+        {
+            if (!RolPazienteaDa())
+            {
+                return;
+            }
+
+            _langileGuztiak.Clear();
+            _langileGuztiak.AddRange(_kontrolatzailea.LortuGuztiakOsasunLangileak()
+                .OrderBy(langilea => langilea.IzenOsoa));
+
+            if (_esleitutakoLangileId.HasValue)
+            {
+                OsasunLangilea? aurkitutakoa = _langileGuztiak.FirstOrDefault(langilea => langilea.Id == _esleitutakoLangileId.Value);
+                if (aurkitutakoa != null)
+                {
+                    _hautatutakoLangileak.Add(aurkitutakoa);
+                }
+            }
+
+            EguneratuLangileenAukerak();
+            EguneratuHautatutakoLangileenZerrenda();
+        }
+
+        private void EguneratuLangileenAukerak()
+        {
+            List<OsasunLangilea> aukerak = _langileGuztiak
+                .Where(langilea => _hautatutakoLangileak.All(hautatua => hautatua.Id != langilea.Id))
+                .OrderBy(langilea => langilea.IzenOsoa)
+                .ToList();
+
+            cmbOsasunLangileak.DataSource = null;
+            cmbOsasunLangileak.DisplayMember = nameof(Erabiltzailea.IzenOsoa);
+            cmbOsasunLangileak.ValueMember = nameof(Erabiltzailea.Id);
+            cmbOsasunLangileak.DataSource = aukerak;
+
+            if (aukerak.Count > 0)
+            {
+                cmbOsasunLangileak.SelectedIndex = 0;
+            }
+            else
+            {
+                cmbOsasunLangileak.Text = string.Empty;
+            }
+        }
+
+        private void EguneratuHautatutakoLangileenZerrenda()
+        {
+            lstEsleitutakoLangileak.DataSource = null;
+            lstEsleitutakoLangileak.DisplayMember = nameof(Erabiltzailea.IzenOsoa);
+            lstEsleitutakoLangileak.ValueMember = nameof(Erabiltzailea.Id);
+            lstEsleitutakoLangileak.DataSource = _hautatutakoLangileak
+                .OrderBy(langilea => langilea.IzenOsoa)
+                .ToList();
+        }
+
+        private void BtnLangileaGehitu_Click(object? sender, EventArgs e)
+        {
+            if (cmbOsasunLangileak.SelectedItem is not OsasunLangilea hautatutakoa)
+            {
+                MessageBox.Show("Hautatu osasun langile bat zerrendatik.", "Kontuz", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (_hautatutakoLangileak.Any(langilea => langilea.Id == hautatutakoa.Id))
+            {
+                return;
+            }
+
+            _hautatutakoLangileak.Add(hautatutakoa);
+            EguneratuLangileenAukerak();
+            EguneratuHautatutakoLangileenZerrenda();
+        }
+
+        private void BtnLangileaKendu_Click(object? sender, EventArgs e)
+        {
+            if (lstEsleitutakoLangileak.SelectedItem is not OsasunLangilea hautatutakoa)
+            {
+                return;
+            }
+
+            _hautatutakoLangileak.RemoveAll(langilea => langilea.Id == hautatutakoa.Id);
+            EguneratuLangileenAukerak();
+            EguneratuHautatutakoLangileenZerrenda();
+        }
+
+        private void BtnIrudiaAukeratu_Click(object? sender, EventArgs e)
+        {
+            using OpenFileDialog dialogoa = new OpenFileDialog
+            {
+                Title = "Hautatu erabiltzailearen irudia",
+                Filter = "Irudiak|*.png;*.jpg;*.jpeg;*.bmp",
+                Multiselect = false
+            };
+
+            if (dialogoa.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+
+            _hautatutakoIrudiBidea = dialogoa.FileName;
+            lblIrudiFitxategia.Text = Path.GetFileName(dialogoa.FileName);
+            KargatuIrudiaAurrebistan(dialogoa.FileName);
+        }
+
+        private void KargatuIrudiLehenetsia()
+        {
+            lblIrudiFitxategia.Text = "Irudi lehenetsia";
+            string? lehenetsia = BilatuFitxategia(IrudiLehenetsia);
+            if (!string.IsNullOrWhiteSpace(lehenetsia))
+            {
+                KargatuIrudiaAurrebistan(lehenetsia);
+            }
+        }
+
+        private string? BilatuFitxategia(string erlatiboa)
+        {
+            string bideNormala = erlatiboa.Replace('/', Path.DirectorySeparatorChar);
+            string[] hautagaiak =
+            {
+                Path.Combine(Application.StartupPath, bideNormala),
+                Path.Combine(Directory.GetCurrentDirectory(), bideNormala),
+                Path.Combine(Directory.GetCurrentDirectory(), "GOsasun_app", bideNormala),
+                Path.Combine(AppContext.BaseDirectory, bideNormala),
+                Path.Combine(AppContext.BaseDirectory, "..", "..", "..", bideNormala)
+            };
+
+            return hautagaiak
+                .Select(Path.GetFullPath)
+                .FirstOrDefault(File.Exists);
+        }
+
+        private void KargatuIrudiaAurrebistan(string bidea)
+        {
+            using Image jatorrizkoa = Image.FromFile(bidea);
+            Image? aurrekoa = pbIrudia.Image;
+            pbIrudia.Image = new Bitmap(jatorrizkoa);
+            aurrekoa?.Dispose();
         }
 
         private void btnGorde_Click(object sender, EventArgs e)
@@ -73,16 +254,22 @@ namespace GOsasun_app.Interfazea
                 string.IsNullOrWhiteSpace(txtAbizenak.Text) || 
                 string.IsNullOrWhiteSpace(txtEmaila.Text) || 
                 string.IsNullOrWhiteSpace(txtPasahitza.Text) ||
-                (_rolIzena == "Pazientea" && string.IsNullOrWhiteSpace(txtNan.Text)))
+                (RolPazienteaDa() && string.IsNullOrWhiteSpace(txtNan.Text)))
             {
                 MessageBox.Show("(*) markatutako eremuak nahitaezkoak dira.", "Kontuz", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (RolPazienteaDa() && _hautatutakoLangileak.Count == 0)
+            {
+                MessageBox.Show("Gutxienez osasun langile bat hautatu behar duzu pazientearentzat.", "Kontuz", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             bool ondoGordeta = false;
             string hizkuntzaSelected = cmbHizkuntza.SelectedItem?.ToString() ?? "Euskara";
 
-            if (_rolIzena == "Pazientea")
+            if (RolPazienteaDa())
             {
                 Pazientea p = new Pazientea
                 {
@@ -99,9 +286,12 @@ namespace GOsasun_app.Interfazea
                     Herria = txtHerria.Text,
                     PostaKodea = txtPostaKodea.Text
                 };
-                ondoGordeta = _kontrolatzailea.SortuPazientea(p);
+                ondoGordeta = _kontrolatzailea.SortuPazientea(
+                    p,
+                    _hautatutakoLangileak.Select(langilea => langilea.Id).ToArray(),
+                    _hautatutakoIrudiBidea);
             }
-            else if (_rolIzena == "Osasun Langilea" || _rolIzena == "OsasunLangilea" || _rolIzena == "Medikua")
+            else if (RolOsasunLangileaDa())
             {
                 OsasunLangilea m = new OsasunLangilea
                 {
@@ -117,7 +307,7 @@ namespace GOsasun_app.Interfazea
                     Lanaldia = cmbLanaldia.SelectedItem?.ToString() ?? "Osoa",
                     Telefonoa = txtTelefonoa.Text
                 };
-                ondoGordeta = _kontrolatzailea.SortuOsasunLangilea(m);
+                ondoGordeta = _kontrolatzailea.SortuOsasunLangilea(m, _hautatutakoIrudiBidea);
             }
             else if (_rolIzena == "Harrerako Langilea")
             {
@@ -132,7 +322,7 @@ namespace GOsasun_app.Interfazea
                     JaiotzeData = dtpJaiotzeData.Value,
                     Telefonoa = txtTelefonoa.Text
                 };
-                ondoGordeta = _kontrolatzailea.SortuHarrerakoa(h);
+                ondoGordeta = _kontrolatzailea.SortuHarrerakoa(h, _hautatutakoIrudiBidea);
             }
 
             if (ondoGordeta)
@@ -145,5 +335,6 @@ namespace GOsasun_app.Interfazea
                 MessageBox.Show("Errorea gertatu da gordetzean. Ziurtatu e-maila edota NAN-a ez direla errepikatzen ari.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 }

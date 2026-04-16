@@ -70,14 +70,44 @@ namespace GOsasun_app.Kontrola
             return _db.SortuPazientea(p);
         }
 
+        public bool SortuPazientea(Pazientea p, int langileId)
+        {
+            return _db.SortuPazientea(p, langileId);
+        }
+
+        public bool SortuPazientea(Pazientea p, IReadOnlyCollection<int> langileIds, string? irudiIturria = null)
+        {
+            return _db.SortuPazientea(p, langileIds, irudiIturria);
+        }
+
+        public bool SortuPazientea(Pazientea p, string? irudiIturria)
+        {
+            return _db.SortuPazientea(p, irudiIturria);
+        }
+
+        public bool SortuPazientea(Pazientea p, int langileId, string? irudiIturria)
+        {
+            return _db.SortuPazientea(p, langileId, irudiIturria);
+        }
+
         public bool SortuOsasunLangilea(OsasunLangilea m)
         {
             return _db.SortuOsasunLangilea(m);
         }
 
+        public bool SortuOsasunLangilea(OsasunLangilea m, string? irudiIturria)
+        {
+            return _db.SortuOsasunLangilea(m, irudiIturria);
+        }
+
         public bool SortuHarrerakoa(HarrerakoLangilea h)
         {
             return _db.SortuHarrerakoa(h);
+        }
+
+        public bool SortuHarrerakoa(HarrerakoLangilea h, string? irudiIturria)
+        {
+            return _db.SortuHarrerakoa(h, irudiIturria);
         }
 
 // ------------------------EZABATU------------------------------------

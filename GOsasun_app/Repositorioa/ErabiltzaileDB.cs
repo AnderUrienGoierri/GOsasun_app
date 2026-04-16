@@ -1,5 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
 using MySql.Data.MySqlClient;
 using GOsasun_app.Modeloa;
 
@@ -10,6 +14,7 @@ namespace GOsasun_app.Repositorioa
         private const int OsasunLangileaRolId = 1;
         private const int PazienteaRolId = 2;
         private const int HarreraRolId = 3;
+        private const string IrudiLehenetsia = "img/png/irudi_lehenetsia.png";
 
         public Erabiltzailea? Login(string emaila, string pasahitza)
         {
@@ -62,6 +67,87 @@ namespace GOsasun_app.Repositorioa
             return rolIzena.Replace(" ", string.Empty).Trim().ToLowerInvariant();
         }
 
+        private static IEnumerable<string> LortuIrudiErroak()
+        {
+            string exekuzioErroa = AppContext.BaseDirectory;
+            string unekoErroa = Directory.GetCurrentDirectory();
+
+            string[] erroak =
+            {
+                exekuzioErroa,
+                Path.Combine(exekuzioErroa, "..", "..", ".."),
+                Path.Combine(exekuzioErroa, "..", "..", "..", ".."),
+                unekoErroa,
+                Path.Combine(unekoErroa, "GOsasun_app")
+            };
+
+            return erroak
+                .Select(Path.GetFullPath)
+                .Distinct(StringComparer.OrdinalIgnoreCase);
+        }
+
+        private static string LortuIrudiBideAbsolutua(string irudiErlatiboa)
+        {
+            string irudiBideNormala = irudiErlatiboa.Replace('/', Path.DirectorySeparatorChar);
+
+            foreach (string erroa in LortuIrudiErroak())
+            {
+                if (Directory.Exists(erroa))
+                {
+                    return Path.Combine(erroa, irudiBideNormala);
+                }
+            }
+
+            return Path.Combine(AppContext.BaseDirectory, irudiBideNormala);
+        }
+
+        private static string GordeErabiltzaileIrudia(string? iturburuBidea, string azpiKarpeta, string fitxategiIzena)
+        {
+            if (string.IsNullOrWhiteSpace(iturburuBidea) || !File.Exists(iturburuBidea))
+            {
+                return IrudiLehenetsia;
+            }
+
+            string erlatiboa = Path.Combine("img", "png", azpiKarpeta, fitxategiIzena).Replace('\\', '/');
+            string helmugaBidea = LortuIrudiBideAbsolutua(erlatiboa);
+            string? karpeta = Path.GetDirectoryName(helmugaBidea);
+
+            if (!string.IsNullOrWhiteSpace(karpeta))
+            {
+                Directory.CreateDirectory(karpeta);
+            }
+
+            if (File.Exists(helmugaBidea))
+            {
+                File.Delete(helmugaBidea);
+            }
+
+            using Image irudia = Image.FromFile(iturburuBidea);
+            irudia.Save(helmugaBidea, ImageFormat.Png);
+            return erlatiboa;
+        }
+
+        private static void EguneratuIrudiBidea(MySqlConnection konexioa, MySqlTransaction transakzioa, int erabiltzaileId, string irudiBidea)
+        {
+            const string query = "UPDATE erabiltzaileak SET irudia = @irudia WHERE id = @id";
+            using var komandoa = new MySqlCommand(query, konexioa, transakzioa);
+            komandoa.Parameters.AddWithValue("@irudia", irudiBidea);
+            komandoa.Parameters.AddWithValue("@id", erabiltzaileId);
+            komandoa.ExecuteNonQuery();
+        }
+
+        private static void SortuPazienteLangileenEsleipenak(MySqlConnection konexioa, MySqlTransaction transakzioa, int pazienteId, IEnumerable<int> langileIds)
+        {
+            foreach (int langileId in langileIds.Distinct())
+            {
+                const string query = @"INSERT INTO pazientek_langileak (langile_id, paziente_id) VALUES (@langileId, @pazienteId)";
+                using var komandoa = new MySqlCommand(query, konexioa, transakzioa);
+                komandoa.Parameters.AddWithValue("@langileId", langileId);
+                komandoa.Parameters.AddWithValue("@pazienteId", pazienteId);
+                komandoa.ExecuteNonQuery();
+            }
+        }
+
         public List<Pazientea> LortuLangilearenPazienteak(int langileId, string? bilatzailea = null, string? egoeraFiltroa = null)
         {
             List<Pazientea> pazienteak = new List<Pazientea>();
@@ -76,11 +162,11 @@ namespace GOsasun_app.Repositorioa
                     JOIN erabiltzaileak e ON pl.paziente_id = e.id
                     LEFT JOIN pazienteak p ON e.id = p.id
                                         WHERE pl.langile_id = @langileId AND e.aktibo = 1
-                                            AND (@egoeraFiltroa IS NULL OR COALESCE(p.egoera_klinikoa, 'Alta') = @egoeraFiltroa)";
+                                            AND (@egoeraFiltroa IS NULL OR COALESCE(p.egoera_klinikoa, 'Alta') COLLATE utf8mb4_unicode_ci = CONVERT(@egoeraFiltroa USING utf8mb4) COLLATE utf8mb4_unicode_ci)";
 
                 if (!string.IsNullOrEmpty(bilatzailea))
                 {
-                    query += " AND (e.izena LIKE @testua OR e.abizenak LIKE @testua OR e.nan LIKE @testua)";
+                    query += " AND (e.izena COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci OR e.abizenak COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci OR e.nan COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci)";
                 }
 
                 using (var komandoa = new MySqlCommand(query, konexioa))
@@ -117,7 +203,7 @@ namespace GOsasun_app.Repositorioa
                                 AzkenAltuera = irakurlea.IsDBNull(irakurlea.GetOrdinal("azken_altuera")) ? (decimal?)null : irakurlea.GetDecimal("azken_altuera"),
                                 AzkenPisua = irakurlea.IsDBNull(irakurlea.GetOrdinal("azken_pisua")) ? (decimal?)null : irakurlea.GetDecimal("azken_pisua"),
                                 EgoeraKlinikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("egoera_klinikoa")) ? "Alta" : DatuBaseTestua.Zuzendu(irakurlea.GetString("egoera_klinikoa")),
-                                Irudia = irakurlea.IsDBNull(irakurlea.GetOrdinal("irudia")) ? "img/lehenetsia.png" : DatuBaseTestua.Zuzendu(irakurlea.GetString("irudia"))
+                                Irudia = irakurlea.IsDBNull(irakurlea.GetOrdinal("irudia")) ? IrudiLehenetsia : DatuBaseTestua.Zuzendu(irakurlea.GetString("irudia"))
                             });
                         }
                     }
@@ -137,11 +223,11 @@ namespace GOsasun_app.Repositorioa
                                  FROM erabiltzaileak e
                                  LEFT JOIN pazienteak p ON e.id = p.id
                                                                  WHERE e.rol_id = 2 AND e.aktibo = 1
-                                                                     AND (@egoeraFiltroa IS NULL OR COALESCE(p.egoera_klinikoa, 'Alta') = @egoeraFiltroa)";
+                                                                     AND (@egoeraFiltroa IS NULL OR COALESCE(p.egoera_klinikoa, 'Alta') COLLATE utf8mb4_unicode_ci = CONVERT(@egoeraFiltroa USING utf8mb4) COLLATE utf8mb4_unicode_ci)";
 
                 if (!string.IsNullOrEmpty(bilatzailea))
                 {
-                    query += " AND (e.izena LIKE @testua OR e.abizenak LIKE @testua OR e.nan LIKE @testua)";
+                    query += " AND (e.izena COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci OR e.abizenak COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci OR e.nan COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci)";
                 }
 
                 using (var komandoa = new MySqlCommand(query, konexioa))
@@ -265,7 +351,7 @@ namespace GOsasun_app.Repositorioa
                             AzkenAltuera = irakurlea.IsDBNull(irakurlea.GetOrdinal("azken_altuera")) ? (decimal?)null : irakurlea.GetDecimal("azken_altuera"),
                             AzkenPisua = irakurlea.IsDBNull(irakurlea.GetOrdinal("azken_pisua")) ? (decimal?)null : irakurlea.GetDecimal("azken_pisua"),
                             EgoeraKlinikoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("egoera_klinikoa")) ? "Alta" : DatuBaseTestua.Zuzendu(irakurlea.GetString("egoera_klinikoa")),
-                            Irudia = irakurlea.IsDBNull(irakurlea.GetOrdinal("irudia")) ? "img/lehenetsia.png" : DatuBaseTestua.Zuzendu(irakurlea.GetString("irudia"))
+                            Irudia = irakurlea.IsDBNull(irakurlea.GetOrdinal("irudia")) ? IrudiLehenetsia : DatuBaseTestua.Zuzendu(irakurlea.GetString("irudia"))
                         };
                     }
                 }
@@ -301,13 +387,35 @@ namespace GOsasun_app.Repositorioa
 
         public bool SortuPazientea(Pazientea p)
         {
+            return SortuPazientea(p, Array.Empty<int>(), null);
+        }
+
+        public bool SortuPazientea(Pazientea p, int? langileId)
+        {
+            return langileId.HasValue
+                ? SortuPazientea(p, new[] { langileId.Value }, null)
+                : SortuPazientea(p, Array.Empty<int>(), null);
+        }
+
+        public bool SortuPazientea(Pazientea p, string? irudiIturria)
+        {
+            return SortuPazientea(p, Array.Empty<int>(), irudiIturria);
+        }
+
+        public bool SortuPazientea(Pazientea p, int langileId, string? irudiIturria)
+        {
+            return SortuPazientea(p, new[] { langileId }, irudiIturria);
+        }
+
+        public bool SortuPazientea(Pazientea p, IReadOnlyCollection<int> langileIds, string? irudiIturria)
+        {
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             using (var transakzioa = konexioa.BeginTransaction())
             {
                 try
                 {
                     string q1 = @"INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza, nan, izena, abizenak, jaiotze_data, telefonoa, helbidea, herria, posta_kodea, irudia) 
-                                  VALUES (@email, @pass, 2, 1, @hizkuntza, @nan, @izena, @abizenak, @jaiotze, @telefonoa, @helbidea, @herria, @posta, 'img/lehenetsia.png'); 
+                                  VALUES (@email, @pass, 2, 1, @hizkuntza, @nan, @izena, @abizenak, @jaiotze, @telefonoa, @helbidea, @herria, @posta, @irudia); 
                                   SELECT LAST_INSERT_ID();";
                     using (var cmd1 = new MySqlCommand(q1, konexioa, transakzioa))
                     {
@@ -322,6 +430,7 @@ namespace GOsasun_app.Repositorioa
                         cmd1.Parameters.AddWithValue("@helbidea", (object?)p.Helbidea ?? DBNull.Value);
                         cmd1.Parameters.AddWithValue("@herria", (object?)p.Herria ?? DBNull.Value);
                         cmd1.Parameters.AddWithValue("@posta", (object?)p.PostaKodea ?? DBNull.Value);
+                        cmd1.Parameters.AddWithValue("@irudia", IrudiLehenetsia);
                         int newId = Convert.ToInt32(cmd1.ExecuteScalar());
 
                         string q2 = @"INSERT INTO pazienteak (id, sexua, odol_taldea, azken_altuera, azken_pisua, egoera_klinikoa) 
@@ -334,6 +443,14 @@ namespace GOsasun_app.Repositorioa
                             cmd2.Parameters.AddWithValue("@altuera", (object?)p.AzkenAltuera ?? DBNull.Value);
                             cmd2.Parameters.AddWithValue("@pisua", (object?)p.AzkenPisua ?? DBNull.Value);
                             cmd2.ExecuteNonQuery();
+                        }
+
+                        string irudiBidea = GordeErabiltzaileIrudia(irudiIturria, "pazienteak", $"pazientea_{newId}.png");
+                        EguneratuIrudiBidea(konexioa, transakzioa, newId, irudiBidea);
+
+                        if (langileIds.Count > 0)
+                        {
+                            SortuPazienteLangileenEsleipenak(konexioa, transakzioa, newId, langileIds);
                         }
                     }
                     transakzioa.Commit();
@@ -350,13 +467,18 @@ namespace GOsasun_app.Repositorioa
 
         public bool SortuOsasunLangilea(OsasunLangilea m)
         {
+            return SortuOsasunLangilea(m, null);
+        }
+
+        public bool SortuOsasunLangilea(OsasunLangilea m, string? irudiIturria)
+        {
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             using (var transakzioa = konexioa.BeginTransaction())
             {
                 try
                 {
                     string q1 = @"INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza, izena, abizenak, jaiotze_data, telefonoa, nan, irudia) 
-                                  VALUES (@email, @pass, 1, 1, @hizkuntza, @izena, @abizenak, @jaiotze, @telefonoa, @nan, 'img/lehenetsia.png'); 
+                                  VALUES (@email, @pass, 1, 1, @hizkuntza, @izena, @abizenak, @jaiotze, @telefonoa, @nan, @irudia); 
                                   SELECT LAST_INSERT_ID();";
                     using (var cmd1 = new MySqlCommand(q1, konexioa, transakzioa))
                     {
@@ -368,6 +490,7 @@ namespace GOsasun_app.Repositorioa
                         cmd1.Parameters.AddWithValue("@jaiotze", m.JaiotzeData);
                         cmd1.Parameters.AddWithValue("@telefonoa", (object?)m.Telefonoa ?? DBNull.Value);
                         cmd1.Parameters.AddWithValue("@nan", m.Nan);
+                        cmd1.Parameters.AddWithValue("@irudia", IrudiLehenetsia);
                         int newId = Convert.ToInt32(cmd1.ExecuteScalar());
 
                         string q2 = @"INSERT INTO osasun_langileak 
@@ -382,6 +505,9 @@ namespace GOsasun_app.Repositorioa
                             cmd2.Parameters.AddWithValue("@lanaldia", m.Lanaldia);
                             cmd2.ExecuteNonQuery();
                         }
+
+                        string irudiBidea = GordeErabiltzaileIrudia(irudiIturria, "erabiltzaileak", $"osasun_langilea_{newId}.png");
+                        EguneratuIrudiBidea(konexioa, transakzioa, newId, irudiBidea);
                     }
                     transakzioa.Commit();
                     return true;
@@ -397,13 +523,18 @@ namespace GOsasun_app.Repositorioa
 
         public bool SortuHarrerakoa(HarrerakoLangilea h)
         {
+            return SortuHarrerakoa(h, null);
+        }
+
+        public bool SortuHarrerakoa(HarrerakoLangilea h, string? irudiIturria)
+        {
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             using (var transakzioa = konexioa.BeginTransaction())
             {
                 try
                 {
                     string q1 = @"INSERT INTO erabiltzaileak (email, pasahitza, rol_id, aktibo, hizkuntza, izena, abizenak, jaiotze_data, telefonoa, irudia) 
-                                  VALUES (@email, @pass, 3, 1, @hizkuntza, @izena, @abizenak, @jaiotze, @telefonoa, 'img/lehenetsia.png'); 
+                                  VALUES (@email, @pass, 3, 1, @hizkuntza, @izena, @abizenak, @jaiotze, @telefonoa, @irudia); 
                                   SELECT LAST_INSERT_ID();";
                     using (var cmd1 = new MySqlCommand(q1, konexioa, transakzioa))
                     {
@@ -414,6 +545,7 @@ namespace GOsasun_app.Repositorioa
                         cmd1.Parameters.AddWithValue("@abizenak", h.Abizenak);
                         cmd1.Parameters.AddWithValue("@jaiotze", h.JaiotzeData);
                         cmd1.Parameters.AddWithValue("@telefonoa", (object?)h.Telefonoa ?? DBNull.Value);
+                        cmd1.Parameters.AddWithValue("@irudia", IrudiLehenetsia);
                         int newId = Convert.ToInt32(cmd1.ExecuteScalar());
 
                         string q2 = @"INSERT INTO harrerako_langileak (id, txanda) VALUES (@id, @txanda)";
@@ -423,6 +555,9 @@ namespace GOsasun_app.Repositorioa
                             cmd2.Parameters.AddWithValue("@txanda", h.Txanda);
                             cmd2.ExecuteNonQuery();
                         }
+
+                        string irudiBidea = GordeErabiltzaileIrudia(irudiIturria, "erabiltzaileak", $"harrerakoa_{newId}.png");
+                        EguneratuIrudiBidea(konexioa, transakzioa, newId, irudiBidea);
                     }
                     transakzioa.Commit();
                     return true;

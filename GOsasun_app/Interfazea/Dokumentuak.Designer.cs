@@ -30,6 +30,7 @@ namespace GOsasun_app.Interfazea
             _amaieraDataPicker = new DateTimePicker();
             _bilatuBotoia = new Button();
             _garbituBotoia = new Button();
+            _jarraipenGuztiakCheckBox = new CheckBox();
             _azalpenaLabel = new Label();
             _izenburuaLabel = new Label();
             _edukiPanela.SuspendLayout();
@@ -55,7 +56,7 @@ namespace GOsasun_app.Interfazea
             panelEdukia.Location = new Point(2, 2);
             panelEdukia.Name = "panelEdukia";
             panelEdukia.Padding = new Padding(36);
-            panelEdukia.Size = new Size(1898, 1390);
+            panelEdukia.Size = new Size(2146, 1390);
             panelEdukia.TabIndex = 0;
             // 
             // panelTxartela
@@ -65,13 +66,14 @@ namespace GOsasun_app.Interfazea
             panelTxartela.Controls.Add(_dokumentuakGrid);
             panelTxartela.Controls.Add(_egoeraLabel);
             panelTxartela.Controls.Add(iragazkiPanela);
+            panelTxartela.Controls.Add(_jarraipenGuztiakCheckBox);
             panelTxartela.Controls.Add(_azalpenaLabel);
             panelTxartela.Controls.Add(_izenburuaLabel);
             panelTxartela.Dock = DockStyle.Fill;
             panelTxartela.Location = new Point(36, 36);
             panelTxartela.Name = "panelTxartela";
             panelTxartela.Padding = new Padding(32);
-            panelTxartela.Size = new Size(1826, 1318);
+            panelTxartela.Size = new Size(2074, 1318);
             panelTxartela.TabIndex = 0;
             // 
             // _dokumentuBerriaBotoia
@@ -84,7 +86,7 @@ namespace GOsasun_app.Interfazea
             _dokumentuBerriaBotoia.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             _dokumentuBerriaBotoia.ForeColor = Color.White;
             _dokumentuBerriaBotoia.ImageAlign = ContentAlignment.MiddleLeft;
-            _dokumentuBerriaBotoia.Location = new Point(1430, 179);
+            _dokumentuBerriaBotoia.Location = new Point(1678, 179);
             _dokumentuBerriaBotoia.Margin = new Padding(0);
             _dokumentuBerriaBotoia.Name = "_dokumentuBerriaBotoia";
             _dokumentuBerriaBotoia.Padding = new Padding(14, 6, 16, 6);
@@ -111,7 +113,7 @@ namespace GOsasun_app.Interfazea
             _dokumentuakGrid.RowHeadersVisible = false;
             _dokumentuakGrid.RowHeadersWidth = 82;
             _dokumentuakGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            _dokumentuakGrid.Size = new Size(1762, 817);
+            _dokumentuakGrid.Size = new Size(2010, 817);
             _dokumentuakGrid.TabIndex = 4;
             // 
             // _egoeraLabel
@@ -122,7 +124,7 @@ namespace GOsasun_app.Interfazea
             _egoeraLabel.Location = new Point(32, 324);
             _egoeraLabel.Name = "_egoeraLabel";
             _egoeraLabel.Padding = new Padding(0, 4, 280, 10);
-            _egoeraLabel.Size = new Size(1762, 145);
+            _egoeraLabel.Size = new Size(2010, 145);
             _egoeraLabel.TabIndex = 3;
             _egoeraLabel.Click += _egoeraLabel_Click;
             // 
@@ -139,7 +141,7 @@ namespace GOsasun_app.Interfazea
             iragazkiPanela.Margin = new Padding(0);
             iragazkiPanela.Name = "iragazkiPanela";
             iragazkiPanela.Padding = new Padding(0, 8, 0, 8);
-            iragazkiPanela.Size = new Size(1794, 112);
+            iragazkiPanela.Size = new Size(2042, 112);
             iragazkiPanela.TabIndex = 2;
             iragazkiPanela.WrapContents = false;
             // 
@@ -228,6 +230,19 @@ namespace GOsasun_app.Interfazea
             _garbituBotoia.Text = "Garbitu";
             _garbituBotoia.UseVisualStyleBackColor = false;
             // 
+            // _jarraipenGuztiakCheckBox
+            // 
+            _jarraipenGuztiakCheckBox.AutoSize = true;
+            _jarraipenGuztiakCheckBox.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+            _jarraipenGuztiakCheckBox.ForeColor = Color.FromArgb(50, 50, 50);
+            _jarraipenGuztiakCheckBox.Location = new Point(32, 372);
+            _jarraipenGuztiakCheckBox.Margin = new Padding(0, 0, 0, 8);
+            _jarraipenGuztiakCheckBox.Name = "_jarraipenGuztiakCheckBox";
+            _jarraipenGuztiakCheckBox.Size = new Size(321, 42);
+            _jarraipenGuztiakCheckBox.TabIndex = 7;
+            _jarraipenGuztiakCheckBox.Text = "Jarraipen guztiak ikusi";
+            _jarraipenGuztiakCheckBox.UseVisualStyleBackColor = true;
+            // 
             // _azalpenaLabel
             // 
             _azalpenaLabel.Dock = DockStyle.Top;
@@ -236,7 +251,7 @@ namespace GOsasun_app.Interfazea
             _azalpenaLabel.Location = new Point(32, 128);
             _azalpenaLabel.Name = "_azalpenaLabel";
             _azalpenaLabel.Padding = new Padding(0, 0, 0, 8);
-            _azalpenaLabel.Size = new Size(1762, 196);
+            _azalpenaLabel.Size = new Size(2010, 196);
             _azalpenaLabel.TabIndex = 1;
             // 
             // _izenburuaLabel
@@ -246,7 +261,7 @@ namespace GOsasun_app.Interfazea
             _izenburuaLabel.ForeColor = Color.FromArgb(44, 62, 80);
             _izenburuaLabel.Location = new Point(32, 32);
             _izenburuaLabel.Name = "_izenburuaLabel";
-            _izenburuaLabel.Size = new Size(1762, 96);
+            _izenburuaLabel.Size = new Size(2010, 96);
             _izenburuaLabel.TabIndex = 0;
             _izenburuaLabel.Text = "Dokumentuak";
             // 
@@ -254,7 +269,7 @@ namespace GOsasun_app.Interfazea
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1902, 1575);
+            ClientSize = new Size(2150, 1575);
             Name = "Dokumentuak";
             Text = "GOsasun - Dokumentuak";
             _edukiPanela.ResumeLayout(false);
@@ -277,6 +292,7 @@ namespace GOsasun_app.Interfazea
         private DateTimePicker _amaieraDataPicker;
         private Button _bilatuBotoia;
         private Button _garbituBotoia;
+        private CheckBox _jarraipenGuztiakCheckBox;
         private Button _dokumentuBerriaBotoia;
         private Label _egoeraLabel;
         private DataGridView _dokumentuakGrid;

@@ -288,6 +288,8 @@ namespace GOsasun_app.Interfazea
         {
             if (_portuIzena == null) return;
 
+            _searchCts?.Cancel();
+
             int pazienteId;
             if (_erabiltzailea != null && _erabiltzailea.DaPazientea())
             {
@@ -304,9 +306,22 @@ namespace GOsasun_app.Interfazea
             }
 
             List<BM58RawRecord> guztiak = null;
+            string? konekzioErrorea = null;
+            bool bilaketaBerrabiarazi = true;
             try
             {
+                string? eguneratutakoPortua = _driver.BilatuGailua(out bool isHidOrain);
+                if (eguneratutakoPortua == null)
+                {
+                    MessageBox.Show("Ez da BM58 gailua aurkitu. Ziurtatu USB bidez konektatuta dagoela eta pantailan 'PC' ageri dela.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                _portuIzena = eguneratutakoPortua;
+                _isHid = isHidOrain;
+
                 // 1. PRE-SCAN MODAL: Konexioa egiaztatu
+                DialogResult waitResult;
                 using (var waitForm = new Form())
                 {
                     waitForm.Text = "Beurer BM58";
@@ -330,17 +345,33 @@ namespace GOsasun_app.Interfazea
                     waitForm.Shown += async (s, e) => {
                         try {
                             await Task.Run(() => {
-                                guztiak = _driver.IrakurriErrekordGuztiak(_portuIzena, _isHid);
+                                try
+                                {
+                                    guztiak = _driver.IrakurriErrekordGuztiak(_portuIzena, _isHid);
+                                }
+                                catch (BM58KomunikazioSalbuespena ex)
+                                {
+                                    konekzioErrorea = ex.Message;
+                                }
                             });
-                            waitForm.DialogResult = DialogResult.OK;
+                            waitForm.DialogResult = string.IsNullOrEmpty(konekzioErrorea) ? DialogResult.OK : DialogResult.Cancel;
                         } catch (Exception ex) {
-                            MessageBox.Show("Errorea konektatzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            konekzioErrorea = "Errorea konektatzean: " + ex.Message;
                             waitForm.DialogResult = DialogResult.Cancel;
                         } finally {
                             waitForm.Close();
                         }
                     };
-                    waitForm.ShowDialog(this);
+                    waitResult = waitForm.ShowDialog(this);
+                }
+
+                if (waitResult != DialogResult.OK)
+                {
+                    if (!string.IsNullOrWhiteSpace(konekzioErrorea))
+                    {
+                        MessageBox.Show(konekzioErrorea, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    return;
                 }
 
                 if (guztiak == null || guztiak.Count == 0) return;
@@ -403,12 +434,19 @@ namespace GOsasun_app.Interfazea
 
                 if (neurria != null)
                 {
+                    string? oharGehigarria = JarraipenOharLaguntzailea.EskatuAukerakoOharra(
+                        this,
+                        "Tentsio jarraipenaren oharra",
+                        "Tentsio neurketa gorde aurretik, nahi baduzu ohar osagarria gehitu dezakezu.");
+                    neurria.Oharrak = JarraipenOharLaguntzailea.BatuOharrak(neurria.Oharrak, oharGehigarria);
+
                     bool gordeta = _jarraipenaKontrolatzailea.GordeJarraipena(neurria);
                     
                     if (gordeta) {
                         _jarraipenaKontrolatzailea.EsportatuXML(neurria);
                         string motaTestua = inportazioMota == InportazioMota.AzkenNeurketa ? "Azken neurketa" : "Batazbestekoa";
                         MessageBox.Show($"U{aukeratutakoMemoria} memoriako {motaTestua.ToLower()} inportatu da:\nSistole: {neurria.TentsioSistolikoa}\nDiastole: {neurria.TentsioDiastolikoa}\nPultsua: {neurria.PultsuaPpm}", "Inportazio Arrakastatsua", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        bilaketaBerrabiarazi = false;
                         this.Close();
                     } else {
                         MessageBox.Show("Ezin izan da datu-basean gorde.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -418,6 +456,13 @@ namespace GOsasun_app.Interfazea
             catch (Exception ex)
             {
                 MessageBox.Show("Errorea inportatzean:\n" + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (bilaketaBerrabiarazi && !IsDisposed && !Disposing)
+                {
+                    HasiBilaketaAsync();
+                }
             }
         }
 

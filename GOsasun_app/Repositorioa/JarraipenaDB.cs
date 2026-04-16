@@ -190,6 +190,39 @@ namespace GOsasun_app.Repositorioa
             return GordeJarraipenaEtaLortuId(jarraipena).HasValue;
         }
 
+        public bool EguneratuJarraipena(Jarraipena jarraipena)
+        {
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            {
+                string query = @"
+                    UPDATE jarraipenak
+                    SET osasun_langile_id = @langileId,
+                        tentsio_sistolikoa = @tentsioSistolikoa,
+                        tentsio_diastolikoa = @tentsioDiastolikoa,
+                        pisua_kg = @pisuaKg,
+                        altuera = @altuera,
+                        pultsua_ppm = @pultsuaPpm,
+                        oharrak = @oharrak,
+                        bidea_zerbitzarian = @bidea
+                    WHERE id = @id";
+
+                using (var komandoa = new MySqlCommand(query, konexioa))
+                {
+                    komandoa.Parameters.AddWithValue("@id", jarraipena.Id);
+                    komandoa.Parameters.AddWithValue("@langileId", (object?)jarraipena.OsasunLangileId ?? DBNull.Value);
+                    komandoa.Parameters.AddWithValue("@tentsioSistolikoa", (object?)jarraipena.TentsioSistolikoa ?? DBNull.Value);
+                    komandoa.Parameters.AddWithValue("@tentsioDiastolikoa", (object?)jarraipena.TentsioDiastolikoa ?? DBNull.Value);
+                    komandoa.Parameters.AddWithValue("@pisuaKg", (object?)jarraipena.PisuaKg ?? DBNull.Value);
+                    komandoa.Parameters.AddWithValue("@altuera", (object?)jarraipena.Altuera ?? DBNull.Value);
+                    komandoa.Parameters.AddWithValue("@pultsuaPpm", (object?)jarraipena.PultsuaPpm ?? DBNull.Value);
+                    komandoa.Parameters.AddWithValue("@oharrak", (object?)jarraipena.Oharrak ?? DBNull.Value);
+                    komandoa.Parameters.AddWithValue("@bidea", (object?)jarraipena.BideaZerbitzarian ?? DBNull.Value);
+
+                    return komandoa.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
         public bool EzabatuJarraipena(int jarraipenaId)
         {
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())

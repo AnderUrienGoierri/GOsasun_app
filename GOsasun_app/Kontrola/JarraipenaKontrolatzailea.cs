@@ -49,6 +49,11 @@ namespace GOsasun_app.Kontrola
             return _db.GordeJarraipenaEtaLortuId(jarraipena);
         }
 
+        public bool EguneratuJarraipena(Jarraipena jarraipena)
+        {
+            return _db.EguneratuJarraipena(jarraipena);
+        }
+
         public bool EzabatuJarraipena(int jarraipenaId)
         {
             return _db.EzabatuJarraipena(jarraipenaId);

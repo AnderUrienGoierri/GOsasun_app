@@ -30,6 +30,7 @@
             _dtpHasieraData = new DateTimePicker();
             _dtpAmaieraData = new DateTimePicker();
             _btnFiltroakGarbitu = new Button();
+            _chkJarraipenGuztiakIkusi = new CheckBox();
             _dgvJarraipenak = new DataGridView();
             _edukiPanela.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)_dgvJarraipenak).BeginInit();
@@ -38,6 +39,7 @@
             // _edukiPanela
             // 
             _edukiPanela.Controls.Add(_dgvJarraipenak);
+            _edukiPanela.Controls.Add(_chkJarraipenGuztiakIkusi);
             _edukiPanela.Controls.Add(_btnFiltroakGarbitu);
             _edukiPanela.Controls.Add(_dtpAmaieraData);
             _edukiPanela.Controls.Add(_dtpHasieraData);
@@ -153,19 +155,19 @@
             // 
             _colOharrak.DataPropertyName = "Oharrak";
             _colOharrak.HeaderText = "Oharrak";
-            _colOharrak.MinimumWidth = 10;
+            _colOharrak.MinimumWidth = 430;
             _colOharrak.Name = "_colOharrak";
             _colOharrak.ReadOnly = true;
-            _colOharrak.Width = 580;
+            _colOharrak.Width = 430;
             // 
             // _colEkintzak
             // 
             _colEkintzak.DataPropertyName = "EkintzakTestua";
             _colEkintzak.HeaderText = "EKINTZAK";
-            _colEkintzak.MinimumWidth = 220;
+            _colEkintzak.MinimumWidth = 280;
             _colEkintzak.Name = "_colEkintzak";
             _colEkintzak.ReadOnly = true;
-            _colEkintzak.Width = 220;
+            _colEkintzak.Width = 280;
             // 
             // _lblIzenburua
             // 
@@ -183,7 +185,7 @@
             // _btnJarraipenBerria
             // 
             _btnJarraipenBerria.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            _btnJarraipenBerria.BackColor = Color.FromArgb(192, 57, 43);
+            _btnJarraipenBerria.BackColor = Color.FromArgb(41, 128, 185);
             _btnJarraipenBerria.FlatAppearance.BorderSize = 0;
             _btnJarraipenBerria.FlatStyle = FlatStyle.Flat;
             _btnJarraipenBerria.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
@@ -275,6 +277,20 @@
             _btnFiltroakGarbitu.Text = "Filtroak garbitu";
             _btnFiltroakGarbitu.UseVisualStyleBackColor = false;
             // 
+            // _chkJarraipenGuztiakIkusi
+            // 
+            _chkJarraipenGuztiakIkusi.AutoSize = true;
+            _chkJarraipenGuztiakIkusi.BackColor = Color.Transparent;
+            _chkJarraipenGuztiakIkusi.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+            _chkJarraipenGuztiakIkusi.ForeColor = Color.FromArgb(44, 62, 80);
+            _chkJarraipenGuztiakIkusi.Location = new Point(1488, 348);
+            _chkJarraipenGuztiakIkusi.Margin = new Padding(6);
+            _chkJarraipenGuztiakIkusi.Name = "_chkJarraipenGuztiakIkusi";
+            _chkJarraipenGuztiakIkusi.Size = new Size(344, 42);
+            _chkJarraipenGuztiakIkusi.TabIndex = 8;
+            _chkJarraipenGuztiakIkusi.Text = "Jarraipen guztiak ikusi";
+            _chkJarraipenGuztiakIkusi.UseVisualStyleBackColor = false;
+            // 
             // _dgvJarraipenak
             // 
             _dgvJarraipenak.AllowUserToAddRows = false;
@@ -298,13 +314,13 @@
             _dgvJarraipenak.RowTemplate.Height = 128;
             _dgvJarraipenak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             _dgvJarraipenak.Size = new Size(1762, 753);
-            _dgvJarraipenak.TabIndex = 8;
+            _dgvJarraipenak.TabIndex = 9;
             // 
             // Jarraipenak
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1902, 1394);
+            ClientSize = new Size(1902, 1575);
             Margin = new Padding(11, 9, 11, 9);
             Name = "Jarraipenak";
             Text = "GOsasun - Jarraipenak";
@@ -322,6 +338,7 @@
         private DateTimePicker _dtpHasieraData;
         private DateTimePicker _dtpAmaieraData;
         private Button _btnFiltroakGarbitu;
+        private CheckBox _chkJarraipenGuztiakIkusi;
         private DataGridView _dgvJarraipenak;
         private DataGridViewTextBoxColumn _colPazienteNan;
         private DataGridViewTextBoxColumn _colPazienteIzena;

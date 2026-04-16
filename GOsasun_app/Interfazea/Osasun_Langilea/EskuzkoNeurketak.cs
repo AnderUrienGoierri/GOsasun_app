@@ -77,10 +77,47 @@ namespace GOsasun_app.Interfazea
             _btnGorde.Click += (s, e) => GordeJarraipena();
         }
 
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+
+            if (_erabiltzailea?.DaPazientea() == true)
+            {
+                PrestatuPazienteModua();
+            }
+        }
+
+        private void PrestatuPazienteModua()
+        {
+            _hautatutakoPazientea = _hautatutakoPazientea ?? new Pazientea
+            {
+                Id = _erabiltzailea!.Id,
+                Izena = _erabiltzailea.Izena,
+                Abizenak = _erabiltzailea.Abizenak,
+                Nan = _erabiltzailea.Nan
+            };
+
+            _lblBilatu.Text = "1. Zure aurreko jarraipenak:";
+            _txtPazienteBilatu.Visible = false;
+            _dgvPazienteak.Visible = false;
+            _lblHistoriala.Location = new Point(50, 190);
+            _lblHistoriala.Text = "2. Jarraipenen historiala:";
+            _dgvHistoriala.Location = new Point(50, 245);
+            _pnlSarrera.Location = new Point(50, 525);
+            _pnlSarrera.Visible = true;
+
+            KargatuPazientearenHistoriala(_hautatutakoPazientea.Id);
+        }
+
         private void PazienteakBatu()
         {
             try
             {
+                if (_erabiltzailea?.DaPazientea() == true)
+                {
+                    return;
+                }
+
                 string bilaketa = _txtPazienteBilatu.Text.Trim();
                 var list = _erabiltzaileKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea!.Id, bilaketa);
                 
@@ -157,11 +194,19 @@ namespace GOsasun_app.Interfazea
                     PazienteId = _hautatutakoPazientea.Id,
                     ErregistroData = DateTime.Now,
                     OsasunLangileId = _erabiltzailea?.Id,
-                    Oharrak = "Eskuzko sarrera"
+                    Oharrak = _isPisua ? "Pisua - eskuzko sarrera" : "Altuera - eskuzko sarrera"
                 };
 
                 if (_isPisua) berria.PisuaKg = _numBalioa.Value;
                 else berria.Altuera = _numBalioa.Value;
+
+                string? oharGehigarria = JarraipenOharLaguntzailea.EskatuAukerakoOharra(
+                    this,
+                    _isPisua ? "Pisua jarraipenaren oharra" : "Altuera jarraipenaren oharra",
+                    _isPisua
+                        ? "Pisua gorde aurretik, nahi baduzu ohar osagarria gehitu dezakezu."
+                        : "Altuera gorde aurretik, nahi baduzu ohar osagarria gehitu dezakezu.");
+                berria.Oharrak = JarraipenOharLaguntzailea.BatuOharrak(berria.Oharrak, oharGehigarria);
 
                 if (_jarraipenaKontrolatzailea.GordeJarraipena(berria))
                 {

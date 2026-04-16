@@ -18,7 +18,9 @@ namespace GOsasun_app.Interfazea
     /// </summary>
     public partial class PazienteenZerrenda : OinarriPantaila
     {
-        private const int EkintzaZutabeZabalera = 160;
+        private const int PazienteenZerrendaZabalera = 2360;
+        private const int OinarrizkoZutabeZabaleraGuztira = 2100;
+        private const int EkintzaZutabeZabalera = 220;
         private const int EkintzaIkonoTamaina = 22;
         private readonly ErabiltzaileKontrolatzailea _kontrolatzailea;
         private List<Pazientea> _pazienteak = new List<Pazientea>();
@@ -29,6 +31,7 @@ namespace GOsasun_app.Interfazea
         {
             InitializeComponent();
             _kontrolatzailea = new ErabiltzaileKontrolatzailea();
+            EzarriFormularioZabalera();
             
             // Izenburua aldatu rolaran arabera
             if (_erabiltzailea is HarrerakoLangilea)
@@ -36,10 +39,12 @@ namespace GOsasun_app.Interfazea
                 lblIzenburua.Text = "PAZIENTEEN KUDEAKETA";
                 chkPazienteGuztiak.Checked = true;
                 chkPazienteGuztiak.Enabled = false;
+                btnPazienteBerria.Visible = false;
             }
             else
             {
                 chkPazienteGuztiak.Checked = false;
+                btnPazienteBerria.Visible = true;
             }
 
             KonfiguratuTaula();
@@ -51,6 +56,7 @@ namespace GOsasun_app.Interfazea
             chkPazienteGuztiak.CheckedChanged += PazienteMotaFiltroa_CheckedChanged;
             chkAltan.CheckedChanged += EgoeraFiltroa_CheckedChanged;
             chkBajan.CheckedChanged += EgoeraFiltroa_CheckedChanged;
+            btnPazienteBerria.Click += BtnPazienteBerria_Click;
         }
 
         private void KonfiguratuTaula()
@@ -59,17 +65,17 @@ namespace GOsasun_app.Interfazea
             dgvPazienteak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             dgvPazienteak.Columns.Clear();
 
-            dgvPazienteak.Columns.Add(SortuTestuZutabea("Nan", "NAN", 150));
-            dgvPazienteak.Columns.Add(SortuTestuZutabea("Izena", "Izena", 140));
-            dgvPazienteak.Columns.Add(SortuTestuZutabea("Abizenak", "Abizenak", 190));
-            dgvPazienteak.Columns.Add(SortuTestuZutabea("Emaila", "Emaila", 240));
-            dgvPazienteak.Columns.Add(SortuTestuZutabea("Telefonoa", "Telefonoa", 135));
-            dgvPazienteak.Columns.Add(SortuTestuZutabea("JaiotzeData", "Jaiotze data", 130, "yyyy/MM/dd"));
-            dgvPazienteak.Columns.Add(SortuTestuZutabea("Sexua", "Sexua", 110));
-            dgvPazienteak.Columns.Add(SortuTestuZutabea("OdolTaldea", "Odol taldea", 120));
-            dgvPazienteak.Columns.Add(SortuTestuZutabea("AzkenAltuera", "Altuera", 110, "N2"));
-            dgvPazienteak.Columns.Add(SortuTestuZutabea("AzkenPisua", "Pisua", 110, "N2"));
-            dgvPazienteak.Columns.Add(SortuTestuZutabea("EgoeraKlinikoa", "Egoera", 110));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("Nan", "NAN", LortuDoitutakoZabalera(185)));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("Izena", "Izena", LortuDoitutakoZabalera(150)));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("Abizenak", "Abizenak", LortuDoitutakoZabalera(220)));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("Emaila", "Emaila", LortuDoitutakoZabalera(380)));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("Telefonoa", "Telefonoa", LortuDoitutakoZabalera(180)));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("JaiotzeData", "Jaiotze data", LortuDoitutakoZabalera(195), "yyyy/MM/dd"));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("Sexua", "Sexua", LortuDoitutakoZabalera(110)));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("OdolTaldea", "Odol taldea", LortuDoitutakoZabalera(120)));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("AzkenAltuera", "Altuera", LortuDoitutakoZabalera(110), "N2"));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("AzkenPisua", "Pisua", LortuDoitutakoZabalera(110), "N2"));
+            dgvPazienteak.Columns.Add(SortuTestuZutabea("EgoeraKlinikoa", "Egoera", LortuDoitutakoZabalera(120)));
 
             if (_erabiltzailea is HarrerakoLangilea)
             {
@@ -100,7 +106,7 @@ namespace GOsasun_app.Interfazea
                     DataPropertyName = "IzenOsoa",
                     HeaderText = "EKINTZAK",
                     Name = "Ekintzak",
-                    Width = EkintzaZutabeZabalera,
+                    Width = LortuDoitutakoZabalera(EkintzaZutabeZabalera),
                     SortMode = DataGridViewColumnSortMode.NotSortable,
                     ReadOnly = true,
                     DefaultCellStyle = new DataGridViewCellStyle
@@ -126,6 +132,99 @@ namespace GOsasun_app.Interfazea
             dgvPazienteak.ColumnHeaderMouseClick += DgvPazienteak_ColumnHeaderMouseClick;
             dgvPazienteak.CellPainting += DgvPazienteak_CellPainting;
             dgvPazienteak.CellMouseClick += DgvPazienteak_CellMouseClick;
+        }
+
+        private void EzarriFormularioZabalera()
+        {
+            int pantailaZabalera = Screen.FromControl(this).WorkingArea.Width;
+            int zabalera = Math.Min(PazienteenZerrendaZabalera, Math.Max(1660, pantailaZabalera - 60));
+
+            ClientSize = new Size(zabalera, ClientSize.Height);
+            _goiburuBarra.Width = zabalera;
+            _edukiPanela.Size = new Size(zabalera, _edukiPanela.Height);
+            EguneratuBilatzailearenDiseinua();
+            ZentratuPantailaLanEremuan();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            EzarriFormularioZabalera();
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            BeginInvoke(new Action(() =>
+            {
+                EzarriFormularioZabalera();
+                EguneratuTaularenZabalerak();
+                KargatuPazienteak(txtBilatu.Text.Trim());
+                ZentratuPantailaLanEremuan();
+            }));
+        }
+
+        private int LortuDoitutakoZabalera(int oinarrizkoZabalera)
+        {
+            if (_erabiltzailea is HarrerakoLangilea)
+            {
+                return oinarrizkoZabalera;
+            }
+
+            int erabilgarri = Math.Max(1480, ClientSize.Width - 140);
+            double eskala = Math.Min(1d, (double)erabilgarri / OinarrizkoZutabeZabaleraGuztira);
+            return Math.Max(70, (int)Math.Round(oinarrizkoZabalera * eskala));
+        }
+
+        private void EguneratuTaularenZabalerak()
+        {
+            if (dgvPazienteak.Columns.Count == 0 || _erabiltzailea is HarrerakoLangilea)
+            {
+                return;
+            }
+
+            Dictionary<string, int> zabalerak = new Dictionary<string, int>
+            {
+                ["Nan"] = 185,
+                ["Izena"] = 150,
+                ["Abizenak"] = 220,
+                ["Emaila"] = 380,
+                ["Telefonoa"] = 180,
+                ["JaiotzeData"] = 195,
+                ["Sexua"] = 110,
+                ["OdolTaldea"] = 120,
+                ["AzkenAltuera"] = 110,
+                ["AzkenPisua"] = 110,
+                ["EgoeraKlinikoa"] = 120,
+                ["Ekintzak"] = EkintzaZutabeZabalera
+            };
+
+            foreach (DataGridViewColumn zutabea in dgvPazienteak.Columns)
+            {
+                if (zabalerak.TryGetValue(zutabea.Name, out int oinarrizkoZabalera))
+                {
+                    zutabea.Width = LortuDoitutakoZabalera(oinarrizkoZabalera);
+                }
+            }
+        }
+
+        private void EguneratuBilatzailearenDiseinua()
+        {
+            int eskuinMuga = pnlBilatzailea.Width - 22;
+
+            if (btnPazienteBerria.Visible)
+            {
+                btnPazienteBerria.Location = new Point(eskuinMuga - btnPazienteBerria.Width, btnPazienteBerria.Location.Y);
+                eskuinMuga = btnPazienteBerria.Left - 18;
+            }
+
+            chkBajan.Location = new Point(eskuinMuga - chkBajan.Width, chkBajan.Location.Y);
+            eskuinMuga = chkBajan.Left - 18;
+            chkAltan.Location = new Point(eskuinMuga - chkAltan.Width, chkAltan.Location.Y);
+            eskuinMuga = chkAltan.Left - 18;
+            chkPazienteGuztiak.Location = new Point(eskuinMuga - chkPazienteGuztiak.Width, chkPazienteGuztiak.Location.Y);
+
+            txtBilatu.Width = Math.Max(560, chkPazienteGuztiak.Left - txtBilatu.Left - 26);
         }
 
         private static DataGridViewTextBoxColumn SortuTestuZutabea(string propertyName, string headerText, int width, string? format = null)
@@ -242,7 +341,9 @@ namespace GOsasun_app.Interfazea
 
         private void MarraztuEkintzaBotoia(Graphics graphics, string ekintza, Rectangle rectangle)
         {
-            Color kolorea = Color.FromArgb(192, 57, 43);
+            Color kolorea = ekintza == "fitxa"
+                ? Color.FromArgb(41, 128, 185)
+                : Color.FromArgb(39, 174, 96);
             string fallbackIkurra = ekintza == "fitxa" ? "F" : "J";
 
             using GraphicsPath path = SortuBiribildua(rectangle, 12);
@@ -371,6 +472,21 @@ namespace GOsasun_app.Interfazea
             {
                 MessageBox.Show("Errorea pazienteak kargatzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void BtnPazienteBerria_Click(object? sender, EventArgs e)
+        {
+            if (_erabiltzailea == null) return;
+
+            ErabiltzaileaSortu formularioa = new ErabiltzaileaSortu("Pazientea", _erabiltzailea, _erabiltzailea.Id);
+            formularioa.FormClosed += (s, args) =>
+            {
+                Show();
+                KargatuPazienteak(txtBilatu.Text.Trim());
+            };
+
+            Hide();
+            formularioa.Show();
         }
 
         private void TxtBilatu_TextChanged(object? sender, EventArgs e)
