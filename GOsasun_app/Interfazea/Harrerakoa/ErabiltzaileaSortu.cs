@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Globalization;
 using System.Windows.Forms;
 using GOsasun_app.Kontrola;
 using GOsasun_app.Modeloa;
@@ -49,6 +50,9 @@ namespace GOsasun_app.Interfazea
             lblTelefonoa.Visible = txtTelefonoa.Visible = false;
             lblHelbidea.Visible = txtHelbidea.Visible = false;
             lblHerria.Visible = txtHerria.Visible = txtPostaKodea.Visible = false;
+            lblOdolTaldea.Visible = cmbOdolTaldea.Visible = false;
+            lblPisua.Visible = txtPisua.Visible = false;
+            lblAltuera.Visible = txtAltuera.Visible = false;
             lblElkargokide.Visible = txtElkargokide.Visible = txtEspezialitatea.Visible = false;
             lblKontsulta.Visible = txtKontsulta.Visible = cmbLanaldia.Visible = false;
             lblTxanda.Visible = cmbTxanda.Visible = false;
@@ -62,6 +66,9 @@ namespace GOsasun_app.Interfazea
                 lblTelefonoa.Visible = txtTelefonoa.Visible = true;
                 lblHelbidea.Visible = txtHelbidea.Visible = true;
                 lblHerria.Visible = txtHerria.Visible = txtPostaKodea.Visible = true;
+                lblOdolTaldea.Visible = cmbOdolTaldea.Visible = true;
+                lblPisua.Visible = txtPisua.Visible = true;
+                lblAltuera.Visible = txtAltuera.Visible = true;
                 lblOsasunLangilea.Visible = cmbOsasunLangileak.Visible = btnLangileaGehitu.Visible = true;
                 lblEsleitutakoLangileak.Visible = lstEsleitutakoLangileak.Visible = btnLangileaKendu.Visible = true;
             }
@@ -84,6 +91,7 @@ namespace GOsasun_app.Interfazea
 
             cmbHizkuntza.SelectedIndex = 0;
             cmbSexua.SelectedIndex = 0;
+            cmbOdolTaldea.SelectedIndex = 0;
             cmbLanaldia.SelectedIndex = 0;
             cmbTxanda.SelectedIndex = 0;
 
@@ -271,6 +279,12 @@ namespace GOsasun_app.Interfazea
 
             if (RolPazienteaDa())
             {
+                if (!SaiatuLortuDecimala(txtPisua.Text, "Pisua", out decimal? pisua)
+                    || !SaiatuLortuDecimala(txtAltuera.Text, "Altuera", out decimal? altuera))
+                {
+                    return;
+                }
+
                 Pazientea p = new Pazientea
                 {
                     Emaila = txtEmaila.Text,
@@ -284,7 +298,10 @@ namespace GOsasun_app.Interfazea
                     Telefonoa = txtTelefonoa.Text,
                     Helbidea = txtHelbidea.Text,
                     Herria = txtHerria.Text,
-                    PostaKodea = txtPostaKodea.Text
+                    PostaKodea = txtPostaKodea.Text,
+                    OdolTaldea = string.IsNullOrWhiteSpace(cmbOdolTaldea.Text) ? null : cmbOdolTaldea.Text,
+                    AzkenPisua = pisua,
+                    AzkenAltuera = altuera
                 };
                 ondoGordeta = _kontrolatzailea.SortuPazientea(
                     p,
@@ -334,6 +351,27 @@ namespace GOsasun_app.Interfazea
             {
                 MessageBox.Show("Errorea gertatu da gordetzean. Ziurtatu e-maila edota NAN-a ez direla errepikatzen ari.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private bool SaiatuLortuDecimala(string testua, string eremuIzena, out decimal? balioa)
+        {
+            balioa = null;
+
+            if (string.IsNullOrWhiteSpace(testua))
+            {
+                return true;
+            }
+
+            string balioGarbitua = testua.Trim();
+            if (decimal.TryParse(balioGarbitua, NumberStyles.Number, CultureInfo.CurrentCulture, out decimal emaitza)
+                || decimal.TryParse(balioGarbitua, NumberStyles.Number, CultureInfo.InvariantCulture, out emaitza))
+            {
+                balioa = emaitza;
+                return true;
+            }
+
+            MessageBox.Show($"{eremuIzena} zenbakiz sartu behar da.", "Kontuz", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return false;
         }
 
     }

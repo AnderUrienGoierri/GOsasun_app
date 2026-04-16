@@ -34,8 +34,18 @@ namespace GOsasun_app.Interfazea
         {
             InitializeComponent();
             KonfiguratuFormularioa();
-            KargatuBaliabideak();
-            EgokituPortadarenNeurrira();
+
+            if (!DiseinuModuan())
+            {
+                KargatuBaliabideak();
+                EgokituPortadarenNeurrira();
+            }
+
+            if (_goiburuBarra != null)
+            {
+                _goiburuBarra.SaioaItxi -= GoiburuBarra_SaioaItxi;
+                _goiburuBarra.SaioaItxi += GoiburuBarra_SaioaItxi;
+            }
 
             // Atzera botoiaren gertaera lehenetsia
             if (_atzeraBotoia != null)
@@ -57,7 +67,6 @@ namespace GOsasun_app.Interfazea
             if (_goiburuBarra != null)
             {
                 _goiburuBarra.EguneratuInformazioa(_erabiltzailea.IzenOsoa, _erabiltzailea.Rola);
-                _goiburuBarra.SaioaItxi += GoiburuBarra_SaioaItxi;
             }
         }
 

@@ -584,6 +584,23 @@ namespace GOsasun_app.Repositorioa
             }
         }
 
+        public bool AldatuPazientearenEgoera(int pazienteId, string egoeraBerria)
+        {
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            {
+                string query = @"UPDATE pazienteak
+                                 SET egoera_klinikoa = @egoera
+                                 WHERE id = @id";
+
+                using (var komandoa = new MySqlCommand(query, konexioa))
+                {
+                    komandoa.Parameters.AddWithValue("@id", pazienteId);
+                    komandoa.Parameters.AddWithValue("@egoera", NormalizatuEgoeraFiltroa(egoeraBerria) ?? "Alta");
+                    return komandoa.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
         public bool EguneratuPazientea(Pazientea p)
         {
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())

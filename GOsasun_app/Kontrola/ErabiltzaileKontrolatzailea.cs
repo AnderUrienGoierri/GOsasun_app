@@ -116,6 +116,12 @@ namespace GOsasun_app.Kontrola
         {
             return _db.EzabatuPazientea(id);
         }
+
+        public bool AldatuPazientearenEgoera(int pazienteId, string egoeraBerria)
+        {
+            return _db.AldatuPazientearenEgoera(pazienteId, egoeraBerria);
+        }
+
         public bool EguneratuPazientea(Pazientea p)
         {
             return _db.EguneratuPazientea(p);

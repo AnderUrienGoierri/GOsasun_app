@@ -151,7 +151,7 @@ namespace GOsasun_app.Interfazea.Kontrolak
                 // Handiagoa egin: aurreko 120tik 150-era (edo tamainaren %60)
                 int maxTamaina = Math.Min(this.Width - 60, this.Height - 100);
                 int ikonoTamaina = Math.Max(maxTamaina, 80); 
-                
+
                 int ikonoX = (this.Width - ikonoTamaina) / 2;
                 int ikonoY = 25; // Zertxobait gorago jarri tokia lortzeko
                 g.DrawImage(_ikonoa, new Rectangle(ikonoX, ikonoY, ikonoTamaina, ikonoTamaina));

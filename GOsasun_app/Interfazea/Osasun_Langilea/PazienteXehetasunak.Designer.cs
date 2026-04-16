@@ -82,9 +82,9 @@
             pnlGoiburua.Controls.Add(lblIzena);
             pnlGoiburua.Controls.Add(lblAzpiInformazioa);
             pnlGoiburua.Controls.Add(lblEgoeraBadge);
-            pnlGoiburua.Location = new Point(72, 44);
+            pnlGoiburua.Location = new Point(12, 44);
             pnlGoiburua.Name = "pnlGoiburua";
-            pnlGoiburua.Size = new Size(1736, 236);
+            pnlGoiburua.Size = new Size(1878, 236);
             pnlGoiburua.TabIndex = 0;
             // 
             // lblFitxaMota
@@ -135,9 +135,9 @@
             pnlArgazkia.BorderStyle = BorderStyle.FixedSingle;
             pnlArgazkia.Controls.Add(pbIrudia);
             pnlArgazkia.Controls.Add(lblArgazkiAzalpena);
-            pnlArgazkia.Location = new Point(73, 288);
+            pnlArgazkia.Location = new Point(12, 288);
             pnlArgazkia.Name = "pnlArgazkia";
-            pnlArgazkia.Size = new Size(328, 532);
+            pnlArgazkia.Size = new Size(389, 532);
             pnlArgazkia.TabIndex = 1;
             // 
             // pbIrudia
@@ -175,7 +175,7 @@
             pnlIdentifikazioa.Controls.Add(lblSexuaBalioa);
             pnlIdentifikazioa.Location = new Point(407, 286);
             pnlIdentifikazioa.Name = "pnlIdentifikazioa";
-            pnlIdentifikazioa.Size = new Size(601, 334);
+            pnlIdentifikazioa.Size = new Size(601, 453);
             pnlIdentifikazioa.TabIndex = 2;
             // 
             // lblIdentifikazioa
@@ -256,7 +256,7 @@
             pnlHarremana.Controls.Add(lblHerriaBalioa);
             pnlHarremana.Location = new Point(1014, 287);
             pnlHarremana.Name = "pnlHarremana";
-            pnlHarremana.Size = new Size(794, 334);
+            pnlHarremana.Size = new Size(876, 452);
             pnlHarremana.TabIndex = 3;
             // 
             // lblHarremana
@@ -335,9 +335,9 @@
             pnlKlinikoa.Controls.Add(lblPisuaBalioa);
             pnlKlinikoa.Controls.Add(lblEgoeraTitulua);
             pnlKlinikoa.Controls.Add(lblEgoeraBalioa);
-            pnlKlinikoa.Location = new Point(406, 743);
+            pnlKlinikoa.Location = new Point(406, 745);
             pnlKlinikoa.Name = "pnlKlinikoa";
-            pnlKlinikoa.Size = new Size(1402, 602);
+            pnlKlinikoa.Size = new Size(1484, 600);
             pnlKlinikoa.TabIndex = 4;
             pnlKlinikoa.Paint += pnlKlinikoa_Paint;
             // 
@@ -445,7 +445,7 @@
             label.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
             label.ForeColor = System.Drawing.Color.FromArgb(30, 49, 69);
             label.Location = new System.Drawing.Point(x, y);
-            label.Size = new System.Drawing.Size(zabalera, 42);
+            label.Size = new System.Drawing.Size(zabalera, 52);
             label.Text = testua;
         }
 

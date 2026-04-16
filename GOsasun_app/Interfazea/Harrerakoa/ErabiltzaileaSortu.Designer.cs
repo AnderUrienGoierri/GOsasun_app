@@ -47,6 +47,12 @@ namespace GOsasun_app.Interfazea
             this.txtHerria = new System.Windows.Forms.TextBox();
             this.lblPostaKodea = new System.Windows.Forms.Label();
             this.txtPostaKodea = new System.Windows.Forms.TextBox();
+            this.lblOdolTaldea = new System.Windows.Forms.Label();
+            this.cmbOdolTaldea = new System.Windows.Forms.ComboBox();
+            this.lblPisua = new System.Windows.Forms.Label();
+            this.txtPisua = new System.Windows.Forms.TextBox();
+            this.lblAltuera = new System.Windows.Forms.Label();
+            this.txtAltuera = new System.Windows.Forms.TextBox();
             this.lblElkargokide = new System.Windows.Forms.Label();
             this.txtElkargokide = new System.Windows.Forms.TextBox();
             this.lblEspezialitatea = new System.Windows.Forms.Label();
@@ -110,6 +116,12 @@ namespace GOsasun_app.Interfazea
             this.pnlForm.Controls.Add(this.txtHerria);
             this.pnlForm.Controls.Add(this.lblPostaKodea);
             this.pnlForm.Controls.Add(this.txtPostaKodea);
+            this.pnlForm.Controls.Add(this.lblOdolTaldea);
+            this.pnlForm.Controls.Add(this.cmbOdolTaldea);
+            this.pnlForm.Controls.Add(this.lblPisua);
+            this.pnlForm.Controls.Add(this.txtPisua);
+            this.pnlForm.Controls.Add(this.lblAltuera);
+            this.pnlForm.Controls.Add(this.txtAltuera);
             this.pnlForm.Controls.Add(this.lblElkargokide);
             this.pnlForm.Controls.Add(this.txtElkargokide);
             this.pnlForm.Controls.Add(this.lblEspezialitatea);
@@ -298,17 +310,58 @@ namespace GOsasun_app.Interfazea
             this.txtPostaKodea.Location = new System.Drawing.Point(610, 630);
             this.txtPostaKodea.Size = new System.Drawing.Size(290, 47);
             //
+            // lblOdolTaldea
+            //
+            this.lblOdolTaldea.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.lblOdolTaldea.Location = new System.Drawing.Point(40, 690);
+            this.lblOdolTaldea.Size = new System.Drawing.Size(200, 40);
+            this.lblOdolTaldea.Text = "Odol taldea:";
+            //
+            // cmbOdolTaldea
+            //
+            this.cmbOdolTaldea.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbOdolTaldea.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.cmbOdolTaldea.Items.AddRange(new object[] { "", "0+", "0-", "A+", "A-", "B+", "B-", "AB+", "AB-" });
+            this.cmbOdolTaldea.Location = new System.Drawing.Point(300, 690);
+            this.cmbOdolTaldea.Size = new System.Drawing.Size(220, 48);
+            //
+            // lblPisua
+            //
+            this.lblPisua.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.lblPisua.Location = new System.Drawing.Point(540, 690);
+            this.lblPisua.Size = new System.Drawing.Size(140, 40);
+            this.lblPisua.Text = "Pisua (kg):";
+            //
+            // txtPisua
+            //
+            this.txtPisua.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.txtPisua.Location = new System.Drawing.Point(680, 690);
+            this.txtPisua.Size = new System.Drawing.Size(220, 47);
+            //
+            // lblAltuera
+            //
+            this.lblAltuera.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.lblAltuera.Location = new System.Drawing.Point(40, 750);
+            this.lblAltuera.Size = new System.Drawing.Size(200, 40);
+            this.lblAltuera.Text = "Altuera (cm):";
+            //
+            // txtAltuera
+            //
+            this.txtAltuera.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.txtAltuera.Location = new System.Drawing.Point(300, 750);
+            this.txtAltuera.Size = new System.Drawing.Size(220, 47);
+            //
             // lblElkargokide
             //
             this.lblElkargokide.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.lblElkargokide.Location = new System.Drawing.Point(40, 690);
+            this.lblElkargokide.Location = new System.Drawing.Point(40, 830);
             this.lblElkargokide.Size = new System.Drawing.Size(220, 40);
             this.lblElkargokide.Text = "Elkargokide / Esp:";
             //
             // txtElkargokide
             //
             this.txtElkargokide.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtElkargokide.Location = new System.Drawing.Point(300, 690);
+            this.txtElkargokide.Location = new System.Drawing.Point(300, 830);
             this.txtElkargokide.Size = new System.Drawing.Size(300, 47);
             //
             // lblEspezialitatea
@@ -321,20 +374,20 @@ namespace GOsasun_app.Interfazea
             // txtEspezialitatea
             //
             this.txtEspezialitatea.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtEspezialitatea.Location = new System.Drawing.Point(610, 690);
+            this.txtEspezialitatea.Location = new System.Drawing.Point(610, 830);
             this.txtEspezialitatea.Size = new System.Drawing.Size(290, 47);
             //
             // lblKontsulta
             //
             this.lblKontsulta.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.lblKontsulta.Location = new System.Drawing.Point(40, 750);
+            this.lblKontsulta.Location = new System.Drawing.Point(40, 890);
             this.lblKontsulta.Size = new System.Drawing.Size(220, 40);
             this.lblKontsulta.Text = "Kontsulta / Lan:";
             //
             // txtKontsulta
             //
             this.txtKontsulta.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtKontsulta.Location = new System.Drawing.Point(300, 750);
+            this.txtKontsulta.Location = new System.Drawing.Point(300, 890);
             this.txtKontsulta.Size = new System.Drawing.Size(300, 47);
             //
             // lblLanaldia
@@ -349,13 +402,13 @@ namespace GOsasun_app.Interfazea
             this.cmbLanaldia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLanaldia.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.cmbLanaldia.Items.AddRange(new object[] { "Osoa", "Murriztua" });
-            this.cmbLanaldia.Location = new System.Drawing.Point(610, 750);
+            this.cmbLanaldia.Location = new System.Drawing.Point(610, 890);
             this.cmbLanaldia.Size = new System.Drawing.Size(290, 48);
             //
             // lblTxanda
             //
             this.lblTxanda.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.lblTxanda.Location = new System.Drawing.Point(40, 810);
+            this.lblTxanda.Location = new System.Drawing.Point(40, 950);
             this.lblTxanda.Size = new System.Drawing.Size(200, 40);
             this.lblTxanda.Text = "Txanda:";
             //
@@ -364,13 +417,13 @@ namespace GOsasun_app.Interfazea
             this.cmbTxanda.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTxanda.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.cmbTxanda.Items.AddRange(new object[] { "Goizez", "Arratsaldez", "Gauez" });
-            this.cmbTxanda.Location = new System.Drawing.Point(300, 810);
+            this.cmbTxanda.Location = new System.Drawing.Point(300, 950);
             this.cmbTxanda.Size = new System.Drawing.Size(600, 48);
             //
             // lblIrudia
             //
             this.lblIrudia.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.lblIrudia.Location = new System.Drawing.Point(40, 890);
+            this.lblIrudia.Location = new System.Drawing.Point(40, 1030);
             this.lblIrudia.Name = "lblIrudia";
             this.lblIrudia.Size = new System.Drawing.Size(200, 40);
             this.lblIrudia.TabIndex = 21;
@@ -379,7 +432,7 @@ namespace GOsasun_app.Interfazea
             // pbIrudia
             //
             this.pbIrudia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbIrudia.Location = new System.Drawing.Point(300, 890);
+            this.pbIrudia.Location = new System.Drawing.Point(300, 1030);
             this.pbIrudia.Name = "pbIrudia";
             this.pbIrudia.Size = new System.Drawing.Size(180, 180);
             this.pbIrudia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -393,7 +446,7 @@ namespace GOsasun_app.Interfazea
             this.btnIrudiaAukeratu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIrudiaAukeratu.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnIrudiaAukeratu.ForeColor = System.Drawing.Color.White;
-            this.btnIrudiaAukeratu.Location = new System.Drawing.Point(520, 905);
+            this.btnIrudiaAukeratu.Location = new System.Drawing.Point(520, 1045);
             this.btnIrudiaAukeratu.Name = "btnIrudiaAukeratu";
             this.btnIrudiaAukeratu.Size = new System.Drawing.Size(250, 56);
             this.btnIrudiaAukeratu.TabIndex = 23;
@@ -403,7 +456,7 @@ namespace GOsasun_app.Interfazea
             // lblIrudiFitxategia
             //
             this.lblIrudiFitxategia.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblIrudiFitxategia.Location = new System.Drawing.Point(520, 980);
+            this.lblIrudiFitxategia.Location = new System.Drawing.Point(520, 1120);
             this.lblIrudiFitxategia.Name = "lblIrudiFitxategia";
             this.lblIrudiFitxategia.Size = new System.Drawing.Size(380, 90);
             this.lblIrudiFitxategia.TabIndex = 24;
@@ -412,7 +465,7 @@ namespace GOsasun_app.Interfazea
             // lblOsasunLangilea
             //
             this.lblOsasunLangilea.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.lblOsasunLangilea.Location = new System.Drawing.Point(40, 1100);
+            this.lblOsasunLangilea.Location = new System.Drawing.Point(40, 1240);
             this.lblOsasunLangilea.Name = "lblOsasunLangilea";
             this.lblOsasunLangilea.Size = new System.Drawing.Size(240, 40);
             this.lblOsasunLangilea.TabIndex = 25;
@@ -422,7 +475,7 @@ namespace GOsasun_app.Interfazea
             //
             this.cmbOsasunLangileak.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.cmbOsasunLangileak.FormattingEnabled = true;
-            this.cmbOsasunLangileak.Location = new System.Drawing.Point(300, 1100);
+            this.cmbOsasunLangileak.Location = new System.Drawing.Point(300, 1240);
             this.cmbOsasunLangileak.Name = "cmbOsasunLangileak";
             this.cmbOsasunLangileak.Size = new System.Drawing.Size(450, 48);
             this.cmbOsasunLangileak.TabIndex = 26;
@@ -434,7 +487,7 @@ namespace GOsasun_app.Interfazea
             this.btnLangileaGehitu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLangileaGehitu.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
             this.btnLangileaGehitu.ForeColor = System.Drawing.Color.White;
-            this.btnLangileaGehitu.Location = new System.Drawing.Point(770, 1096);
+            this.btnLangileaGehitu.Location = new System.Drawing.Point(770, 1236);
             this.btnLangileaGehitu.Name = "btnLangileaGehitu";
             this.btnLangileaGehitu.Size = new System.Drawing.Size(130, 56);
             this.btnLangileaGehitu.TabIndex = 27;
@@ -444,7 +497,7 @@ namespace GOsasun_app.Interfazea
             // lblEsleitutakoLangileak
             //
             this.lblEsleitutakoLangileak.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
-            this.lblEsleitutakoLangileak.Location = new System.Drawing.Point(300, 1165);
+            this.lblEsleitutakoLangileak.Location = new System.Drawing.Point(300, 1305);
             this.lblEsleitutakoLangileak.Name = "lblEsleitutakoLangileak";
             this.lblEsleitutakoLangileak.Size = new System.Drawing.Size(360, 40);
             this.lblEsleitutakoLangileak.TabIndex = 28;
@@ -455,7 +508,7 @@ namespace GOsasun_app.Interfazea
             this.lstEsleitutakoLangileak.Font = new System.Drawing.Font("Segoe UI", 10.5F);
             this.lstEsleitutakoLangileak.FormattingEnabled = true;
             this.lstEsleitutakoLangileak.ItemHeight = 37;
-            this.lstEsleitutakoLangileak.Location = new System.Drawing.Point(300, 1210);
+            this.lstEsleitutakoLangileak.Location = new System.Drawing.Point(300, 1350);
             this.lstEsleitutakoLangileak.Name = "lstEsleitutakoLangileak";
             this.lstEsleitutakoLangileak.Size = new System.Drawing.Size(600, 152);
             this.lstEsleitutakoLangileak.TabIndex = 29;
@@ -467,7 +520,7 @@ namespace GOsasun_app.Interfazea
             this.btnLangileaKendu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLangileaKendu.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
             this.btnLangileaKendu.ForeColor = System.Drawing.Color.White;
-            this.btnLangileaKendu.Location = new System.Drawing.Point(920, 1210);
+            this.btnLangileaKendu.Location = new System.Drawing.Point(920, 1350);
             this.btnLangileaKendu.Name = "btnLangileaKendu";
             this.btnLangileaKendu.Size = new System.Drawing.Size(180, 56);
             this.btnLangileaKendu.TabIndex = 30;
@@ -480,7 +533,7 @@ namespace GOsasun_app.Interfazea
             this.btnGorde.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGorde.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.btnGorde.ForeColor = System.Drawing.Color.White;
-            this.btnGorde.Location = new System.Drawing.Point(350, 1390);
+            this.btnGorde.Location = new System.Drawing.Point(350, 1530);
             this.btnGorde.Name = "btnGorde";
             this.btnGorde.Size = new System.Drawing.Size(300, 60);
             this.btnGorde.TabIndex = 31;
@@ -527,6 +580,12 @@ namespace GOsasun_app.Interfazea
         private System.Windows.Forms.TextBox txtHerria;
         private System.Windows.Forms.Label lblPostaKodea;
         private System.Windows.Forms.TextBox txtPostaKodea;
+        private System.Windows.Forms.Label lblOdolTaldea;
+        private System.Windows.Forms.ComboBox cmbOdolTaldea;
+        private System.Windows.Forms.Label lblPisua;
+        private System.Windows.Forms.TextBox txtPisua;
+        private System.Windows.Forms.Label lblAltuera;
+        private System.Windows.Forms.TextBox txtAltuera;
         private System.Windows.Forms.Label lblElkargokide;
         private System.Windows.Forms.TextBox txtElkargokide;
         private System.Windows.Forms.Label lblEspezialitatea;

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
+using GOsasun_app.Kontrola;
 using GOsasun_app.Modeloa;
 
 namespace GOsasun_app.Interfazea
@@ -13,6 +15,13 @@ namespace GOsasun_app.Interfazea
     public partial class PazienteXehetasunak : OinarriPantaila
     {
         private readonly Pazientea _pazientea;
+        private readonly ErabiltzaileKontrolatzailea _kontrolatzailea = new ErabiltzaileKontrolatzailea();
+        private readonly Button _btnEgoeraMedikoaAldatu = new Button();
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public PazienteXehetasunak() : this(SortuDiseinukoPazientea())
+        {
+        }
 
         public PazienteXehetasunak(Pazientea pazientea) : base()
         {
@@ -34,7 +43,29 @@ namespace GOsasun_app.Interfazea
             _goiburuBarra.Width = ClientSize.Width;
             _edukiPanela.Size = new Size(ClientSize.Width, _edukiPanela.Height);
             lblFitxaMota.Text = "PAZIENTEAREN FITXA MEDIKOA";
+            KonfiguratuGoiburukoEkintzak();
             KonfiguratuTxartelenEdukia();
+        }
+
+        private void KonfiguratuGoiburukoEkintzak()
+        {
+            _btnEgoeraMedikoaAldatu.Text = "EGOERA MEDIKOA ALDATU";
+            _btnEgoeraMedikoaAldatu.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            _btnEgoeraMedikoaAldatu.ForeColor = Color.White;
+            _btnEgoeraMedikoaAldatu.BackColor = Color.FromArgb(63, 112, 153);
+            _btnEgoeraMedikoaAldatu.FlatStyle = FlatStyle.Flat;
+            _btnEgoeraMedikoaAldatu.FlatAppearance.BorderSize = 0;
+            _btnEgoeraMedikoaAldatu.Size = new Size(310, 50);
+            _btnEgoeraMedikoaAldatu.Location = new Point(pnlGoiburua.Width - _btnEgoeraMedikoaAldatu.Width - 30, 82);
+            _btnEgoeraMedikoaAldatu.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            _btnEgoeraMedikoaAldatu.Cursor = Cursors.Hand;
+            _btnEgoeraMedikoaAldatu.Click -= BtnEgoeraMedikoaAldatu_Click;
+            _btnEgoeraMedikoaAldatu.Click += BtnEgoeraMedikoaAldatu_Click;
+
+            if (!pnlGoiburua.Controls.Contains(_btnEgoeraMedikoaAldatu))
+            {
+                pnlGoiburua.Controls.Add(_btnEgoeraMedikoaAldatu);
+            }
         }
 
         private void KonfiguratuTxartelenEdukia()
@@ -76,20 +107,22 @@ namespace GOsasun_app.Interfazea
             KonfiguratuField(lblEmailaTitulua, "EMAILA", 28, 86);
             lblEmailaTitulua.Size = new Size(360, 28);
             KonfiguratuValue(lblEmailaBalioa, "---", 28, 118, 500);
+            lblEmailaBalioa.Height = 52;
 
-            KonfiguratuField(lblTelefonoaTitulua, "TELEFONOA", 592, 86);
-            lblTelefonoaTitulua.Size = new Size(180, 28);
-            KonfiguratuValue(lblTelefonoaBalioa, "---", 592, 118, 170);
+            KonfiguratuField(lblTelefonoaTitulua, "TELEFONOA", 548, 86);
+            lblTelefonoaTitulua.Size = new Size(220, 28);
+            KonfiguratuValue(lblTelefonoaBalioa, "---", 548, 118, 240);
+            lblTelefonoaBalioa.Height = 52;
 
             KonfiguratuField(lblHelbideaTitulua, "HELBIDEA", 28, 206);
             lblHelbideaTitulua.Size = new Size(360, 28);
             KonfiguratuValue(lblHelbideaBalioa, "---", 28, 238, 500);
-            lblHelbideaBalioa.Height = 62;
+            lblHelbideaBalioa.Height = 70;
 
-            KonfiguratuField(lblHerriaTitulua, "HERRIA / POSTA KODEA", 592, 206);
-            lblHerriaTitulua.Size = new Size(190, 28);
-            KonfiguratuValue(lblHerriaBalioa, "---", 592, 238, 170);
-            lblHerriaBalioa.Height = 62;
+            KonfiguratuField(lblHerriaTitulua, "P.K. / UDALERRIA", 548, 206);
+            lblHerriaTitulua.Size = new Size(300, 28);
+            KonfiguratuValue(lblHerriaBalioa, "---", 548, 238, 320);
+            lblHerriaBalioa.Height = 108;
         }
 
         private void KonfiguratuKlinikoAtala()
@@ -98,27 +131,26 @@ namespace GOsasun_app.Interfazea
 
             KonfiguratuField(lblOdolTaldeaTitulua, "ODOL TALDEA", 32, 104);
             KonfiguratuValue(lblOdolTaldeaBalioa, "---", 32, 138, 340);
+            lblOdolTaldeaBalioa.Height = 52;
 
             KonfiguratuField(lblAltueraTitulua, "AZKEN ALTUERA", 430, 104);
             KonfiguratuValue(lblAltueraBalioa, "---", 430, 138, 340);
+            lblAltueraBalioa.Height = 52;
 
             KonfiguratuField(lblPisuaTitulua, "AZKEN PISUA", 32, 286);
             KonfiguratuValue(lblPisuaBalioa, "---", 32, 320, 360);
+            lblPisuaBalioa.Height = 52;
 
             KonfiguratuField(lblEgoeraTitulua, "EGOERA KLINIKOA", 430, 286);
             KonfiguratuValue(lblEgoeraBalioa, "---", 430, 320, 500);
-            lblEgoeraBalioa.Height = 62;
+            lblEgoeraBalioa.Height = 70;
         }
 
         private void BeteDatuak()
         {
             lblIzena.Text = _pazientea.IzenOsoa;
             lblAzpiInformazioa.Text = $"NAN: {_pazientea.Nan}   |   Paziente ID: {_pazientea.Id}";
-            lblEgoeraBadge.Text = NormalizatuEgoera(_pazientea.EgoeraKlinikoa).ToUpperInvariant();
-
-            bool alta = string.Equals(_pazientea.EgoeraKlinikoa, "Alta", StringComparison.OrdinalIgnoreCase);
-            lblEgoeraBadge.BackColor = alta ? Color.FromArgb(223, 245, 232) : Color.FromArgb(252, 231, 230);
-            lblEgoeraBadge.ForeColor = alta ? Color.FromArgb(32, 102, 70) : Color.FromArgb(151, 44, 39);
+            EguneratuEgoeraIkuspegia();
 
             lblNanBalioa.Text = _pazientea.Nan;
             lblJaiotzeDataBalioa.Text = FormateatuData(_pazientea.JaiotzeData);
@@ -131,9 +163,81 @@ namespace GOsasun_app.Interfazea
             lblOdolTaldeaBalioa.Text = FormateatuTestua(_pazientea.OdolTaldea);
             lblAltueraBalioa.Text = _pazientea.AzkenAltuera.HasValue ? $"{_pazientea.AzkenAltuera.Value:F2} cm" : "---";
             lblPisuaBalioa.Text = _pazientea.AzkenPisua.HasValue ? $"{_pazientea.AzkenPisua.Value:F2} kg" : "---";
-            lblEgoeraBalioa.Text = NormalizatuEgoera(_pazientea.EgoeraKlinikoa);
 
             KargatuIrudia();
+        }
+
+        private static Pazientea SortuDiseinukoPazientea()
+        {
+            return new Pazientea
+            {
+                Id = 1,
+                Izena = "Ane",
+                Abizenak = "Etxeberria",
+                Nan = "12345678A",
+                JaiotzeData = new DateTime(1989, 4, 12),
+                Sexua = "Emakumea",
+                Emaila = "ane.etxeberria@paziente.eus",
+                Telefonoa = "688112233",
+                Helbidea = "Kale Nagusia 12",
+                Herria = "Donostia",
+                PostaKodea = "20004",
+                OdolTaldea = "A+",
+                AzkenAltuera = 168.4m,
+                AzkenPisua = 63.2m,
+                EgoeraKlinikoa = "Alta"
+            };
+        }
+
+        private void EguneratuEgoeraIkuspegia()
+        {
+            string egoera = NormalizatuEgoera(_pazientea.EgoeraKlinikoa);
+            bool alta = string.Equals(egoera, "Alta", StringComparison.OrdinalIgnoreCase);
+
+            lblEgoeraBadge.Text = egoera.ToUpperInvariant();
+            lblEgoeraBadge.BackColor = alta ? Color.FromArgb(223, 245, 232) : Color.FromArgb(252, 231, 230);
+            lblEgoeraBadge.ForeColor = alta ? Color.FromArgb(32, 102, 70) : Color.FromArgb(151, 44, 39);
+            lblEgoeraBalioa.Text = egoera;
+
+            _btnEgoeraMedikoaAldatu.BackColor = alta ? Color.FromArgb(181, 79, 79) : Color.FromArgb(54, 126, 87);
+        }
+
+        private void BtnEgoeraMedikoaAldatu_Click(object? sender, EventArgs e)
+        {
+            string unekoEgoera = NormalizatuEgoera(_pazientea.EgoeraKlinikoa);
+            string egoeraBerria = string.Equals(unekoEgoera, "Alta", StringComparison.OrdinalIgnoreCase) ? "Baja" : "Alta";
+            string baieztapenTestua = egoeraBerria == "Alta" ? "altan" : "bajan";
+
+            DialogResult erantzuna = MessageBox.Show(
+                $"Pazientea {baieztapenTestua} jarri nahi duzu?",
+                "Egoera medikoa aldatu",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (erantzuna != DialogResult.Yes)
+            {
+                return;
+            }
+
+            bool ondoGordeDa = _kontrolatzailea.AldatuPazientearenEgoera(_pazientea.Id, egoeraBerria);
+            if (!ondoGordeDa)
+            {
+                MessageBox.Show(
+                    "Ez da posible izan pazientearen egoera medikoa eguneratzea.",
+                    "Errorea",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
+            _pazientea.EgoeraKlinikoa = egoeraBerria;
+            EguneratuEgoeraIkuspegia();
+
+            MessageBox.Show(
+                $"Pazientea {baieztapenTestua} geratu da.",
+                "Egoera eguneratuta",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
         private string FormateatuKokalekua()
@@ -156,7 +260,7 @@ namespace GOsasun_app.Interfazea
                 return herria;
             }
 
-            return $"{postaKodea} {herria}";
+            return $"{postaKodea}{Environment.NewLine}{herria}";
         }
 
         private static string FormateatuData(DateTime data)
