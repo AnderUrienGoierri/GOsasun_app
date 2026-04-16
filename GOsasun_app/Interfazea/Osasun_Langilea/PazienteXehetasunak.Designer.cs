@@ -13,178 +13,320 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
         private void InitializeComponent()
         {
-            this.pbIrudia = new System.Windows.Forms.PictureBox();
-            this.pnlDatuak = new System.Windows.Forms.Panel();
-            this.lblJaiotzeData = new System.Windows.Forms.Label();
-            this.lblNAN = new System.Windows.Forms.Label();
-            this.lblEmaila = new System.Windows.Forms.Label();
-            this.lblTelefonoa = new System.Windows.Forms.Label();
-            this.lblOdolTaldea = new System.Windows.Forms.Label();
-            this.lblAltuera = new System.Windows.Forms.Label();
-            this.lblPisua = new System.Windows.Forms.Label();
-            this.lblEgoera = new System.Windows.Forms.Label();
-            this.lblIzena = new System.Windows.Forms.Label();
-            this._edukiPanela.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbIrudia)).BeginInit();
-            this.pnlDatuak.SuspendLayout();
-            this.SuspendLayout();
+            pnlGoiburua = new Panel();
+            lblFitxaMota = new Label();
+            lblIzena = new Label();
+            lblAzpiInformazioa = new Label();
+            lblEgoeraBadge = new Label();
+            pnlArgazkia = new Panel();
+            pbIrudia = new PictureBox();
+            lblArgazkiAzalpena = new Label();
+            pnlIdentifikazioa = new Panel();
+            lblIdentifikazioa = new Label();
+            lblNanTitulua = new Label();
+            lblNanBalioa = new Label();
+            lblJaiotzeDataTitulua = new Label();
+            lblJaiotzeDataBalioa = new Label();
+            lblAdinaTitulua = new Label();
+            lblAdinaBalioa = new Label();
+            lblSexuaTitulua = new Label();
+            lblSexuaBalioa = new Label();
+            pnlHarremana = new Panel();
+            lblHarremana = new Label();
+            lblEmailaTitulua = new Label();
+            lblEmailaBalioa = new Label();
+            lblTelefonoaTitulua = new Label();
+            lblTelefonoaBalioa = new Label();
+            lblHelbideaTitulua = new Label();
+            lblHelbideaBalioa = new Label();
+            lblHerriaTitulua = new Label();
+            lblHerriaBalioa = new Label();
+            pnlKlinikoa = new Panel();
+            lblKlinikoa = new Label();
+            lblOdolTaldeaTitulua = new Label();
+            lblOdolTaldeaBalioa = new Label();
+            lblAltueraTitulua = new Label();
+            lblAltueraBalioa = new Label();
+            lblPisuaTitulua = new Label();
+            lblPisuaBalioa = new Label();
+            lblEgoeraTitulua = new Label();
+            lblEgoeraBalioa = new Label();
+            _edukiPanela.SuspendLayout();
+            pnlGoiburua.SuspendLayout();
+            pnlArgazkia.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbIrudia).BeginInit();
+            pnlIdentifikazioa.SuspendLayout();
+            pnlHarremana.SuspendLayout();
+            pnlKlinikoa.SuspendLayout();
+            SuspendLayout();
             // 
             // _edukiPanela
             // 
-            this._edukiPanela.Controls.Add(this.pnlDatuak);
-            this._edukiPanela.Controls.Add(this.pbIrudia);
+            _edukiPanela.Controls.Add(pnlKlinikoa);
+            _edukiPanela.Controls.Add(pnlHarremana);
+            _edukiPanela.Controls.Add(pnlIdentifikazioa);
+            _edukiPanela.Controls.Add(pnlArgazkia);
+            _edukiPanela.Controls.Add(pnlGoiburua);
+            _edukiPanela.Size = new System.Drawing.Size(1500, 799);
             // 
-            // pbIrudia
+            // _goiburuBarra
             // 
-            this.pbIrudia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.pbIrudia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbIrudia.Location = new System.Drawing.Point(50, 50);
-            this.pbIrudia.Name = "pbIrudia";
-            this.pbIrudia.Size = new System.Drawing.Size(250, 250);
-            this.pbIrudia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbIrudia.TabIndex = 0;
-            this.pbIrudia.TabStop = false;
+            _goiburuBarra.Size = new System.Drawing.Size(1500, 181);
             // 
-            // pnlDatuak
+            // pnlGoiburua
             // 
-            this.pnlDatuak.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.pnlDatuak.Controls.Add(this.lblIzena);
-            this.pnlDatuak.Controls.Add(this.lblNAN);
-            this.pnlDatuak.Controls.Add(this.lblJaiotzeData);
-            this.pnlDatuak.Controls.Add(this.lblEmaila);
-            this.pnlDatuak.Controls.Add(this.lblTelefonoa);
-            this.pnlDatuak.Controls.Add(this.lblOdolTaldea);
-            this.pnlDatuak.Controls.Add(this.lblAltuera);
-            this.pnlDatuak.Controls.Add(this.lblPisua);
-            this.pnlDatuak.Controls.Add(this.lblEgoera);
-            this.pnlDatuak.Location = new System.Drawing.Point(350, 50);
-            this.pnlDatuak.Name = "pnlDatuak";
-            this.pnlDatuak.Padding = new System.Windows.Forms.Padding(30);
-            this.pnlDatuak.Size = new System.Drawing.Size(600, 420);
-            this.pnlDatuak.TabIndex = 1;
+            pnlGoiburua.BackColor = System.Drawing.Color.FromArgb(246, 250, 252);
+            pnlGoiburua.BorderStyle = BorderStyle.FixedSingle;
+            pnlGoiburua.Controls.Add(lblFitxaMota);
+            pnlGoiburua.Controls.Add(lblIzena);
+            pnlGoiburua.Controls.Add(lblAzpiInformazioa);
+            pnlGoiburua.Controls.Add(lblEgoeraBadge);
+            pnlGoiburua.Location = new System.Drawing.Point(72, 44);
+            pnlGoiburua.Name = "pnlGoiburua";
+            pnlGoiburua.Size = new System.Drawing.Size(1356, 128);
+            pnlGoiburua.TabIndex = 0;
+            // 
+            // lblFitxaMota
+            // 
+            lblFitxaMota.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblFitxaMota.ForeColor = System.Drawing.Color.FromArgb(78, 105, 130);
+            lblFitxaMota.Location = new System.Drawing.Point(28, 18);
+            lblFitxaMota.Name = "lblFitxaMota";
+            lblFitxaMota.Size = new System.Drawing.Size(364, 24);
+            lblFitxaMota.TabIndex = 0;
+            lblFitxaMota.Text = "PAZIENTEAREN FITXA MEDIKOA";
             // 
             // lblIzena
             // 
-            this.lblIzena.AutoSize = true;
-            this.lblIzena.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblIzena.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.lblIzena.Location = new System.Drawing.Point(30, 20);
-            this.lblIzena.Name = "lblIzena";
-            this.lblIzena.Size = new System.Drawing.Size(262, 41);
-            this.lblIzena.TabIndex = 0;
-            this.lblIzena.Text = "IZEN ABIZENAK";
+            lblIzena.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
+            lblIzena.ForeColor = System.Drawing.Color.FromArgb(30, 49, 69);
+            lblIzena.Location = new System.Drawing.Point(24, 42);
+            lblIzena.Name = "lblIzena";
+            lblIzena.Size = new System.Drawing.Size(900, 48);
+            lblIzena.TabIndex = 1;
+            lblIzena.Text = "Pazientearen izen-abizenak";
             // 
-            // lblNAN
+            // lblAzpiInformazioa
             // 
-            this.lblNAN.AutoSize = true;
-            this.lblNAN.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblNAN.Location = new System.Drawing.Point(35, 80);
-            this.lblNAN.Name = "lblNAN";
-            this.lblNAN.Size = new System.Drawing.Size(56, 25);
-            this.lblNAN.TabIndex = 1;
-            this.lblNAN.Text = "NAN:";
+            lblAzpiInformazioa.Font = new Font("Segoe UI", 10.5F);
+            lblAzpiInformazioa.ForeColor = System.Drawing.Color.FromArgb(86, 103, 121);
+            lblAzpiInformazioa.Location = new System.Drawing.Point(29, 90);
+            lblAzpiInformazioa.Name = "lblAzpiInformazioa";
+            lblAzpiInformazioa.Size = new System.Drawing.Size(740, 24);
+            lblAzpiInformazioa.TabIndex = 2;
+            lblAzpiInformazioa.Text = "NAN: --- | Paziente ID: ---";
             // 
-            // lblJaiotzeData
+            // lblEgoeraBadge
             // 
-            this.lblJaiotzeData.AutoSize = true;
-            this.lblJaiotzeData.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblJaiotzeData.Location = new System.Drawing.Point(35, 115);
-            this.lblJaiotzeData.Name = "lblJaiotzeData";
-            this.lblJaiotzeData.Size = new System.Drawing.Size(124, 25);
-            this.lblJaiotzeData.TabIndex = 2;
-            this.lblJaiotzeData.Text = "Jaiotze data:";
+            lblEgoeraBadge.BackColor = System.Drawing.Color.FromArgb(223, 245, 232);
+            lblEgoeraBadge.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblEgoeraBadge.ForeColor = System.Drawing.Color.FromArgb(32, 102, 70);
+            lblEgoeraBadge.Location = new System.Drawing.Point(1114, 42);
+            lblEgoeraBadge.Name = "lblEgoeraBadge";
+            lblEgoeraBadge.Size = new System.Drawing.Size(194, 42);
+            lblEgoeraBadge.TabIndex = 3;
+            lblEgoeraBadge.Text = "ALTA";
+            lblEgoeraBadge.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // lblEmaila
+            // pnlArgazkia
             // 
-            this.lblEmaila.AutoSize = true;
-            this.lblEmaila.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblEmaila.Location = new System.Drawing.Point(35, 150);
-            this.lblEmaila.Name = "lblEmaila";
-            this.lblEmaila.Size = new System.Drawing.Size(71, 25);
-            this.lblEmaila.TabIndex = 3;
-            this.lblEmaila.Text = "Emaila:";
+            pnlArgazkia.BackColor = System.Drawing.Color.White;
+            pnlArgazkia.BorderStyle = BorderStyle.FixedSingle;
+            pnlArgazkia.Controls.Add(pbIrudia);
+            pnlArgazkia.Controls.Add(lblArgazkiAzalpena);
+            pnlArgazkia.Location = new System.Drawing.Point(72, 204);
+            pnlArgazkia.Name = "pnlArgazkia";
+            pnlArgazkia.Size = new System.Drawing.Size(292, 510);
+            pnlArgazkia.TabIndex = 1;
             // 
-            // lblTelefonoa
+            // pbIrudia
             // 
-            this.lblTelefonoa.AutoSize = true;
-            this.lblTelefonoa.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTelefonoa.Location = new System.Drawing.Point(35, 185);
-            this.lblTelefonoa.Name = "lblTelefonoa";
-            this.lblTelefonoa.Size = new System.Drawing.Size(98, 25);
-            this.lblTelefonoa.TabIndex = 4;
-            this.lblTelefonoa.Text = "Telefonoa:";
+            pbIrudia.BackColor = System.Drawing.Color.FromArgb(241, 246, 250);
+            pbIrudia.Location = new System.Drawing.Point(24, 26);
+            pbIrudia.Name = "pbIrudia";
+            pbIrudia.Size = new System.Drawing.Size(242, 320);
+            pbIrudia.SizeMode = PictureBoxSizeMode.Zoom;
+            pbIrudia.TabIndex = 0;
+            pbIrudia.TabStop = false;
             // 
-            // lblOdolTaldea
+            // lblArgazkiAzalpena
             // 
-            this.lblOdolTaldea.AutoSize = true;
-            this.lblOdolTaldea.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblOdolTaldea.Location = new System.Drawing.Point(35, 220);
-            this.lblOdolTaldea.Name = "lblOdolTaldea";
-            this.lblOdolTaldea.Size = new System.Drawing.Size(115, 25);
-            this.lblOdolTaldea.TabIndex = 5;
-            this.lblOdolTaldea.Text = "Odol taldea:";
+            lblArgazkiAzalpena.Font = new Font("Segoe UI", 10F);
+            lblArgazkiAzalpena.ForeColor = System.Drawing.Color.FromArgb(97, 113, 130);
+            lblArgazkiAzalpena.Location = new System.Drawing.Point(24, 366);
+            lblArgazkiAzalpena.Name = "lblArgazkiAzalpena";
+            lblArgazkiAzalpena.Size = new System.Drawing.Size(242, 104);
+            lblArgazkiAzalpena.TabIndex = 1;
+            lblArgazkiAzalpena.Text = "Argazkia edo identifikazio bisuala. Daturik ez badago, irudi lehenetsi klinikoa erakusten da.";
             // 
-            // lblAltuera
+            // pnlIdentifikazioa
             // 
-            this.lblAltuera.AutoSize = true;
-            this.lblAltuera.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblAltuera.Location = new System.Drawing.Point(35, 255);
-            this.lblAltuera.Name = "lblAltuera";
-            this.lblAltuera.Size = new System.Drawing.Size(77, 25);
-            this.lblAltuera.TabIndex = 6;
-            this.lblAltuera.Text = "Altuera:";
+            pnlIdentifikazioa.BackColor = System.Drawing.Color.White;
+            pnlIdentifikazioa.BorderStyle = BorderStyle.FixedSingle;
+            pnlIdentifikazioa.Controls.Add(lblIdentifikazioa);
+            pnlIdentifikazioa.Controls.Add(lblNanTitulua);
+            pnlIdentifikazioa.Controls.Add(lblNanBalioa);
+            pnlIdentifikazioa.Controls.Add(lblJaiotzeDataTitulua);
+            pnlIdentifikazioa.Controls.Add(lblJaiotzeDataBalioa);
+            pnlIdentifikazioa.Controls.Add(lblAdinaTitulua);
+            pnlIdentifikazioa.Controls.Add(lblAdinaBalioa);
+            pnlIdentifikazioa.Controls.Add(lblSexuaTitulua);
+            pnlIdentifikazioa.Controls.Add(lblSexuaBalioa);
+            pnlIdentifikazioa.Location = new System.Drawing.Point(392, 204);
+            pnlIdentifikazioa.Name = "pnlIdentifikazioa";
+            pnlIdentifikazioa.Size = new System.Drawing.Size(496, 246);
+            pnlIdentifikazioa.TabIndex = 2;
             // 
-            // lblPisua
+            // pnlHarremana
             // 
-            this.lblPisua.AutoSize = true;
-            this.lblPisua.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblPisua.Location = new System.Drawing.Point(35, 290);
-            this.lblPisua.Name = "lblPisua";
-            this.lblPisua.Size = new System.Drawing.Size(60, 25);
-            this.lblPisua.TabIndex = 7;
-            this.lblPisua.Text = "Pisua:";
+            pnlHarremana.BackColor = System.Drawing.Color.White;
+            pnlHarremana.BorderStyle = BorderStyle.FixedSingle;
+            pnlHarremana.Controls.Add(lblHarremana);
+            pnlHarremana.Controls.Add(lblEmailaTitulua);
+            pnlHarremana.Controls.Add(lblEmailaBalioa);
+            pnlHarremana.Controls.Add(lblTelefonoaTitulua);
+            pnlHarremana.Controls.Add(lblTelefonoaBalioa);
+            pnlHarremana.Controls.Add(lblHelbideaTitulua);
+            pnlHarremana.Controls.Add(lblHelbideaBalioa);
+            pnlHarremana.Controls.Add(lblHerriaTitulua);
+            pnlHarremana.Controls.Add(lblHerriaBalioa);
+            pnlHarremana.Location = new System.Drawing.Point(932, 204);
+            pnlHarremana.Name = "pnlHarremana";
+            pnlHarremana.Size = new System.Drawing.Size(496, 246);
+            pnlHarremana.TabIndex = 3;
             // 
-            // lblEgoera
+            // pnlKlinikoa
             // 
-            this.lblEgoera.AutoSize = true;
-            this.lblEgoera.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblEgoera.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(57)))), ((int)(((byte)(43)))));
-            this.lblEgoera.Location = new System.Drawing.Point(35, 335);
-            this.lblEgoera.Name = "lblEgoera";
-            this.lblEgoera.Size = new System.Drawing.Size(185, 25);
-            this.lblEgoera.TabIndex = 8;
-            this.lblEgoera.Text = "EGOERA KLINIKOA:";
+            pnlKlinikoa.BackColor = System.Drawing.Color.White;
+            pnlKlinikoa.BorderStyle = BorderStyle.FixedSingle;
+            pnlKlinikoa.Controls.Add(lblKlinikoa);
+            pnlKlinikoa.Controls.Add(lblOdolTaldeaTitulua);
+            pnlKlinikoa.Controls.Add(lblOdolTaldeaBalioa);
+            pnlKlinikoa.Controls.Add(lblAltueraTitulua);
+            pnlKlinikoa.Controls.Add(lblAltueraBalioa);
+            pnlKlinikoa.Controls.Add(lblPisuaTitulua);
+            pnlKlinikoa.Controls.Add(lblPisuaBalioa);
+            pnlKlinikoa.Controls.Add(lblEgoeraTitulua);
+            pnlKlinikoa.Controls.Add(lblEgoeraBalioa);
+            pnlKlinikoa.Location = new System.Drawing.Point(392, 468);
+            pnlKlinikoa.Name = "pnlKlinikoa";
+            pnlKlinikoa.Size = new System.Drawing.Size(1036, 246);
+            pnlKlinikoa.TabIndex = 4;
+            // 
+            // section labels and values
+            // 
+            KonfiguratuSectionTitle(lblIdentifikazioa, "IDENTIFIKAZIOA", 22);
+            KonfiguratuField(lblNanTitulua, "NAN", 30, 72);
+            KonfiguratuValue(lblNanBalioa, "---", 30, 100, 190);
+            KonfiguratuField(lblJaiotzeDataTitulua, "Jaiotze data", 260, 72);
+            KonfiguratuValue(lblJaiotzeDataBalioa, "---", 260, 100, 190);
+            KonfiguratuField(lblAdinaTitulua, "Adina", 30, 148);
+            KonfiguratuValue(lblAdinaBalioa, "---", 30, 176, 190);
+            KonfiguratuField(lblSexuaTitulua, "Sexua", 260, 148);
+            KonfiguratuValue(lblSexuaBalioa, "---", 260, 176, 190);
+            KonfiguratuSectionTitle(lblHarremana, "HARREMAN ETA KOKAPENA", 22);
+            KonfiguratuField(lblEmailaTitulua, "Emaila", 30, 72);
+            KonfiguratuValue(lblEmailaBalioa, "---", 30, 100, 420);
+            KonfiguratuField(lblTelefonoaTitulua, "Telefonoa", 30, 148);
+            KonfiguratuValue(lblTelefonoaBalioa, "---", 30, 176, 190);
+            KonfiguratuField(lblHelbideaTitulua, "Helbidea", 260, 148);
+            KonfiguratuValue(lblHelbideaBalioa, "---", 260, 176, 190);
+            KonfiguratuField(lblHerriaTitulua, "Herria / PK", 30, 204);
+            KonfiguratuValue(lblHerriaBalioa, "---", 30, 228, 420);
+            KonfiguratuSectionTitle(lblKlinikoa, "LABURPEN KLINIKOA", 22);
+            KonfiguratuField(lblOdolTaldeaTitulua, "Odol taldea", 30, 76);
+            KonfiguratuValue(lblOdolTaldeaBalioa, "---", 30, 108, 190);
+            KonfiguratuField(lblAltueraTitulua, "Azken altuera", 292, 76);
+            KonfiguratuValue(lblAltueraBalioa, "---", 292, 108, 190);
+            KonfiguratuField(lblPisuaTitulua, "Azken pisua", 554, 76);
+            KonfiguratuValue(lblPisuaBalioa, "---", 554, 108, 190);
+            KonfiguratuField(lblEgoeraTitulua, "Egoera klinikoa", 816, 76);
+            KonfiguratuValue(lblEgoeraBalioa, "---", 816, 108, 190);
             // 
             // PazienteXehetasunak
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 600);
-            this.Name = "PazienteXehetasunak";
-            this.Text = "GOsasun - Pazientearen Xehetasunak";
-            this._edukiPanela.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbIrudia)).EndInit();
-            this.pnlDatuak.ResumeLayout(false);
-            this.pnlDatuak.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(1500, 980);
+            Name = "PazienteXehetasunak";
+            Text = "GOsasun - Pazientearen Xehetasunak";
+            _edukiPanela.ResumeLayout(false);
+            pnlGoiburua.ResumeLayout(false);
+            pnlArgazkia.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pbIrudia).EndInit();
+            pnlIdentifikazioa.ResumeLayout(false);
+            pnlHarremana.ResumeLayout(false);
+            pnlKlinikoa.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
-        #endregion
+        private static void KonfiguratuSectionTitle(Label label, string testua, int x)
+        {
+            label.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label.ForeColor = System.Drawing.Color.FromArgb(77, 102, 126);
+            label.Location = new System.Drawing.Point(x, 20);
+            label.Name = label.Name;
+            label.Size = new System.Drawing.Size(340, 24);
+            label.Text = testua;
+        }
 
-        private System.Windows.Forms.PictureBox pbIrudia;
-        private System.Windows.Forms.Panel pnlDatuak;
-        private System.Windows.Forms.Label lblIzena;
-        private System.Windows.Forms.Label lblNAN;
-        private System.Windows.Forms.Label lblJaiotzeData;
-        private System.Windows.Forms.Label lblEmaila;
-        private System.Windows.Forms.Label lblTelefonoa;
-        private System.Windows.Forms.Label lblOdolTaldea;
-        private System.Windows.Forms.Label lblAltuera;
-        private System.Windows.Forms.Label lblPisua;
-        private System.Windows.Forms.Label lblEgoera;
+        private static void KonfiguratuField(Label label, string testua, int x, int y)
+        {
+            label.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label.ForeColor = System.Drawing.Color.FromArgb(112, 127, 143);
+            label.Location = new System.Drawing.Point(x, y);
+            label.Size = new System.Drawing.Size(170, 22);
+            label.Text = testua;
+        }
+
+        private static void KonfiguratuValue(Label label, string testua, int x, int y, int zabalera)
+        {
+            label.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label.ForeColor = System.Drawing.Color.FromArgb(30, 49, 69);
+            label.Location = new System.Drawing.Point(x, y);
+            label.Size = new System.Drawing.Size(zabalera, 32);
+            label.Text = testua;
+        }
+
+        private Panel pnlGoiburua;
+        private Label lblFitxaMota;
+        private Label lblIzena;
+        private Label lblAzpiInformazioa;
+        private Label lblEgoeraBadge;
+        private Panel pnlArgazkia;
+        private PictureBox pbIrudia;
+        private Label lblArgazkiAzalpena;
+        private Panel pnlIdentifikazioa;
+        private Label lblIdentifikazioa;
+        private Label lblNanTitulua;
+        private Label lblNanBalioa;
+        private Label lblJaiotzeDataTitulua;
+        private Label lblJaiotzeDataBalioa;
+        private Label lblAdinaTitulua;
+        private Label lblAdinaBalioa;
+        private Label lblSexuaTitulua;
+        private Label lblSexuaBalioa;
+        private Panel pnlHarremana;
+        private Label lblHarremana;
+        private Label lblEmailaTitulua;
+        private Label lblEmailaBalioa;
+        private Label lblTelefonoaTitulua;
+        private Label lblTelefonoaBalioa;
+        private Label lblHelbideaTitulua;
+        private Label lblHelbideaBalioa;
+        private Label lblHerriaTitulua;
+        private Label lblHerriaBalioa;
+        private Panel pnlKlinikoa;
+        private Label lblKlinikoa;
+        private Label lblOdolTaldeaTitulua;
+        private Label lblOdolTaldeaBalioa;
+        private Label lblAltueraTitulua;
+        private Label lblAltueraBalioa;
+        private Label lblPisuaTitulua;
+        private Label lblPisuaBalioa;
+        private Label lblEgoeraTitulua;
+        private Label lblEgoeraBalioa;
     }
 }

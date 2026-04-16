@@ -27,17 +27,17 @@ namespace GOsasun_app.Interfazea
             btnGrafikak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             _edukiPanela.SuspendLayout();
             SuspendLayout();
-            // 
+            //
             // _edukiPanela
-            // 
+            //
             _edukiPanela.Controls.Add(btnPazienteak);
             _edukiPanela.Controls.Add(btnNeurketak);
             _edukiPanela.Controls.Add(btnErrezetak);
             _edukiPanela.Controls.Add(btnGrafikak);
             _edukiPanela.Size = new Size(1902, 1153);
-            // 
+            //
             // btnPazienteak
-            // 
+            //
             btnPazienteak.BackColor = Color.White;
             btnPazienteak.BorderBiribiltasuna = 24;
             btnPazienteak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
@@ -48,9 +48,9 @@ namespace GOsasun_app.Interfazea
             btnPazienteak.Size = new Size(576, 512);
             btnPazienteak.TabIndex = 0;
             btnPazienteak.Testua = "NIRE PAZIENTEAK";
-            // 
+            //
             // btnNeurketak
-            // 
+            //
             btnNeurketak.BackColor = Color.White;
             btnNeurketak.BorderBiribiltasuna = 24;
             btnNeurketak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
@@ -61,9 +61,9 @@ namespace GOsasun_app.Interfazea
             btnNeurketak.Size = new Size(576, 512);
             btnNeurketak.TabIndex = 1;
             btnNeurketak.Testua = "JARRAIPENAK";
-            // 
+            //
             // btnErrezetak
-            // 
+            //
             btnErrezetak.BackColor = Color.White;
             btnErrezetak.BorderBiribiltasuna = 24;
             btnErrezetak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
@@ -74,9 +74,9 @@ namespace GOsasun_app.Interfazea
             btnErrezetak.Size = new Size(576, 512);
             btnErrezetak.TabIndex = 2;
             btnErrezetak.Testua = "ERREZETAK";
-            // 
+            //
             // btnGrafikak
-            // 
+            //
             btnGrafikak.BackColor = Color.White;
             btnGrafikak.BorderBiribiltasuna = 24;
             btnGrafikak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
@@ -87,9 +87,9 @@ namespace GOsasun_app.Interfazea
             btnGrafikak.Size = new Size(576, 512);
             btnGrafikak.TabIndex = 3;
             btnGrafikak.Testua = "GRAFIKAK";
-            // 
+            //
             // MenuaOsasunLangilea
-            // 
+            //
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1902, 1334);

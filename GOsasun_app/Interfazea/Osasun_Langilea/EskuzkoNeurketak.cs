@@ -54,7 +54,7 @@ namespace GOsasun_app.Interfazea
         {
             _btnItzuli.Click += (s, e) => this.Close();
             _txtPazienteBilatu.TextChanged += (s, e) => PazienteakBatu();
-            
+
             _dgvPazienteak.SelectionChanged += (s, e) => {
                 if (_dgvPazienteak.SelectedRows.Count > 0)
                 {

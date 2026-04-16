@@ -75,11 +75,11 @@ namespace GOsasun_app.Interfazea
                 KartaKolorea = System.Drawing.Color.FromArgb(230, 255, 255, 255),
                 Padding = new Padding(19, 21, 19, 21)
             };
-            
+
             btnHitzorduak.Ikonoa = KargatuIkonoIrudia("calendar-days.svg");
 
             btnHitzorduak.Click += (s, e) => IrekiFormularioa(new HitzorduakKontsultatzea(_erabiltzailea!));
-            
+
             _edukiPanela.Controls.Add(btnHitzorduak);
         }
 

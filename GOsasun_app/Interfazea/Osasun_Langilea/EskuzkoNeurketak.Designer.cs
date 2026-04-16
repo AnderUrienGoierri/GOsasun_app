@@ -39,14 +39,14 @@ namespace GOsasun_app.Interfazea
             _pnlSarrera.SuspendLayout();
             ((ISupportInitialize)_numBalioa).BeginInit();
             SuspendLayout();
-            // 
+            //
             // _edukiPanela
-            // 
+            //
             _edukiPanela.Controls.Add(_pnlMainCard);
             _edukiPanela.Size = new Size(1902, 1153);
-            // 
+            //
             // _pnlMainCard
-            // 
+            //
             _pnlMainCard.BackColor = Color.White;
             _pnlMainCard.Controls.Add(_lblTitle);
             _pnlMainCard.Controls.Add(_lblBilatu);
@@ -60,9 +60,9 @@ namespace GOsasun_app.Interfazea
             _pnlMainCard.Name = "_pnlMainCard";
             _pnlMainCard.Size = new Size(1200, 1080);
             _pnlMainCard.TabIndex = 0;
-            // 
+            //
             // _lblTitle
-            // 
+            //
             _lblTitle.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
             _lblTitle.ForeColor = Color.FromArgb(44, 62, 80);
             _lblTitle.Location = new Point(0, 20);
@@ -71,9 +71,9 @@ namespace GOsasun_app.Interfazea
             _lblTitle.TabIndex = 0;
             _lblTitle.Text = "PISUA / ALTUERA NEURKETA";
             _lblTitle.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
             // _lblBilatu
-            // 
+            //
             _lblBilatu.AutoSize = true;
             _lblBilatu.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             _lblBilatu.Location = new Point(50, 140);
@@ -81,18 +81,18 @@ namespace GOsasun_app.Interfazea
             _lblBilatu.Size = new Size(403, 51);
             _lblBilatu.TabIndex = 1;
             _lblBilatu.Text = "1. Pazientea aukeratu:";
-            // 
+            //
             // _txtPazienteBilatu
-            // 
+            //
             _txtPazienteBilatu.Font = new Font("Segoe UI", 16F);
             _txtPazienteBilatu.Location = new Point(50, 190);
             _txtPazienteBilatu.Name = "_txtPazienteBilatu";
             _txtPazienteBilatu.PlaceholderText = "Idatzi izena edo abizena...";
             _txtPazienteBilatu.Size = new Size(1100, 65);
             _txtPazienteBilatu.TabIndex = 2;
-            // 
+            //
             // _dgvPazienteak
-            // 
+            //
             _dgvPazienteak.AllowUserToAddRows = false;
             _dgvPazienteak.AllowUserToDeleteRows = false;
             _dgvPazienteak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -107,9 +107,9 @@ namespace GOsasun_app.Interfazea
             _dgvPazienteak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             _dgvPazienteak.Size = new Size(1100, 180);
             _dgvPazienteak.TabIndex = 3;
-            // 
+            //
             // _lblHistoriala
-            // 
+            //
             _lblHistoriala.AutoSize = true;
             _lblHistoriala.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             _lblHistoriala.Location = new Point(50, 460);
@@ -118,9 +118,9 @@ namespace GOsasun_app.Interfazea
             _lblHistoriala.TabIndex = 4;
             _lblHistoriala.Text = "2. Neurketen historiala:";
             _lblHistoriala.Visible = false;
-            // 
+            //
             // _dgvHistoriala
-            // 
+            //
             _dgvHistoriala.AllowUserToAddRows = false;
             _dgvHistoriala.AllowUserToDeleteRows = false;
             _dgvHistoriala.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -136,9 +136,9 @@ namespace GOsasun_app.Interfazea
             _dgvHistoriala.Size = new Size(1100, 250);
             _dgvHistoriala.TabIndex = 5;
             _dgvHistoriala.Visible = false;
-            // 
+            //
             // _pnlSarrera
-            // 
+            //
             _pnlSarrera.BackColor = Color.FromArgb(248, 249, 250);
             _pnlSarrera.Controls.Add(_lblBalioa);
             _pnlSarrera.Controls.Add(_numBalioa);
@@ -149,9 +149,9 @@ namespace GOsasun_app.Interfazea
             _pnlSarrera.Size = new Size(1100, 180);
             _pnlSarrera.TabIndex = 6;
             _pnlSarrera.Visible = false;
-            // 
+            //
             // _lblBalioa
-            // 
+            //
             _lblBalioa.AutoSize = true;
             _lblBalioa.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             _lblBalioa.Location = new Point(30, 30);
@@ -159,9 +159,9 @@ namespace GOsasun_app.Interfazea
             _lblBalioa.Size = new Size(400, 59);
             _lblBalioa.TabIndex = 0;
             _lblBalioa.Text = "Sartu balioa:";
-            // 
+            //
             // _numBalioa
-            // 
+            //
             _numBalioa.DecimalPlaces = 2;
             _numBalioa.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
             _numBalioa.Location = new Point(480, 20);
@@ -170,9 +170,9 @@ namespace GOsasun_app.Interfazea
             _numBalioa.Size = new Size(250, 93);
             _numBalioa.TabIndex = 1;
             _numBalioa.TextAlign = HorizontalAlignment.Center;
-            // 
+            //
             // _lblUnitatea
-            // 
+            //
             _lblUnitatea.AutoSize = true;
             _lblUnitatea.Font = new Font("Segoe UI", 16F);
             _lblUnitatea.Location = new Point(740, 45);
@@ -180,9 +180,9 @@ namespace GOsasun_app.Interfazea
             _lblUnitatea.Size = new Size(71, 59);
             _lblUnitatea.TabIndex = 2;
             _lblUnitatea.Text = "kg";
-            // 
+            //
             // _btnGorde
-            // 
+            //
             _btnGorde.BackColor = Color.FromArgb(46, 204, 113);
             _btnGorde.FlatStyle = FlatStyle.Flat;
             _btnGorde.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
@@ -193,9 +193,9 @@ namespace GOsasun_app.Interfazea
             _btnGorde.TabIndex = 3;
             _btnGorde.Text = "Gorde";
             _btnGorde.UseVisualStyleBackColor = false;
-            // 
+            //
             // _btnItzuli
-            // 
+            //
             _btnItzuli.BackColor = Color.FromArgb(231, 76, 60);
             _btnItzuli.FlatStyle = FlatStyle.Flat;
             _btnItzuli.Font = new Font("Segoe UI", 12F);
@@ -206,9 +206,9 @@ namespace GOsasun_app.Interfazea
             _btnItzuli.TabIndex = 7;
             _btnItzuli.Text = "Itzuli";
             _btnItzuli.UseVisualStyleBackColor = false;
-            // 
+            //
             // EskuzkoNeurketak
-            // 
+            //
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1902, 1334);

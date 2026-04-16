@@ -10,6 +10,7 @@ namespace GOsasun_app.Repositorioa
         public List<Jarraipena> LortuJarraipenGuztiak(string? bilaketa = null, DateTime? hasieraData = null, DateTime? amaieraData = null, int? pazienteId = null)
         {
             List<Jarraipena> jarraipenak = new List<Jarraipena>();
+            string? testua = string.IsNullOrWhiteSpace(bilaketa) ? null : $"%{bilaketa.Trim()}%";
 
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
@@ -20,10 +21,23 @@ namespace GOsasun_app.Repositorioa
                     FROM jarraipenak j
                     JOIN erabiltzaileak e ON e.id = j.paziente_id
                     LEFT JOIN dokumentuak d ON d.jarraipena_id = j.id
-                                        WHERE (@testua IS NULL OR e.nan LIKE @testua OR e.izena LIKE @testua OR e.abizenak LIKE @testua OR j.oharrak LIKE @testua)
-                                            AND (@hasieraData IS NULL OR j.erregistro_data >= @hasieraData)
-                                            AND (@amaieraData IS NULL OR j.erregistro_data < @amaieraData)
-                                            AND (@pazienteId IS NULL OR j.paziente_id = @pazienteId)
+                    WHERE 1 = 1";
+
+                if (testua != null)
+                {
+                    query += @"
+                        AND (
+                            e.nan COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci
+                            OR e.izena COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci
+                            OR e.abizenak COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci
+                            OR COALESCE(j.oharrak, '') COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci
+                        )";
+                }
+
+                query += @"
+                        AND (@hasieraData IS NULL OR j.erregistro_data >= @hasieraData)
+                        AND (@amaieraData IS NULL OR j.erregistro_data < @amaieraData)
+                        AND (@pazienteId IS NULL OR j.paziente_id = @pazienteId)
                     GROUP BY j.id, j.paziente_id, e.nan, e.izena, e.abizenak, j.tentsio_sistolikoa,
                              j.tentsio_diastolikoa, j.pisua_kg, j.altuera, j.pultsua_ppm,
                              j.oharrak, j.erregistro_data
@@ -31,10 +45,13 @@ namespace GOsasun_app.Repositorioa
 
                 using (var komandoa = new MySqlCommand(query, konexioa))
                 {
-                    string? testua = string.IsNullOrWhiteSpace(bilaketa) ? null : $"%{bilaketa.Trim()}%";
-                    komandoa.Parameters.AddWithValue("@testua", (object?)testua ?? DBNull.Value);
-                                        komandoa.Parameters.AddWithValue("@hasieraData", (object?)hasieraData?.Date ?? DBNull.Value);
-                                        komandoa.Parameters.AddWithValue("@amaieraData", (object?)amaieraData?.Date.AddDays(1) ?? DBNull.Value);
+                    if (testua != null)
+                    {
+                        komandoa.Parameters.AddWithValue("@testua", testua);
+                    }
+
+                    komandoa.Parameters.AddWithValue("@hasieraData", (object?)hasieraData?.Date ?? DBNull.Value);
+                    komandoa.Parameters.AddWithValue("@amaieraData", (object?)amaieraData?.Date.AddDays(1) ?? DBNull.Value);
                     komandoa.Parameters.AddWithValue("@pazienteId", (object?)pazienteId ?? DBNull.Value);
 
                     using (var irakurlea = komandoa.ExecuteReader())

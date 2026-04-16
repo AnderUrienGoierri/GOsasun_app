@@ -32,24 +32,24 @@
             ((System.ComponentModel.ISupportInitialize)dgvPazienteak).BeginInit();
             pnlBilatzailea.SuspendLayout();
             SuspendLayout();
-            // 
+            //
             // _edukiPanela
-            // 
+            //
             _edukiPanela.Controls.Add(dgvPazienteak);
             _edukiPanela.Controls.Add(pnlBilatzailea);
             _edukiPanela.Controls.Add(lblIzenburua);
             _edukiPanela.Size = new Size(2360, 1394);
-            // 
+            //
             // _goiburuBarra
-            // 
+            //
             _goiburuBarra.Size = new Size(2360, 181);
-            // 
+            //
             // _atzeraBotoia
-            // 
+            //
             _atzeraBotoia.FlatAppearance.BorderSize = 0;
-            // 
+            //
             // dgvPazienteak
-            // 
+            //
             dgvPazienteak.AllowUserToAddRows = false;
             dgvPazienteak.AllowUserToDeleteRows = false;
             dgvPazienteak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -88,9 +88,9 @@
             dgvPazienteak.Size = new Size(2356, 1155);
             dgvPazienteak.TabIndex = 1;
             dgvPazienteak.CellContentClick += dgvPazienteak_CellContentClick;
-            // 
+            //
             // lblIzenburua
-            // 
+            //
             lblIzenburua.BackColor = Color.Transparent;
             lblIzenburua.Dock = DockStyle.Top;
             lblIzenburua.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
@@ -102,9 +102,9 @@
             lblIzenburua.TabIndex = 0;
             lblIzenburua.Text = "NIRE PAZIENTEAK";
             lblIzenburua.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
             // pnlBilatzailea
-            // 
+            //
             pnlBilatzailea.BackColor = Color.Transparent;
             pnlBilatzailea.Controls.Add(chkBajan);
             pnlBilatzailea.Controls.Add(chkAltan);
@@ -118,9 +118,9 @@
             pnlBilatzailea.Name = "pnlBilatzailea";
             pnlBilatzailea.Size = new Size(2356, 107);
             pnlBilatzailea.TabIndex = 2;
-            // 
+            //
             // chkBajan
-            // 
+            //
             chkBajan.AutoSize = true;
             chkBajan.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             chkBajan.ForeColor = Color.White;
@@ -130,9 +130,9 @@
             chkBajan.TabIndex = 4;
             chkBajan.Text = "Bajan";
             chkBajan.UseVisualStyleBackColor = true;
-            // 
+            //
             // chkAltan
-            // 
+            //
             chkAltan.AutoSize = true;
             chkAltan.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             chkAltan.ForeColor = Color.White;
@@ -142,9 +142,9 @@
             chkAltan.TabIndex = 3;
             chkAltan.Text = "Altan";
             chkAltan.UseVisualStyleBackColor = true;
-            // 
+            //
             // chkPazienteGuztiak
-            // 
+            //
             chkPazienteGuztiak.AutoSize = true;
             chkPazienteGuztiak.Checked = true;
             chkPazienteGuztiak.CheckState = CheckState.Checked;
@@ -156,9 +156,9 @@
             chkPazienteGuztiak.TabIndex = 2;
             chkPazienteGuztiak.Text = "Paziente guztiak ikusi";
             chkPazienteGuztiak.UseVisualStyleBackColor = true;
-            // 
+            //
             // btnPazienteBerria
-            // 
+            //
             btnPazienteBerria.BackColor = Color.FromArgb(52, 152, 219);
             btnPazienteBerria.FlatAppearance.BorderSize = 0;
             btnPazienteBerria.FlatStyle = FlatStyle.Flat;
@@ -171,9 +171,9 @@
             btnPazienteBerria.TabIndex = 5;
             btnPazienteBerria.Text = "Paziente berria gehitu";
             btnPazienteBerria.UseVisualStyleBackColor = false;
-            // 
+            //
             // txtBilatu
-            // 
+            //
             txtBilatu.Font = new Font("Segoe UI", 12F);
             txtBilatu.Location = new Point(136, 30);
             txtBilatu.Margin = new Padding(6);
@@ -181,9 +181,9 @@
             txtBilatu.PlaceholderText = "Bilatu izena, abizena edo NAN...";
             txtBilatu.Size = new Size(923, 50);
             txtBilatu.TabIndex = 1;
-            // 
+            //
             // lblBilatu
-            // 
+            //
             lblBilatu.AutoSize = true;
             lblBilatu.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblBilatu.ForeColor = Color.White;
@@ -193,9 +193,9 @@
             lblBilatu.Size = new Size(116, 45);
             lblBilatu.TabIndex = 0;
             lblBilatu.Text = "Bilatu:";
-            // 
+            //
             // PazienteenZerrenda
-            // 
+            //
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(2360, 1575);

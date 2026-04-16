@@ -560,7 +560,7 @@ namespace GOsasun_app.Interfazea
             using Form formularioa = new Form();
             formularioa.Text = "Dokumentu berria";
             formularioa.StartPosition = FormStartPosition.CenterParent;
-            formularioa.ClientSize = new Size(680, 430);
+            formularioa.ClientSize = new Size(720, 520);
             formularioa.FormBorderStyle = FormBorderStyle.FixedDialog;
             formularioa.MaximizeBox = false;
             formularioa.MinimizeBox = false;
@@ -676,10 +676,15 @@ namespace GOsasun_app.Interfazea
                 Font = new Font("Segoe UI", 10F)
             };
 
+            int botoienY = deskribapenaTextBox.Bottom + 24;
+            formularioa.ClientSize = new Size(
+                formularioa.ClientSize.Width,
+                Math.Max(formularioa.ClientSize.Height, botoienY + 42 + 24));
+
             Button btnGorde = new Button
             {
                 Text = "Gorde",
-                Location = new Point(464, 372),
+                Location = new Point(464, botoienY),
                 Size = new Size(92, 42),
                 BackColor = Color.FromArgb(83, 148, 117),
                 ForeColor = Color.White,
@@ -691,7 +696,7 @@ namespace GOsasun_app.Interfazea
             Button btnUtzi = new Button
             {
                 Text = "Utzi",
-                Location = new Point(564, 372),
+                Location = new Point(564, botoienY),
                 Size = new Size(92, 42),
                 DialogResult = DialogResult.Cancel
             };

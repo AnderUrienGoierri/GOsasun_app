@@ -32,7 +32,7 @@ namespace GOsasun_app.Interfazea
             InitializeComponent();
             _kontrolatzailea = new ErabiltzaileKontrolatzailea();
             EzarriFormularioZabalera();
-            
+
             // Izenburua aldatu rolaran arabera
             if (_erabiltzailea is HarrerakoLangilea)
             {
@@ -552,7 +552,7 @@ namespace GOsasun_app.Interfazea
             {
                 var emaitza = MessageBox.Show($"Ziur zaude {pazientea.IzenOsoa} pazientea ezabatu (desaktibatu) nahi duzula?", 
                     "Berretsi ezabatzea", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                
+
                 if (emaitza == DialogResult.Yes)
                 {
                     if (_kontrolatzailea.EzabatuPazientea(pazientea.Id))

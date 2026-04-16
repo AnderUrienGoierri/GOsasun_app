@@ -35,9 +35,9 @@
             _edukiPanela.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)_dgvJarraipenak).BeginInit();
             SuspendLayout();
-            // 
+            //
             // _edukiPanela
-            // 
+            //
             _edukiPanela.Controls.Add(_dgvJarraipenak);
             _edukiPanela.Controls.Add(_chkJarraipenGuztiakIkusi);
             _edukiPanela.Controls.Add(_btnFiltroakGarbitu);
@@ -50,127 +50,127 @@
             _edukiPanela.Controls.Add(_lblIzenburua);
             _edukiPanela.Margin = new Padding(6);
             _edukiPanela.Padding = new Padding(4);
-            // 
+            //
             // _goiburuBarra
-            // 
+            //
             _goiburuBarra.Margin = new Padding(6);
             _goiburuBarra.Padding = new Padding(37, 21, 37, 21);
-            // 
+            //
             // _atzeraBotoia
-            // 
+            //
             _atzeraBotoia.FlatAppearance.BorderSize = 0;
             _atzeraBotoia.Margin = new Padding(6);
-            // 
+            //
             // _colPazienteNan
-            // 
+            //
             _colPazienteNan.DataPropertyName = "PazienteNan";
             _colPazienteNan.HeaderText = "NAN/DNI";
             _colPazienteNan.MinimumWidth = 140;
             _colPazienteNan.Name = "_colPazienteNan";
             _colPazienteNan.ReadOnly = true;
             _colPazienteNan.Width = 140;
-            // 
+            //
             // _colPazienteIzena
-            // 
+            //
             _colPazienteIzena.DataPropertyName = "PazienteIzena";
             _colPazienteIzena.HeaderText = "Izena";
             _colPazienteIzena.MinimumWidth = 125;
             _colPazienteIzena.Name = "_colPazienteIzena";
             _colPazienteIzena.ReadOnly = true;
             _colPazienteIzena.Width = 125;
-            // 
+            //
             // _colPazienteAbizenak
-            // 
+            //
             _colPazienteAbizenak.DataPropertyName = "PazienteAbizenak";
             _colPazienteAbizenak.HeaderText = "Abizenak";
             _colPazienteAbizenak.MinimumWidth = 170;
             _colPazienteAbizenak.Name = "_colPazienteAbizenak";
             _colPazienteAbizenak.ReadOnly = true;
             _colPazienteAbizenak.Width = 170;
-            // 
+            //
             // _colErregistroData
-            // 
+            //
             _colErregistroData.DataPropertyName = "ErregistroData";
             _colErregistroData.HeaderText = "Data";
             _colErregistroData.MinimumWidth = 205;
             _colErregistroData.Name = "_colErregistroData";
             _colErregistroData.ReadOnly = true;
             _colErregistroData.Width = 205;
-            // 
+            //
             // _colTentsioSistolikoa
-            // 
+            //
             _colTentsioSistolikoa.DataPropertyName = "TentsioSistolikoa";
             _colTentsioSistolikoa.HeaderText = "Sist.";
             _colTentsioSistolikoa.MinimumWidth = 78;
             _colTentsioSistolikoa.Name = "_colTentsioSistolikoa";
             _colTentsioSistolikoa.ReadOnly = true;
             _colTentsioSistolikoa.Width = 78;
-            // 
+            //
             // _colTentsioDiastolikoa
-            // 
+            //
             _colTentsioDiastolikoa.DataPropertyName = "TentsioDiastolikoa";
             _colTentsioDiastolikoa.HeaderText = "Diast.";
             _colTentsioDiastolikoa.MinimumWidth = 78;
             _colTentsioDiastolikoa.Name = "_colTentsioDiastolikoa";
             _colTentsioDiastolikoa.ReadOnly = true;
             _colTentsioDiastolikoa.Width = 78;
-            // 
+            //
             // _colPultsuaPpm
-            // 
+            //
             _colPultsuaPpm.DataPropertyName = "PultsuaPpm";
             _colPultsuaPpm.HeaderText = "Pultsua";
             _colPultsuaPpm.MinimumWidth = 95;
             _colPultsuaPpm.Name = "_colPultsuaPpm";
             _colPultsuaPpm.ReadOnly = true;
             _colPultsuaPpm.Width = 95;
-            // 
+            //
             // _colPisuaKg
-            // 
+            //
             _colPisuaKg.DataPropertyName = "PisuaKg";
             _colPisuaKg.HeaderText = "Pisua (kg)";
             _colPisuaKg.MinimumWidth = 110;
             _colPisuaKg.Name = "_colPisuaKg";
             _colPisuaKg.ReadOnly = true;
             _colPisuaKg.Width = 110;
-            // 
+            //
             // _colAltuera
-            // 
+            //
             _colAltuera.DataPropertyName = "Altuera";
             _colAltuera.HeaderText = "Altuera (m)";
             _colAltuera.MinimumWidth = 110;
             _colAltuera.Name = "_colAltuera";
             _colAltuera.ReadOnly = true;
             _colAltuera.Width = 110;
-            // 
+            //
             // _colDokumentuKopurua
-            // 
+            //
             _colDokumentuKopurua.DataPropertyName = "DokumentuKopurua";
             _colDokumentuKopurua.HeaderText = "Dok.";
             _colDokumentuKopurua.MinimumWidth = 70;
             _colDokumentuKopurua.Name = "_colDokumentuKopurua";
             _colDokumentuKopurua.ReadOnly = true;
             _colDokumentuKopurua.Width = 70;
-            // 
+            //
             // _colOharrak
-            // 
+            //
             _colOharrak.DataPropertyName = "Oharrak";
             _colOharrak.HeaderText = "Oharrak";
             _colOharrak.MinimumWidth = 430;
             _colOharrak.Name = "_colOharrak";
             _colOharrak.ReadOnly = true;
             _colOharrak.Width = 430;
-            // 
+            //
             // _colEkintzak
-            // 
+            //
             _colEkintzak.DataPropertyName = "EkintzakTestua";
             _colEkintzak.HeaderText = "EKINTZAK";
             _colEkintzak.MinimumWidth = 280;
             _colEkintzak.Name = "_colEkintzak";
             _colEkintzak.ReadOnly = true;
             _colEkintzak.Width = 280;
-            // 
+            //
             // _lblIzenburua
-            // 
+            //
             _lblIzenburua.AutoSize = true;
             _lblIzenburua.BackColor = Color.Transparent;
             _lblIzenburua.Font = new Font("Segoe UI", 26F, FontStyle.Bold);
@@ -181,9 +181,9 @@
             _lblIzenburua.Size = new Size(510, 93);
             _lblIzenburua.TabIndex = 0;
             _lblIzenburua.Text = "JARRAIPENAK";
-            // 
+            //
             // _btnJarraipenBerria
-            // 
+            //
             _btnJarraipenBerria.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             _btnJarraipenBerria.BackColor = Color.FromArgb(41, 128, 185);
             _btnJarraipenBerria.FlatAppearance.BorderSize = 0;
@@ -197,9 +197,9 @@
             _btnJarraipenBerria.TabIndex = 1;
             _btnJarraipenBerria.Text = "Jarraipen berria";
             _btnJarraipenBerria.UseVisualStyleBackColor = false;
-            // 
+            //
             // _lblBilatu
-            // 
+            //
             _lblBilatu.AutoSize = true;
             _lblBilatu.BackColor = Color.Transparent;
             _lblBilatu.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
@@ -210,9 +210,9 @@
             _lblBilatu.Size = new Size(741, 45);
             _lblBilatu.TabIndex = 2;
             _lblBilatu.Text = "Bilatu pazientea (abizenak, izena edo NAN/DNI)";
-            // 
+            //
             // _txtBilatu
-            // 
+            //
             _txtBilatu.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             _txtBilatu.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             _txtBilatu.Location = new Point(70, 223);
@@ -222,9 +222,9 @@
             _txtBilatu.PlaceholderText = "Adibidez: Urrutia, Jon edo 000000001";
             _txtBilatu.Size = new Size(1762, 50);
             _txtBilatu.TabIndex = 3;
-            // 
+            //
             // _lblDataFiltroa
-            // 
+            //
             _lblDataFiltroa.AutoSize = true;
             _lblDataFiltroa.BackColor = Color.Transparent;
             _lblDataFiltroa.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
@@ -235,9 +235,9 @@
             _lblDataFiltroa.Size = new Size(434, 41);
             _lblDataFiltroa.TabIndex = 4;
             _lblDataFiltroa.Text = "Data filtroa (hasiera-amaiera)";
-            // 
+            //
             // _dtpHasieraData
-            // 
+            //
             _dtpHasieraData.Checked = false;
             _dtpHasieraData.CustomFormat = "'Hasiera data: 'dd/MM/yyyy";
             _dtpHasieraData.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -248,9 +248,9 @@
             _dtpHasieraData.ShowCheckBox = true;
             _dtpHasieraData.Size = new Size(520, 47);
             _dtpHasieraData.TabIndex = 5;
-            // 
+            //
             // _dtpAmaieraData
-            // 
+            //
             _dtpAmaieraData.Checked = false;
             _dtpAmaieraData.CustomFormat = "'Amaiera data: 'dd/MM/yyyy";
             _dtpAmaieraData.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -261,9 +261,9 @@
             _dtpAmaieraData.ShowCheckBox = true;
             _dtpAmaieraData.Size = new Size(520, 47);
             _dtpAmaieraData.TabIndex = 6;
-            // 
+            //
             // _btnFiltroakGarbitu
-            // 
+            //
             _btnFiltroakGarbitu.BackColor = Color.FromArgb(44, 62, 80);
             _btnFiltroakGarbitu.FlatAppearance.BorderSize = 0;
             _btnFiltroakGarbitu.FlatStyle = FlatStyle.Flat;
@@ -276,9 +276,9 @@
             _btnFiltroakGarbitu.TabIndex = 7;
             _btnFiltroakGarbitu.Text = "Filtroak garbitu";
             _btnFiltroakGarbitu.UseVisualStyleBackColor = false;
-            // 
+            //
             // _chkJarraipenGuztiakIkusi
-            // 
+            //
             _chkJarraipenGuztiakIkusi.AutoSize = true;
             _chkJarraipenGuztiakIkusi.BackColor = Color.Transparent;
             _chkJarraipenGuztiakIkusi.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
@@ -290,9 +290,9 @@
             _chkJarraipenGuztiakIkusi.TabIndex = 8;
             _chkJarraipenGuztiakIkusi.Text = "Jarraipen guztiak ikusi";
             _chkJarraipenGuztiakIkusi.UseVisualStyleBackColor = false;
-            // 
+            //
             // _dgvJarraipenak
-            // 
+            //
             _dgvJarraipenak.AllowUserToAddRows = false;
             _dgvJarraipenak.AllowUserToDeleteRows = false;
             _dgvJarraipenak.AllowUserToResizeRows = false;
@@ -315,9 +315,9 @@
             _dgvJarraipenak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             _dgvJarraipenak.Size = new Size(1762, 753);
             _dgvJarraipenak.TabIndex = 9;
-            // 
+            //
             // Jarraipenak
-            // 
+            //
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1902, 1575);
