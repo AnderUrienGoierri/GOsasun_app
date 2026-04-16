@@ -1202,20 +1202,28 @@ namespace GOsasun_app.Interfazea
                 Padding = new Padding(24)
             };
 
+            const int goiburuGoikoa = 24;
+            const int goiburuAltuera = 72;
+            const int goiburuAzpikoTartea = 20;
+            const int edukienEzkerra = 24;
+
             Label lblGoiburua = new Label
             {
                 Text = $"{jarraipena.PazienteIzenOsoa} - {xehetasuna.ErregistroData:g}",
                 Font = new Font("Segoe UI", 16F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(44, 62, 80),
                 AutoSize = false,
-                Location = new Point(24, 18),
-                Size = new Size(1220, 40),
+                Location = new Point(edukienEzkerra, goiburuGoikoa),
+                Size = new Size(1220, goiburuAltuera),
+                TextAlign = ContentAlignment.MiddleLeft,
                 AutoEllipsis = true
             };
 
+            int taulaGoikoa = lblGoiburua.Bottom + goiburuAzpikoTartea;
+
             TableLayoutPanel taula = new TableLayoutPanel
             {
-                Location = new Point(24, 76),
+                Location = new Point(edukienEzkerra, taulaGoikoa),
                 Size = new Size(1080, 190),
                 ColumnCount = 4,
                 RowCount = 3
@@ -1245,14 +1253,15 @@ namespace GOsasun_app.Interfazea
                 Text = "Oharrak",
                 Font = new Font("Segoe UI", 10.5F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(44, 62, 80),
-                Location = new Point(24, 286),
-                Size = new Size(140, 30)
+                Location = new Point(edukienEzkerra, taula.Bottom + 32),
+                Size = new Size(160, 42),
+                TextAlign = ContentAlignment.MiddleLeft
             };
 
             TextBox txtOharrak = new TextBox
             {
                 Text = xehetasuna.Oharrak ?? string.Empty,
-                Location = new Point(24, 320),
+                Location = new Point(edukienEzkerra, lblOharrak.Bottom + 12),
                 Size = new Size(1080, 150),
                 Multiline = true,
                 ScrollBars = ScrollBars.Vertical,
@@ -1264,13 +1273,14 @@ namespace GOsasun_app.Interfazea
                 Text = "Esleitutako dokumentuak",
                 Font = new Font("Segoe UI", 10.5F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(44, 62, 80),
-                Location = new Point(24, 490),
-                Size = new Size(240, 30)
+                Location = new Point(edukienEzkerra, txtOharrak.Bottom + 32),
+                Size = new Size(360, 42),
+                TextAlign = ContentAlignment.MiddleLeft
             };
 
             DataGridView dgvDokumentuak = new DataGridView
             {
-                Location = new Point(24, 528),
+                Location = new Point(edukienEzkerra, lblDokumentuak.Bottom + 14),
                 Size = new Size(1080, 330),
                 ReadOnly = true,
                 AllowUserToAddRows = false,
@@ -1347,7 +1357,7 @@ namespace GOsasun_app.Interfazea
             {
                 Text = "Utzi",
                 Size = new Size(120, 46),
-                Location = new Point(874, 884),
+                Location = new Point(874, dgvDokumentuak.Bottom + 26),
                 DialogResult = DialogResult.Cancel
             };
 
@@ -1355,7 +1365,7 @@ namespace GOsasun_app.Interfazea
             {
                 Text = "Gorde aldaketak",
                 Size = new Size(230, 46),
-                Location = new Point(1014, 884),
+                Location = new Point(1014, dgvDokumentuak.Bottom + 26),
                 BackColor = Color.FromArgb(41, 128, 185),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat

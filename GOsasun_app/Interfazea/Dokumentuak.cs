@@ -540,9 +540,7 @@ namespace GOsasun_app.Interfazea
                 return pazientea == null ? new List<Pazientea>() : new List<Pazientea> { pazientea };
             }
 
-            return _erabiltzailea.DaOsasunLangilea()
-                ? _erabiltzaileKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea.Id).OrderBy(p => p.IzenOsoa).ToList()
-                : _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak().OrderBy(p => p.IzenOsoa).ToList();
+            return _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak().OrderBy(p => p.IzenOsoa).ToList();
         }
 
         private bool EskatuDokumentuBerriarenDatuak(
@@ -560,13 +558,16 @@ namespace GOsasun_app.Interfazea
             using Form formularioa = new Form();
             formularioa.Text = "Dokumentu berria";
             formularioa.StartPosition = FormStartPosition.CenterParent;
-            formularioa.ClientSize = new Size(720, 520);
+            formularioa.ClientSize = new Size(720, DaPazientea() ? 520 : 670);
             formularioa.FormBorderStyle = FormBorderStyle.FixedDialog;
             formularioa.MaximizeBox = false;
             formularioa.MinimizeBox = false;
 
             int unekoY = 24;
-            ComboBox? pazienteakComboBox = null;
+            TextBox? pazienteBilaketaTextBox = null;
+            ListBox? pazienteakListBox = null;
+            Label? pazienteakEgoeraLabel = null;
+            List<Pazientea> unekoPazienteak = pazienteak.OrderBy(p => p.IzenOsoa).ToList();
 
             if (!DaPazientea())
             {
@@ -578,24 +579,85 @@ namespace GOsasun_app.Interfazea
 
                 Label pazienteaLabel = new Label
                 {
-                    Text = "Pazientea",
+                    Text = "Bilatu pazientea (abizena, izena edo NAN/DNI)",
                     Location = new Point(24, unekoY),
                     AutoSize = true,
                     Font = new Font("Segoe UI", 10F, FontStyle.Bold)
                 };
-                pazienteakComboBox = new ComboBox
+
+                pazienteBilaketaTextBox = new TextBox
                 {
                     Location = new Point(24, unekoY + 30),
                     Size = new Size(632, 40),
-                    DropDownStyle = ComboBoxStyle.DropDownList,
+                    PlaceholderText = "Idatzi abizena, izena edo NAN/DNI...",
                     Font = new Font("Segoe UI", 10F),
-                    DataSource = pazienteak,
-                    DisplayMember = nameof(Pazientea.IzenOsoa)
+                };
+
+                pazienteakListBox = new ListBox
+                {
+                    Location = new Point(24, unekoY + 82),
+                    Size = new Size(632, 150),
+                    Font = new Font("Segoe UI", 10F),
+                    IntegralHeight = false
+                };
+
+                pazienteakEgoeraLabel = new Label
+                {
+                    Location = new Point(24, unekoY + 240),
+                    Size = new Size(632, 44),
+                    Font = new Font("Segoe UI", 9F),
+                    ForeColor = Color.FromArgb(90, 90, 90)
+                };
+
+                void KargatuPazienteakBilaketarekin(string? bilaketa, int? hautatutakoPazienteId = null)
+                {
+                    unekoPazienteak = string.IsNullOrWhiteSpace(bilaketa)
+                        ? pazienteak.OrderBy(p => p.IzenOsoa).ToList()
+                        : _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak(bilaketa.Trim()).OrderBy(p => p.IzenOsoa).ToList();
+
+                    pazienteakListBox!.BeginUpdate();
+                    pazienteakListBox.Items.Clear();
+                    foreach (Pazientea pazientea in unekoPazienteak)
+                    {
+                        pazienteakListBox.Items.Add(FormateatuPazienteAukera(pazientea));
+                    }
+                    pazienteakListBox.EndUpdate();
+
+                    if (hautatutakoPazienteId.HasValue)
+                    {
+                        int indizea = unekoPazienteak.FindIndex(p => p.Id == hautatutakoPazienteId.Value);
+                        if (indizea >= 0)
+                        {
+                            pazienteakListBox.SelectedIndex = indizea;
+                        }
+                    }
+                    else if (unekoPazienteak.Count == 1)
+                    {
+                        pazienteakListBox.SelectedIndex = 0;
+                    }
+
+                    pazienteakEgoeraLabel!.Text = unekoPazienteak.Count switch
+                    {
+                        0 => "Ez da pazienterik aurkitu.",
+                        1 => "Paziente 1 aurkitu da.",
+                        _ => $"{unekoPazienteak.Count} paziente aurkitu dira."
+                    };
+                }
+
+                pazienteBilaketaTextBox.TextChanged += (s, e) =>
+                {
+                    int? hautatutakoPazienteId = pazienteakListBox.SelectedIndex >= 0 && pazienteakListBox.SelectedIndex < unekoPazienteak.Count
+                        ? unekoPazienteak[pazienteakListBox.SelectedIndex].Id
+                        : null;
+                    KargatuPazienteakBilaketarekin(pazienteBilaketaTextBox.Text, hautatutakoPazienteId);
                 };
 
                 formularioa.Controls.Add(pazienteaLabel);
-                formularioa.Controls.Add(pazienteakComboBox);
-                unekoY += 82;
+                formularioa.Controls.Add(pazienteBilaketaTextBox);
+                formularioa.Controls.Add(pazienteakListBox);
+                formularioa.Controls.Add(pazienteakEgoeraLabel);
+                KargatuPazienteakBilaketarekin(null);
+                unekoY += 294;
             }
 
             Label izenaLabel = new Label
@@ -703,7 +765,7 @@ namespace GOsasun_app.Interfazea
 
             btnGorde.Click += (s, e) =>
             {
-                if (!DaPazientea() && pazienteakComboBox?.SelectedItem is not Pazientea)
+                if (!DaPazientea() && (pazienteakListBox == null || pazienteakListBox.SelectedIndex < 0 || pazienteakListBox.SelectedIndex >= unekoPazienteak.Count))
                 {
                     MessageBox.Show(formularioa, "Paziente bat hautatu behar duzu.", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -745,11 +807,16 @@ namespace GOsasun_app.Interfazea
 
             pazienteId = DaPazientea()
                 ? _erabiltzailea!.Id
-                : ((Pazientea)pazienteakComboBox!.SelectedItem!).Id;
+                : unekoPazienteak[pazienteakListBox!.SelectedIndex].Id;
             dokumentuIzena = izenaTextBox.Text.Trim();
             deskribapena = deskribapenaTextBox.Text.Trim();
             pdfFitxategiBidea = pdfTextBox.Text.Trim();
             return true;
+        }
+
+        private static string FormateatuPazienteAukera(Pazientea pazientea)
+        {
+            return $"{pazientea.Abizenak}, {pazientea.Izena} - {pazientea.Nan}";
         }
 
         private int? LortuOsasunLangileId()

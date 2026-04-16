@@ -39,17 +39,17 @@ namespace GOsasun_app.Interfazea
             ((System.ComponentModel.ISupportInitialize)_dokumentuakGrid).BeginInit();
             iragazkiPanela.SuspendLayout();
             SuspendLayout();
-            // 
+            //
             // _edukiPanela
-            // 
+            //
             _edukiPanela.Controls.Add(panelEdukia);
-            // 
+            //
             // _atzeraBotoia
-            // 
+            //
             _atzeraBotoia.FlatAppearance.BorderSize = 0;
-            // 
+            //
             // panelEdukia
-            // 
+            //
             panelEdukia.BackColor = Color.Transparent;
             panelEdukia.Controls.Add(panelTxartela);
             panelEdukia.Dock = DockStyle.Fill;
@@ -58,9 +58,9 @@ namespace GOsasun_app.Interfazea
             panelEdukia.Padding = new Padding(36);
             panelEdukia.Size = new Size(2146, 1390);
             panelEdukia.TabIndex = 0;
-            // 
+            //
             // panelTxartela
-            // 
+            //
             panelTxartela.BackColor = Color.FromArgb(230, 255, 255, 255);
             panelTxartela.Controls.Add(_dokumentuBerriaBotoia);
             panelTxartela.Controls.Add(_dokumentuakGrid);
@@ -75,9 +75,9 @@ namespace GOsasun_app.Interfazea
             panelTxartela.Padding = new Padding(32);
             panelTxartela.Size = new Size(2074, 1318);
             panelTxartela.TabIndex = 0;
-            // 
+            //
             // _dokumentuBerriaBotoia
-            // 
+            //
             _dokumentuBerriaBotoia.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             _dokumentuBerriaBotoia.BackColor = Color.FromArgb(83, 148, 117);
             _dokumentuBerriaBotoia.Cursor = Cursors.Hand;
@@ -95,9 +95,9 @@ namespace GOsasun_app.Interfazea
             _dokumentuBerriaBotoia.Text = "Dokumentu berria";
             _dokumentuBerriaBotoia.TextImageRelation = TextImageRelation.ImageBeforeText;
             _dokumentuBerriaBotoia.UseVisualStyleBackColor = false;
-            // 
+            //
             // _dokumentuakGrid
-            // 
+            //
             _dokumentuakGrid.AllowUserToAddRows = false;
             _dokumentuakGrid.AllowUserToDeleteRows = false;
             _dokumentuakGrid.AllowUserToResizeRows = false;
@@ -115,9 +115,9 @@ namespace GOsasun_app.Interfazea
             _dokumentuakGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             _dokumentuakGrid.Size = new Size(2010, 817);
             _dokumentuakGrid.TabIndex = 4;
-            // 
+            //
             // _egoeraLabel
-            // 
+            //
             _egoeraLabel.Dock = DockStyle.Top;
             _egoeraLabel.Font = new Font("Segoe UI", 10F);
             _egoeraLabel.ForeColor = Color.FromArgb(90, 90, 90);
@@ -127,9 +127,9 @@ namespace GOsasun_app.Interfazea
             _egoeraLabel.Size = new Size(2010, 145);
             _egoeraLabel.TabIndex = 3;
             _egoeraLabel.Click += _egoeraLabel_Click;
-            // 
+            //
             // iragazkiPanela
-            // 
+            //
             iragazkiPanela.BackColor = Color.Transparent;
             iragazkiPanela.Controls.Add(_bilaketaLabel);
             iragazkiPanela.Controls.Add(_bilaketaTextBox);
@@ -144,9 +144,9 @@ namespace GOsasun_app.Interfazea
             iragazkiPanela.Size = new Size(2042, 112);
             iragazkiPanela.TabIndex = 2;
             iragazkiPanela.WrapContents = false;
-            // 
+            //
             // _bilaketaLabel
-            // 
+            //
             _bilaketaLabel.AutoSize = true;
             _bilaketaLabel.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             _bilaketaLabel.ForeColor = Color.FromArgb(50, 50, 50);
@@ -156,18 +156,18 @@ namespace GOsasun_app.Interfazea
             _bilaketaLabel.Size = new Size(131, 38);
             _bilaketaLabel.TabIndex = 0;
             _bilaketaLabel.Text = "Bilaketa:";
-            // 
+            //
             // _bilaketaTextBox
-            // 
+            //
             _bilaketaTextBox.Font = new Font("Segoe UI", 10.5F);
             _bilaketaTextBox.Location = new Point(143, 12);
             _bilaketaTextBox.Margin = new Padding(0, 4, 12, 0);
             _bilaketaTextBox.Name = "_bilaketaTextBox";
             _bilaketaTextBox.Size = new Size(420, 45);
             _bilaketaTextBox.TabIndex = 1;
-            // 
+            //
             // _hasieraDataPicker
-            // 
+            //
             _hasieraDataPicker.Checked = false;
             _hasieraDataPicker.CustomFormat = "'Hasiera data: 'dd/MM/yyyy";
             _hasieraDataPicker.Font = new Font("Segoe UI", 10F);
@@ -178,9 +178,9 @@ namespace GOsasun_app.Interfazea
             _hasieraDataPicker.ShowCheckBox = true;
             _hasieraDataPicker.Size = new Size(414, 43);
             _hasieraDataPicker.TabIndex = 2;
-            // 
+            //
             // _amaieraDataPicker
-            // 
+            //
             _amaieraDataPicker.Checked = false;
             _amaieraDataPicker.CustomFormat = "'Amaiera data: 'dd/MM/yyyy";
             _amaieraDataPicker.Font = new Font("Segoe UI", 10F);
@@ -191,9 +191,9 @@ namespace GOsasun_app.Interfazea
             _amaieraDataPicker.ShowCheckBox = true;
             _amaieraDataPicker.Size = new Size(430, 43);
             _amaieraDataPicker.TabIndex = 3;
-            // 
+            //
             // _bilatuBotoia
-            // 
+            //
             _bilatuBotoia.AutoSize = true;
             _bilatuBotoia.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             _bilatuBotoia.BackColor = Color.FromArgb(44, 62, 80);
@@ -210,9 +210,9 @@ namespace GOsasun_app.Interfazea
             _bilatuBotoia.TabIndex = 4;
             _bilatuBotoia.Text = "Bilatu";
             _bilatuBotoia.UseVisualStyleBackColor = false;
-            // 
+            //
             // _garbituBotoia
-            // 
+            //
             _garbituBotoia.AutoSize = true;
             _garbituBotoia.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             _garbituBotoia.BackColor = Color.FromArgb(44, 62, 80);
@@ -229,22 +229,22 @@ namespace GOsasun_app.Interfazea
             _garbituBotoia.TabIndex = 5;
             _garbituBotoia.Text = "Garbitu";
             _garbituBotoia.UseVisualStyleBackColor = false;
-            // 
+            //
             // _jarraipenGuztiakCheckBox
-            // 
+            //
             _jarraipenGuztiakCheckBox.AutoSize = true;
             _jarraipenGuztiakCheckBox.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             _jarraipenGuztiakCheckBox.ForeColor = Color.FromArgb(50, 50, 50);
             _jarraipenGuztiakCheckBox.Location = new Point(32, 372);
             _jarraipenGuztiakCheckBox.Margin = new Padding(0, 0, 0, 8);
             _jarraipenGuztiakCheckBox.Name = "_jarraipenGuztiakCheckBox";
-            _jarraipenGuztiakCheckBox.Size = new Size(321, 42);
+            _jarraipenGuztiakCheckBox.Size = new Size(402, 42);
             _jarraipenGuztiakCheckBox.TabIndex = 7;
-            _jarraipenGuztiakCheckBox.Text = "Jarraipen guztiak ikusi";
+            _jarraipenGuztiakCheckBox.Text = "Dokumentu guztiak erakutsi";
             _jarraipenGuztiakCheckBox.UseVisualStyleBackColor = true;
-            // 
+            //
             // _azalpenaLabel
-            // 
+            //
             _azalpenaLabel.Dock = DockStyle.Top;
             _azalpenaLabel.Font = new Font("Segoe UI", 10.5F);
             _azalpenaLabel.ForeColor = Color.FromArgb(90, 90, 90);
@@ -253,9 +253,9 @@ namespace GOsasun_app.Interfazea
             _azalpenaLabel.Padding = new Padding(0, 0, 0, 8);
             _azalpenaLabel.Size = new Size(2010, 196);
             _azalpenaLabel.TabIndex = 1;
-            // 
+            //
             // _izenburuaLabel
-            // 
+            //
             _izenburuaLabel.Dock = DockStyle.Top;
             _izenburuaLabel.Font = new Font("Segoe UI", 22F, FontStyle.Bold);
             _izenburuaLabel.ForeColor = Color.FromArgb(44, 62, 80);
@@ -264,9 +264,9 @@ namespace GOsasun_app.Interfazea
             _izenburuaLabel.Size = new Size(2010, 96);
             _izenburuaLabel.TabIndex = 0;
             _izenburuaLabel.Text = "Dokumentuak";
-            // 
+            //
             // Dokumentuak
-            // 
+            //
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(2150, 1575);

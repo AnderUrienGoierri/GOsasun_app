@@ -21,13 +21,13 @@ namespace GOsasun_app.Repositorioa
                     JOIN jarraipenak j ON d.jarraipena_id = j.id
                     JOIN erabiltzaileak e ON j.paziente_id = e.id
                     WHERE (@testua IS NULL
-                            OR e.nan LIKE @testua
-                            OR e.izena LIKE @testua
-                            OR e.abizenak LIKE @testua
-                            OR d.dokumentu_izena LIKE @testua
-                            OR d.fitxategi_izena LIKE @testua
-                            OR DATE_FORMAT(d.igotze_data, '%Y-%m-%d') LIKE @testua
-                            OR DATE_FORMAT(d.igotze_data, '%d/%m/%Y') LIKE @testua)
+                        OR e.nan COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci
+                        OR e.izena COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci
+                        OR e.abizenak COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci
+                        OR COALESCE(d.dokumentu_izena, '') COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci
+                        OR d.fitxategi_izena COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci
+                        OR DATE_FORMAT(d.igotze_data, '%Y-%m-%d') COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci
+                        OR DATE_FORMAT(d.igotze_data, '%d/%m/%Y') COLLATE utf8mb4_unicode_ci LIKE CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci)
                       AND (@hasieraData IS NULL OR d.igotze_data >= @hasieraData)
                       AND (@amaieraData IS NULL OR d.igotze_data < @amaieraData)
                       AND (@pazienteId IS NULL OR j.paziente_id = @pazienteId)
