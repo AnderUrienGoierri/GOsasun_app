@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 using System.Linq;
 using System.Windows.Forms;
 using GOsasun_app.Kontrola;
@@ -460,6 +461,7 @@ namespace GOsasun_app.Interfazea
         {
             Graphics graphics = e.Graphics;
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
             graphics.Clear(Color.FromArgb(248, 251, 253));
 
             Rectangle area = pnlGrafikoa.ClientRectangle;
@@ -480,11 +482,11 @@ namespace GOsasun_app.Interfazea
             graphics.FillRectangle(cardBrush, cardArea);
             graphics.DrawRectangle(cardPen, cardArea);
 
-            using Font titleFont = new Font("Segoe UI", 13F, FontStyle.Bold);
-            using Font subtitleFont = new Font("Segoe UI", 8.8F, FontStyle.Regular);
+            using Font titleFont = new Font("Segoe UI", 15F, FontStyle.Bold);
+            using Font subtitleFont = new Font("Segoe UI", 10F, FontStyle.Regular);
             using Font axisFont = new Font("Segoe UI", 9.3F, FontStyle.Bold);
             using Font labelFont = new Font("Segoe UI", 8.4F, FontStyle.Regular);
-            using Font legendTitleFont = new Font("Segoe UI", 9F, FontStyle.Bold);
+            using Font legendTitleFont = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             using Brush textBrush = new SolidBrush(textColor);
             using Brush mutedTextBrush = new SolidBrush(mutedTextColor);
             using Pen axisPen = new Pen(Color.FromArgb(132, 146, 166), 1.2f);
@@ -492,8 +494,8 @@ namespace GOsasun_app.Interfazea
             using Pen dividerPen = new Pen(Color.FromArgb(226, 232, 238), 1f);
 
             graphics.DrawString(_grafikoIzenburua, titleFont, textBrush, new PointF(cardArea.Left + 22, cardArea.Top + 18));
-            graphics.DrawString("Eboluzio klinikoa eta joera lineala", subtitleFont, mutedTextBrush, new PointF(cardArea.Left + 22, cardArea.Top + 50));
-            graphics.DrawLine(dividerPen, cardArea.Left + 18, cardArea.Top + 82, cardArea.Right - 18, cardArea.Top + 82);
+            graphics.DrawString("Eboluzio klinikoa eta joera lineala", subtitleFont, mutedTextBrush, new PointF(cardArea.Left + 22, cardArea.Top + 58));
+            graphics.DrawLine(dividerPen, cardArea.Left + 18, cardArea.Top + 98, cardArea.Right - 18, cardArea.Top + 98);
 
             if (_unekoSerieak.Count == 0 || _unekoSerieak.All(seriea => seriea.Puntuak.Count == 0))
             {
@@ -503,8 +505,8 @@ namespace GOsasun_app.Interfazea
                 return;
             }
 
-            Rectangle legendArea = new Rectangle(cardArea.Right - 320, cardArea.Top + 104, 278, cardArea.Height - 140);
-            Rectangle plotArea = new Rectangle(cardArea.Left + 86, cardArea.Top + 122, Math.Max(240, legendArea.Left - (cardArea.Left + 112)), Math.Max(220, cardArea.Height - 222));
+            Rectangle legendArea = new Rectangle(cardArea.Right - 430, cardArea.Top + 118, 388, cardArea.Height - 158);
+            Rectangle plotArea = new Rectangle(cardArea.Left + 86, cardArea.Top + 136, Math.Max(150, legendArea.Left - (cardArea.Left + 118)), Math.Max(200, cardArea.Height - 262));
 
             using SolidBrush plotBrush = new SolidBrush(plotFill);
             graphics.FillRectangle(plotBrush, plotArea);
@@ -513,8 +515,14 @@ namespace GOsasun_app.Interfazea
             using SolidBrush legendBrush = new SolidBrush(Color.FromArgb(249, 251, 252));
             graphics.FillRectangle(legendBrush, legendArea);
             graphics.DrawRectangle(cardPen, legendArea);
-            graphics.DrawString("Legenda klinikoa", legendTitleFont, textBrush, new PointF(legendArea.Left + 16, legendArea.Top + 14));
-            graphics.DrawLine(dividerPen, legendArea.Left + 14, legendArea.Top + 42, legendArea.Right - 14, legendArea.Top + 42);
+            TextRenderer.DrawText(
+                graphics,
+                "Legenda klinikoa",
+                legendTitleFont,
+                new Rectangle(legendArea.Left + 16, legendArea.Top + 12, legendArea.Width - 32, 28),
+                textColor,
+                TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
+            graphics.DrawLine(dividerPen, legendArea.Left + 14, legendArea.Top + 48, legendArea.Right - 14, legendArea.Top + 48);
 
             List<(DateTime Data, double Balioa)> puntuGuztiak = _unekoSerieak.SelectMany(seriea => seriea.Puntuak).ToList();
             double minX = puntuGuztiak.Min(p => p.Data.ToOADate());
@@ -557,7 +565,7 @@ namespace GOsasun_app.Interfazea
                 SizeF labelSize = graphics.MeasureString(etiketa, labelFont);
 
                 GraphicsState state = graphics.Save();
-                graphics.TranslateTransform(x - (labelSize.Width / 2f), plotArea.Bottom + 26);
+                graphics.TranslateTransform(x - (labelSize.Width / 2f), plotArea.Bottom + 34);
                 graphics.RotateTransform(-28f);
                 graphics.DrawString(etiketa, labelFont, mutedTextBrush, 0, 0);
                 graphics.Restore(state);
@@ -595,10 +603,10 @@ namespace GOsasun_app.Interfazea
                 }
             }
 
-            graphics.DrawString(_ardatzYIzenburua, axisFont, textBrush, new PointF(plotArea.Left, plotArea.Top - 34));
-            graphics.DrawString("Data", axisFont, textBrush, new PointF(plotArea.Right - 50, plotArea.Bottom + 72));
+            graphics.DrawString(_ardatzYIzenburua, axisFont, textBrush, new PointF(plotArea.Left, plotArea.Top - 38));
+            graphics.DrawString("Data", axisFont, textBrush, new PointF(plotArea.Right - 50, plotArea.Bottom + 96));
 
-            float legendaY = legendArea.Top + 58;
+            float legendaY = legendArea.Top + 66;
             foreach (GrafikoSeriea seriea in _unekoSerieak)
             {
                 using Pen legendPen = new Pen(seriea.Kolorea, seriea.Etena ? 2f : 3f)
@@ -606,22 +614,36 @@ namespace GOsasun_app.Interfazea
                     DashStyle = seriea.Etena ? DashStyle.Dash : DashStyle.Solid
                 };
 
-                Rectangle itemArea = new Rectangle(legendArea.Left + 14, (int)legendaY, legendArea.Width - 28, 52);
+                Rectangle itemArea = new Rectangle(legendArea.Left + 14, (int)legendaY, legendArea.Width - 28, 108);
                 using SolidBrush itemBrush = new SolidBrush(Color.White);
                 graphics.FillRectangle(itemBrush, itemArea);
                 graphics.DrawRectangle(Pens.Gainsboro, itemArea);
 
-                graphics.DrawLine(legendPen, itemArea.Left + 14, itemArea.Top + 24, itemArea.Left + 56, itemArea.Top + 24);
+                graphics.DrawLine(legendPen, itemArea.Left + 16, itemArea.Top + 32, itemArea.Left + 80, itemArea.Top + 32);
                 if (!seriea.Etena)
                 {
                     using SolidBrush sampleBrush = new SolidBrush(seriea.Kolorea);
-                    graphics.FillEllipse(sampleBrush, itemArea.Left + 30, itemArea.Top + 18, 12, 12);
-                    graphics.DrawEllipse(Pens.White, itemArea.Left + 30, itemArea.Top + 18, 12, 12);
+                    graphics.FillEllipse(sampleBrush, itemArea.Left + 42, itemArea.Top + 24, 14, 14);
+                    graphics.DrawEllipse(Pens.White, itemArea.Left + 42, itemArea.Top + 24, 14, 14);
                 }
 
-                graphics.DrawString(seriea.Izena, labelFont, textBrush, new RectangleF(itemArea.Left + 70, itemArea.Top + 9, itemArea.Width - 82, 18));
-                graphics.DrawString(seriea.Etena ? "Joera lineala" : "Neurketa seriea", subtitleFont, mutedTextBrush, new RectangleF(itemArea.Left + 70, itemArea.Top + 25, itemArea.Width - 82, 18));
-                legendaY += 60;
+                TextRenderer.DrawText(
+                    graphics,
+                    seriea.Izena,
+                    legendTitleFont,
+                    new Rectangle(itemArea.Left + 96, itemArea.Top + 14, itemArea.Width - 112, 38),
+                    textColor,
+                    TextFormatFlags.Left | TextFormatFlags.WordBreak | TextFormatFlags.VerticalCenter);
+
+                TextRenderer.DrawText(
+                    graphics,
+                    seriea.Etena ? "Joera lineala" : "Neurketa seriea",
+                    subtitleFont,
+                    new Rectangle(itemArea.Left + 96, itemArea.Top + 58, itemArea.Width - 112, 30),
+                    mutedTextColor,
+                    TextFormatFlags.Left | TextFormatFlags.WordBreak | TextFormatFlags.VerticalCenter);
+
+                legendaY += 116;
             }
         }
 

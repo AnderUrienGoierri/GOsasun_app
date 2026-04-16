@@ -27,22 +27,22 @@ namespace GOsasun_app.Interfazea
             btnOharra = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             _edukiPanela.SuspendLayout();
             SuspendLayout();
-            // 
+            //
             // _edukiPanela
-            // 
+            //
             _edukiPanela.Controls.Add(btnOharra);
             _edukiPanela.Controls.Add(btnTentsiometroa);
             _edukiPanela.Controls.Add(btnPisua);
             _edukiPanela.Controls.Add(btnAltuera);
             _edukiPanela.Size = new Size(1902, 1153);
             _edukiPanela.Paint += _edukiPanela_Paint;
-            // 
+            //
             // _atzeraBotoia
-            // 
+            //
             _atzeraBotoia.FlatAppearance.BorderSize = 0;
-            // 
+            //
             // btnTentsiometroa
-            // 
+            //
             btnTentsiometroa.BackColor = Color.White;
             btnTentsiometroa.BorderBiribiltasuna = 24;
             btnTentsiometroa.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
@@ -53,9 +53,9 @@ namespace GOsasun_app.Interfazea
             btnTentsiometroa.Size = new Size(400, 420);
             btnTentsiometroa.TabIndex = 0;
             btnTentsiometroa.Testua = "TENTSIOMETROA";
-            // 
+            //
             // btnPisua
-            // 
+            //
             btnPisua.BackColor = Color.White;
             btnPisua.BorderBiribiltasuna = 24;
             btnPisua.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
@@ -66,9 +66,9 @@ namespace GOsasun_app.Interfazea
             btnPisua.Size = new Size(400, 420);
             btnPisua.TabIndex = 2;
             btnPisua.Testua = "PISUA";
-            // 
+            //
             // btnAltuera
-            // 
+            //
             btnAltuera.BackColor = Color.White;
             btnAltuera.BorderBiribiltasuna = 24;
             btnAltuera.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
@@ -79,9 +79,9 @@ namespace GOsasun_app.Interfazea
             btnAltuera.Size = new Size(400, 420);
             btnAltuera.TabIndex = 3;
             btnAltuera.Testua = "ALTUERA";
-            // 
+            //
             // btnOharra
-            // 
+            //
             btnOharra.BackColor = Color.White;
             btnOharra.BorderBiribiltasuna = 24;
             btnOharra.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
@@ -92,9 +92,9 @@ namespace GOsasun_app.Interfazea
             btnOharra.Size = new Size(400, 420);
             btnOharra.TabIndex = 4;
             btnOharra.Testua = "OHARRA";
-            // 
+            //
             // JarraipenMotak
-            // 
+            //
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1902, 1334);

@@ -26,27 +26,27 @@ namespace GOsasun_app.Interfazea
             _edukiPanela.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHitzorduak).BeginInit();
             SuspendLayout();
-            // 
+            //
             // _edukiPanela
-            // 
+            //
             _edukiPanela.Controls.Add(dgvHitzorduak);
             _edukiPanela.Controls.Add(btnGuztiak);
             _edukiPanela.Controls.Add(calEgutegia);
             _edukiPanela.Controls.Add(lblIzenburua);
             _edukiPanela.Location = new Point(0, 310);
             _edukiPanela.Size = new Size(2036, 1120);
-            // 
+            //
             // _goiburuBarra
-            // 
+            //
             _goiburuBarra.Size = new Size(2036, 310);
             _goiburuBarra.Paint += _goiburuBarra_Paint;
-            // 
+            //
             // _atzeraBotoia
-            // 
+            //
             _atzeraBotoia.FlatAppearance.BorderSize = 0;
-            // 
+            //
             // lblIzenburua
-            // 
+            //
             lblIzenburua.AutoSize = true;
             lblIzenburua.Font = new Font("Segoe UI", 36F, FontStyle.Bold);
             lblIzenburua.ForeColor = Color.White;
@@ -55,15 +55,15 @@ namespace GOsasun_app.Interfazea
             lblIzenburua.Size = new Size(1162, 128);
             lblIzenburua.TabIndex = 2;
             lblIzenburua.Text = "HITZORDUEN EGUTEGIA";
-            // 
+            //
             // calEgutegia
-            // 
+            //
             calEgutegia.Location = new Point(34, 150);
             calEgutegia.Name = "calEgutegia";
             calEgutegia.TabIndex = 3;
-            // 
+            //
             // dgvHitzorduak
-            // 
+            //
             dgvHitzorduak.AllowUserToAddRows = false;
             dgvHitzorduak.AllowUserToDeleteRows = false;
             dgvHitzorduak.BackgroundColor = Color.White;
@@ -75,9 +75,9 @@ namespace GOsasun_app.Interfazea
             dgvHitzorduak.RowHeadersWidth = 82;
             dgvHitzorduak.Size = new Size(1611, 800);
             dgvHitzorduak.TabIndex = 5;
-            // 
+            //
             // btnGuztiak
-            // 
+            //
             btnGuztiak.BackColor = Color.White;
             btnGuztiak.FlatStyle = FlatStyle.Flat;
             btnGuztiak.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
@@ -89,9 +89,9 @@ namespace GOsasun_app.Interfazea
             btnGuztiak.Text = "Erakutsi Guztiak";
             btnGuztiak.UseVisualStyleBackColor = false;
             btnGuztiak.Click += btnGuztiak_Click_1;
-            // 
+            //
             // HitzorduakKontsultatzea
-            // 
+            //
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(142, 121, 102);

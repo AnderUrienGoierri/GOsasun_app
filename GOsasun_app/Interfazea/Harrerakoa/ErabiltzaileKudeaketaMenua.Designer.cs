@@ -24,18 +24,18 @@ namespace GOsasun_app.Interfazea
             this.btnZerrendatu = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             this._edukiPanela.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // _edukiPanela
-            // 
+            //
             this._edukiPanela.Controls.Add(this.btnSortu);
             this._edukiPanela.Controls.Add(this.btnZerrendatu);
-            // 
+            //
             // _atzeraBotoia
-            // 
+            //
             this._atzeraBotoia.FlatAppearance.BorderSize = 0;
-            // 
+            //
             // btnSortu
-            // 
+            //
             this.btnSortu.BackColor = Color.White;
             this.btnSortu.BorderBiribiltasuna = 24;
             this.btnSortu.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
@@ -46,9 +46,9 @@ namespace GOsasun_app.Interfazea
             this.btnSortu.TabIndex = 0;
             this.btnSortu.Testua = "SORTU";
             this.btnSortu.TestuKolorea = Color.FromArgb(50, 50, 50);
-            // 
+            //
             // btnZerrendatu
-            // 
+            //
             this.btnZerrendatu.BackColor = Color.White;
             this.btnZerrendatu.BorderBiribiltasuna = 24;
             this.btnZerrendatu.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
@@ -59,9 +59,9 @@ namespace GOsasun_app.Interfazea
             this.btnZerrendatu.TabIndex = 1;
             this.btnZerrendatu.Testua = "ZERRENDATU";
             this.btnZerrendatu.TestuKolorea = Color.FromArgb(50, 50, 50);
-            // 
+            //
             // ErabiltzaileKudeaketaMenua
-            // 
+            //
             this.AutoScaleDimensions = new SizeF(13F, 32F);
             this.AutoScaleMode = AutoScaleMode.Font;
             this.ClientSize = new Size(1902, 1340);

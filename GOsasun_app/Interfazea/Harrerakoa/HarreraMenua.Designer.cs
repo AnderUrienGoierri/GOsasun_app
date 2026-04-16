@@ -27,21 +27,21 @@ namespace GOsasun_app.Interfazea
             btnHitzorduak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
             _edukiPanela.SuspendLayout();
             SuspendLayout();
-            // 
+            //
             // _edukiPanela
-            // 
+            //
             _edukiPanela.Controls.Add(btnPazienteak);
             _edukiPanela.Controls.Add(btnMedikuak);
             _edukiPanela.Controls.Add(btnLangileak);
             _edukiPanela.Controls.Add(btnHitzorduak);
             _edukiPanela.Size = new Size(1902, 1159);
-            // 
+            //
             // _atzeraBotoia
-            // 
+            //
             _atzeraBotoia.FlatAppearance.BorderSize = 0;
-            // 
+            //
             // btnPazienteak
-            // 
+            //
             btnPazienteak.BackColor = Color.White;
             btnPazienteak.BorderBiribiltasuna = 24;
             btnPazienteak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
@@ -53,9 +53,9 @@ namespace GOsasun_app.Interfazea
             btnPazienteak.TabIndex = 0;
             btnPazienteak.Testua = "PAZIENTEAK KUDEATU";
             btnPazienteak.TestuKolorea = Color.FromArgb(50, 50, 50);
-            // 
+            //
             // btnMedikuak
-            // 
+            //
             btnMedikuak.BackColor = Color.White;
             btnMedikuak.BorderBiribiltasuna = 24;
             btnMedikuak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
@@ -67,9 +67,9 @@ namespace GOsasun_app.Interfazea
             btnMedikuak.TabIndex = 1;
             btnMedikuak.Testua = "OSASUN LANGILEAK KUDEATU";
             btnMedikuak.TestuKolorea = Color.FromArgb(50, 50, 50);
-            // 
+            //
             // btnLangileak
-            // 
+            //
             btnLangileak.BackColor = Color.White;
             btnLangileak.BorderBiribiltasuna = 24;
             btnLangileak.Font = new Font("Segoe UI", 9F);
@@ -83,9 +83,9 @@ namespace GOsasun_app.Interfazea
             btnLangileak.Testua = "HARRERAKO LANGILEAK";
             btnLangileak.TestuKolorea = Color.FromArgb(50, 50, 50);
             btnLangileak.Paint += btnLangileak_Paint;
-            // 
+            //
             // btnHitzorduak
-            // 
+            //
             btnHitzorduak.BackColor = Color.White;
             btnHitzorduak.BorderBiribiltasuna = 24;
             btnHitzorduak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
@@ -97,9 +97,9 @@ namespace GOsasun_app.Interfazea
             btnHitzorduak.TabIndex = 3;
             btnHitzorduak.Testua = "HITZORDUAK KUDEATU";
             btnHitzorduak.TestuKolorea = Color.FromArgb(50, 50, 50);
-            // 
+            //
             // HarreraMenua
-            // 
+            //
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1902, 1340);

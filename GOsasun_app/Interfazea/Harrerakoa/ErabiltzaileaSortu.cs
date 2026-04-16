@@ -24,7 +24,7 @@ namespace GOsasun_app.Interfazea
             _rolIzena = rolIzena;
             _kontrolatzailea = new ErabiltzaileKontrolatzailea();
             _esleitutakoLangileId = esleitutakoLangileId;
-            
+
             InitializeComponent();
 
             // Gehitu kontrol berriak base klaseko eduki-panelera

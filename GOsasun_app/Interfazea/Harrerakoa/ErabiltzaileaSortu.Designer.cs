@@ -71,9 +71,9 @@ namespace GOsasun_app.Interfazea
             ((System.ComponentModel.ISupportInitialize)(this.pbIrudia)).BeginInit();
             this.pnlForm.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // lblIntegrazioa
-            // 
+            //
             this.lblIntegrazioa.AutoSize = true;
             this.lblIntegrazioa.Font = new System.Drawing.Font("Segoe UI Semibold", 24F, System.Drawing.FontStyle.Bold);
             this.lblIntegrazioa.Location = new System.Drawing.Point(40, 20);
@@ -81,9 +81,9 @@ namespace GOsasun_app.Interfazea
             this.lblIntegrazioa.Size = new System.Drawing.Size(720, 86);
             this.lblIntegrazioa.TabIndex = 1;
             this.lblIntegrazioa.Text = "Erabiltzaile Berria Sortu";
-            // 
+            //
             // pnlForm
-            // 
+            //
             this.pnlForm.AutoScroll = true;
             this.pnlForm.BackColor = System.Drawing.Color.White;
             this.pnlForm.Controls.Add(this.lblHizkuntza);
@@ -135,249 +135,249 @@ namespace GOsasun_app.Interfazea
             this.pnlForm.Name = "pnlForm";
             this.pnlForm.Size = new System.Drawing.Size(1200, 850);
             this.pnlForm.TabIndex = 0;
-            // 
+            //
             // lblHizkuntza
-            // 
+            //
             this.lblHizkuntza.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblHizkuntza.Location = new System.Drawing.Point(40, 30);
             this.lblHizkuntza.Size = new System.Drawing.Size(200, 40);
             this.lblHizkuntza.Text = "Hizkuntza:";
-            // 
+            //
             // cmbHizkuntza
-            // 
+            //
             this.cmbHizkuntza.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbHizkuntza.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.cmbHizkuntza.Items.AddRange(new object[] { "Euskara", "Gaztelania" });
             this.cmbHizkuntza.Location = new System.Drawing.Point(300, 30);
             this.cmbHizkuntza.Size = new System.Drawing.Size(600, 48);
-            // 
+            //
             // lblIzena
-            // 
+            //
             this.lblIzena.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblIzena.Location = new System.Drawing.Point(40, 90);
             this.lblIzena.Size = new System.Drawing.Size(200, 40);
             this.lblIzena.Text = "Izena (*):";
-            // 
+            //
             // txtIzena
-            // 
+            //
             this.txtIzena.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtIzena.Location = new System.Drawing.Point(300, 90);
             this.txtIzena.Size = new System.Drawing.Size(600, 47);
-            // 
+            //
             // lblAbizenak
-            // 
+            //
             this.lblAbizenak.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblAbizenak.Location = new System.Drawing.Point(40, 150);
             this.lblAbizenak.Size = new System.Drawing.Size(200, 40);
             this.lblAbizenak.Text = "Abizenak (*):";
-            // 
+            //
             // txtAbizenak
-            // 
+            //
             this.txtAbizenak.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtAbizenak.Location = new System.Drawing.Point(300, 150);
             this.txtAbizenak.Size = new System.Drawing.Size(600, 47);
-            // 
+            //
             // lblEmaila
-            // 
+            //
             this.lblEmaila.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblEmaila.Location = new System.Drawing.Point(40, 210);
             this.lblEmaila.Size = new System.Drawing.Size(200, 40);
             this.lblEmaila.Text = "Emaila (*):";
-            // 
+            //
             // txtEmaila
-            // 
+            //
             this.txtEmaila.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtEmaila.Location = new System.Drawing.Point(300, 210);
             this.txtEmaila.Size = new System.Drawing.Size(600, 47);
-            // 
+            //
             // lblPasahitza
-            // 
+            //
             this.lblPasahitza.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblPasahitza.Location = new System.Drawing.Point(40, 270);
             this.lblPasahitza.Size = new System.Drawing.Size(200, 40);
             this.lblPasahitza.Text = "Pasahitza (*):";
-            // 
+            //
             // txtPasahitza
-            // 
+            //
             this.txtPasahitza.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtPasahitza.Location = new System.Drawing.Point(300, 270);
             this.txtPasahitza.Size = new System.Drawing.Size(600, 47);
             this.txtPasahitza.UseSystemPasswordChar = true;
-            // 
+            //
             // lblNan
-            // 
+            //
             this.lblNan.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblNan.Location = new System.Drawing.Point(40, 330);
             this.lblNan.Size = new System.Drawing.Size(200, 40);
             this.lblNan.Text = "NAN/DNI (*):";
-            // 
+            //
             // txtNan
-            // 
+            //
             this.txtNan.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtNan.Location = new System.Drawing.Point(300, 330);
             this.txtNan.Size = new System.Drawing.Size(600, 47);
-            // 
+            //
             // lblSexua
-            // 
+            //
             this.lblSexua.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblSexua.Location = new System.Drawing.Point(40, 390);
             this.lblSexua.Size = new System.Drawing.Size(200, 40);
             this.lblSexua.Text = "Sexua:";
-            // 
+            //
             // cmbSexua
-            // 
+            //
             this.cmbSexua.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSexua.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.cmbSexua.Items.AddRange(new object[] { "Gizona", "Emakumea" });
             this.cmbSexua.Location = new System.Drawing.Point(300, 390);
             this.cmbSexua.Size = new System.Drawing.Size(600, 48);
-            // 
+            //
             // lblJaiotzeData
-            // 
+            //
             this.lblJaiotzeData.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblJaiotzeData.Location = new System.Drawing.Point(40, 450);
             this.lblJaiotzeData.Size = new System.Drawing.Size(200, 40);
             this.lblJaiotzeData.Text = "Jaiotze data:";
-            // 
+            //
             // dtpJaiotzeData
-            // 
+            //
             this.dtpJaiotzeData.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.dtpJaiotzeData.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpJaiotzeData.Location = new System.Drawing.Point(300, 450);
             this.dtpJaiotzeData.Size = new System.Drawing.Size(600, 47);
-            // 
+            //
             // lblTelefonoa
-            // 
+            //
             this.lblTelefonoa.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblTelefonoa.Location = new System.Drawing.Point(40, 510);
             this.lblTelefonoa.Size = new System.Drawing.Size(200, 40);
             this.lblTelefonoa.Text = "Telefonoa:";
-            // 
+            //
             // txtTelefonoa
-            // 
+            //
             this.txtTelefonoa.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtTelefonoa.Location = new System.Drawing.Point(300, 510);
             this.txtTelefonoa.Size = new System.Drawing.Size(600, 47);
-            // 
+            //
             // lblHelbidea
-            // 
+            //
             this.lblHelbidea.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblHelbidea.Location = new System.Drawing.Point(40, 570);
             this.lblHelbidea.Size = new System.Drawing.Size(200, 40);
             this.lblHelbidea.Text = "Helbidea:";
-            // 
+            //
             // txtHelbidea
-            // 
+            //
             this.txtHelbidea.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtHelbidea.Location = new System.Drawing.Point(300, 570);
             this.txtHelbidea.Size = new System.Drawing.Size(600, 47);
-            // 
+            //
             // lblHerria
-            // 
+            //
             this.lblHerria.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblHerria.Location = new System.Drawing.Point(40, 630);
             this.lblHerria.Size = new System.Drawing.Size(200, 40);
             this.lblHerria.Text = "Herria / PK:";
-            // 
+            //
             // txtHerria
-            // 
+            //
             this.txtHerria.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtHerria.Location = new System.Drawing.Point(300, 630);
             this.txtHerria.Size = new System.Drawing.Size(300, 47);
-            // 
+            //
             // lblPostaKodea
-            // 
+            //
             this.lblPostaKodea.Location = new System.Drawing.Point(0, 0);
             this.lblPostaKodea.Name = "lblPostaKodea";
             this.lblPostaKodea.Size = new System.Drawing.Size(100, 23);
             this.lblPostaKodea.TabIndex = 0;
-            // 
+            //
             // txtPostaKodea
-            // 
+            //
             this.txtPostaKodea.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtPostaKodea.Location = new System.Drawing.Point(610, 630);
             this.txtPostaKodea.Size = new System.Drawing.Size(290, 47);
-            // 
+            //
             // lblElkargokide
-            // 
+            //
             this.lblElkargokide.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblElkargokide.Location = new System.Drawing.Point(40, 690);
             this.lblElkargokide.Size = new System.Drawing.Size(220, 40);
             this.lblElkargokide.Text = "Elkargokide / Esp:";
-            // 
+            //
             // txtElkargokide
-            // 
+            //
             this.txtElkargokide.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtElkargokide.Location = new System.Drawing.Point(300, 690);
             this.txtElkargokide.Size = new System.Drawing.Size(300, 47);
-            // 
+            //
             // lblEspezialitatea
-            // 
+            //
             this.lblEspezialitatea.Location = new System.Drawing.Point(0, 0);
             this.lblEspezialitatea.Name = "lblEspezialitatea";
             this.lblEspezialitatea.Size = new System.Drawing.Size(233, 50);
             this.lblEspezialitatea.TabIndex = 0;
-            // 
+            //
             // txtEspezialitatea
-            // 
+            //
             this.txtEspezialitatea.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtEspezialitatea.Location = new System.Drawing.Point(610, 690);
             this.txtEspezialitatea.Size = new System.Drawing.Size(290, 47);
-            // 
+            //
             // lblKontsulta
-            // 
+            //
             this.lblKontsulta.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblKontsulta.Location = new System.Drawing.Point(40, 750);
             this.lblKontsulta.Size = new System.Drawing.Size(220, 40);
             this.lblKontsulta.Text = "Kontsulta / Lan:";
-            // 
+            //
             // txtKontsulta
-            // 
+            //
             this.txtKontsulta.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtKontsulta.Location = new System.Drawing.Point(300, 750);
             this.txtKontsulta.Size = new System.Drawing.Size(300, 47);
-            // 
+            //
             // lblLanaldia
-            // 
+            //
             this.lblLanaldia.Location = new System.Drawing.Point(0, 0);
             this.lblLanaldia.Name = "lblLanaldia";
             this.lblLanaldia.Size = new System.Drawing.Size(100, 23);
             this.lblLanaldia.TabIndex = 0;
-            // 
+            //
             // cmbLanaldia
-            // 
+            //
             this.cmbLanaldia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLanaldia.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.cmbLanaldia.Items.AddRange(new object[] { "Osoa", "Murriztua" });
             this.cmbLanaldia.Location = new System.Drawing.Point(610, 750);
             this.cmbLanaldia.Size = new System.Drawing.Size(290, 48);
-            // 
+            //
             // lblTxanda
-            // 
+            //
             this.lblTxanda.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblTxanda.Location = new System.Drawing.Point(40, 810);
             this.lblTxanda.Size = new System.Drawing.Size(200, 40);
             this.lblTxanda.Text = "Txanda:";
-            // 
+            //
             // cmbTxanda
-            // 
+            //
             this.cmbTxanda.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTxanda.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.cmbTxanda.Items.AddRange(new object[] { "Goizez", "Arratsaldez", "Gauez" });
             this.cmbTxanda.Location = new System.Drawing.Point(300, 810);
             this.cmbTxanda.Size = new System.Drawing.Size(600, 48);
-            // 
+            //
             // lblIrudia
-            // 
+            //
             this.lblIrudia.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblIrudia.Location = new System.Drawing.Point(40, 890);
             this.lblIrudia.Name = "lblIrudia";
             this.lblIrudia.Size = new System.Drawing.Size(200, 40);
             this.lblIrudia.TabIndex = 21;
             this.lblIrudia.Text = "Irudia:";
-            // 
+            //
             // pbIrudia
-            // 
+            //
             this.pbIrudia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbIrudia.Location = new System.Drawing.Point(300, 890);
             this.pbIrudia.Name = "pbIrudia";
@@ -385,9 +385,9 @@ namespace GOsasun_app.Interfazea
             this.pbIrudia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbIrudia.TabIndex = 22;
             this.pbIrudia.TabStop = false;
-            // 
+            //
             // btnIrudiaAukeratu
-            // 
+            //
             this.btnIrudiaAukeratu.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
             this.btnIrudiaAukeratu.FlatAppearance.BorderSize = 0;
             this.btnIrudiaAukeratu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -399,36 +399,36 @@ namespace GOsasun_app.Interfazea
             this.btnIrudiaAukeratu.TabIndex = 23;
             this.btnIrudiaAukeratu.Text = "Irudia aukeratu";
             this.btnIrudiaAukeratu.UseVisualStyleBackColor = false;
-            // 
+            //
             // lblIrudiFitxategia
-            // 
+            //
             this.lblIrudiFitxategia.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblIrudiFitxategia.Location = new System.Drawing.Point(520, 980);
             this.lblIrudiFitxategia.Name = "lblIrudiFitxategia";
             this.lblIrudiFitxategia.Size = new System.Drawing.Size(380, 90);
             this.lblIrudiFitxategia.TabIndex = 24;
             this.lblIrudiFitxategia.Text = "Irudi lehenetsia";
-            // 
+            //
             // lblOsasunLangilea
-            // 
+            //
             this.lblOsasunLangilea.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.lblOsasunLangilea.Location = new System.Drawing.Point(40, 1100);
             this.lblOsasunLangilea.Name = "lblOsasunLangilea";
             this.lblOsasunLangilea.Size = new System.Drawing.Size(240, 40);
             this.lblOsasunLangilea.TabIndex = 25;
             this.lblOsasunLangilea.Text = "Osasun langilea(k):";
-            // 
+            //
             // cmbOsasunLangileak
-            // 
+            //
             this.cmbOsasunLangileak.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.cmbOsasunLangileak.FormattingEnabled = true;
             this.cmbOsasunLangileak.Location = new System.Drawing.Point(300, 1100);
             this.cmbOsasunLangileak.Name = "cmbOsasunLangileak";
             this.cmbOsasunLangileak.Size = new System.Drawing.Size(450, 48);
             this.cmbOsasunLangileak.TabIndex = 26;
-            // 
+            //
             // btnLangileaGehitu
-            // 
+            //
             this.btnLangileaGehitu.BackColor = System.Drawing.Color.FromArgb(39, 174, 96);
             this.btnLangileaGehitu.FlatAppearance.BorderSize = 0;
             this.btnLangileaGehitu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -440,18 +440,18 @@ namespace GOsasun_app.Interfazea
             this.btnLangileaGehitu.TabIndex = 27;
             this.btnLangileaGehitu.Text = "Gehitu";
             this.btnLangileaGehitu.UseVisualStyleBackColor = false;
-            // 
+            //
             // lblEsleitutakoLangileak
-            // 
+            //
             this.lblEsleitutakoLangileak.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
             this.lblEsleitutakoLangileak.Location = new System.Drawing.Point(300, 1165);
             this.lblEsleitutakoLangileak.Name = "lblEsleitutakoLangileak";
             this.lblEsleitutakoLangileak.Size = new System.Drawing.Size(360, 40);
             this.lblEsleitutakoLangileak.TabIndex = 28;
             this.lblEsleitutakoLangileak.Text = "Esleitutako osasun langileak";
-            // 
+            //
             // lstEsleitutakoLangileak
-            // 
+            //
             this.lstEsleitutakoLangileak.Font = new System.Drawing.Font("Segoe UI", 10.5F);
             this.lstEsleitutakoLangileak.FormattingEnabled = true;
             this.lstEsleitutakoLangileak.ItemHeight = 37;
@@ -459,9 +459,9 @@ namespace GOsasun_app.Interfazea
             this.lstEsleitutakoLangileak.Name = "lstEsleitutakoLangileak";
             this.lstEsleitutakoLangileak.Size = new System.Drawing.Size(600, 152);
             this.lstEsleitutakoLangileak.TabIndex = 29;
-            // 
+            //
             // btnLangileaKendu
-            // 
+            //
             this.btnLangileaKendu.BackColor = System.Drawing.Color.FromArgb(192, 57, 43);
             this.btnLangileaKendu.FlatAppearance.BorderSize = 0;
             this.btnLangileaKendu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -473,9 +473,9 @@ namespace GOsasun_app.Interfazea
             this.btnLangileaKendu.TabIndex = 30;
             this.btnLangileaKendu.Text = "Kendu";
             this.btnLangileaKendu.UseVisualStyleBackColor = false;
-            // 
+            //
             // btnGorde
-            // 
+            //
             this.btnGorde.BackColor = System.Drawing.Color.FromArgb(0, 150, 136);
             this.btnGorde.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGorde.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
@@ -487,9 +487,9 @@ namespace GOsasun_app.Interfazea
             this.btnGorde.Text = "GORDE";
             this.btnGorde.UseVisualStyleBackColor = false;
             this.btnGorde.Click += new System.EventHandler(this.btnGorde_Click);
-            // 
+            //
             // ErabiltzaileaSortu
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 1159);
