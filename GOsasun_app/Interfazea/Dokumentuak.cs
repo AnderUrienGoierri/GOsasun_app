@@ -68,6 +68,10 @@ namespace GOsasun_app.Interfazea
             _jarraipenGuztiakCheckBox.Checked = false;
 
             KonfiguratuZutabeak();
+
+            _jarraipenGuztiakCheckBox.BringToFront();
+            iragazkiPanela.BringToFront();
+            _dokumentuBerriaBotoia.BringToFront();
         }
 
         private void EzarriFormularioZabalera()

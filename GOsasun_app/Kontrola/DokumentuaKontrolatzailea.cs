@@ -22,7 +22,54 @@ namespace GOsasun_app.Kontrola
 
         public List<Dokumentua> LortuPazientearenBesteDokumentuak(int pazienteId, int? baztertuJarraipenaId = null, string? bilaketa = null)
         {
-            return _dokumentuaDb.LortuPazientearenBesteDokumentuak(pazienteId, baztertuJarraipenaId, bilaketa);
+            List<Dokumentua> dokumentuak = _dokumentuaDb.LortuPazientearenBesteDokumentuak(pazienteId, baztertuJarraipenaId, bilaketa);
+
+            if (!baztertuJarraipenaId.HasValue)
+            {
+                return dokumentuak;
+            }
+
+            List<Dokumentua> jarraipenekoDokumentuak = _dokumentuaDb.LortuJarraipenarenDokumentuak(baztertuJarraipenaId.Value);
+            if (jarraipenekoDokumentuak.Count == 0)
+            {
+                return dokumentuak;
+            }
+
+            HashSet<string> dokumentuSinadurak = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (Dokumentua dokumentua in jarraipenekoDokumentuak)
+            {
+                GehituDokumentuSinadurak(dokumentuSinadurak, dokumentua);
+            }
+
+            return dokumentuak
+                .Where(dokumentua => !DokumentuaJadaLotutaDago(dokumentua, dokumentuSinadurak))
+                .ToList();
+        }
+
+        private static bool DokumentuaJadaLotutaDago(Dokumentua dokumentua, HashSet<string> dokumentuSinadurak)
+        {
+            return LortuDokumentuSinadurak(dokumentua).Any(dokumentuSinadurak.Contains);
+        }
+
+        private static void GehituDokumentuSinadurak(HashSet<string> dokumentuSinadurak, Dokumentua dokumentua)
+        {
+            foreach (string sinadura in LortuDokumentuSinadurak(dokumentua))
+            {
+                dokumentuSinadurak.Add(sinadura);
+            }
+        }
+
+        private static IEnumerable<string> LortuDokumentuSinadurak(Dokumentua dokumentua)
+        {
+            if (!string.IsNullOrWhiteSpace(dokumentua.BideaZerbitzarian))
+            {
+                yield return $"path:{dokumentua.BideaZerbitzarian.Trim()}";
+            }
+
+            if (!string.IsNullOrWhiteSpace(dokumentua.FitxategiIzena))
+            {
+                yield return $"file:{dokumentua.FitxategiIzena.Trim()}";
+            }
         }
 
         public Dokumentua? LortuDokumentua(int dokumentuId)

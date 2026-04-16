@@ -7,6 +7,7 @@
 // ============================================================
 
 using GOsasun_app.Interfazea.Kontrolak;
+using GOsasun_app.Kontrola;
 using GOsasun_app.Modeloa;
 using System.ComponentModel;
 using Svg;
@@ -45,6 +46,8 @@ namespace GOsasun_app.Interfazea
             {
                 _goiburuBarra.SaioaItxi -= GoiburuBarra_SaioaItxi;
                 _goiburuBarra.SaioaItxi += GoiburuBarra_SaioaItxi;
+                _goiburuBarra.ErabiltzaileaKlik -= GoiburuBarra_ErabiltzaileaKlik;
+                _goiburuBarra.ErabiltzaileaKlik += GoiburuBarra_ErabiltzaileaKlik;
             }
 
             // Atzera botoiaren gertaera lehenetsia
@@ -238,6 +241,33 @@ namespace GOsasun_app.Interfazea
             return null;
         }
 
+        protected static string? BilatuFitxategiErlatiboa(string erlatiboa)
+        {
+            if (string.IsNullOrWhiteSpace(erlatiboa))
+            {
+                return null;
+            }
+
+            string normalizatua = erlatiboa.Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar);
+
+            foreach (string root in LortuBilaketaErroak())
+            {
+                string[] aukerak =
+                {
+                    Path.Combine(root, normalizatua),
+                    Path.Combine(root, "GOsasun_app", normalizatua)
+                };
+
+                string? aurkitua = aukerak.FirstOrDefault(File.Exists);
+                if (!string.IsNullOrWhiteSpace(aurkitua))
+                {
+                    return aurkitua;
+                }
+            }
+
+            return null;
+        }
+
         protected bool DiseinuModuan()
         {
             return LicenseManager.UsageMode == LicenseUsageMode.Designtime || DesignMode || (Site?.DesignMode ?? false);
@@ -331,6 +361,62 @@ namespace GOsasun_app.Interfazea
             }
 
             return null;
+        }
+
+        protected void IrekiAzpiPantaila(Form formularioa)
+        {
+            formularioa.Owner = this;
+            formularioa.FormClosed += (s, e) =>
+            {
+                if (!IsDisposed)
+                {
+                    Show();
+                    ZentratuPantailaLanEremuan();
+                }
+            };
+
+            Hide();
+            formularioa.Show();
+        }
+
+        private void GoiburuBarra_ErabiltzaileaKlik(object? sender, EventArgs e)
+        {
+            if (_erabiltzailea == null || this is NireErabiltzaileFitxa)
+            {
+                return;
+            }
+
+            Erabiltzailea? erabiltzaileOsoa = LortuErabiltzaileOsoa(_erabiltzailea);
+            if (erabiltzaileOsoa == null)
+            {
+                MessageBox.Show(
+                    "Ez da posible izan uneko erabiltzailearen fitxa kargatzea.",
+                    "Errorea",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
+            _erabiltzailea = erabiltzaileOsoa;
+            _goiburuBarra?.EguneratuInformazioa(_erabiltzailea.IzenOsoa, _erabiltzailea.Rola);
+            IrekiAzpiPantaila(new NireErabiltzaileFitxa(erabiltzaileOsoa));
+        }
+
+        private static Erabiltzailea? LortuErabiltzaileOsoa(Erabiltzailea erabiltzailea)
+        {
+            ErabiltzaileKontrolatzailea kontrolatzailea = new ErabiltzaileKontrolatzailea();
+
+            if (erabiltzailea is Pazientea)
+            {
+                return kontrolatzailea.LortuPazientea(erabiltzailea.Id);
+            }
+
+            if (erabiltzailea is OsasunLangilea)
+            {
+                return kontrolatzailea.LortuOsasunLangilea(erabiltzailea.Id);
+            }
+
+            return kontrolatzailea.LortuHarrerakoa(erabiltzailea.Id);
         }
 
         // -----------------------------------------------------------

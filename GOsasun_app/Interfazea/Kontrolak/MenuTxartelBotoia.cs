@@ -26,7 +26,7 @@ namespace GOsasun_app.Interfazea.Kontrolak
         private Color _hoverKolorea = Color.FromArgb(245, 255, 255, 255);
         private Color _testuKolorea = Color.FromArgb(50, 50, 50);
         private bool _hoverAktibo = false;
-        private Font _testuFont = new Font("Segoe UI", 15f, FontStyle.Bold);
+        private Font _testuFont = new Font("Segoe UI", 11f, FontStyle.Bold);
 
         /// <summary>
         /// Txartelaren barneko ikonoa (irudi handia goialdean).
@@ -92,6 +92,7 @@ namespace GOsasun_app.Interfazea.Kontrolak
             this.Size = new Size(400, 320);
             this.DoubleBuffered = true;
             this.BackColor = Color.White;
+            this.Font = _testuFont;
             this.Cursor = Cursors.Hand;
             this.Margin = new Padding(20);
             this.Padding = new Padding(10);
@@ -148,9 +149,8 @@ namespace GOsasun_app.Interfazea.Kontrolak
             // 5. Ikonoa marraztu (erdian, goialdean)
             if (_ikonoa != null)
             {
-                // Handiagoa egin: aurreko 120tik 150-era (edo tamainaren %60)
-                int maxTamaina = Math.Min(this.Width - 60, this.Height - 100);
-                int ikonoTamaina = Math.Max(maxTamaina, 80); 
+                int maxTamaina = Math.Min(this.Width - 120, this.Height - 190);
+                int ikonoTamaina = Math.Max(maxTamaina, 80);
 
                 int ikonoX = (this.Width - ikonoTamaina) / 2;
                 int ikonoY = 25; // Zertxobait gorago jarri tokia lortzeko
@@ -168,12 +168,12 @@ namespace GOsasun_app.Interfazea.Kontrolak
                 };
 
                 // Testua pixka bat beherago bultzatu ikonoa kabitzeko
-                int testuY = _ikonoa != null ? this.Height - 85 : (this.Height - 60) / 2;
-                Rectangle testuRect = new Rectangle(10, testuY, this.Width - 20, 75);
+                int testuY = _ikonoa != null ? this.Height - 132 : (this.Height - 90) / 2;
+                Rectangle testuRect = new Rectangle(10, testuY, this.Width - 20, 108);
 
                 using (SolidBrush testuBrotxa = new SolidBrush(_testuKolorea))
                 {
-                    g.DrawString(_testua, _testuFont, testuBrotxa, testuRect, formatua);
+                    g.DrawString(_testua, Font ?? _testuFont, testuBrotxa, testuRect, formatua);
                 }
             }
 

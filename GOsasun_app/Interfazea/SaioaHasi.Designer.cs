@@ -106,7 +106,7 @@
             _erabiltzaileTextBox.Location = new Point(147, 365);
             _erabiltzaileTextBox.Name = "_erabiltzaileTextBox";
             _erabiltzaileTextBox.PlaceholderText = "Zure emaila...";
-            _erabiltzaileTextBox.Size = new Size(360, 50);
+            _erabiltzaileTextBox.Size = new Size(430, 50);
             _erabiltzaileTextBox.TabIndex = 3;
             //
             // _pasahitzaLabel
@@ -128,7 +128,7 @@
             _pasahitzaTextBox.Location = new Point(147, 485);
             _pasahitzaTextBox.Name = "_pasahitzaTextBox";
             _pasahitzaTextBox.PlaceholderText = "Pasahitza...";
-            _pasahitzaTextBox.Size = new Size(360, 50);
+            _pasahitzaTextBox.Size = new Size(430, 50);
             _pasahitzaTextBox.TabIndex = 5;
             _pasahitzaTextBox.UseSystemPasswordChar = true;
             //
@@ -178,13 +178,13 @@
             //
             // _mezuLabel
             //
-            _mezuLabel.AutoSize = true;
+            _mezuLabel.AutoSize = false;
             _mezuLabel.BackColor = Color.Transparent;
-            _mezuLabel.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            _mezuLabel.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             _mezuLabel.ForeColor = Color.FromArgb(231, 76, 60);
             _mezuLabel.Location = new Point(145, 602);
             _mezuLabel.Name = "_mezuLabel";
-            _mezuLabel.Size = new Size(0, 41);
+            _mezuLabel.Size = new Size(432, 88);
             _mezuLabel.TabIndex = 8;
             _mezuLabel.TextAlign = ContentAlignment.MiddleCenter;
             //

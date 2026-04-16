@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using GOsasun_app.Modeloa;
 using GOsasun_app.Repositorioa;
+using GOsasun_app.Kontrola.Zerbitzuak;
 
 namespace GOsasun_app.Kontrola
 {
@@ -12,15 +13,47 @@ namespace GOsasun_app.Kontrola
     {
         // ---------------------------SORTU OBJETUA----------------------------------------------
         private readonly ErabiltzaileDB _db = new ErabiltzaileDB();
+        private readonly LoginBlokeoZerbitzua _loginBlokeoZerbitzua = new LoginBlokeoZerbitzua();
 
         // ---------------------------LORTU------------------------------------------------------
 
         /// <summary>
         /// Erabiltzailea datu-basean egiaztatzen du email eta pasahitz bidez.
         /// </summary>
-        public Erabiltzailea? Login(string emaila, string pasahitza)
+        public LoginEmaitza Login(string emaila, string pasahitza)
         {
-            return _db.Login(emaila, pasahitza);
+            LoginSegurtasunEgoera egoera = _loginBlokeoZerbitzua.LortuEgoera();
+
+            if (egoera.Blokeatuta)
+            {
+                return new LoginEmaitza
+                {
+                    Egoera = egoera
+                };
+            }
+
+            Erabiltzailea? erabiltzailea = _db.Login(emaila, pasahitza);
+
+            if (erabiltzailea != null)
+            {
+                _loginBlokeoZerbitzua.Berrezarri();
+
+                return new LoginEmaitza
+                {
+                    Erabiltzailea = erabiltzailea,
+                    Egoera = _loginBlokeoZerbitzua.LortuEgoera()
+                };
+            }
+
+            return new LoginEmaitza
+            {
+                Egoera = _loginBlokeoZerbitzua.ErregistratuHutsegitea()
+            };
+        }
+
+        public LoginSegurtasunEgoera LortuLoginBlokeoEgoera()
+        {
+            return _loginBlokeoZerbitzua.LortuEgoera();
         }
 
         // ------------------------LORTU------------------------------------
@@ -50,6 +83,11 @@ namespace GOsasun_app.Kontrola
             return _db.LortuGuztiakOsasunLangileak();
         }
 
+        public OsasunLangilea? LortuOsasunLangilea(int langileId)
+        {
+            return _db.LortuOsasunLangilea(langileId);
+        }
+
         public Pazientea? LortuPazientea(int pazienteId)
         {
             return _db.LortuPazientea(pazienteId);
@@ -61,6 +99,11 @@ namespace GOsasun_app.Kontrola
         public List<HarrerakoLangilea> LortuGuztiakHarrerakoak()
         {
             return _db.LortuGuztiakHarrerakoak();
+        }
+
+        public HarrerakoLangilea? LortuHarrerakoa(int harrerakoId)
+        {
+            return _db.LortuHarrerakoa(harrerakoId);
         }
 
 // ------------------------SORTU------------------------------------

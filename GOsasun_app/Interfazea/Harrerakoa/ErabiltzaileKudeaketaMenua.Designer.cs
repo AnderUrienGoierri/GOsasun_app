@@ -20,55 +20,59 @@ namespace GOsasun_app.Interfazea
 
         private void InitializeComponent()
         {
-            this.btnSortu = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            this.btnZerrendatu = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            this._edukiPanela.SuspendLayout();
-            this.SuspendLayout();
-            //
+            btnSortu = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
+            btnZerrendatu = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
+            _edukiPanela.SuspendLayout();
+            SuspendLayout();
+            // 
             // _edukiPanela
-            //
-            this._edukiPanela.Controls.Add(this.btnSortu);
-            this._edukiPanela.Controls.Add(this.btnZerrendatu);
-            //
+            // 
+            _edukiPanela.Controls.Add(btnSortu);
+            _edukiPanela.Controls.Add(btnZerrendatu);
+            // 
             // _atzeraBotoia
-            //
-            this._atzeraBotoia.FlatAppearance.BorderSize = 0;
-            //
+            // 
+            _atzeraBotoia.FlatAppearance.BorderSize = 0;
+            // 
             // btnSortu
-            //
-            this.btnSortu.BackColor = Color.White;
-            this.btnSortu.BorderBiribiltasuna = 24;
-            this.btnSortu.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
-            this.btnSortu.Location = new Point(37, 43);
-            this.btnSortu.Name = "btnSortu";
-            this.btnSortu.Padding = new Padding(19, 21, 19, 21);
-            this.btnSortu.Size = new Size(576, 512);
-            this.btnSortu.TabIndex = 0;
-            this.btnSortu.Testua = "SORTU";
-            this.btnSortu.TestuKolorea = Color.FromArgb(50, 50, 50);
-            //
+            // 
+            btnSortu.BackColor = Color.White;
+            btnSortu.BorderBiribiltasuna = 24;
+            btnSortu.Ikonoa = null;
+            btnSortu.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+            btnSortu.Location = new Point(309, 425);
+            btnSortu.Margin = new Padding(20);
+            btnSortu.Name = "btnSortu";
+            btnSortu.Padding = new Padding(19, 21, 19, 21);
+            btnSortu.Size = new Size(576, 512);
+            btnSortu.TabIndex = 0;
+            btnSortu.Testua = "SORTU";
+            btnSortu.TestuKolorea = Color.FromArgb(50, 50, 50);
+            // 
             // btnZerrendatu
-            //
-            this.btnZerrendatu.BackColor = Color.White;
-            this.btnZerrendatu.BorderBiribiltasuna = 24;
-            this.btnZerrendatu.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
-            this.btnZerrendatu.Location = new Point(650, 43);
-            this.btnZerrendatu.Name = "btnZerrendatu";
-            this.btnZerrendatu.Padding = new Padding(19, 21, 19, 21);
-            this.btnZerrendatu.Size = new Size(576, 512);
-            this.btnZerrendatu.TabIndex = 1;
-            this.btnZerrendatu.Testua = "ZERRENDATU";
-            this.btnZerrendatu.TestuKolorea = Color.FromArgb(50, 50, 50);
-            //
+            // 
+            btnZerrendatu.BackColor = Color.White;
+            btnZerrendatu.BorderBiribiltasuna = 24;
+            btnZerrendatu.Ikonoa = null;
+            btnZerrendatu.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
+            btnZerrendatu.Location = new Point(1037, 425);
+            btnZerrendatu.Margin = new Padding(20);
+            btnZerrendatu.Name = "btnZerrendatu";
+            btnZerrendatu.Padding = new Padding(19, 21, 19, 21);
+            btnZerrendatu.Size = new Size(576, 512);
+            btnZerrendatu.TabIndex = 1;
+            btnZerrendatu.Testua = "ZERRENDATU";
+            btnZerrendatu.TestuKolorea = Color.FromArgb(50, 50, 50);
+            // 
             // ErabiltzaileKudeaketaMenua
-            //
-            this.AutoScaleDimensions = new SizeF(13F, 32F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(1902, 1340);
-            this.Name = "ErabiltzaileKudeaketaMenua";
-            this.Text = "Kudeaketa Menua";
-            this._edukiPanela.ResumeLayout(false);
-            this.ResumeLayout(false);
+            // 
+            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1902, 1575);
+            Name = "ErabiltzaileKudeaketaMenua";
+            Text = "Kudeaketa Menua";
+            _edukiPanela.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

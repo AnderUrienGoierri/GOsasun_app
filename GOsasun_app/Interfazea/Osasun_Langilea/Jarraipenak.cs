@@ -1297,8 +1297,40 @@ namespace GOsasun_app.Interfazea
             dgvDokumentuak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = nameof(Dokumentua.DokumentuIzena), HeaderText = "Dokumentua", Width = 260 });
             dgvDokumentuak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = nameof(Dokumentua.FitxategiIzena), HeaderText = "Fitxategia", Width = 260 });
             dgvDokumentuak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = nameof(Dokumentua.IgotzeData), HeaderText = "Igotze data", Width = 160, DefaultCellStyle = new DataGridViewCellStyle { Format = "g" } });
-            dgvDokumentuak.Columns.Add(new DataGridViewButtonColumn { HeaderText = "", Name = "btnIreki", Text = "Ireki", UseColumnTextForButtonValue = true, Width = 90 });
-            dgvDokumentuak.Columns.Add(new DataGridViewButtonColumn { HeaderText = "", Name = "btnEzabatu", Text = "Ezabatu", UseColumnTextForButtonValue = true, Width = 90 });
+            dgvDokumentuak.Columns.Add(new DataGridViewButtonColumn
+            {
+                HeaderText = "",
+                Name = "btnIreki",
+                Text = "Ireki",
+                UseColumnTextForButtonValue = true,
+                Width = 90,
+                FlatStyle = FlatStyle.Flat,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    BackColor = Color.FromArgb(83, 148, 117),
+                    ForeColor = Color.White,
+                    SelectionBackColor = Color.FromArgb(70, 128, 101),
+                    SelectionForeColor = Color.White,
+                    Alignment = DataGridViewContentAlignment.MiddleCenter
+                }
+            });
+            dgvDokumentuak.Columns.Add(new DataGridViewButtonColumn
+            {
+                HeaderText = "",
+                Name = "btnEzabatu",
+                Text = "Ezabatu",
+                UseColumnTextForButtonValue = true,
+                Width = 90,
+                FlatStyle = FlatStyle.Flat,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    BackColor = Color.FromArgb(192, 57, 43),
+                    ForeColor = Color.White,
+                    SelectionBackColor = Color.FromArgb(169, 50, 38),
+                    SelectionForeColor = Color.White,
+                    Alignment = DataGridViewContentAlignment.MiddleCenter
+                }
+            });
 
             void BerrikargatuDokumentuak()
             {
@@ -1588,12 +1620,22 @@ namespace GOsasun_app.Interfazea
                 Padding = new Padding(18, 10, 18, 14)
             };
 
+            const int botoiAltuera = 40;
+            const int botoiBehekoGoikoa = 18;
+            const int botoiArtekoTartea = 16;
+            const int btnIrekiZabalera = 110;
+            const int btnLotuZabalera = 260;
+            const int btnUtziZabalera = 90;
+
             Button btnIreki = new Button
             {
                 Text = "Ireki",
-                Size = new Size(90, 40),
-                Location = new Point(18, 12)
+                Size = new Size(btnIrekiZabalera, botoiAltuera),
+                BackColor = Color.FromArgb(44, 62, 80),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
             };
+            btnIreki.FlatAppearance.BorderSize = 0;
             btnIreki.Click += (s, e) =>
             {
                 if (dgv.CurrentRow?.DataBoundItem is Dokumentua hautatutakoDokumentua)
@@ -1606,10 +1648,9 @@ namespace GOsasun_app.Interfazea
 
             Button btnLotu = new Button
             {
-                Text = "Dokumentua lotu",
-                Size = new Size(150, 40),
-                Location = new Point(890, 18),
-                BackColor = Color.FromArgb(192, 57, 43),
+                Text = "Dokumentua atxikitu",
+                Size = new Size(btnLotuZabalera, botoiAltuera),
+                BackColor = Color.FromArgb(83, 148, 117),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat
             };
@@ -1630,10 +1671,22 @@ namespace GOsasun_app.Interfazea
             Button btnUtzi = new Button
             {
                 Text = "Utzi",
-                Size = new Size(90, 40),
-                Location = new Point(1050, 18),
+                Size = new Size(btnUtziZabalera, botoiAltuera),
+                FlatStyle = FlatStyle.Flat,
                 DialogResult = DialogResult.Cancel
             };
+            btnUtzi.FlatAppearance.BorderSize = 0;
+
+            void KokatuBotoiak()
+            {
+                int azkenaX = botoiPanela.ClientSize.Width - botoiPanela.Padding.Right;
+
+                btnUtzi.Location = new Point(azkenaX - btnUtzi.Width, botoiBehekoGoikoa);
+                btnLotu.Location = new Point(btnUtzi.Left - botoiArtekoTartea - btnLotu.Width, botoiBehekoGoikoa);
+                btnIreki.Location = new Point(btnLotu.Left - botoiArtekoTartea - btnIreki.Width, botoiBehekoGoikoa);
+            }
+
+            botoiPanela.Resize += (s, e) => KokatuBotoiak();
 
             dgv.CellDoubleClick += (s, e) =>
             {
@@ -1650,6 +1703,7 @@ namespace GOsasun_app.Interfazea
             botoiPanela.Controls.Add(btnIreki);
             botoiPanela.Controls.Add(btnLotu);
             botoiPanela.Controls.Add(btnUtzi);
+            KokatuBotoiak();
 
             form.Controls.Add(dgv);
             form.Controls.Add(botoiPanela);
@@ -1711,8 +1765,11 @@ namespace GOsasun_app.Interfazea
             using (Form form = new Form())
             {
                 form.Text = "Jarraipeneko dokumentuak";
-                form.Size = new Size(950, 520);
+                form.ClientSize = new Size(1380, 620);
                 form.StartPosition = FormStartPosition.CenterParent;
+                form.FormBorderStyle = FormBorderStyle.FixedDialog;
+                form.MinimizeBox = false;
+                form.MaximizeBox = false;
 
                 DataGridView dgv = new DataGridView
                 {
@@ -1723,14 +1780,40 @@ namespace GOsasun_app.Interfazea
                     AutoGenerateColumns = false,
                     RowHeadersVisible = false,
                     SelectionMode = DataGridViewSelectionMode.FullRowSelect,
-                    BackgroundColor = Color.White
+                    BackgroundColor = Color.White,
+                    BorderStyle = BorderStyle.None,
+                    EnableHeadersVisualStyles = false
                 };
+                dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(44, 62, 80);
+                dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+                dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgv.ColumnHeadersHeight = 54;
+                dgv.DefaultCellStyle.Font = new Font("Segoe UI", 10.5F);
+                dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(232, 240, 254);
+                dgv.DefaultCellStyle.SelectionForeColor = Color.FromArgb(44, 62, 80);
 
-                dgv.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "DokumentuIzena", HeaderText = "Dokumentua", Width = 220 });
-                dgv.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "FitxategiIzena", HeaderText = "Fitxategia", Width = 220 });
-                dgv.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Deskribapena", HeaderText = "Deskribapena", Width = 220 });
-                dgv.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "IgotzeData", HeaderText = "Igotze data", Width = 150, DefaultCellStyle = new DataGridViewCellStyle { Format = "g" } });
-                dgv.Columns.Add(new DataGridViewButtonColumn { HeaderText = "", Name = "btnIreki", Text = "Ireki", UseColumnTextForButtonValue = true, Width = 90 });
+                dgv.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "DokumentuIzena", HeaderText = "Dokumentua", Width = 280 });
+                dgv.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "FitxategiIzena", HeaderText = "Fitxategia", Width = 310 });
+                dgv.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Deskribapena", HeaderText = "Deskribapena", Width = 360 });
+                dgv.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "IgotzeData", HeaderText = "Igotze data", Width = 190, DefaultCellStyle = new DataGridViewCellStyle { Format = "g", Alignment = DataGridViewContentAlignment.MiddleCenter } });
+                dgv.Columns.Add(new DataGridViewButtonColumn
+                {
+                    HeaderText = "",
+                    Name = "btnIreki",
+                    Text = "Ireki",
+                    UseColumnTextForButtonValue = true,
+                    Width = 110,
+                    FlatStyle = FlatStyle.Flat,
+                    DefaultCellStyle = new DataGridViewCellStyle
+                    {
+                        BackColor = Color.FromArgb(124, 77, 255),
+                        ForeColor = Color.White,
+                        SelectionBackColor = Color.FromArgb(106, 61, 230),
+                        SelectionForeColor = Color.White,
+                        Alignment = DataGridViewContentAlignment.MiddleCenter
+                    }
+                });
                 dgv.DataSource = dokumentuak;
 
                 dgv.CellContentClick += (s, e) =>

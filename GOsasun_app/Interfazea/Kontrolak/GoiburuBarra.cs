@@ -29,6 +29,11 @@ namespace GOsasun_app.Interfazea.Kontrolak
         /// </summary>
         public event EventHandler? SaioaItxi;
 
+        /// <summary>
+        /// Erabiltzailearen etiketan klik egitean jaurtitzen den gertaera.
+        /// </summary>
+        public event EventHandler? ErabiltzaileaKlik;
+
         // -----------------------------------------------------------
         // Eraikitzaileak
         // -----------------------------------------------------------
@@ -81,8 +86,12 @@ namespace GOsasun_app.Interfazea.Kontrolak
                 ForeColor = Color.White,
                 AutoSize = true,
                 Location = new Point(70, 18),
-                BackColor = Color.Transparent
+                BackColor = Color.Transparent,
+                Cursor = Cursors.Hand
             };
+            _erabiltzaileLabel.Click += (s, e) => ErabiltzaileaKlik?.Invoke(this, EventArgs.Empty);
+            _erabiltzaileLabel.MouseEnter += (s, e) => _erabiltzaileLabel.ForeColor = Color.FromArgb(210, 235, 255);
+            _erabiltzaileLabel.MouseLeave += (s, e) => _erabiltzaileLabel.ForeColor = Color.White;
 
             // Data
             _dataLabel = new Label

@@ -161,13 +161,13 @@ namespace GOsasun_app.Interfazea
 
             if (!_erabiltzailea.DaPazientea() && !_pazienteIdAurrehautatu.HasValue)
             {
-                pazienteak = _erabiltzaileKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea.Id)
+                pazienteak = _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak()
                     .OrderBy(p => p.IzenOsoa)
                     .ToList();
 
                 if (pazienteak.Count == 0)
                 {
-                    MessageBox.Show("Ez dago pazienterik esleituta ohar bidezko jarraipena sortzeko.", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Ez dago pazienterik ohar bidezko jarraipena sortzeko.", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -179,14 +179,38 @@ namespace GOsasun_app.Interfazea
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 MaximizeBox = false,
                 MinimizeBox = false,
-                ClientSize = new Size(760, (_erabiltzailea.DaPazientea() || _pazienteIdAurrehautatu.HasValue) ? 360 : 450)
+                ClientSize = new Size(760, (_erabiltzailea.DaPazientea() || _pazienteIdAurrehautatu.HasValue) ? 360 : 540)
             };
 
             int hurrengoY = 22;
             ComboBox? cmbPazienteak = null;
+            TextBox? txtPazienteBilatu = null;
+            Label? lblBilaketaEmaitza = null;
+            List<Pazientea> unekoPazienteak = pazienteak;
 
             if (!_erabiltzailea.DaPazientea() && !_pazienteIdAurrehautatu.HasValue)
             {
+                Label lblBilatuPazientea = new Label
+                {
+                    Text = "Bilatu pazientea (abizena, izena edo NAN/DNI)",
+                    Font = new Font("Segoe UI", 11F, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(44, 62, 80),
+                    Location = new Point(24, hurrengoY),
+                    Size = new Size(460, 34)
+                };
+                elkarrizketa.Controls.Add(lblBilatuPazientea);
+
+                txtPazienteBilatu = new TextBox
+                {
+                    Font = new Font("Segoe UI", 11F),
+                    Location = new Point(24, hurrengoY + 38),
+                    Size = new Size(712, 38),
+                    PlaceholderText = "Idatzi abizena, izena edo NAN/DNI..."
+                };
+                elkarrizketa.Controls.Add(txtPazienteBilatu);
+
+                hurrengoY += 92;
+
                 Label lblPazientea = new Label
                 {
                     Text = "Pazientea",
@@ -208,7 +232,60 @@ namespace GOsasun_app.Interfazea
                     ValueMember = "Id"
                 };
                 elkarrizketa.Controls.Add(cmbPazienteak);
-                hurrengoY += 96;
+
+                lblBilaketaEmaitza = new Label
+                {
+                    Font = new Font("Segoe UI", 9F),
+                    ForeColor = Color.FromArgb(90, 90, 90),
+                    Location = new Point(24, hurrengoY + 80),
+                    Size = new Size(712, 24)
+                };
+                elkarrizketa.Controls.Add(lblBilaketaEmaitza);
+
+                void KargatuPazienteakBilaketarekin(string? bilaketa, int? hautatutakoPazienteId = null)
+                {
+                    unekoPazienteak = string.IsNullOrWhiteSpace(bilaketa)
+                        ? pazienteak.OrderBy(p => p.IzenOsoa).ToList()
+                        : _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak(bilaketa.Trim()).OrderBy(p => p.IzenOsoa).ToList();
+
+                    cmbPazienteak.DataSource = null;
+                    cmbPazienteak.DisplayMember = "IzenOsoa";
+                    cmbPazienteak.ValueMember = "Id";
+                    cmbPazienteak.DataSource = unekoPazienteak;
+                    cmbPazienteak.Enabled = unekoPazienteak.Count > 0;
+
+                    if (hautatutakoPazienteId.HasValue)
+                    {
+                        int indizea = unekoPazienteak.FindIndex(p => p.Id == hautatutakoPazienteId.Value);
+                        cmbPazienteak.SelectedIndex = indizea >= 0 ? indizea : -1;
+                    }
+                    else if (unekoPazienteak.Count == 1)
+                    {
+                        cmbPazienteak.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        cmbPazienteak.SelectedIndex = unekoPazienteak.Count > 0 ? 0 : -1;
+                    }
+
+                    lblBilaketaEmaitza!.Text = unekoPazienteak.Count switch
+                    {
+                        0 => "Ez da pazienterik aurkitu.",
+                        1 => "Paziente 1 aurkitu da.",
+                        _ => $"{unekoPazienteak.Count} paziente aurkitu dira."
+                    };
+                }
+
+                txtPazienteBilatu.TextChanged += (s, e) =>
+                {
+                    int? hautatutakoPazienteId = cmbPazienteak.SelectedItem is Pazientea hautatutakoPazientea
+                        ? hautatutakoPazientea.Id
+                        : null;
+                    KargatuPazienteakBilaketarekin(txtPazienteBilatu.Text, hautatutakoPazienteId);
+                };
+
+                KargatuPazienteakBilaketarekin(null);
+                hurrengoY += 126;
             }
 
             Label lblOharrak = new Label
@@ -234,7 +311,7 @@ namespace GOsasun_app.Interfazea
 
             const int botoiAltuera = 50;
             const int btnUtziZabalera = 170;
-            const int btnGordeZabalera = 220;
+            const int btnGordeZabalera = 310;
             const int botoiArtekoTartea = 16;
             const int eskuinekoMarjina = 24;
             int botoienGoikoa = elkarrizketa.ClientSize.Height - 70;

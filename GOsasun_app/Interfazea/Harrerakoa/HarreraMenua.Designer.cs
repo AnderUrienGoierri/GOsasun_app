@@ -46,6 +46,7 @@ namespace GOsasun_app.Interfazea
             //
             btnPazienteak.BackColor = Color.White;
             btnPazienteak.BorderBiribiltasuna = 24;
+            btnPazienteak.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnPazienteak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnPazienteak.Location = new Point(37, 43);
             btnPazienteak.Margin = new Padding(37, 43, 37, 43);
@@ -60,6 +61,7 @@ namespace GOsasun_app.Interfazea
             //
             btnMedikuak.BackColor = Color.White;
             btnMedikuak.BorderBiribiltasuna = 24;
+            btnMedikuak.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnMedikuak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnMedikuak.Location = new Point(650, 43);
             btnMedikuak.Margin = new Padding(37, 43, 37, 43);
@@ -74,7 +76,7 @@ namespace GOsasun_app.Interfazea
             //
             btnLangileak.BackColor = Color.White;
             btnLangileak.BorderBiribiltasuna = 24;
-            btnLangileak.Font = new Font("Segoe UI", 9F);
+            btnLangileak.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnLangileak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnLangileak.Location = new Point(1263, 43);
             btnLangileak.Margin = new Padding(37, 43, 37, 43);
@@ -82,7 +84,7 @@ namespace GOsasun_app.Interfazea
             btnLangileak.Padding = new Padding(19, 21, 19, 21);
             btnLangileak.Size = new Size(576, 512);
             btnLangileak.TabIndex = 2;
-            btnLangileak.Testua = "HARRERAKO LANGILEAK";
+            btnLangileak.Testua = "HARRERAKO LANGILEAK KUDEATU";
             btnLangileak.TestuKolorea = Color.FromArgb(50, 50, 50);
             btnLangileak.Paint += btnLangileak_Paint;
             //
@@ -90,6 +92,7 @@ namespace GOsasun_app.Interfazea
             //
             btnHitzorduak.BackColor = Color.White;
             btnHitzorduak.BorderBiribiltasuna = 24;
+            btnHitzorduak.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnHitzorduak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnHitzorduak.Location = new Point(37, 597);
             btnHitzorduak.Margin = new Padding(37, 43, 37, 43);
@@ -104,6 +107,7 @@ namespace GOsasun_app.Interfazea
             //
             btnDokumentuak.BackColor = Color.White;
             btnDokumentuak.BorderBiribiltasuna = 24;
+            btnDokumentuak.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnDokumentuak.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
             btnDokumentuak.Location = new Point(650, 597);
             btnDokumentuak.Margin = new Padding(37, 43, 37, 43);

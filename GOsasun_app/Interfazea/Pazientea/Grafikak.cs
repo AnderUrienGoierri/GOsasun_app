@@ -261,14 +261,14 @@ namespace GOsasun_app.Interfazea
             _dataTarteaEguneratzen = true;
             try
             {
+                DateTime gaur = DateTime.Today;
                 DateTime lehenengoa = jarraipenak.First().ErregistroData.Date;
-                DateTime azkena = jarraipenak.Last().ErregistroData.Date;
                 dtpHasiera.MinDate = lehenengoa;
                 dtpAmaiera.MinDate = lehenengoa;
-                dtpHasiera.MaxDate = azkena;
-                dtpAmaiera.MaxDate = azkena;
+                dtpHasiera.MaxDate = gaur;
+                dtpAmaiera.MaxDate = gaur;
                 dtpHasiera.Value = lehenengoa;
-                dtpAmaiera.Value = azkena;
+                dtpAmaiera.Value = MugatuDataTartean(dtpAmaiera, gaur);
             }
             finally
             {

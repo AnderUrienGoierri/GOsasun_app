@@ -8,6 +8,7 @@
 
 using GOsasun_app.Modeloa;
 using GOsasun_app.Kontrola;
+using GOsasun_app.Kontrola.Zerbitzuak;
 using System.ComponentModel;
 
 namespace GOsasun_app.Interfazea
@@ -20,15 +21,18 @@ namespace GOsasun_app.Interfazea
     {
         private static readonly Size PortadaTamaina = new Size(1514, 1394);
         private readonly ErabiltzaileKontrolatzailea _kontrolatzailea;
+        private readonly System.Windows.Forms.Timer _blokeoEguneratzeTimerra;
 
         // Eraikitzailea
         public SaioaHasi()
         {
             InitializeComponent();
             _kontrolatzailea = new ErabiltzaileKontrolatzailea();
+            _blokeoEguneratzeTimerra = new System.Windows.Forms.Timer { Interval = 1000 };
             KonfiguratuFormularioa();
             KargatuBaliabideak();
             KonfiguratuGertakariak();
+            EguneratuLoginSegurtasuna();
         }
 
         // Formularioaren konfigurazioa
@@ -182,6 +186,14 @@ namespace GOsasun_app.Interfazea
             string emaila = _erabiltzaileTextBox.Text.Trim();
             string pasahitza = _pasahitzaTextBox.Text;
 
+            LoginSegurtasunEgoera segurtasunEgoera = _kontrolatzailea.LortuLoginBlokeoEgoera();
+
+            if (segurtasunEgoera.Blokeatuta)
+            {
+                EguneratuLoginSegurtasuna(segurtasunEgoera);
+                return;
+            }
+
             if (string.IsNullOrEmpty(emaila) || string.IsNullOrEmpty(pasahitza))
             {
                 ErakutsiMezua("Mesedez, sartu emaila eta pasahitza.", Color.FromArgb(231, 76, 60));
@@ -191,7 +203,8 @@ namespace GOsasun_app.Interfazea
             try
             {
                 // Kontrolatzaileari deitu (OOP bidez)
-                var erabiltzaileaObj = _kontrolatzailea.Login(emaila, pasahitza);
+                LoginEmaitza loginEmaitza = _kontrolatzailea.Login(emaila, pasahitza);
+                Erabiltzailea? erabiltzaileaObj = loginEmaitza.Erabiltzailea;
 
                 if (erabiltzaileaObj != null)
                 {
@@ -209,11 +222,13 @@ namespace GOsasun_app.Interfazea
                         menuForm = new HarreraMenua(erabiltzaileaObj);
                     }
 
+                    _blokeoEguneratzeTimerra.Stop();
+
                     menuForm.FormClosed += (s, args) =>
                     {
                         _erabiltzaileTextBox.Text = "";
                         _pasahitzaTextBox.Text = "";
-                        _mezuLabel.Text = "";
+                        EguneratuLoginSegurtasuna();
                         this.Show();
                     };
                     this.Hide();
@@ -221,7 +236,14 @@ namespace GOsasun_app.Interfazea
                 }
                 else
                 {
-                    ErakutsiMezua("Erabiltzaile edo pasahitz okerra.", Color.FromArgb(231, 76, 60));
+                    if (loginEmaitza.Blokeatuta)
+                    {
+                        EguneratuLoginSegurtasuna(loginEmaitza.Egoera);
+                    }
+                    else
+                    {
+                        ErakutsiMezua(SortuHutsegiteMezua(loginEmaitza.Egoera), Color.FromArgb(231, 76, 60));
+                    }
                 }
             }
             catch (Exception ex)
@@ -236,12 +258,89 @@ namespace GOsasun_app.Interfazea
             _erakutsiPasahitza.CheckedChanged += (s, e) => { _pasahitzaTextBox.UseSystemPasswordChar = !_erakutsiPasahitza.Checked; };
             _loginBotoia.Click += LoginBotoia_Click;
             _itzaliBotoia.Click += (s, e) => Application.Exit();
+            _blokeoEguneratzeTimerra.Tick += BlokeoEguneratzeTimerra_Tick;
         }
 
         private void ErakutsiMezua(string mezua, Color kolorea)
         {
             _mezuLabel.Text = mezua;
             _mezuLabel.ForeColor = kolorea;
+        }
+
+        private void BlokeoEguneratzeTimerra_Tick(object? sender, EventArgs e)
+        {
+            EguneratuLoginSegurtasuna();
+        }
+
+        private void EguneratuLoginSegurtasuna(LoginSegurtasunEgoera? egoera = null)
+        {
+            egoera ??= _kontrolatzailea.LortuLoginBlokeoEgoera();
+            bool gaituta = !egoera.Blokeatuta;
+
+            EzarriSaioHasierakoKontrolak(gaituta);
+
+            if (egoera.Blokeatuta)
+            {
+                _blokeoEguneratzeTimerra.Start();
+                ErakutsiMezua(SortuBlokeoMezua(egoera), Color.FromArgb(192, 57, 43));
+                return;
+            }
+
+            _blokeoEguneratzeTimerra.Stop();
+
+            if (egoera.SaiakeraBakarreraMugatuta)
+            {
+                ErakutsiMezua(
+                    "Blokeoa amaitu da. Saiakera bakarra duzu; huts eginez gero beste 8 orduz blokeatuko da.",
+                    Color.FromArgb(243, 156, 18));
+                return;
+            }
+
+            _mezuLabel.Text = string.Empty;
+        }
+
+        private void EzarriSaioHasierakoKontrolak(bool gaituta)
+        {
+            _erabiltzaileTextBox.Enabled = gaituta;
+            _pasahitzaTextBox.Enabled = gaituta;
+            _erakutsiPasahitza.Enabled = gaituta;
+            _loginBotoia.Enabled = gaituta;
+            _loginBotoia.BackColor = gaituta
+                ? Color.FromArgb(46, 204, 113)
+                : Color.FromArgb(149, 165, 166);
+        }
+
+        private static string SortuBlokeoMezua(LoginSegurtasunEgoera egoera)
+        {
+            string gelditzenDenbora = FormateatuBlokeoDenbora(egoera.GelditzenDenDenbora);
+
+            if (egoera.BlokeoAmaieraLokala.HasValue)
+            {
+                return $"Programa blokeatuta dago. Saiatu berriro {gelditzenDenbora} barru. Blokeo amaiera: {egoera.BlokeoAmaieraLokala.Value:dd/MM/yyyy HH:mm}.";
+            }
+
+            return $"Programa blokeatuta dago. Saiatu berriro {gelditzenDenbora} barru.";
+        }
+
+        private static string SortuHutsegiteMezua(LoginSegurtasunEgoera egoera)
+        {
+            if (egoera.GelditzenDirenSaiakerak == 1)
+            {
+                return "Erabiltzaile edo pasahitz okerra. Saiakera bakarra geratzen da blokeoa aktibatu aurretik.";
+            }
+
+            return $"Erabiltzaile edo pasahitz okerra. {egoera.GelditzenDirenSaiakerak} saiakera geratzen dira blokeoa aktibatu aurretik.";
+        }
+
+        private static string FormateatuBlokeoDenbora(TimeSpan denbora)
+        {
+            if (denbora < TimeSpan.Zero)
+            {
+                denbora = TimeSpan.Zero;
+            }
+
+            int orduak = (int)Math.Floor(denbora.TotalHours);
+            return $"{orduak:00}:{denbora.Minutes:00}:{denbora.Seconds:00}";
         }
 
         private void _loginPanela_Paint(object sender, PaintEventArgs e)
