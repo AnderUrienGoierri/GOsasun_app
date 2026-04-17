@@ -22,14 +22,14 @@ Honako taula honek datu-baseko entitate nagusiak, haien PK-ak, FK-ak eta aplikat
 | **rolak** | `id` | - | - | `izena` UNIQUE |
 | **erabiltzaileak** | `id` | `rol_id` | `rolak` | `email` UNIQUE, RESTRICT/CASCADE |
 | **pazienteak** | `id` | `id` | `erabiltzaileak` | `nan` UNIQUE, RESTRICT/CASCADE |
-| **medikuak** | `id` | `id` | `erabiltzaileak` | `elkargokide_zenbakia` UNIQUE, RESTRICT/CASCADE |
+| **osasun_langileak** | `id` | `id` | `erabiltzaileak` | `elkargokide_zenbakia` UNIQUE, RESTRICT/CASCADE |
 | **harrerako_langileak** | `id` | `id` | `erabiltzaileak` | RESTRICT/CASCADE |
-| **mediku_paziente** | `id` | `mediku_id`, `paziente_id` | `medikuak`, `pazienteak` | UNIQUE(`mediku_id`, `paziente_id`) |
-| **neurketak** | `id` | `paziente_id` | `pazienteak` | RESTRICT/CASCADE |
+| **pazientek_langileak** | `id` | `langile_id`, `paziente_id` | `osasun_langileak`, `pazienteak` | UNIQUE(`langile_id`, `paziente_id`) |
+| **jarraipenak** | `id` | `paziente_id`, `osasun_langile_id` | `pazienteak`, `osasun_langileak` | RESTRICT/CASCADE |
 | **mezuak** | `id` | `bidaltzaile_id`, `hartzaile_id` | `erabiltzaileak` | RESTRICT/CASCADE |
-| **dokumentuak** | `id` | `paziente_id`, `igotzaile_id` | `pazienteak`, `erabiltzaileak` | RESTRICT/CASCADE |
-| **hitzorduak** | `id` | `paziente_id`, `mediku_id` | `pazienteak`, `medikuak` | RESTRICT/CASCADE |
-| **errezetak** | `id` | `hitzordu_id`, `mediku_id`, `paziente_id` | `hitzorduak`, `medikuak`, `pazienteak` | `hitzordu_id` SET NULL/CASCADE |
+| **dokumentuak** | `id` | `jarraipena_id` | `jarraipenak` | RESTRICT/CASCADE |
+| **hitzorduak** | `id` | `paziente_id`, `osasun_langile_id` | `pazienteak`, `osasun_langileak` | RESTRICT/CASCADE |
+| **errezetak** | `id` | `hitzordu_id`, `osasun_langile_id`, `paziente_id` | `hitzorduak`, `osasun_langileak`, `pazienteak` | `hitzordu_id` SET NULL/CASCADE |
 | **abisuak** | `id` | `paziente_id` | `pazienteak` | RESTRICT/CASCADE |
 | **botikak** | `id` | - | - | `izena` UNIQUE |
 | **errezeta_botikak** | `id` | `errezeta_id`, `botika_id` | `errezetak`, `botikak` | UNIQUE(`errezeta_id`, `botika_id`) |
@@ -65,11 +65,11 @@ Bistak taula konplexuen arteko `JOIN`ak sinplifikatzeko erabiltzen dira. Hona he
 | :--- | :--- | :--- |
 | **`V_Login`** | Erabiltzailearen kredentzialak eta rola bateratzen ditu. | `php_orri_hasierakoak/login.php` |
 | **`V_Pazientea`** | Pazientearen datuak eta erabiltzaile kontua batzen ditu. | `php_pazienteak/index.php`, `paziente_info.php` |
-| **`V_Medikua`** | Mediku profesionalaren eta kontuaren datu guztiak. | `php_osasun_langileak/index.php` |
-| **`V_Mediku_Pazienteak`** | Mediku bati esleitutako pazienteen zerrenda osoa. | `php_osasun_langileak/pazienteak.php` |
-| **`V_Hitzorduak_Osoa`** | Hitzorduak, pazienteen eta medikuen izenekin batera. | `php_harrera_langileak/hitzorduak.php`, `hitzordu_xehetasuna.php` |
+| **`V_Osasun_Langilea`** | Osasun langilearen eta kontuaren datu guztiak. | `php_osasun_langileak/index.php` |
+| **`V_Langile_Pazienteak`** | Langile bati esleitutako pazienteen zerrenda osoa. | `php_osasun_langileak/pazienteak.php` |
+| **`V_Hitzorduak_Osoa`** | Hitzorduak, pazienteen eta langileen izenekin batera. | `php_harrera_langileak/hitzorduak.php`, `hitzordu_xehetasuna.php` |
 | **`V_Harrera`** | Harrerako langileen eta haien kontuen informazioa. | `php_harrera_langileak/index.php` |
-| **`V_Abisuak_Osoa`** | Pazienteei zuzendutako abisu klinikoak eta pertsonalak. | `php_osasun_langileak/abisuak.php` |
+| **`V_Jarraipenak_Osoa`** | Jarraipenen datuak, paziente eta langilearekin batera. | `php_osasun_langileak/pazientea_info.php` |
 
 ---
 

@@ -265,6 +265,7 @@ namespace GOsasun_app.Interfazea
 
             _ekintzaIkonoak["fitxa"] = KargatuSvgIkonoa("eye.svg");
             _ekintzaIkonoak["jarraipena"] = KargatuSvgIkonoa("stethoscope.svg");
+            _ekintzaIkonoak["esleitu"] = KargatuSvgIkonoa("users.svg");
         }
 
         private static Bitmap? KargatuSvgIkonoa(string fileName)
@@ -326,15 +327,16 @@ namespace GOsasun_app.Interfazea
         private static Dictionary<string, Rectangle> LortuEkintzaBotoiak(Rectangle cellBounds)
         {
             int buttonSize = EkintzaBotoiTamaina;
-            int spacing = 18;
-            int totalWidth = (buttonSize * 2) + spacing;
+            int spacing = 14;
+            int totalWidth = (buttonSize * 3) + (spacing * 2);
             int left = cellBounds.Left + Math.Max(10, (cellBounds.Width - totalWidth) / 2);
             int top = cellBounds.Top + Math.Max(6, (cellBounds.Height - buttonSize) / 2);
 
             return new Dictionary<string, Rectangle>
             {
                 ["fitxa"] = new Rectangle(left, top, buttonSize, buttonSize),
-                ["jarraipena"] = new Rectangle(left + buttonSize + spacing, top, buttonSize, buttonSize)
+                ["jarraipena"] = new Rectangle(left + buttonSize + spacing, top, buttonSize, buttonSize),
+                ["esleitu"] = new Rectangle(left + ((buttonSize + spacing) * 2), top, buttonSize, buttonSize)
             };
         }
 
@@ -357,8 +359,10 @@ namespace GOsasun_app.Interfazea
         {
             Color kolorea = ekintza == "fitxa"
                 ? Color.FromArgb(41, 128, 185)
-                : Color.FromArgb(39, 174, 96);
-            string fallbackIkurra = ekintza == "fitxa" ? "F" : "J";
+                : ekintza == "jarraipena"
+                    ? Color.FromArgb(39, 174, 96)
+                    : Color.FromArgb(142, 68, 173);
+            string fallbackIkurra = ekintza == "fitxa" ? "F" : ekintza == "jarraipena" ? "J" : "+";
 
             using GraphicsPath path = SortuBiribildua(rectangle, 12);
             using SolidBrush brush = new SolidBrush(kolorea);
@@ -373,6 +377,14 @@ namespace GOsasun_app.Interfazea
                 int left = rectangle.Left + ((rectangle.Width - ikonoa.Width) / 2);
                 int top = rectangle.Top + ((rectangle.Height - ikonoa.Height) / 2);
                 graphics.DrawImage(ikonoa, new Rectangle(left, top, ikonoa.Width, ikonoa.Height));
+
+                if (ekintza == "esleitu")
+                {
+                    Rectangle plusRect = new Rectangle(rectangle.Right - 18, rectangle.Top + 4, 14, 14);
+                    using SolidBrush plusBrush = new SolidBrush(Color.White);
+                    graphics.FillRectangle(plusBrush, plusRect.Left + 5, plusRect.Top + 1, 3, 12);
+                    graphics.FillRectangle(plusBrush, plusRect.Left + 1, plusRect.Top + 5, 12, 3);
+                }
             }
             else
             {
@@ -411,12 +423,46 @@ namespace GOsasun_app.Interfazea
                 {
                     IrekiFormularioa(new PazienteXehetasunak(pazientea));
                 }
-                else if (_erabiltzailea != null)
+                else if (botoia.Key == "jarraipena" && _erabiltzailea != null)
                 {
                     IrekiFormularioa(new JarraipenMotak(_erabiltzailea, pazientea.Id, pazientea.IzenOsoa));
                 }
+                else if (botoia.Key == "esleitu")
+                {
+                    EsleituOsasunLangileak(pazientea);
+                }
 
                 break;
+            }
+        }
+
+        private void EsleituOsasunLangileak(Pazientea pazientea)
+        {
+            List<OsasunLangilea> langileGuztiak = _kontrolatzailea.LortuGuztiakOsasunLangileak()
+                .OrderBy(langilea => langilea.Espezialitatea)
+                .ThenBy(langilea => langilea.Abizenak)
+                .ThenBy(langilea => langilea.Izena)
+                .ToList();
+            HashSet<int> jadaEsleitutaIds = _kontrolatzailea.LortuPazientearenOsasunLangileak(pazientea.Id)
+                .Select(langilea => langilea.Id)
+                .ToHashSet();
+            using EsleituOsasunLangileakLaguntzailea popup = new EsleituOsasunLangileakLaguntzailea();
+            popup.Hasieratu(pazientea, langileGuztiak, jadaEsleitutaIds);
+
+            if (popup.ShowDialog(this) == DialogResult.OK)
+            {
+                bool ondo = _kontrolatzailea.EsleituOsasunLangileakPazienteari(
+                    pazientea.Id,
+                    popup.HautatutakoLangileIds.ToList());
+
+                if (!ondo)
+                {
+                    MessageBox.Show(this, "Ezin izan dira osasun langileak pazienteari esleitu.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                MessageBox.Show("Osasun langileak ondo esleitu dira.", "Arrakasta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                KargatuPazienteak(txtBilatu.Text.Trim());
             }
         }
 
@@ -599,5 +645,6 @@ namespace GOsasun_app.Interfazea
             this.Hide();
             formularioa.Show();
         }
+
     }
 }

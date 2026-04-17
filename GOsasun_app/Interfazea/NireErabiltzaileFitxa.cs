@@ -7,22 +7,9 @@ namespace GOsasun_app.Interfazea
     /// <summary>
     /// Login eginda dagoen erabiltzailearen fitxa profesionala erakusten du.
     /// </summary>
-    public class NireErabiltzaileFitxa : OinarriPantaila
+    public partial class NireErabiltzaileFitxa : OinarriPantaila
     {
         private readonly Erabiltzailea _erabiltzaileaOsoa;
-
-        private Panel _laburpenPanela = null!;
-        private Panel _irudiPanela = null!;
-        private Panel _datuKomunenPanela = null!;
-        private Panel _rolPanela = null!;
-        private Panel _kontuPanela = null!;
-        private PictureBox _irudiKutxa = null!;
-        private Label _fitxaMotaLabel = null!;
-        private Label _izenLabel = null!;
-        private Label _azpiInformazioLabel = null!;
-        private Label _rolBadgeLabel = null!;
-        private Label _egoeraBadgeLabel = null!;
-        private Label _irudiAzalpenaLabel = null!;
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public NireErabiltzaileFitxa() : this(SortuDiseinukoErabiltzailea())
@@ -32,7 +19,7 @@ namespace GOsasun_app.Interfazea
         public NireErabiltzaileFitxa(Erabiltzailea erabiltzailea) : base(erabiltzailea)
         {
             _erabiltzaileaOsoa = erabiltzailea;
-            SortuInterfazea();
+            InitializeComponent();
             KonfiguratuPantaila();
             BeteDatuak();
         }
@@ -46,188 +33,117 @@ namespace GOsasun_app.Interfazea
         private void KonfiguratuPantaila()
         {
             Text = "GOsasun - Nire Erabiltzaile Fitxa";
-            ClientSize = new Size(1600, 980);
+            ClientSize = new Size(1500, 980);
             _goiburuBarra.Width = ClientSize.Width;
-            _edukiPanela.Size = new Size(ClientSize.Width, ClientSize.Height - _goiburuBarra.Height);
-            _fitxaMotaLabel.Text = "NIRE ERABILTZAILE FITXA";
+            _edukiPanela.Size = new Size(ClientSize.Width, _edukiPanela.Height);
+            lblFitxaMota.Text = "NIRE ERABILTZAILE FITXA";
+            KonfiguratuTxartelenEdukia();
             _atzeraBotoia.BringToFront();
         }
 
-        private void SortuInterfazea()
+        private void KonfiguratuTxartelenEdukia()
         {
-            _edukiPanela.SuspendLayout();
-            _edukiPanela.Controls.Clear();
-            _edukiPanela.AutoScroll = true;
-
-            _laburpenPanela = SortuTxartelPanela(new Point(24, 34), new Size(1536, 210), Color.FromArgb(246, 250, 252));
-            _irudiPanela = SortuTxartelPanela(new Point(24, 268), new Size(380, 620), Color.White);
-            _datuKomunenPanela = SortuTxartelPanela(new Point(424, 268), new Size(1136, 344), Color.White);
-            _rolPanela = SortuTxartelPanela(new Point(424, 632), new Size(760, 256), Color.White);
-            _kontuPanela = SortuTxartelPanela(new Point(1204, 632), new Size(356, 256), Color.White);
-
-            EraikiLaburpena();
-            EraikiIrudiaPanela();
-            EraikiDatuKomunakPanela();
-            EraikiRolPanela();
-            EraikiKontuPanela();
-
-            _edukiPanela.Controls.Add(_laburpenPanela);
-            _edukiPanela.Controls.Add(_irudiPanela);
-            _edukiPanela.Controls.Add(_datuKomunenPanela);
-            _edukiPanela.Controls.Add(_rolPanela);
-            _edukiPanela.Controls.Add(_kontuPanela);
-            _edukiPanela.ResumeLayout(false);
+            KonfiguratuArgazkiaAtala();
+            KonfiguratuIdentifikazioAtala();
+            KonfiguratuHarremanAtala();
+            KonfiguratuRolAtala();
+            KonfiguratuKontuAtala();
         }
 
-        private void EraikiLaburpena()
+        private void KonfiguratuArgazkiaAtala()
         {
-            _fitxaMotaLabel = new Label
-            {
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(78, 105, 130),
-                Location = new Point(28, 18),
-                Size = new Size(420, 36)
-            };
-
-            _izenLabel = new Label
-            {
-                Font = new Font("Segoe UI", 25F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(30, 49, 69),
-                Location = new Point(24, 56),
-                Size = new Size(860, 76)
-            };
-
-            _azpiInformazioLabel = new Label
-            {
-                Font = new Font("Segoe UI", 10.5F),
-                ForeColor = Color.FromArgb(86, 103, 121),
-                Location = new Point(28, 142),
-                Size = new Size(960, 42)
-            };
-
-            _rolBadgeLabel = SortuBadgeLabel(new Point(1320, 20), new Size(188, 40));
-            _egoeraBadgeLabel = SortuBadgeLabel(new Point(1320, 76), new Size(188, 40));
-
-            Label azalpenLabel = new Label
-            {
-                Text = "Erabiltzailearen datu administratiboak eta rolaren profil osoa toki bakarrean.",
-                Font = new Font("Segoe UI", 10F),
-                ForeColor = Color.FromArgb(102, 118, 136),
-                Location = new Point(1028, 144),
-                Size = new Size(458, 42),
-                TextAlign = ContentAlignment.TopRight
-            };
-
-            _laburpenPanela.Controls.Add(_fitxaMotaLabel);
-            _laburpenPanela.Controls.Add(_izenLabel);
-            _laburpenPanela.Controls.Add(_azpiInformazioLabel);
-            _laburpenPanela.Controls.Add(_rolBadgeLabel);
-            _laburpenPanela.Controls.Add(_egoeraBadgeLabel);
-            _laburpenPanela.Controls.Add(azalpenLabel);
+            lblArgazkiAzalpena.Text = "Erabiltzailearen identifikazio bisuala. Irudirik ez badago, avatar medikal lehenetsia erabiliko da.";
+            lblArgazkiAzalpena.AutoSize = false;
+            lblArgazkiAzalpena.Size = new Size(242, 104);
         }
 
-        private void EraikiIrudiaPanela()
+        private void KonfiguratuIdentifikazioAtala()
         {
-            Panel goikoMarra = new Panel
-            {
-                BackColor = Color.FromArgb(52, 152, 219),
-                Dock = DockStyle.Top,
-                Height = 8
-            };
+            KonfiguratuSectionTitle(lblIdentifikazioa, "IDENTIFIKAZIOA", 28);
 
-            Label titulua = new Label
-            {
-                Text = "PROFIL IRUDIA",
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(77, 102, 126),
-                Location = new Point(28, 28),
-                Size = new Size(220, 28)
-            };
+            KonfiguratuField(lblNanTitulua, "NAN / DNI", 28, 86);
+            KonfiguratuValue(lblNanBalioa, "---", 28, 118, 230);
 
-            _irudiKutxa = new PictureBox
-            {
-                BackColor = Color.FromArgb(241, 246, 250),
-                Location = new Point(40, 78),
-                Size = new Size(300, 350),
-                SizeMode = PictureBoxSizeMode.Zoom
-            };
+            KonfiguratuField(lblJaiotzeDataTitulua, "JAIOTZE DATA", 318, 86);
+            KonfiguratuValue(lblJaiotzeDataBalioa, "---", 318, 118, 230);
 
-            _irudiAzalpenaLabel = new Label
-            {
-                Font = new Font("Segoe UI", 10.5F),
-                ForeColor = Color.FromArgb(97, 113, 130),
-                Location = new Point(40, 454),
-                Size = new Size(300, 110),
-                Text = "Erabiltzailearen identifikazio bisuala. Irudirik ez badago, avatar medikal lehenetsia erabiliko da."
-            };
+            KonfiguratuField(lblAdinaTitulua, "ADINA", 28, 202);
+            KonfiguratuValue(lblAdinaBalioa, "---", 28, 234, 230);
 
-            _irudiPanela.Controls.Add(goikoMarra);
-            _irudiPanela.Controls.Add(titulua);
-            _irudiPanela.Controls.Add(_irudiKutxa);
-            _irudiPanela.Controls.Add(_irudiAzalpenaLabel);
+            KonfiguratuField(lblErabiltzaileMotaTitulua, "ERABILTZAILE MOTA", 318, 202);
+            KonfiguratuValue(lblErabiltzaileMotaBalioa, "---", 318, 234, 230);
         }
 
-        private void EraikiDatuKomunakPanela()
+        private void KonfiguratuHarremanAtala()
         {
-            Label titulua = SortuSekzioTitulua("DATU OROKORRAK", new Point(28, 22), 280);
-            _datuKomunenPanela.Controls.Add(titulua);
+            KonfiguratuSectionTitle(lblHarremana, "HARREMANETARAKO DATUAK", 28);
 
-            int ezkerX = 28;
-            int eskuinX = 572;
-            int zabalera = 520;
+            KonfiguratuField(lblEmailaTitulua, "EMAILA", 28, 86);
+            lblEmailaTitulua.Size = new Size(360, 28);
+            KonfiguratuValue(lblEmailaBalioa, "---", 28, 118, 500);
+            lblEmailaBalioa.Height = 52;
 
-            _datuKomunenPanela.Controls.Add(SortuDatuBlokea("NAN / DNI", out _nanBalioa, ezkerX, 72, zabalera, 76));
-            _datuKomunenPanela.Controls.Add(SortuDatuBlokea("EMAILA", out _emailaBalioa, eskuinX, 72, zabalera, 76));
-            _datuKomunenPanela.Controls.Add(SortuDatuBlokea("JAIOTZE DATA", out _jaiotzeDataBalioa, ezkerX, 162, zabalera, 76));
-            _datuKomunenPanela.Controls.Add(SortuDatuBlokea("ADINA", out _adinaBalioa, eskuinX, 162, zabalera, 76));
-            _datuKomunenPanela.Controls.Add(SortuDatuBlokea("TELEFONOA", out _telefonoaBalioa, ezkerX, 252, zabalera, 76));
-            _datuKomunenPanela.Controls.Add(SortuDatuBlokea("HELBIDEA ETA UDALERRIA", out _helbideaBalioa, eskuinX, 252, zabalera, 76));
+            KonfiguratuField(lblTelefonoaTitulua, "TELEFONOA", 548, 86);
+            lblTelefonoaTitulua.Size = new Size(220, 28);
+            KonfiguratuValue(lblTelefonoaBalioa, "---", 548, 118, 240);
+            lblTelefonoaBalioa.Height = 52;
+
+            KonfiguratuField(lblHelbideaTitulua, "HELBIDEA", 28, 206);
+            lblHelbideaTitulua.Size = new Size(360, 28);
+            KonfiguratuValue(lblHelbideaBalioa, "---", 28, 238, 500);
+            lblHelbideaBalioa.Height = 70;
+
+            KonfiguratuField(lblHerriaTitulua, "P.K. / UDALERRIA", 548, 206);
+            lblHerriaTitulua.Size = new Size(300, 28);
+            KonfiguratuValue(lblHerriaBalioa, "---", 548, 238, 320);
+            lblHerriaBalioa.Height = 108;
         }
 
-        private void EraikiRolPanela()
+        private void KonfiguratuRolAtala()
         {
-            _rolPanela.Controls.Add(SortuSekzioTitulua("ROLAREN DATUAK", new Point(28, 22), 280));
+            KonfiguratuSectionTitle(lblRolDatuak, "PROFILAREN DATUAK", 28);
         }
 
-        private void EraikiKontuPanela()
+        private void KonfiguratuKontuAtala()
         {
-            _kontuPanela.Controls.Add(SortuSekzioTitulua("KONTUAREN EGOERA", new Point(24, 22), 260));
-            _kontuPanela.Controls.Add(SortuDatuBlokea("ERABILTZAILE ID", out _idBalioa, 24, 70, 308, 60));
-            _kontuPanela.Controls.Add(SortuDatuBlokea("ROL ID", out _rolIdBalioa, 24, 136, 308, 60));
-            _kontuPanela.Controls.Add(SortuDatuBlokea("HIZKUNTZA", out _hizkuntzaBalioa, 24, 202, 308, 60));
-        }
+            KonfiguratuSectionTitle(lblKontua, "KONTUAREN EGOERA", 24);
 
-        private Label _nanBalioa = null!;
-        private Label _emailaBalioa = null!;
-        private Label _jaiotzeDataBalioa = null!;
-        private Label _adinaBalioa = null!;
-        private Label _telefonoaBalioa = null!;
-        private Label _helbideaBalioa = null!;
-        private Label _idBalioa = null!;
-        private Label _rolIdBalioa = null!;
-        private Label _hizkuntzaBalioa = null!;
+            KonfiguratuField(lblIdTitulua, "ERABILTZAILE ID", 24, 86);
+            KonfiguratuValue(lblIdBalioa, "---", 24, 118, 308);
+            lblIdBalioa.Height = 52;
+
+            KonfiguratuField(lblRolIdTitulua, "ROL ID", 24, 206);
+            KonfiguratuValue(lblRolIdBalioa, "---", 24, 238, 308);
+            lblRolIdBalioa.Height = 52;
+
+            KonfiguratuField(lblAltaDataTitulua, "ALTA DATA", 24, 326);
+            KonfiguratuValue(lblAltaDataBalioa, "---", 24, 358, 360);
+            lblAltaDataBalioa.Height = 52;
+        }
 
         private void BeteDatuak()
         {
-            _izenLabel.Text = _erabiltzaileaOsoa.IzenOsoa;
-            _azpiInformazioLabel.Text = $"{_erabiltzaileaOsoa.Rola}   |   {_erabiltzaileaOsoa.Emaila}   |   Alta data: {FormateatuData(_erabiltzaileaOsoa.SortzeData)}";
+            lblIzena.Text = _erabiltzaileaOsoa.IzenOsoa;
+            lblAzpiInformazioa.Text = $"{_erabiltzaileaOsoa.Rola}   |   {_erabiltzaileaOsoa.Emaila}   |   Alta data: {FormateatuData(_erabiltzaileaOsoa.SortzeData)}";
 
-            EzarriBadge(_rolBadgeLabel, _erabiltzaileaOsoa.Rola.ToUpperInvariant(), Color.FromArgb(226, 239, 252), Color.FromArgb(44, 93, 140));
+            EzarriBadge(lblRolBadge, _erabiltzaileaOsoa.Rola.ToUpperInvariant(), Color.FromArgb(226, 239, 252), Color.FromArgb(44, 93, 140));
             EzarriBadge(
-                _egoeraBadgeLabel,
+                lblEgoeraBadge,
                 _erabiltzaileaOsoa.Aktibo ? "AKTIBOA" : "EZ AKTIBOA",
                 _erabiltzaileaOsoa.Aktibo ? Color.FromArgb(223, 245, 232) : Color.FromArgb(252, 231, 230),
                 _erabiltzaileaOsoa.Aktibo ? Color.FromArgb(32, 102, 70) : Color.FromArgb(151, 44, 39));
 
-            _nanBalioa.Text = FormateatuTestua(_erabiltzaileaOsoa.Nan);
-            _emailaBalioa.Text = FormateatuTestua(_erabiltzaileaOsoa.Emaila);
-            _jaiotzeDataBalioa.Text = FormateatuData(_erabiltzaileaOsoa.JaiotzeData);
-            _adinaBalioa.Text = KalkulatuAdina(_erabiltzaileaOsoa.JaiotzeData);
-            _telefonoaBalioa.Text = FormateatuTestua(_erabiltzaileaOsoa.Telefonoa);
-            _helbideaBalioa.Text = FormateatuHelbidea();
-            _idBalioa.Text = _erabiltzaileaOsoa.Id.ToString();
-            _rolIdBalioa.Text = _erabiltzaileaOsoa.RolId.ToString();
-            _hizkuntzaBalioa.Text = FormateatuTestua(_erabiltzaileaOsoa.Hizkuntza);
+            lblNanBalioa.Text = FormateatuTestua(_erabiltzaileaOsoa.Nan);
+            lblJaiotzeDataBalioa.Text = FormateatuData(_erabiltzaileaOsoa.JaiotzeData);
+            lblAdinaBalioa.Text = KalkulatuAdina(_erabiltzaileaOsoa.JaiotzeData);
+            lblErabiltzaileMotaBalioa.Text = FormateatuTestua(_erabiltzaileaOsoa.Rola);
+            lblEmailaBalioa.Text = FormateatuTestua(_erabiltzaileaOsoa.Emaila);
+            lblTelefonoaBalioa.Text = FormateatuTestua(_erabiltzaileaOsoa.Telefonoa);
+            lblHelbideaBalioa.Text = FormateatuTestua(_erabiltzaileaOsoa.Helbidea);
+            lblHerriaBalioa.Text = FormateatuKokalekua();
+            lblIdBalioa.Text = _erabiltzaileaOsoa.Id.ToString();
+            lblRolIdBalioa.Text = _erabiltzaileaOsoa.RolId.ToString();
+            lblAltaDataBalioa.Text = FormateatuData(_erabiltzaileaOsoa.SortzeData);
 
             BeteRolarenDatuak();
             KargatuIrudia();
@@ -235,23 +151,23 @@ namespace GOsasun_app.Interfazea
 
         private void BeteRolarenDatuak()
         {
-            foreach (Control kontrola in _rolPanela.Controls.Cast<Control>().ToList())
+            foreach (Control kontrola in pnlRolPanela.Controls.Cast<Control>().ToList())
             {
-                if (kontrola is Label label && label.Text == "ROLAREN DATUAK")
+                if (kontrola == lblRolDatuak)
                 {
                     continue;
                 }
 
-                _rolPanela.Controls.Remove(kontrola);
+                pnlRolPanela.Controls.Remove(kontrola);
                 kontrola.Dispose();
             }
 
             if (_erabiltzaileaOsoa is Pazientea pazientea)
             {
-                _rolPanela.Controls.Add(SortuDatuBlokea("SEXUA", out Label sexuaBalioa, 28, 72, 334, 72));
-                _rolPanela.Controls.Add(SortuDatuBlokea("ODOL TALDEA", out Label odolBalioa, 392, 72, 334, 72));
-                _rolPanela.Controls.Add(SortuDatuBlokea("AZKEN ALTUERA", out Label altueraBalioa, 28, 160, 334, 72));
-                _rolPanela.Controls.Add(SortuDatuBlokea("AZKEN PISUA", out Label pisuaBalioa, 392, 160, 334, 72));
+                pnlRolPanela.Controls.Add(SortuDatuBlokea("SEXUA", out Label sexuaBalioa, 28, 86, 410, 82));
+                pnlRolPanela.Controls.Add(SortuDatuBlokea("ODOL TALDEA", out Label odolBalioa, 472, 86, 410, 82));
+                pnlRolPanela.Controls.Add(SortuDatuBlokea("AZKEN ALTUERA", out Label altueraBalioa, 28, 198, 410, 82));
+                pnlRolPanela.Controls.Add(SortuDatuBlokea("AZKEN PISUA", out Label pisuaBalioa, 472, 198, 410, 82));
 
                 sexuaBalioa.Text = FormateatuTestua(pazientea.Sexua);
                 odolBalioa.Text = FormateatuTestua(pazientea.OdolTaldea);
@@ -261,18 +177,18 @@ namespace GOsasun_app.Interfazea
                 Label egoeraLabel = SortuOharMedikala(
                     "Egoera klinikoa",
                     FormateatuTestua(pazientea.EgoeraKlinikoa),
-                    new Point(28, 224),
-                    new Size(698, 22));
-                _rolPanela.Controls.Add(egoeraLabel);
+                    new Point(28, 334),
+                    new Size(854, 56));
+                pnlRolPanela.Controls.Add(egoeraLabel);
                 return;
             }
 
             if (_erabiltzaileaOsoa is OsasunLangilea osasunLangilea)
             {
-                _rolPanela.Controls.Add(SortuDatuBlokea("ELKARGOKIDE ZBK.", out Label elkargokideBalioa, 28, 72, 334, 72));
-                _rolPanela.Controls.Add(SortuDatuBlokea("ESPEZIALITATEA", out Label espezialitateBalioa, 392, 72, 334, 72));
-                _rolPanela.Controls.Add(SortuDatuBlokea("KONTSULTA", out Label kontsultaBalioa, 28, 160, 334, 72));
-                _rolPanela.Controls.Add(SortuDatuBlokea("LANALDIA", out Label lanaldiBalioa, 392, 160, 334, 72));
+                pnlRolPanela.Controls.Add(SortuDatuBlokea("ELKARGOKIDE ZBK.", out Label elkargokideBalioa, 28, 86, 410, 96));
+                pnlRolPanela.Controls.Add(SortuDatuBlokea("ESPEZIALITATEA", out Label espezialitateBalioa, 472, 86, 410, 96));
+                pnlRolPanela.Controls.Add(SortuDatuBlokea("KONTSULTA", out Label kontsultaBalioa, 28, 206, 410, 96));
+                pnlRolPanela.Controls.Add(SortuDatuBlokea("LANALDIA", out Label lanaldiBalioa, 472, 206, 410, 96));
 
                 elkargokideBalioa.Text = FormateatuTestua(osasunLangilea.ElkargokideZenbakia);
                 espezialitateBalioa.Text = FormateatuTestua(osasunLangilea.Espezialitatea);
@@ -283,15 +199,15 @@ namespace GOsasun_app.Interfazea
 
             if (_erabiltzaileaOsoa is HarrerakoLangilea harrerakoa)
             {
-                _rolPanela.Controls.Add(SortuDatuBlokea("TXANDA", out Label txandaBalioa, 28, 72, 698, 72));
+                pnlRolPanela.Controls.Add(SortuDatuBlokea("TXANDA", out Label txandaBalioa, 28, 86, 854, 82));
                 txandaBalioa.Text = FormateatuTestua(harrerakoa.Txanda);
 
                 Label azalpena = SortuOharMedikala(
                     "Arreta administratiboa",
                     "Harrerako profila hitzorduen, dokumentuen eta erabiltzaileen kudeaketa koordinatzeko prestatuta dago.",
-                    new Point(28, 170),
-                    new Size(698, 52));
-                _rolPanela.Controls.Add(azalpena);
+                    new Point(28, 222),
+                    new Size(854, 80));
+                pnlRolPanela.Controls.Add(azalpena);
             }
         }
 
@@ -301,16 +217,16 @@ namespace GOsasun_app.Interfazea
             if (!string.IsNullOrWhiteSpace(bidea) && File.Exists(bidea))
             {
                 using Image jatorrizkoa = Image.FromFile(bidea);
-                _irudiKutxa.Image = new Bitmap(jatorrizkoa);
+                pbIrudia.Image = new Bitmap(jatorrizkoa);
                 return;
             }
 
-            _irudiKutxa.Image = SortuPlaceholderIrudia(_erabiltzaileaOsoa.Rola);
+            pbIrudia.Image = SortuPlaceholderIrudia(_erabiltzaileaOsoa.Rola);
         }
 
         private static Bitmap SortuPlaceholderIrudia(string rola)
         {
-            Bitmap bitmap = new Bitmap(300, 350);
+            Bitmap bitmap = new Bitmap(260, 320);
             using Graphics graphics = Graphics.FromImage(bitmap);
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
             graphics.Clear(Color.FromArgb(241, 246, 250));
@@ -320,12 +236,12 @@ namespace GOsasun_app.Interfazea
             using SolidBrush accentBrush = new SolidBrush(Color.FromArgb(52, 152, 219));
             using Pen crossPen = new Pen(Color.FromArgb(255, 255, 255), 10f);
 
-            graphics.FillEllipse(haloBrush, 72, 24, 156, 156);
-            graphics.FillEllipse(avatarBrush, 114, 58, 72, 72);
-            graphics.FillPie(avatarBrush, 92, 112, 116, 90, 200, 140);
-            graphics.FillEllipse(accentBrush, 188, 222, 72, 72);
-            graphics.DrawLine(crossPen, 224, 238, 224, 278);
-            graphics.DrawLine(crossPen, 204, 258, 244, 258);
+            graphics.FillEllipse(haloBrush, 52, 24, 156, 156);
+            graphics.FillEllipse(avatarBrush, 94, 58, 72, 72);
+            graphics.FillPie(avatarBrush, 72, 112, 116, 90, 200, 140);
+            graphics.FillEllipse(accentBrush, 170, 214, 72, 72);
+            graphics.DrawLine(crossPen, 206, 230, 206, 270);
+            graphics.DrawLine(crossPen, 186, 250, 226, 250);
 
             using Font badgeFont = new Font("Segoe UI", 12F, FontStyle.Bold);
             using SolidBrush textBrush = new SolidBrush(Color.FromArgb(77, 102, 126));
@@ -335,27 +251,31 @@ namespace GOsasun_app.Interfazea
                 LineAlignment = StringAlignment.Center
             };
 
-            graphics.DrawString(rola, badgeFont, textBrush, new RectangleF(26, 292, 248, 36), format);
+            graphics.DrawString(rola, badgeFont, textBrush, new RectangleF(20, 282, 220, 36), format);
             return bitmap;
         }
 
-        private string FormateatuHelbidea()
+        private string FormateatuKokalekua()
         {
-            List<string> zatiak = new List<string>();
-            if (!string.IsNullOrWhiteSpace(_erabiltzaileaOsoa.Helbidea))
+            string herria = string.IsNullOrWhiteSpace(_erabiltzaileaOsoa.Herria) ? string.Empty : _erabiltzaileaOsoa.Herria.Trim();
+            string postaKodea = string.IsNullOrWhiteSpace(_erabiltzaileaOsoa.PostaKodea) ? string.Empty : _erabiltzaileaOsoa.PostaKodea.Trim();
+
+            if (string.IsNullOrEmpty(herria) && string.IsNullOrEmpty(postaKodea))
             {
-                zatiak.Add(_erabiltzaileaOsoa.Helbidea!.Trim());
+                return "---";
             }
 
-            string herria = string.IsNullOrWhiteSpace(_erabiltzaileaOsoa.Herria) ? string.Empty : _erabiltzaileaOsoa.Herria!.Trim();
-            string postaKodea = string.IsNullOrWhiteSpace(_erabiltzaileaOsoa.PostaKodea) ? string.Empty : _erabiltzaileaOsoa.PostaKodea!.Trim();
-            string kokalekua = string.Join(" - ", new[] { postaKodea, herria }.Where(zatia => !string.IsNullOrWhiteSpace(zatia)));
-            if (!string.IsNullOrWhiteSpace(kokalekua))
+            if (string.IsNullOrEmpty(herria))
             {
-                zatiak.Add(kokalekua);
+                return postaKodea;
             }
 
-            return zatiak.Count == 0 ? "---" : string.Join(Environment.NewLine, zatiak);
+            if (string.IsNullOrEmpty(postaKodea))
+            {
+                return herria;
+            }
+
+            return $"{postaKodea}{Environment.NewLine}{herria}";
         }
 
         private static string FormateatuTestua(string? testua)
@@ -385,29 +305,6 @@ namespace GOsasun_app.Interfazea
             return $"{adina} urte";
         }
 
-        private static Panel SortuTxartelPanela(Point kokapena, Size tamaina, Color atzekoKolorea)
-        {
-            return new Panel
-            {
-                BackColor = atzekoKolorea,
-                BorderStyle = BorderStyle.FixedSingle,
-                Location = kokapena,
-                Size = tamaina
-            };
-        }
-
-        private static Label SortuSekzioTitulua(string testua, Point kokapena, int zabalera)
-        {
-            return new Label
-            {
-                Text = testua,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(77, 102, 126),
-                Location = kokapena,
-                Size = new Size(zabalera, 28)
-            };
-        }
-
         private static Panel SortuDatuBlokea(string titulua, out Label balioLabel, int x, int y, int zabalera, int altuera)
         {
             Panel panela = new Panel
@@ -420,18 +317,18 @@ namespace GOsasun_app.Interfazea
             Label tituluaLabel = new Label
             {
                 Text = titulua,
-                Font = new Font("Segoe UI", 9.2F, FontStyle.Bold),
+                Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(112, 127, 143),
-                Location = new Point(16, 10),
-                Size = new Size(zabalera - 32, 22)
+                Location = new Point(16, 12),
+                Size = new Size(zabalera - 32, 20)
             };
 
             balioLabel = new Label
             {
-                Font = new Font("Segoe UI", 13F, FontStyle.Bold),
+                Font = new Font("Segoe UI", 13.5F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(30, 49, 69),
-                Location = new Point(16, 34),
-                Size = new Size(zabalera - 32, altuera - 40),
+                Location = new Point(16, 44),
+                Size = new Size(zabalera - 32, altuera - 56),
                 Text = "---"
             };
 
@@ -449,17 +346,6 @@ namespace GOsasun_app.Interfazea
                 ForeColor = Color.FromArgb(97, 113, 130),
                 Location = kokapena,
                 Size = tamaina
-            };
-        }
-
-        private static Label SortuBadgeLabel(Point kokapena, Size tamaina)
-        {
-            return new Label
-            {
-                Font = new Font("Segoe UI", 10.5F, FontStyle.Bold),
-                Location = kokapena,
-                Size = tamaina,
-                TextAlign = ContentAlignment.MiddleCenter
             };
         }
 

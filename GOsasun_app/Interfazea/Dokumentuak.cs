@@ -1,4 +1,5 @@
 using GOsasun_app.Kontrola;
+using GOsasun_app.Kontrola.Zerbitzuak;
 using GOsasun_app.Modeloa;
 using System.Diagnostics;
 
@@ -14,8 +15,10 @@ namespace GOsasun_app.Interfazea
 
         private readonly DokumentuaKontrolatzailea _dokumentuaKontrolatzailea = new DokumentuaKontrolatzailea();
         private readonly ErabiltzaileKontrolatzailea _erabiltzaileKontrolatzailea = new ErabiltzaileKontrolatzailea();
+        private readonly JarraipenaKontrolatzailea _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
         private readonly BindingSource _bindingSource = new BindingSource();
         private readonly List<Dokumentua> _dokumentuak = new List<Dokumentua>();
+        private Image? _osasunTxostenaIkonoa;
         private Image? _dokumentuBerriaIkonoa;
         private Image? _ikusiIkonoa;
         private Image? _editatuIkonoa;
@@ -58,12 +61,15 @@ namespace GOsasun_app.Interfazea
             _amaieraDataPicker.ValueChanged += (s, e) => KargatuDokumentuak();
             _bilatuBotoia.Click += (s, e) => KargatuDokumentuak();
             _garbituBotoia.Click += (s, e) => GarbituIragazkia();
+            _osasunTxostenaSortuBotoia.Click += (s, e) => SortuOsasunTxostena();
             _dokumentuBerriaBotoia.Click += (s, e) => SortuDokumentuBerria();
             _jarraipenGuztiakCheckBox.CheckedChanged += (s, e) => KargatuDokumentuak();
             _dokumentuakGrid.DataSource = _bindingSource;
 
             KargatuEkintzaIkonoak();
+            _osasunTxostenaSortuBotoia.Image = _osasunTxostenaIkonoa;
             _dokumentuBerriaBotoia.Image = _dokumentuBerriaIkonoa;
+            _osasunTxostenaSortuBotoia.Visible = _erabiltzailea?.DaOsasunLangilea() == true;
             _jarraipenGuztiakCheckBox.Visible = !DaPazientea();
             _jarraipenGuztiakCheckBox.Checked = false;
 
@@ -71,6 +77,7 @@ namespace GOsasun_app.Interfazea
 
             _jarraipenGuztiakCheckBox.BringToFront();
             iragazkiPanela.BringToFront();
+            _osasunTxostenaSortuBotoia.BringToFront();
             _dokumentuBerriaBotoia.BringToFront();
         }
 
@@ -83,6 +90,7 @@ namespace GOsasun_app.Interfazea
 
         private void KargatuEkintzaIkonoak()
         {
+            _osasunTxostenaIkonoa = KargatuIkonoIrudia("file-text.svg", Color.White, 20);
             _dokumentuBerriaIkonoa = KargatuIkonoIrudia("plus-circle.svg", Color.White, 20);
             _ikusiIkonoa = KargatuIkonoIrudia("eye.svg", Color.White, EkintzaIkonoTamaina);
             _editatuIkonoa = KargatuIkonoIrudia("pencil.svg", Color.White, EkintzaIkonoTamaina);
@@ -531,6 +539,67 @@ namespace GOsasun_app.Interfazea
             }
         }
 
+        private void SortuOsasunTxostena()
+        {
+            if (_erabiltzailea == null)
+            {
+                MessageBox.Show("Erabiltzailearen datuak ez dira eskuragarri.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (_erabiltzailea.DaOsasunLangilea() != true)
+            {
+                MessageBox.Show("Osasun langile batek bakarrik sor dezake txosten medikoa.", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            List<Pazientea> pazienteak = LortuEskuragarriPazienteak();
+            if (pazienteak.Count == 0)
+            {
+                MessageBox.Show("Ez dago txostena lotzeko pazienterik eskuragarri.", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!EskatuTxostenBerriarenDatuak(
+                    pazienteak,
+                    out int pazienteId,
+                    out string dokumentuIzena,
+                    out string deskribapena,
+                    out List<TxostenGrafikaMota> grafikaMotak,
+                    out DateTime? grafikaHasieraData,
+                    out DateTime? grafikaAmaieraData))
+            {
+                return;
+            }
+
+            try
+            {
+                bool ondo = _dokumentuaKontrolatzailea.GehituTxostena(
+                    pazienteId,
+                    null,
+                    LortuOsasunLangileId(),
+                    dokumentuIzena,
+                    deskribapena,
+                    grafikaMotak,
+                    grafikaHasieraData,
+                    grafikaAmaieraData);
+
+                if (ondo)
+                {
+                    KargatuDokumentuak();
+                    MessageBox.Show("Osasun txostena ondo sortu da.", "Arrakasta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Ezin izan da osasun txostena sortu.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Errorea osasun txostena sortzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private List<Pazientea> LortuEskuragarriPazienteak()
         {
             if (_erabiltzailea == null)
@@ -559,268 +628,61 @@ namespace GOsasun_app.Interfazea
             deskribapena = string.Empty;
             pdfFitxategiBidea = string.Empty;
 
-            using Form formularioa = new Form();
-            formularioa.Text = "Dokumentu berria";
-            formularioa.StartPosition = FormStartPosition.CenterParent;
-            formularioa.ClientSize = new Size(720, DaPazientea() ? 520 : 670);
-            formularioa.FormBorderStyle = FormBorderStyle.FixedDialog;
-            formularioa.MaximizeBox = false;
-            formularioa.MinimizeBox = false;
+            using DokumentuBerriaLaguntzailea formularioa = new DokumentuBerriaLaguntzailea();
+            formularioa.Hasieratu(
+                pazienteak,
+                !DaPazientea(),
+                bilaketa => string.IsNullOrWhiteSpace(bilaketa)
+                    ? pazienteak.OrderBy(p => p.IzenOsoa).ToList()
+                    : _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak(bilaketa.Trim()).OrderBy(p => p.IzenOsoa).ToList());
 
-            int unekoY = 24;
-            TextBox? pazienteBilaketaTextBox = null;
-            ListBox? pazienteakListBox = null;
-            Label? pazienteakEgoeraLabel = null;
-            List<Pazientea> unekoPazienteak = pazienteak.OrderBy(p => p.IzenOsoa).ToList();
-
-            if (!DaPazientea())
-            {
-                if (pazienteak.Count == 0)
-                {
-                    MessageBox.Show(this, "Ez dago dokumentua lotzeko pazienterik eskuragarri.", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-
-                Label pazienteaLabel = new Label
-                {
-                    Text = "Bilatu pazientea (abizena, izena edo NAN/DNI)",
-                    Location = new Point(24, unekoY),
-                    AutoSize = true,
-                    Font = new Font("Segoe UI", 10F, FontStyle.Bold)
-                };
-
-                pazienteBilaketaTextBox = new TextBox
-                {
-                    Location = new Point(24, unekoY + 30),
-                    Size = new Size(632, 40),
-                    PlaceholderText = "Idatzi abizena, izena edo NAN/DNI...",
-                    Font = new Font("Segoe UI", 10F),
-                };
-
-                pazienteakListBox = new ListBox
-                {
-                    Location = new Point(24, unekoY + 82),
-                    Size = new Size(632, 150),
-                    Font = new Font("Segoe UI", 10F),
-                    IntegralHeight = false
-                };
-
-                pazienteakEgoeraLabel = new Label
-                {
-                    Location = new Point(24, unekoY + 240),
-                    Size = new Size(632, 44),
-                    Font = new Font("Segoe UI", 9F),
-                    ForeColor = Color.FromArgb(90, 90, 90)
-                };
-
-                void KargatuPazienteakBilaketarekin(string? bilaketa, int? hautatutakoPazienteId = null)
-                {
-                    unekoPazienteak = string.IsNullOrWhiteSpace(bilaketa)
-                        ? pazienteak.OrderBy(p => p.IzenOsoa).ToList()
-                        : _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak(bilaketa.Trim()).OrderBy(p => p.IzenOsoa).ToList();
-
-                    pazienteakListBox!.BeginUpdate();
-                    pazienteakListBox.Items.Clear();
-                    foreach (Pazientea pazientea in unekoPazienteak)
-                    {
-                        pazienteakListBox.Items.Add(FormateatuPazienteAukera(pazientea));
-                    }
-                    pazienteakListBox.EndUpdate();
-
-                    if (hautatutakoPazienteId.HasValue)
-                    {
-                        int indizea = unekoPazienteak.FindIndex(p => p.Id == hautatutakoPazienteId.Value);
-                        if (indizea >= 0)
-                        {
-                            pazienteakListBox.SelectedIndex = indizea;
-                        }
-                    }
-                    else if (unekoPazienteak.Count == 1)
-                    {
-                        pazienteakListBox.SelectedIndex = 0;
-                    }
-
-                    pazienteakEgoeraLabel!.Text = unekoPazienteak.Count switch
-                    {
-                        0 => "Ez da pazienterik aurkitu.",
-                        1 => "Paziente 1 aurkitu da.",
-                        _ => $"{unekoPazienteak.Count} paziente aurkitu dira."
-                    };
-                }
-
-                pazienteBilaketaTextBox.TextChanged += (s, e) =>
-                {
-                    int? hautatutakoPazienteId = pazienteakListBox.SelectedIndex >= 0 && pazienteakListBox.SelectedIndex < unekoPazienteak.Count
-                        ? unekoPazienteak[pazienteakListBox.SelectedIndex].Id
-                        : null;
-                    KargatuPazienteakBilaketarekin(pazienteBilaketaTextBox.Text, hautatutakoPazienteId);
-                };
-
-                formularioa.Controls.Add(pazienteaLabel);
-                formularioa.Controls.Add(pazienteBilaketaTextBox);
-                formularioa.Controls.Add(pazienteakListBox);
-                formularioa.Controls.Add(pazienteakEgoeraLabel);
-                KargatuPazienteakBilaketarekin(null);
-                unekoY += 294;
-            }
-
-            Label izenaLabel = new Label
-            {
-                Text = "Dokumentu izena",
-                Location = new Point(24, unekoY),
-                AutoSize = true,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold)
-            };
-            TextBox izenaTextBox = new TextBox
-            {
-                Location = new Point(24, unekoY + 30),
-                Width = 632,
-                Font = new Font("Segoe UI", 10F)
-            };
-
-            unekoY += 82;
-
-            Label pdfLabel = new Label
-            {
-                Text = "PDF fitxategia",
-                Location = new Point(24, unekoY),
-                AutoSize = true,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold)
-            };
-            TextBox pdfTextBox = new TextBox
-            {
-                Location = new Point(24, unekoY + 30),
-                Width = 486,
-                ReadOnly = true,
-                Font = new Font("Segoe UI", 10F)
-            };
-            Button pdfHautatuBotoia = new Button
-            {
-                Text = "PDF hautatu",
-                Location = new Point(522, unekoY + 28),
-                Size = new Size(134, 42),
-                BackColor = Color.FromArgb(44, 62, 80),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand
-            };
-            pdfHautatuBotoia.FlatAppearance.BorderSize = 0;
-            pdfHautatuBotoia.Click += (s, e) =>
-            {
-                using OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Title = "Hautatu PDF dokumentua";
-                dialog.Filter = "PDF dokumentuak|*.pdf";
-                dialog.Multiselect = false;
-
-                if (dialog.ShowDialog(formularioa) != DialogResult.OK)
-                {
-                    return;
-                }
-
-                pdfTextBox.Text = dialog.FileName;
-                if (string.IsNullOrWhiteSpace(izenaTextBox.Text))
-                {
-                    izenaTextBox.Text = Path.GetFileNameWithoutExtension(dialog.FileName);
-                }
-            };
-
-            unekoY += 82;
-
-            Label deskribapenaLabel = new Label
-            {
-                Text = "Deskribapena",
-                Location = new Point(24, unekoY),
-                AutoSize = true,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold)
-            };
-            TextBox deskribapenaTextBox = new TextBox
-            {
-                Location = new Point(24, unekoY + 30),
-                Width = 632,
-                Height = 110,
-                Multiline = true,
-                Font = new Font("Segoe UI", 10F)
-            };
-
-            int botoienY = deskribapenaTextBox.Bottom + 24;
-            formularioa.ClientSize = new Size(
-                formularioa.ClientSize.Width,
-                Math.Max(formularioa.ClientSize.Height, botoienY + 42 + 24));
-
-            Button btnGorde = new Button
-            {
-                Text = "Gorde",
-                Location = new Point(464, botoienY),
-                Size = new Size(92, 42),
-                BackColor = Color.FromArgb(83, 148, 117),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand
-            };
-            btnGorde.FlatAppearance.BorderSize = 0;
-
-            Button btnUtzi = new Button
-            {
-                Text = "Utzi",
-                Location = new Point(564, botoienY),
-                Size = new Size(92, 42),
-                DialogResult = DialogResult.Cancel
-            };
-
-            btnGorde.Click += (s, e) =>
-            {
-                if (!DaPazientea() && (pazienteakListBox == null || pazienteakListBox.SelectedIndex < 0 || pazienteakListBox.SelectedIndex >= unekoPazienteak.Count))
-                {
-                    MessageBox.Show(formularioa, "Paziente bat hautatu behar duzu.", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                if (string.IsNullOrWhiteSpace(izenaTextBox.Text))
-                {
-                    MessageBox.Show(formularioa, "Dokumentuaren izena bete behar duzu.", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    izenaTextBox.Focus();
-                    return;
-                }
-
-                if (string.IsNullOrWhiteSpace(pdfTextBox.Text) || !File.Exists(pdfTextBox.Text))
-                {
-                    MessageBox.Show(formularioa, "PDF fitxategi baliozko bat hautatu behar duzu.", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                formularioa.DialogResult = DialogResult.OK;
-                formularioa.Close();
-            };
-
-            formularioa.Controls.Add(izenaLabel);
-            formularioa.Controls.Add(izenaTextBox);
-            formularioa.Controls.Add(pdfLabel);
-            formularioa.Controls.Add(pdfTextBox);
-            formularioa.Controls.Add(pdfHautatuBotoia);
-            formularioa.Controls.Add(deskribapenaLabel);
-            formularioa.Controls.Add(deskribapenaTextBox);
-            formularioa.Controls.Add(btnGorde);
-            formularioa.Controls.Add(btnUtzi);
-            formularioa.AcceptButton = btnGorde;
-            formularioa.CancelButton = btnUtzi;
-
-            if (formularioa.ShowDialog(this) != DialogResult.OK)
+            if (formularioa.ShowDialog(this) != DialogResult.OK || !formularioa.PazienteId.HasValue)
             {
                 return false;
             }
 
-            pazienteId = DaPazientea()
-                ? _erabiltzailea!.Id
-                : unekoPazienteak[pazienteakListBox!.SelectedIndex].Id;
-            dokumentuIzena = izenaTextBox.Text.Trim();
-            deskribapena = deskribapenaTextBox.Text.Trim();
-            pdfFitxategiBidea = pdfTextBox.Text.Trim();
+            pazienteId = formularioa.PazienteId.Value;
+            dokumentuIzena = formularioa.DokumentuIzena;
+            deskribapena = formularioa.Deskribapena;
+            pdfFitxategiBidea = formularioa.PdfFitxategiBidea;
             return true;
         }
 
-        private static string FormateatuPazienteAukera(Pazientea pazientea)
+        private bool EskatuTxostenBerriarenDatuak(
+            List<Pazientea> pazienteak,
+            out int pazienteId,
+            out string dokumentuIzena,
+            out string deskribapena,
+            out List<TxostenGrafikaMota> grafikaMotak,
+            out DateTime? grafikaHasieraData,
+            out DateTime? grafikaAmaieraData)
         {
-            return $"{pazientea.Abizenak}, {pazientea.Izena} - {pazientea.Nan}";
+            pazienteId = 0;
+            dokumentuIzena = string.Empty;
+            deskribapena = string.Empty;
+            grafikaMotak = new List<TxostenGrafikaMota>();
+            grafikaHasieraData = null;
+            grafikaAmaieraData = null;
+            using OsasunTxostenaSortuLaguntzailea formularioa = new OsasunTxostenaSortuLaguntzailea();
+            formularioa.Hasieratu(
+                pazienteak,
+                bilaketa => string.IsNullOrWhiteSpace(bilaketa)
+                    ? pazienteak.OrderBy(p => p.IzenOsoa).ToList()
+                    : _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak(bilaketa.Trim()).OrderBy(p => p.IzenOsoa).ToList(),
+                hautatutakoPazienteId => _jarraipenaKontrolatzailea.LortuJarraipenGuztiak(pazienteId: hautatutakoPazienteId));
+
+            if (formularioa.ShowDialog(this) != DialogResult.OK || !formularioa.PazienteId.HasValue)
+            {
+                return false;
+            }
+
+            pazienteId = formularioa.PazienteId.Value;
+            dokumentuIzena = formularioa.DokumentuIzena;
+            deskribapena = formularioa.Deskribapena;
+            grafikaMotak = formularioa.GrafikaMotak;
+            grafikaHasieraData = formularioa.GrafikaHasieraData;
+            grafikaAmaieraData = formularioa.GrafikaAmaieraData;
+            return true;
         }
 
         private int? LortuOsasunLangileId()
@@ -830,55 +692,16 @@ namespace GOsasun_app.Interfazea
 
         private void EditatuDokumentua(Dokumentua dokumentua)
         {
-            using Form formularioa = new Form();
-            formularioa.Text = "Dokumentua editatu";
-            formularioa.StartPosition = FormStartPosition.CenterParent;
-            formularioa.ClientSize = new Size(620, 330);
-            formularioa.FormBorderStyle = FormBorderStyle.FixedDialog;
-            formularioa.MaximizeBox = false;
-            formularioa.MinimizeBox = false;
-
-            Label lblDokumentuIzena = new Label { Text = "Dokumentu izena", Location = new Point(24, 24), AutoSize = true };
-            TextBox txtDokumentuIzena = new TextBox { Location = new Point(24, 52), Width = 560, Text = dokumentua.DokumentuIzena ?? string.Empty };
-            Label lblDeskribapena = new Label { Text = "Deskribapena", Location = new Point(24, 104), AutoSize = true };
-            TextBox txtDeskribapena = new TextBox { Location = new Point(24, 132), Width = 560, Height = 88, Multiline = true, Text = dokumentua.Deskribapena ?? string.Empty };
-
-            Button btnGorde = new Button
-            {
-                Text = "Gorde",
-                Location = new Point(392, 250),
-                Size = new Size(92, 42),
-                DialogResult = DialogResult.OK,
-                BackColor = Color.FromArgb(83, 148, 117),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat
-            };
-            btnGorde.FlatAppearance.BorderSize = 0;
-
-            Button btnUtzi = new Button
-            {
-                Text = "Utzi",
-                Location = new Point(492, 250),
-                Size = new Size(92, 42),
-                DialogResult = DialogResult.Cancel
-            };
-
-            formularioa.Controls.Add(lblDokumentuIzena);
-            formularioa.Controls.Add(txtDokumentuIzena);
-            formularioa.Controls.Add(lblDeskribapena);
-            formularioa.Controls.Add(txtDeskribapena);
-            formularioa.Controls.Add(btnGorde);
-            formularioa.Controls.Add(btnUtzi);
-            formularioa.AcceptButton = btnGorde;
-            formularioa.CancelButton = btnUtzi;
+            using DokumentuaEditatuLaguntzailea formularioa = new DokumentuaEditatuLaguntzailea();
+            formularioa.Hasieratu(dokumentua);
 
             if (formularioa.ShowDialog(this) != DialogResult.OK)
             {
                 return;
             }
 
-            dokumentua.DokumentuIzena = string.IsNullOrWhiteSpace(txtDokumentuIzena.Text) ? null : txtDokumentuIzena.Text.Trim();
-            dokumentua.Deskribapena = string.IsNullOrWhiteSpace(txtDeskribapena.Text) ? null : txtDeskribapena.Text.Trim();
+            dokumentua.DokumentuIzena = formularioa.DokumentuIzena;
+            dokumentua.Deskribapena = formularioa.Deskribapena;
 
             if (_dokumentuaKontrolatzailea.EguneratuDokumentua(dokumentua))
             {
@@ -893,13 +716,7 @@ namespace GOsasun_app.Interfazea
 
         private void EzabatuDokumentua(Dokumentua dokumentua)
         {
-            DialogResult erantzuna = MessageBox.Show(
-                $"Ziur zaude '{dokumentua.DokumentuIzena ?? dokumentua.FitxategiIzena}' dokumentua ezabatu nahi duzula?",
-                "Dokumentua ezabatu",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
-
-            if (erantzuna != DialogResult.Yes)
+            if (!DokumentuaEzabatuLaguntzailea.Baieztatu(this, dokumentua))
             {
                 return;
             }

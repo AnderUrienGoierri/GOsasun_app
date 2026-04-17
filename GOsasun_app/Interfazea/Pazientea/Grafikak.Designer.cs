@@ -216,7 +216,7 @@
             // 
             lblEgoera.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblEgoera.ForeColor = Color.White;
-            lblEgoera.Location = new Point(94, 648);
+            lblEgoera.Location = new Point(94, 80);
             lblEgoera.Name = "lblEgoera";
             lblEgoera.Size = new Size(1714, 36);
             lblEgoera.TabIndex = 3;
@@ -226,7 +226,7 @@
             // 
             lblPazienteDatuak.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblPazienteDatuak.ForeColor = Color.White;
-            lblPazienteDatuak.Location = new Point(94, 576);
+            lblPazienteDatuak.Location = new Point(90, 644);
             lblPazienteDatuak.Name = "lblPazienteDatuak";
             lblPazienteDatuak.Size = new Size(1714, 36);
             lblPazienteDatuak.TabIndex = 2;
@@ -236,11 +236,12 @@
             // 
             lblAzalpena.Font = new Font("Segoe UI", 9.5F);
             lblAzalpena.ForeColor = Color.WhiteSmoke;
-            lblAzalpena.Location = new Point(94, 613);
+            lblAzalpena.Location = new Point(94, 600);
             lblAzalpena.Name = "lblAzalpena";
             lblAzalpena.Size = new Size(1714, 44);
             lblAzalpena.TabIndex = 4;
             lblAzalpena.Text = "-";
+            lblAzalpena.Click += lblAzalpena_Click;
             // 
             // pnlGrafikoa
             // 

@@ -20,6 +20,7 @@ namespace GOsasun_app.Interfazea
         {
             panelEdukia = new Panel();
             panelTxartela = new Panel();
+            _osasunTxostenaSortuBotoia = new Button();
             _dokumentuBerriaBotoia = new Button();
             _dokumentuakGrid = new DataGridView();
             _egoeraLabel = new Label();
@@ -39,17 +40,17 @@ namespace GOsasun_app.Interfazea
             ((System.ComponentModel.ISupportInitialize)_dokumentuakGrid).BeginInit();
             iragazkiPanela.SuspendLayout();
             SuspendLayout();
-            // 
+            //
             // _edukiPanela
-            // 
+            //
             _edukiPanela.Controls.Add(panelEdukia);
-            // 
+            //
             // _atzeraBotoia
-            // 
+            //
             _atzeraBotoia.FlatAppearance.BorderSize = 0;
-            // 
+            //
             // panelEdukia
-            // 
+            //
             panelEdukia.BackColor = Color.Transparent;
             panelEdukia.Controls.Add(panelTxartela);
             panelEdukia.Dock = DockStyle.Fill;
@@ -58,10 +59,11 @@ namespace GOsasun_app.Interfazea
             panelEdukia.Padding = new Padding(36);
             panelEdukia.Size = new Size(1898, 1390);
             panelEdukia.TabIndex = 0;
-            // 
+            //
             // panelTxartela
-            // 
+            //
             panelTxartela.BackColor = Color.FromArgb(230, 255, 255, 255);
+            panelTxartela.Controls.Add(_osasunTxostenaSortuBotoia);
             panelTxartela.Controls.Add(_dokumentuBerriaBotoia);
             panelTxartela.Controls.Add(_dokumentuakGrid);
             panelTxartela.Controls.Add(_egoeraLabel);
@@ -75,6 +77,26 @@ namespace GOsasun_app.Interfazea
             panelTxartela.Padding = new Padding(32);
             panelTxartela.Size = new Size(1826, 1318);
             panelTxartela.TabIndex = 0;
+            // 
+            // _osasunTxostenaSortuBotoia
+            // 
+            _osasunTxostenaSortuBotoia.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            _osasunTxostenaSortuBotoia.BackColor = Color.FromArgb(41, 128, 185);
+            _osasunTxostenaSortuBotoia.Cursor = Cursors.Hand;
+            _osasunTxostenaSortuBotoia.FlatAppearance.BorderSize = 0;
+            _osasunTxostenaSortuBotoia.FlatStyle = FlatStyle.Flat;
+            _osasunTxostenaSortuBotoia.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            _osasunTxostenaSortuBotoia.ForeColor = Color.White;
+            _osasunTxostenaSortuBotoia.ImageAlign = ContentAlignment.MiddleLeft;
+            _osasunTxostenaSortuBotoia.Location = new Point(1430, 104);
+            _osasunTxostenaSortuBotoia.Margin = new Padding(0);
+            _osasunTxostenaSortuBotoia.Name = "_osasunTxostenaSortuBotoia";
+            _osasunTxostenaSortuBotoia.Padding = new Padding(14, 6, 16, 6);
+            _osasunTxostenaSortuBotoia.Size = new Size(364, 61);
+            _osasunTxostenaSortuBotoia.TabIndex = 5;
+            _osasunTxostenaSortuBotoia.Text = "Osasun Txostena Sortu";
+            _osasunTxostenaSortuBotoia.TextImageRelation = TextImageRelation.ImageBeforeText;
+            _osasunTxostenaSortuBotoia.UseVisualStyleBackColor = false;
             // 
             // _dokumentuBerriaBotoia
             // 
@@ -226,7 +248,7 @@ namespace GOsasun_app.Interfazea
             _garbituBotoia.Name = "_garbituBotoia";
             _garbituBotoia.Padding = new Padding(16, 6, 16, 6);
             _garbituBotoia.Size = new Size(156, 59);
-            _garbituBotoia.TabIndex = 5;
+            _garbituBotoia.TabIndex = 6;
             _garbituBotoia.Text = "Garbitu";
             _garbituBotoia.UseVisualStyleBackColor = false;
             //
@@ -295,6 +317,7 @@ namespace GOsasun_app.Interfazea
         private Button _bilatuBotoia;
         private Button _garbituBotoia;
         private CheckBox _jarraipenGuztiakCheckBox;
+        private Button _osasunTxostenaSortuBotoia;
         private Button _dokumentuBerriaBotoia;
         private Label _egoeraLabel;
         private DataGridView _dokumentuakGrid;

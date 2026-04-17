@@ -3,6 +3,8 @@
 .slnx
 **/bin/
 **/obj/
+build_validate/
+build_validate_*/
 build_errors.txt
 dokumentuak/
 *.user

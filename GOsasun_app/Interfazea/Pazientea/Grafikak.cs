@@ -494,8 +494,8 @@ namespace GOsasun_app.Interfazea
             using Pen dividerPen = new Pen(Color.FromArgb(226, 232, 238), 1f);
 
             graphics.DrawString(_grafikoIzenburua, titleFont, textBrush, new PointF(cardArea.Left + 22, cardArea.Top + 18));
-            graphics.DrawString("Eboluzio klinikoa eta joera lineala", subtitleFont, mutedTextBrush, new PointF(cardArea.Left + 22, cardArea.Top + 58));
-            graphics.DrawLine(dividerPen, cardArea.Left + 18, cardArea.Top + 98, cardArea.Right - 18, cardArea.Top + 98);
+            graphics.DrawString("Eboluzio klinikoa eta joera lineala", subtitleFont, mutedTextBrush, new PointF(cardArea.Left + 22, cardArea.Top + 68));
+            graphics.DrawLine(dividerPen, cardArea.Left + 18, cardArea.Top + 112, cardArea.Right - 18, cardArea.Top + 112);
 
             if (_unekoSerieak.Count == 0 || _unekoSerieak.All(seriea => seriea.Puntuak.Count == 0))
             {
@@ -505,8 +505,8 @@ namespace GOsasun_app.Interfazea
                 return;
             }
 
-            Rectangle legendArea = new Rectangle(cardArea.Right - 430, cardArea.Top + 118, 388, cardArea.Height - 158);
-            Rectangle plotArea = new Rectangle(cardArea.Left + 86, cardArea.Top + 136, Math.Max(150, legendArea.Left - (cardArea.Left + 118)), Math.Max(200, cardArea.Height - 262));
+            Rectangle legendArea = new Rectangle(cardArea.Right - 430, cardArea.Top + 132, 388, cardArea.Height - 172);
+            Rectangle plotArea = new Rectangle(cardArea.Left + 86, cardArea.Top + 150, Math.Max(150, legendArea.Left - (cardArea.Left + 118)), Math.Max(200, cardArea.Height - 276));
 
             using SolidBrush plotBrush = new SolidBrush(plotFill);
             graphics.FillRectangle(plotBrush, plotArea);
@@ -648,6 +648,11 @@ namespace GOsasun_app.Interfazea
         }
 
         private void _edukiPanela_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void lblAzalpena_Click(object sender, EventArgs e)
         {
 
         }

@@ -83,6 +83,16 @@ namespace GOsasun_app.Kontrola
             return _db.LortuGuztiakOsasunLangileak();
         }
 
+        public List<OsasunLangilea> LortuPazientearenOsasunLangileak(int pazienteId)
+        {
+            return _db.LortuPazientearenOsasunLangileak(pazienteId);
+        }
+
+        public bool EsleituOsasunLangileakPazienteari(int pazienteId, IReadOnlyCollection<int> langileIds)
+        {
+            return _db.EsleituOsasunLangileakPazienteari(pazienteId, langileIds);
+        }
+
         public OsasunLangilea? LortuOsasunLangilea(int langileId)
         {
             return _db.LortuOsasunLangilea(langileId);

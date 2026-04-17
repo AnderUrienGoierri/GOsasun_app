@@ -141,12 +141,20 @@ namespace GOsasun_app.Kontrola
             return ondo;
         }
 
-        public bool GehituTxostena(int pazienteId, int? jarraipenaId, int? osasunLangileId, string dokumentuIzena, string? deskribapena)
+        public bool GehituTxostena(
+            int pazienteId,
+            int? jarraipenaId,
+            int? osasunLangileId,
+            string dokumentuIzena,
+            string? deskribapena,
+            IReadOnlyCollection<TxostenGrafikaMota>? grafikaMotak = null,
+            DateTime? grafikaHasieraData = null,
+            DateTime? grafikaAmaieraData = null)
         {
             int? benetakoJarraipenaId = ZiurtatuJarraipena(pazienteId, jarraipenaId, osasunLangileId, "Txosten mediko automatikoa sortzeko jarraipena");
             if (!benetakoJarraipenaId.HasValue) return false;
 
-            string pdfBidea = _pdfZerbitzua.SortuPazientearenTxostena(pazienteId, dokumentuIzena);
+            string pdfBidea = _pdfZerbitzua.SortuPazientearenTxostena(pazienteId, dokumentuIzena, grafikaMotak, grafikaHasieraData, grafikaAmaieraData);
 
             Dokumentua dokumentua = new Dokumentua
             {

@@ -288,7 +288,8 @@ namespace GOsasun_app.Repositorioa
             List<OsasunLangilea> langileak = new List<OsasunLangilea>();
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
-                string query = @"SELECT e.id, e.email, e.izena, e.abizenak
+                string query = @"SELECT e.id, e.email, e.nan, e.izena, e.abizenak, e.telefonoa,
+                                        ol.elkargokide_zenbakia, ol.espezialitatea, ol.kontsulta, ol.lanaldia
                                  FROM osasun_langileak ol
                                  JOIN erabiltzaileak e ON ol.id = e.id
                                  WHERE e.aktibo = 1";
@@ -301,13 +302,100 @@ namespace GOsasun_app.Repositorioa
                         {
                             Id = irakurlea.GetInt32("id"),
                             Emaila = DatuBaseTestua.Zuzendu(irakurlea.GetString("email")),
+                            Nan = irakurlea.IsDBNull(irakurlea.GetOrdinal("nan")) ? string.Empty : DatuBaseTestua.Zuzendu(irakurlea.GetString("nan")),
                             Izena = DatuBaseTestua.Zuzendu(irakurlea.GetString("izena")),
-                            Abizenak = DatuBaseTestua.Zuzendu(irakurlea.GetString("abizenak"))
+                            Abizenak = DatuBaseTestua.Zuzendu(irakurlea.GetString("abizenak")),
+                            Telefonoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("telefonoa")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("telefonoa")),
+                            ElkargokideZenbakia = irakurlea.IsDBNull(irakurlea.GetOrdinal("elkargokide_zenbakia")) ? string.Empty : DatuBaseTestua.Zuzendu(irakurlea.GetString("elkargokide_zenbakia")),
+                            Espezialitatea = irakurlea.IsDBNull(irakurlea.GetOrdinal("espezialitatea")) ? string.Empty : DatuBaseTestua.Zuzendu(irakurlea.GetString("espezialitatea")),
+                            Kontsulta = irakurlea.IsDBNull(irakurlea.GetOrdinal("kontsulta")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("kontsulta")),
+                            Lanaldia = irakurlea.IsDBNull(irakurlea.GetOrdinal("lanaldia")) ? "Osoa" : DatuBaseTestua.Zuzendu(irakurlea.GetString("lanaldia"))
                         });
                     }
                 }
             }
             return langileak;
+        }
+
+        public List<OsasunLangilea> LortuPazientearenOsasunLangileak(int pazienteId)
+        {
+            List<OsasunLangilea> langileak = new List<OsasunLangilea>();
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            {
+                string query = @"SELECT e.id, e.email, e.nan, e.izena, e.abizenak, e.telefonoa,
+                                        ol.elkargokide_zenbakia, ol.espezialitatea, ol.kontsulta, ol.lanaldia
+                                 FROM pazientek_langileak pl
+                                 JOIN erabiltzaileak e ON pl.langile_id = e.id
+                                 JOIN osasun_langileak ol ON ol.id = e.id
+                                 WHERE pl.paziente_id = @pazienteId AND e.aktibo = 1";
+
+                using (var komandoa = new MySqlCommand(query, konexioa))
+                {
+                    komandoa.Parameters.AddWithValue("@pazienteId", pazienteId);
+
+                    using (var irakurlea = komandoa.ExecuteReader())
+                    {
+                        while (irakurlea.Read())
+                        {
+                            langileak.Add(new OsasunLangilea
+                            {
+                                Id = irakurlea.GetInt32("id"),
+                                Emaila = DatuBaseTestua.Zuzendu(irakurlea.GetString("email")),
+                                Nan = irakurlea.IsDBNull(irakurlea.GetOrdinal("nan")) ? string.Empty : DatuBaseTestua.Zuzendu(irakurlea.GetString("nan")),
+                                Izena = DatuBaseTestua.Zuzendu(irakurlea.GetString("izena")),
+                                Abizenak = DatuBaseTestua.Zuzendu(irakurlea.GetString("abizenak")),
+                                Telefonoa = irakurlea.IsDBNull(irakurlea.GetOrdinal("telefonoa")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("telefonoa")),
+                                ElkargokideZenbakia = irakurlea.IsDBNull(irakurlea.GetOrdinal("elkargokide_zenbakia")) ? string.Empty : DatuBaseTestua.Zuzendu(irakurlea.GetString("elkargokide_zenbakia")),
+                                Espezialitatea = irakurlea.IsDBNull(irakurlea.GetOrdinal("espezialitatea")) ? string.Empty : DatuBaseTestua.Zuzendu(irakurlea.GetString("espezialitatea")),
+                                Kontsulta = irakurlea.IsDBNull(irakurlea.GetOrdinal("kontsulta")) ? null : DatuBaseTestua.Zuzendu(irakurlea.GetString("kontsulta")),
+                                Lanaldia = irakurlea.IsDBNull(irakurlea.GetOrdinal("lanaldia")) ? "Osoa" : DatuBaseTestua.Zuzendu(irakurlea.GetString("lanaldia"))
+                            });
+                        }
+                    }
+                }
+            }
+
+            return langileak;
+        }
+
+        public bool EsleituOsasunLangileakPazienteari(int pazienteId, IReadOnlyCollection<int> langileIds)
+        {
+            if (langileIds == null || langileIds.Count == 0)
+            {
+                return false;
+            }
+
+            using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
+            using (var transakzioa = konexioa.BeginTransaction())
+            {
+                try
+                {
+                    foreach (int langileId in langileIds.Distinct())
+                    {
+                        const string query = @"INSERT INTO pazientek_langileak (langile_id, paziente_id)
+                                               SELECT @langileId, @pazienteId
+                                               WHERE NOT EXISTS (
+                                                   SELECT 1
+                                                   FROM pazientek_langileak
+                                                   WHERE langile_id = @langileId AND paziente_id = @pazienteId
+                                               )";
+
+                        using var komandoa = new MySqlCommand(query, konexioa, transakzioa);
+                        komandoa.Parameters.AddWithValue("@langileId", langileId);
+                        komandoa.Parameters.AddWithValue("@pazienteId", pazienteId);
+                        komandoa.ExecuteNonQuery();
+                    }
+
+                    transakzioa.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transakzioa.Rollback();
+                    Console.WriteLine($"Errorea osasun langileak esleitzean: {ex.Message}");
+                    return false;
+                }
+            }
         }
 
         public OsasunLangilea? LortuOsasunLangilea(int langileId)
@@ -603,7 +691,7 @@ namespace GOsasun_app.Repositorioa
                             cmd2.ExecuteNonQuery();
                         }
 
-                        string irudiBidea = GordeErabiltzaileIrudia(irudiIturria, "erabiltzaileak", $"osasun_langilea_{newId}.png");
+                        string irudiBidea = GordeErabiltzaileIrudia(irudiIturria, "osasun_langileak", $"osasun_langilea_{newId}.png");
                         EguneratuIrudiBidea(konexioa, transakzioa, newId, irudiBidea);
                     }
                     transakzioa.Commit();
@@ -653,7 +741,7 @@ namespace GOsasun_app.Repositorioa
                             cmd2.ExecuteNonQuery();
                         }
 
-                        string irudiBidea = GordeErabiltzaileIrudia(irudiIturria, "erabiltzaileak", $"harrerakoa_{newId}.png");
+                        string irudiBidea = GordeErabiltzaileIrudia(irudiIturria, "harrerakoak", $"harrerakoa_{newId}.png");
                         EguneratuIrudiBidea(konexioa, transakzioa, newId, irudiBidea);
                     }
                     transakzioa.Commit();

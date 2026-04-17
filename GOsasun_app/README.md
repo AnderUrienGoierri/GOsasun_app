@@ -7,8 +7,8 @@ GOsasun pazienteen, medikuen eta harrerako langileen kudeaketarako aplikazio int
 Proiektua logika eta rol ezberdinen arabera antolatu da:
 
 - php_hasiera/ - Atariaren atal publikoak (Saioa hasi, kontaktua).
-- php_harrera/ - Harrerako langileen ataria (Paziente/mediku kudeaketa, hitzorduak, webguneko mezu publikoak).
-- php_medikua/ - Medikuaren atari pribatua (Nire pazienteak, agendaren kudeaketa, errezetak, pazienteen jarraipena).
+- php_harrera/ - Harrerako langileen ataria (Paziente/langile kudeaketa, hitzorduak, webguneko mezu publikoak).
+- php_osasun_langileak/ - Osasun langilearen atari pribatua (Nire pazienteak, agendaren kudeaketa, errezetak, pazienteen jarraipena).
 - php_pazientea/ - Pazientearen ataria (Datu pertsonalak, neurketen sarrera, hitzorduak eskatzea, abisuak).
 - php_includeak/ - Webgune osoko atal komunak (goiburuak, oinak, CSS/JS loturak).
 - php_laguntzaileak/ - Rolik behar ez duten puskak kudeatzeko (Login egiaztapenak, DB Konexioa, Saioa itxi).
@@ -23,7 +23,7 @@ Proiektua logika eta rol ezberdinen arabera antolatu da:
 - */index.php: Rol bakoitzaren kontrol-panela (Dashboard).
 - */mezuak.php: Barne mezularitza sistemak.
 - */hitzorduak.php: Orduen erreserbak eta gainbegiratzea.
-- */pazienteak.php edo */medikuak.php: Kontsultarako direktorioak.
+- */pazienteak.php edo */osasun_langileak.php: Kontsultarako direktorioak.
 
 ---
 
@@ -55,9 +55,9 @@ Aplikazioaren entitate nagusiak honako taulak osatzen dute:
 Kontsultak arintzeko eta segurtasuna indartzeko, hainbat bista programatu dira datuak mozorrotu edo bateratzeko:
 
 - V_Login: Saioa hasteko beharrezko oinarrizko datuak soilik eskaintzen ditu (pasahitza eta rola).
-- V_Pazientea, V_Medikua, V_Harrera: Erabiltzaileen taula orokorra euren berezko taularekin lotzen duen ikuspegi bateratua.
-- V_Mediku_Pazienteak: Mediku zehatz baten pazienteen zerrenda azkar bat ateratzeko lotura grafikoa.
-- V_Hitzorduak_Osoa: Hitzorudak mediku eta paziente izenekin osatuta dakarren bista, gurutzeak saihesteko.
+- V_Pazientea, V_Osasun_Langilea, V_Harrera: Erabiltzaileen taula orokorra euren berezko taularekin lotzen duen ikuspegi bateratua.
+- V_Langile_Pazienteak: Langile zehatz baten pazienteen zerrenda azkar bat ateratzeko lotura grafikoa.
+- V_Hitzorduak_Osoa: Hitzorudak langile eta paziente izenekin osatuta dakarren bista, gurutzeak saihesteko.
 - V_Kanpoko_Mezuak eta V_Abisuak_Osoa: Panelen taulentzako bereziki egokitutako bistak.
 
 ### 3. Triggerak

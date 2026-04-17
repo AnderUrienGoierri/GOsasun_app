@@ -1004,69 +1004,9 @@ namespace GOsasun_app.Interfazea
                 return;
             }
 
-            using (Form form = new Form())
-            using (TableLayoutPanel taula = new TableLayoutPanel())
-            {
-                form.Text = "Jarraipen xehetasunak";
-                form.Size = new Size(860, 760);
-                form.StartPosition = FormStartPosition.CenterParent;
-                form.FormBorderStyle = FormBorderStyle.FixedDialog;
-                form.MaximizeBox = false;
-                form.MinimizeBox = false;
-
-                taula.Dock = DockStyle.Fill;
-                taula.Padding = new Padding(28);
-                taula.ColumnCount = 2;
-                taula.RowCount = 11;
-                taula.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 32));
-                taula.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 68));
-
-                GehituXehetasunLerroa(taula, 0, "Pazientea", jarraipena.PazienteIzenOsoa);
-                GehituXehetasunLerroa(taula, 1, "NAN/DNI", jarraipena.PazienteNan);
-                GehituXehetasunLerroa(taula, 2, "Erregistro data", xehetasuna.ErregistroData.ToString("g"));
-                GehituXehetasunLerroa(taula, 3, "Tentsio sistolikoa", BalioaTestuan(xehetasuna.TentsioSistolikoa));
-                GehituXehetasunLerroa(taula, 4, "Tentsio diastolikoa", BalioaTestuan(xehetasuna.TentsioDiastolikoa));
-                GehituXehetasunLerroa(taula, 5, "Pultsua", BalioaTestuan(xehetasuna.PultsuaPpm));
-                GehituXehetasunLerroa(taula, 6, "Pisua", BalioaTestuan(xehetasuna.PisuaKg, "N2", " kg"));
-                GehituXehetasunLerroa(taula, 7, "Altuera", BalioaTestuan(xehetasuna.Altuera, "N2", " m"));
-                GehituXehetasunLerroa(taula, 8, "XML bidea", xehetasuna.BideaZerbitzarian ?? "-" );
-                GehituXehetasunLerroa(taula, 9, "Dokumentuak", jarraipena.DokumentuKopurua.ToString());
-
-                Label lblOharrak = new Label
-                {
-                    Text = "Oharrak",
-                    Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                    Dock = DockStyle.Fill,
-                    TextAlign = ContentAlignment.MiddleLeft
-                };
-                TextBox txtOharrak = new TextBox
-                {
-                    Text = xehetasuna.Oharrak ?? string.Empty,
-                    Dock = DockStyle.Fill,
-                    ReadOnly = true,
-                    Multiline = true,
-                    Height = 100,
-                    ScrollBars = ScrollBars.Vertical
-                };
-                taula.Controls.Add(lblOharrak, 0, 10);
-                taula.Controls.Add(txtOharrak, 1, 10);
-
-                Button btnItxi = new Button
-                {
-                    Text = "Itxi",
-                    Dock = DockStyle.Bottom,
-                    Height = 48,
-                    BackColor = Color.FromArgb(44, 62, 80),
-                    ForeColor = Color.White,
-                    FlatStyle = FlatStyle.Flat
-                };
-                btnItxi.FlatAppearance.BorderSize = 0;
-                btnItxi.Click += (s, e) => form.Close();
-
-                form.Controls.Add(btnItxi);
-                form.Controls.Add(taula);
-                form.ShowDialog(this);
-            }
+            using JarraipenXehetasunakLaguntzailea form = new JarraipenXehetasunakLaguntzailea();
+            form.Hasieratu(jarraipena, xehetasuna);
+            form.ShowDialog(this);
         }
 
         private void IkusiOharra(Jarraipena jarraipena)
@@ -1078,96 +1018,24 @@ namespace GOsasun_app.Interfazea
                 return;
             }
 
-            string edukia = xehetasuna.Oharrak ?? string.Empty;
             bool aldaketakEginDira = false;
 
-            using Form form = new Form();
-            form.Text = $"Oharrak - {jarraipena.PazienteIzenOsoa}";
-            form.ClientSize = new Size(900, 600);
-            form.StartPosition = FormStartPosition.CenterParent;
-            form.FormBorderStyle = FormBorderStyle.FixedDialog;
-            form.MaximizeBox = false;
-            form.MinimizeBox = false;
+            using JarraipenOharrakLaguntzailea form = new JarraipenOharrakLaguntzailea();
+            form.Hasieratu($"Oharrak - {jarraipena.PazienteIzenOsoa}", xehetasuna.Oharrak);
 
-            Panel edukiaPanela = new Panel
+            if (form.ShowDialog(this) == DialogResult.OK)
             {
-                Dock = DockStyle.Fill,
-                Padding = new Padding(14, 14, 14, 14)
-            };
-
-            Panel botoiPanela = new Panel
-            {
-                Dock = DockStyle.Bottom,
-                Height = 92,
-                Padding = new Padding(14, 10, 14, 18)
-            };
-
-            FlowLayoutPanel botoiEdukiontzia = new FlowLayoutPanel
-            {
-                Dock = DockStyle.Right,
-                AutoSize = true,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                FlowDirection = FlowDirection.LeftToRight,
-                WrapContents = false,
-                Padding = new Padding(0),
-                Margin = new Padding(0)
-            };
-
-            TextBox txtOharrak = new TextBox
-            {
-                Location = new Point(14, 14),
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
-                Size = new Size(852, 466),
-                ReadOnly = false,
-                Multiline = true,
-                ScrollBars = ScrollBars.Vertical,
-                Font = new Font("Segoe UI", 11F),
-                Text = edukia
-            };
-
-            Button btnUtzi = new Button
-            {
-                Text = "Utzi",
-                Size = new Size(120, 46),
-                Margin = new Padding(0, 0, 14, 0),
-                DialogResult = DialogResult.Cancel
-            };
-
-            Button btnGorde = new Button
-            {
-                Text = "Gorde aldaketak",
-                Size = new Size(200, 46),
-                Margin = new Padding(0),
-                BackColor = Color.FromArgb(41, 128, 185),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat
-            };
-            btnGorde.FlatAppearance.BorderSize = 0;
-            btnGorde.Click += (s, e) =>
-            {
-                xehetasuna.Oharrak = string.IsNullOrWhiteSpace(txtOharrak.Text) ? null : txtOharrak.Text.Trim();
+                xehetasuna.Oharrak = form.Oharrak;
 
                 if (_jarraipenaKontrolatzailea.EguneratuJarraipena(xehetasuna))
                 {
                     aldaketakEginDira = true;
-                    form.DialogResult = DialogResult.OK;
-                    form.Close();
                 }
                 else
                 {
                     MessageBox.Show(form, "Ezin izan dira oharrak eguneratu.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            };
-
-            edukiaPanela.Controls.Add(txtOharrak);
-            botoiEdukiontzia.Controls.Add(btnUtzi);
-            botoiEdukiontzia.Controls.Add(btnGorde);
-            botoiPanela.Controls.Add(botoiEdukiontzia);
-            form.Controls.Add(edukiaPanela);
-            form.Controls.Add(botoiPanela);
-            form.AcceptButton = btnGorde;
-            form.CancelButton = btnUtzi;
-            form.ShowDialog(this);
+            }
 
             if (aldaketakEginDira)
             {
@@ -1186,353 +1054,59 @@ namespace GOsasun_app.Interfazea
 
             bool aldaketakEginDira = false;
             List<Dokumentua> dokumentuak = _jarraipenaKontrolatzailea.LortuJarraipenarenDokumentuak(jarraipena.Id);
-
-            using Form form = new Form();
-            form.Text = "Jarraipena editatu";
-            form.Size = new Size(1320, 1000);
-            form.StartPosition = FormStartPosition.CenterParent;
-            form.FormBorderStyle = FormBorderStyle.FixedDialog;
-            form.MaximizeBox = false;
-            form.MinimizeBox = false;
-
-            Panel edukia = new Panel
-            {
-                Dock = DockStyle.Fill,
-                AutoScroll = true,
-                Padding = new Padding(24)
-            };
-
-            const int goiburuGoikoa = 24;
-            const int goiburuAltuera = 72;
-            const int goiburuAzpikoTartea = 20;
-            const int edukienEzkerra = 24;
-
-            Label lblGoiburua = new Label
-            {
-                Text = $"{jarraipena.PazienteIzenOsoa} - {xehetasuna.ErregistroData:g}",
-                Font = new Font("Segoe UI", 16F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(44, 62, 80),
-                AutoSize = false,
-                Location = new Point(edukienEzkerra, goiburuGoikoa),
-                Size = new Size(1220, goiburuAltuera),
-                TextAlign = ContentAlignment.MiddleLeft,
-                AutoEllipsis = true
-            };
-
-            int taulaGoikoa = lblGoiburua.Bottom + goiburuAzpikoTartea;
-
-            TableLayoutPanel taula = new TableLayoutPanel
-            {
-                Location = new Point(edukienEzkerra, taulaGoikoa),
-                Size = new Size(1080, 190),
-                ColumnCount = 4,
-                RowCount = 3
-            };
-            taula.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150));
-            taula.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 350));
-            taula.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150));
-            taula.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 350));
-            taula.RowStyles.Add(new RowStyle(SizeType.Absolute, 58));
-            taula.RowStyles.Add(new RowStyle(SizeType.Absolute, 58));
-            taula.RowStyles.Add(new RowStyle(SizeType.Absolute, 58));
-
-            TextBox txtSistolikoa = SortuZenbakiTestua(xehetasuna.TentsioSistolikoa);
-            TextBox txtDiastolikoa = SortuZenbakiTestua(xehetasuna.TentsioDiastolikoa);
-            TextBox txtPultsua = SortuZenbakiTestua(xehetasuna.PultsuaPpm);
-            TextBox txtPisua = SortuZenbakiTestua(xehetasuna.PisuaKg, "N2");
-            TextBox txtAltuera = SortuZenbakiTestua(xehetasuna.Altuera, "N2");
-
-            GehituEditatzekoEremua(taula, 0, 0, "Sistolikoa", txtSistolikoa);
-            GehituEditatzekoEremua(taula, 0, 2, "Diastolikoa", txtDiastolikoa);
-            GehituEditatzekoEremua(taula, 1, 0, "Pultsua", txtPultsua);
-            GehituEditatzekoEremua(taula, 1, 2, "Pisua (kg)", txtPisua);
-            GehituEditatzekoEremua(taula, 2, 0, "Altuera (m)", txtAltuera);
-
-            Label lblOharrak = new Label
-            {
-                Text = "Oharrak",
-                Font = new Font("Segoe UI", 10.5F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(44, 62, 80),
-                Location = new Point(edukienEzkerra, taula.Bottom + 32),
-                Size = new Size(160, 42),
-                TextAlign = ContentAlignment.MiddleLeft
-            };
-
-            TextBox txtOharrak = new TextBox
-            {
-                Text = xehetasuna.Oharrak ?? string.Empty,
-                Location = new Point(edukienEzkerra, lblOharrak.Bottom + 12),
-                Size = new Size(1080, 150),
-                Multiline = true,
-                ScrollBars = ScrollBars.Vertical,
-                Font = new Font("Segoe UI", 10.5F)
-            };
-
-            Label lblDokumentuak = new Label
-            {
-                Text = "Esleitutako dokumentuak",
-                Font = new Font("Segoe UI", 10.5F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(44, 62, 80),
-                Location = new Point(edukienEzkerra, txtOharrak.Bottom + 32),
-                Size = new Size(360, 42),
-                TextAlign = ContentAlignment.MiddleLeft
-            };
-
-            DataGridView dgvDokumentuak = new DataGridView
-            {
-                Location = new Point(edukienEzkerra, lblDokumentuak.Bottom + 14),
-                Size = new Size(1080, 330),
-                ReadOnly = true,
-                AllowUserToAddRows = false,
-                AllowUserToDeleteRows = false,
-                AllowUserToResizeRows = false,
-                AutoGenerateColumns = false,
-                RowHeadersVisible = false,
-                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
-                MultiSelect = false,
-                BackgroundColor = Color.White,
-                BorderStyle = BorderStyle.None
-            };
-
-            dgvDokumentuak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = nameof(Dokumentua.DokumentuIzena), HeaderText = "Dokumentua", Width = 260 });
-            dgvDokumentuak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = nameof(Dokumentua.FitxategiIzena), HeaderText = "Fitxategia", Width = 260 });
-            dgvDokumentuak.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = nameof(Dokumentua.IgotzeData), HeaderText = "Igotze data", Width = 160, DefaultCellStyle = new DataGridViewCellStyle { Format = "g" } });
-            dgvDokumentuak.Columns.Add(new DataGridViewButtonColumn
-            {
-                HeaderText = "",
-                Name = "btnIreki",
-                Text = "Ireki",
-                UseColumnTextForButtonValue = true,
-                Width = 90,
-                FlatStyle = FlatStyle.Flat,
-                DefaultCellStyle = new DataGridViewCellStyle
+            using JarraipenaEditatuLaguntzailea form = new JarraipenaEditatuLaguntzailea();
+            form.Hasieratu(
+                jarraipena,
+                xehetasuna,
+                dokumentuak,
+                IrekiDokumentua,
+                dokumentua =>
                 {
-                    BackColor = Color.FromArgb(83, 148, 117),
-                    ForeColor = Color.White,
-                    SelectionBackColor = Color.FromArgb(70, 128, 101),
-                    SelectionForeColor = Color.White,
-                    Alignment = DataGridViewContentAlignment.MiddleCenter
-                }
-            });
-            dgvDokumentuak.Columns.Add(new DataGridViewButtonColumn
-            {
-                HeaderText = "",
-                Name = "btnEzabatu",
-                Text = "Ezabatu",
-                UseColumnTextForButtonValue = true,
-                Width = 90,
-                FlatStyle = FlatStyle.Flat,
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    BackColor = Color.FromArgb(192, 57, 43),
-                    ForeColor = Color.White,
-                    SelectionBackColor = Color.FromArgb(169, 50, 38),
-                    SelectionForeColor = Color.White,
-                    Alignment = DataGridViewContentAlignment.MiddleCenter
-                }
-            });
-
-            void BerrikargatuDokumentuak()
-            {
-                dokumentuak = _jarraipenaKontrolatzailea.LortuJarraipenarenDokumentuak(jarraipena.Id);
-                dgvDokumentuak.DataSource = null;
-                dgvDokumentuak.DataSource = dokumentuak.ToList();
-            }
-
-            dgvDokumentuak.CellContentClick += (s, e) =>
-            {
-                if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
-                if (dgvDokumentuak.Rows[e.RowIndex].DataBoundItem is not Dokumentua dokumentua) return;
-
-                string zutabea = dgvDokumentuak.Columns[e.ColumnIndex].Name;
-                if (zutabea == "btnIreki")
-                {
-                    IrekiDokumentua(dokumentua);
-                    return;
-                }
-
-                if (zutabea != "btnEzabatu") return;
-
-                DialogResult baieztapena = MessageBox.Show(
-                    $"Ziur zaude '{dokumentua.DokumentuIzena ?? dokumentua.FitxategiIzena}' dokumentua ezabatu nahi duzula?",
-                    "Dokumentua ezabatu",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning);
-
-                if (baieztapena != DialogResult.Yes) return;
-
-                try
-                {
-                    if (File.Exists(dokumentua.BideaZerbitzarian))
+                    try
                     {
-                        File.Delete(dokumentua.BideaZerbitzarian);
+                        if (File.Exists(dokumentua.BideaZerbitzarian))
+                        {
+                            File.Delete(dokumentua.BideaZerbitzarian);
+                        }
+
+                        if (_dokumentuaKontrolatzailea.EzabatuDokumentua(dokumentua.Id))
+                        {
+                            aldaketakEginDira = true;
+                            return true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(form, "Errorea dokumentua ezabatzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
                     }
 
-                    if (_dokumentuaKontrolatzailea.EzabatuDokumentua(dokumentua.Id))
-                    {
-                        aldaketakEginDira = true;
-                        BerrikargatuDokumentuak();
-                    }
-                    else
-                    {
-                        MessageBox.Show(form, "Ezin izan da dokumentua ezabatu.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(form, "Errorea dokumentua ezabatzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            };
-            BerrikargatuDokumentuak();
+                    return false;
+                });
 
-            Button btnUtzi = new Button
+            if (form.ShowDialog(this) == DialogResult.OK)
             {
-                Text = "Utzi",
-                Size = new Size(120, 46),
-                Location = new Point(874, dgvDokumentuak.Bottom + 26),
-                DialogResult = DialogResult.Cancel
-            };
-
-            Button btnGorde = new Button
-            {
-                Text = "Gorde aldaketak",
-                Size = new Size(230, 46),
-                Location = new Point(1014, dgvDokumentuak.Bottom + 26),
-                BackColor = Color.FromArgb(41, 128, 185),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat
-            };
-            btnGorde.FlatAppearance.BorderSize = 0;
-            btnGorde.Click += (s, e) =>
-            {
-                if (!SaiatuLortuIntBalioa(txtSistolikoa.Text, "Tentsio sistolikoa", form, out int? tentsioSistolikoa)
-                    || !SaiatuLortuIntBalioa(txtDiastolikoa.Text, "Tentsio diastolikoa", form, out int? tentsioDiastolikoa)
-                    || !SaiatuLortuIntBalioa(txtPultsua.Text, "Pultsua", form, out int? pultsua)
-                    || !SaiatuLortuDecimalBalioa(txtPisua.Text, "Pisua", form, out decimal? pisua)
-                    || !SaiatuLortuDecimalBalioa(txtAltuera.Text, "Altuera", form, out decimal? altuera))
-                {
-                    return;
-                }
-
-                xehetasuna.TentsioSistolikoa = tentsioSistolikoa;
-                xehetasuna.TentsioDiastolikoa = tentsioDiastolikoa;
-                xehetasuna.PultsuaPpm = pultsua;
-                xehetasuna.PisuaKg = pisua;
-                xehetasuna.Altuera = altuera;
-                xehetasuna.Oharrak = string.IsNullOrWhiteSpace(txtOharrak.Text) ? null : txtOharrak.Text.Trim();
+                xehetasuna.TentsioSistolikoa = form.TentsioSistolikoa;
+                xehetasuna.TentsioDiastolikoa = form.TentsioDiastolikoa;
+                xehetasuna.PultsuaPpm = form.PultsuaPpm;
+                xehetasuna.PisuaKg = form.PisuaKg;
+                xehetasuna.Altuera = form.Altuera;
+                xehetasuna.Oharrak = form.Oharrak;
 
                 if (_jarraipenaKontrolatzailea.EguneratuJarraipena(xehetasuna))
                 {
                     aldaketakEginDira = true;
-                    form.DialogResult = DialogResult.OK;
-                    form.Close();
                 }
                 else
                 {
                     MessageBox.Show(form, "Ezin izan dira jarraipenaren datuak eguneratu.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            };
-
-            edukia.Controls.Add(lblGoiburua);
-            edukia.Controls.Add(taula);
-            edukia.Controls.Add(lblOharrak);
-            edukia.Controls.Add(txtOharrak);
-            edukia.Controls.Add(lblDokumentuak);
-            edukia.Controls.Add(dgvDokumentuak);
-            edukia.Controls.Add(btnUtzi);
-            edukia.Controls.Add(btnGorde);
-            form.Controls.Add(edukia);
-            form.AcceptButton = btnGorde;
-            form.CancelButton = btnUtzi;
-            form.ShowDialog(this);
+            }
 
             if (aldaketakEginDira)
             {
                 KargatuIragazkiekin();
             }
-        }
-
-        private static TextBox SortuZenbakiTestua<T>(T? balioa, string? formatua = null) where T : struct, IFormattable
-        {
-            return new TextBox
-            {
-                Dock = DockStyle.Fill,
-                Font = new Font("Segoe UI", 10.5F),
-                Text = balioa.HasValue ? balioa.Value.ToString(formatua, null) : string.Empty
-            };
-        }
-
-        private static void GehituEditatzekoEremua(TableLayoutPanel taula, int row, int column, string etiketa, Control kontrola)
-        {
-            Label lbl = new Label
-            {
-                Text = etiketa,
-                Dock = DockStyle.Fill,
-                TextAlign = ContentAlignment.MiddleLeft,
-                Font = new Font("Segoe UI", 10.5F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(44, 62, 80)
-            };
-
-            taula.Controls.Add(lbl, column, row);
-            taula.Controls.Add(kontrola, column + 1, row);
-        }
-
-        private static bool SaiatuLortuIntBalioa(string testua, string etiketa, IWin32Window jabea, out int? balioa)
-        {
-            balioa = null;
-            if (string.IsNullOrWhiteSpace(testua)) return true;
-
-            if (int.TryParse(testua.Trim(), NumberStyles.Integer, CultureInfo.CurrentCulture, out int zenbakia)
-                || int.TryParse(testua.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out zenbakia))
-            {
-                balioa = zenbakia;
-                return true;
-            }
-
-            MessageBox.Show(jabea, $"'{etiketa}' eremuan zenbaki oso baliozkoa sartu behar da.", "Balio baliogabea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            return false;
-        }
-
-        private static bool SaiatuLortuDecimalBalioa(string testua, string etiketa, IWin32Window jabea, out decimal? balioa)
-        {
-            balioa = null;
-            if (string.IsNullOrWhiteSpace(testua)) return true;
-
-            if (decimal.TryParse(testua.Trim(), NumberStyles.Number, CultureInfo.CurrentCulture, out decimal zenbakia)
-                || decimal.TryParse(testua.Trim(), NumberStyles.Number, CultureInfo.InvariantCulture, out zenbakia))
-            {
-                balioa = zenbakia;
-                return true;
-            }
-
-            MessageBox.Show(jabea, $"'{etiketa}' eremuan zenbaki hamartar baliozkoa sartu behar da.", "Balio baliogabea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            return false;
-        }
-
-        private static void GehituXehetasunLerroa(TableLayoutPanel taula, int row, string etiketa, string balioa)
-        {
-            taula.RowStyles.Add(new RowStyle(SizeType.Absolute, 42));
-            taula.Controls.Add(new Label
-            {
-                Text = etiketa,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                Dock = DockStyle.Fill,
-                TextAlign = ContentAlignment.MiddleLeft
-            }, 0, row);
-            taula.Controls.Add(new Label
-            {
-                Text = balioa,
-                Font = new Font("Segoe UI", 10F),
-                Dock = DockStyle.Fill,
-                TextAlign = ContentAlignment.MiddleLeft
-            }, 1, row);
-        }
-
-        private static string BalioaTestuan<T>(T? balioa, string? formatua = null, string? atzizkia = null) where T : struct, IFormattable
-        {
-            if (!balioa.HasValue) return "-";
-            string testua = balioa.Value.ToString(formatua, null);
-            return atzizkia == null ? testua : testua + atzizkia;
         }
 
         private void GehituDokumentua(Jarraipena jarraipena)
