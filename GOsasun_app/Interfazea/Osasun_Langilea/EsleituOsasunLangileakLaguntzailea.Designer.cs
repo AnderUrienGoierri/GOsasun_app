@@ -201,7 +201,7 @@ namespace GOsasun_app.Interfazea
             // EsleituOsasunLangileakLaguntzailea
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1348, 840);
             Controls.Add(btnUtzi);
             Controls.Add(btnEsleitu);

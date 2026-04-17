@@ -1,4 +1,4 @@
-﻿namespace GOsasun_app.Interfazea
+namespace GOsasun_app.Interfazea
 {
     partial class PazienteenZerrenda
     {
@@ -210,7 +210,7 @@
             // PazienteenZerrenda
             //
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1575);
             Margin = new Padding(11, 9, 11, 9);
             Name = "PazienteenZerrenda";
@@ -236,3 +236,4 @@
         private System.Windows.Forms.Button btnOsasunLangileaSortu;
     }
 }
+

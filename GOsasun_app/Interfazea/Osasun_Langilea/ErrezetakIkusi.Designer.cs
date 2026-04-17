@@ -174,7 +174,7 @@ namespace GOsasun_app.Interfazea
             // ErrezetakIkusi
             //
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1444);
             Name = "ErrezetakIkusi";
             Text = "GOsasun - Errezetak Ikusi";
@@ -201,3 +201,4 @@ namespace GOsasun_app.Interfazea
         private System.Windows.Forms.Label lblIzenburua;
     }
 }
+

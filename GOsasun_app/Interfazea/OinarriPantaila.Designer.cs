@@ -1,4 +1,4 @@
-﻿namespace GOsasun_app.Interfazea
+namespace GOsasun_app.Interfazea
 {
     partial class OinarriPantaila
     {
@@ -72,7 +72,7 @@
             // OinarriPantaila
             //
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(214, 224, 229);
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(1902, 1394);
@@ -95,3 +95,4 @@
         protected Button _atzeraBotoia;
     }
 }
+

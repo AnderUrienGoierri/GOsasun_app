@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -288,7 +288,7 @@ namespace GOsasun_app.Interfazea
             // HitzorduKudeaketa
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(43, 71, 92);
             ClientSize = new Size(2199, 1592);
             Margin = new Padding(11, 9, 11, 9);
@@ -324,3 +324,4 @@ namespace GOsasun_app.Interfazea
         private System.Windows.Forms.Panel panelKudeaketa;
     }
 }
+

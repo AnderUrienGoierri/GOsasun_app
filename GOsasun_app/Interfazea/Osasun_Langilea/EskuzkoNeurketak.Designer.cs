@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
 
@@ -210,7 +210,7 @@ namespace GOsasun_app.Interfazea
             // EskuzkoNeurketak
             //
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1334);
             Margin = new Padding(6, 6, 6, 6);
             Name = "EskuzkoNeurketak";
@@ -241,3 +241,4 @@ namespace GOsasun_app.Interfazea
         private Button _btnItzuli;
     }
 }
+

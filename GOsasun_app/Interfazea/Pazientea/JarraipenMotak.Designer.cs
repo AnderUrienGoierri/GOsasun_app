@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
 
@@ -96,7 +96,7 @@ namespace GOsasun_app.Interfazea
             // JarraipenMotak
             //
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1334);
             Name = "JarraipenMotak";
             Text = "GOsasun - Jarraipen Motak";
@@ -112,3 +112,4 @@ namespace GOsasun_app.Interfazea
         private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnOharra;
     }
 }
+

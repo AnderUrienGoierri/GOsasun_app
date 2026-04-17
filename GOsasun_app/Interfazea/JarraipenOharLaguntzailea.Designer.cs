@@ -74,7 +74,7 @@ namespace GOsasun_app.Interfazea
             // JarraipenOharLaguntzailea
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(720, 420);
             Controls.Add(btnGordeOharra);
             Controls.Add(btnOharrikGabe);

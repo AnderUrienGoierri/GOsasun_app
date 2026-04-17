@@ -1,4 +1,4 @@
-﻿namespace GOsasun_app.Interfazea
+namespace GOsasun_app.Interfazea
 {
     partial class Grafikak
     {
@@ -255,7 +255,7 @@
             // Grafikak
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1575);
             Name = "Grafikak";
             Text = "GOsasun - Grafikak";
@@ -285,3 +285,4 @@
         private System.Windows.Forms.Panel pnlGrafikoa;
     }
 }
+

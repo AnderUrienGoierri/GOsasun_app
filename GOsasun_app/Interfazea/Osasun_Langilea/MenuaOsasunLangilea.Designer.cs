@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
 
@@ -121,7 +121,7 @@ namespace GOsasun_app.Interfazea
             // MenuaOsasunLangilea
             //
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1334);
             Margin = new Padding(11, 9, 11, 9);
             Name = "MenuaOsasunLangilea";
@@ -141,3 +141,4 @@ namespace GOsasun_app.Interfazea
         private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnHitzorduak;
     }
 }
+

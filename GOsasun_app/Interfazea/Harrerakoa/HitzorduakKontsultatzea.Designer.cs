@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -93,7 +93,7 @@ namespace GOsasun_app.Interfazea
             // HitzorduakKontsultatzea
             //
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(142, 121, 102);
             ClientSize = new Size(2036, 1430);
             Margin = new Padding(11, 9, 11, 9);
@@ -111,3 +111,4 @@ namespace GOsasun_app.Interfazea
         private System.Windows.Forms.Button btnGuztiak;
     }
 }
+

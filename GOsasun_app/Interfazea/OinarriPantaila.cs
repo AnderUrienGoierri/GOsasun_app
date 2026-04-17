@@ -144,7 +144,6 @@ namespace GOsasun_app.Interfazea
         {
             base.OnLoad(e);
             EgokituPortadarenNeurrira();
-            EgokituPantailara();
             ZentratuPantailaLanEremuan();
         }
 
@@ -152,7 +151,6 @@ namespace GOsasun_app.Interfazea
         {
             base.OnShown(e);
             EgokituPortadarenNeurrira();
-            EgokituPantailara();
             BeginInvoke(new Action(ZentratuPantailaLanEremuan));
         }
 
@@ -223,17 +221,8 @@ namespace GOsasun_app.Interfazea
                 return;
             }
 
-            float eskala = Math.Min(
-                1f,
-                Math.Min(
-                    (float)panela.ClientSize.Width / _atzekoPlanoaIrudia.Width,
-                    (float)panela.ClientSize.Height / _atzekoPlanoaIrudia.Height));
-
-            int irudiZabalera = (int)Math.Round(_atzekoPlanoaIrudia.Width * eskala);
-            int irudiAltuera = (int)Math.Round(_atzekoPlanoaIrudia.Height * eskala);
-            int x = Math.Max(0, (panela.ClientSize.Width - irudiZabalera) / 2);
-
-            e.Graphics.DrawImage(_atzekoPlanoaIrudia, x, 0, irudiZabalera, irudiAltuera);
+            int x = Math.Max(0, (panela.ClientSize.Width - _atzekoPlanoaIrudia.Width) / 2);
+            e.Graphics.DrawImage(_atzekoPlanoaIrudia, x, 0, _atzekoPlanoaIrudia.Width, _atzekoPlanoaIrudia.Height);
         }
 
         private static string? BilatuPortadaBidea()

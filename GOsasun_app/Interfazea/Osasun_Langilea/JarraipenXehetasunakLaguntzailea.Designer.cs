@@ -67,7 +67,7 @@ namespace GOsasun_app.Interfazea
             // JarraipenXehetasunakLaguntzailea
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(840, 740);
             Controls.Add(btnItxi);
             Controls.Add(txtOharrak);

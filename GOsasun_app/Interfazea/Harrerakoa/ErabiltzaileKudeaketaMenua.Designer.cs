@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace GOsasun_app.Interfazea
@@ -67,7 +67,7 @@ namespace GOsasun_app.Interfazea
             // ErabiltzaileKudeaketaMenua
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1575);
             Name = "ErabiltzaileKudeaketaMenua";
             Text = "Kudeaketa Menua";
@@ -81,3 +81,4 @@ namespace GOsasun_app.Interfazea
         private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnZerrendatu;
     }
 }
+

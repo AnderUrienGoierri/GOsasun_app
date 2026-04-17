@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
 
@@ -184,7 +184,7 @@ namespace GOsasun_app.Interfazea
             // NireJarraipenak
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1394);
             Name = "NireJarraipenak";
             Text = "GOsasun - Nire Jarraipenak";
@@ -207,3 +207,4 @@ namespace GOsasun_app.Interfazea
         private TextBox txtBilatuOharrak;
     }
 }
+

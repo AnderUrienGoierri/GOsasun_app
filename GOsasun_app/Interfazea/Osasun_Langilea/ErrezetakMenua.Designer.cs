@@ -59,7 +59,7 @@ namespace GOsasun_app.Interfazea
             // ErrezetakMenua
             //
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1334);
             Name = "ErrezetakMenua";
             Text = "GOsasun - Errezetak Kudeatu";
@@ -71,3 +71,4 @@ namespace GOsasun_app.Interfazea
         private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnErrezetakIkusi;
     }
 }
+

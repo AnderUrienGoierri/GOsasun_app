@@ -1,4 +1,4 @@
-﻿namespace GOsasun_app.Interfazea
+namespace GOsasun_app.Interfazea
 {
     partial class PazienteXehetasunak
     {
@@ -424,7 +424,7 @@
             // PazienteXehetasunak
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1575);
             Name = "PazienteXehetasunak";
             Text = "GOsasun - Pazientearen Xehetasunak";
@@ -507,3 +507,4 @@
         private Label lblEgoeraBalioa;
     }
 }
+

@@ -89,7 +89,7 @@ namespace GOsasun_app.Interfazea
             // DokumentuaEditatuLaguntzailea
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(620, 330);
             Controls.Add(btnUtzi);
             Controls.Add(btnGorde);

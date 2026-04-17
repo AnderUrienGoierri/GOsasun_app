@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
 
@@ -167,7 +167,7 @@ namespace GOsasun_app.Interfazea
             // TentsiometroNeurketak
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1526);
             Name = "TentsiometroNeurketak";
             Text = "GOsasun - BM58 Tentsio Inportazioa";
@@ -190,3 +190,4 @@ namespace GOsasun_app.Interfazea
         private Button _btnUtzi;
     }
 }
+

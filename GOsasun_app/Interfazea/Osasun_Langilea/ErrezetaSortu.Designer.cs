@@ -1,4 +1,4 @@
-﻿namespace GOsasun_app.Interfazea
+namespace GOsasun_app.Interfazea
 {
     partial class ErrezetaSortu
     {
@@ -317,7 +317,7 @@
             // ErrezetaSortu
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1280);
             Name = "ErrezetaSortu";
             Text = "GOsasun - Errezetak";
@@ -362,3 +362,4 @@
         private System.Windows.Forms.Button btnSortuErrezeta;
     }
 }
+
