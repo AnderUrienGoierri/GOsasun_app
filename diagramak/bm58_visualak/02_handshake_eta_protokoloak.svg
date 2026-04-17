@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#0f172a"/>
+  <text x="70" y="70" fill="#f8fafc" font-family="Segoe UI, Arial" font-size="34">Handshake-a eta HID protokolo moduak</text>
+  <rect x="70" y="120" width="620" height="700" rx="24" fill="#111827" stroke="#334155"/>
+  <text x="100" y="170" fill="#93c5fd" font-family="Consolas, monospace" font-size="26">KonektatuGailura(...)</text>
+  <text x="100" y="225" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">hid.ConfigureBaudRate();</text>
+  <text x="100" y="260" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">protokoloModuak = {</text>
+  <text x="130" y="295" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">MicrodiaTunnel,</text>
+  <text x="130" y="330" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">ReportId8Raw,</text>
+  <text x="130" y="365" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">ReportId0,</text>
+  <text x="130" y="400" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">Raw</text>
+  <text x="100" y="445" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">}</text>
+  <text x="100" y="505" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">hid.Write(new byte[] { 0xAA });</text>
+  <text x="100" y="540" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">if (hid.ReadByte() == 0x55)</text>
+  <text x="130" y="575" fill="#22c55e" font-family="Consolas, monospace" font-size="22">ok = true;</text>
+  <text x="100" y="635" fill="#fca5a5" font-family="Consolas, monospace" font-size="22">bestela: hurrengo protokolo modura pasa</text>
+  <text x="100" y="710" fill="#94a3b8" font-family="Segoe UI, Arial" font-size="21">Gakoa: BM58 eredu honek HID kapsulazio desberdinak erabil ditzake.</text>
+  <text x="100" y="742" fill="#94a3b8" font-family="Segoe UI, Arial" font-size="21">Horregatik driver-ak ez du modu bakarra suposatzen.</text>
+  <rect x="760" y="150" width="540" height="580" rx="24" fill="#082f49"/>
+  <text x="815" y="210" fill="#e0f2fe" font-family="Segoe UI, Arial" font-size="30">Handshake sekuentzia</text>
+  <rect x="830" y="260" width="400" height="70" rx="14" fill="#e0f2fe"/>
+  <text x="950" y="305" fill="#164e63" font-family="Consolas, monospace" font-size="28">0xAA</text>
+  <line x1="1030" y1="330" x2="1030" y2="380" stroke="#e0f2fe" stroke-width="4"/>
+  <rect x="830" y="380" width="400" height="70" rx="14" fill="#dcfce7"/>
+  <text x="950" y="425" fill="#14532d" font-family="Consolas, monospace" font-size="28">0x55</text>
+  <line x1="1030" y1="450" x2="1030" y2="500" stroke="#e0f2fe" stroke-width="4"/>
+  <rect x="830" y="500" width="400" height="80" rx="14" fill="#fde68a"/>
+  <text x="945" y="548" fill="#78350f" font-family="Consolas, monospace" font-size="28">0xA4</text>
+  <text x="905" y="575" fill="#78350f" font-family="Segoe UI, Arial" font-size="20">Init / irakurketa prestatu</text>
+  <text x="780" y="650" fill="#bae6fd" font-family="Segoe UI, Arial" font-size="22">`ConfigureBaudRate()`-k 4800 baud balioa ezartzen saiatzen da</text>
+  <text x="780" y="682" fill="#bae6fd" font-family="Segoe UI, Arial" font-size="22">Microdia/Sonix familiako HID geruza duten gailuetan.</text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#f8fafc"/>
+  <text x="70" y="70" fill="#0f172a" font-family="Segoe UI, Arial" font-size="34">Memoriaren egitura: U1 eta U2 bankuak</text>
+  <rect x="90" y="140" width="540" height="620" rx="24" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="310" y="190" fill="#1e3a8a" font-family="Segoe UI, Arial" font-size="30">U1 memoria</text>
+  <text x="230" y="230" fill="#1e3a8a" font-family="Consolas, monospace" font-size="26">0xA6</text>
+  <text x="270" y="230" fill="#1e3a8a" font-family="Segoe UI, Arial" font-size="22">komandoarekin aktibatzen da</text>
+  <rect x="150" y="290" width="420" height="390" rx="18" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="195" y="340" fill="#334155" font-family="Segoe UI, Arial" font-size="24">Index tartea: 0 - 59</text>
+  <text x="195" y="385" fill="#334155" font-family="Segoe UI, Arial" font-size="24">`0xA3, idx` bidez slot bakoitza irakurri</text>
+  <text x="195" y="430" fill="#334155" font-family="Segoe UI, Arial" font-size="24">Payload bakoitza: 8 byte</text>
+  <text x="195" y="475" fill="#334155" font-family="Segoe UI, Arial" font-size="24">Driver-ak baliozko datuak soilik hartzen ditu</text>
+  <text x="195" y="520" fill="#334155" font-family="Segoe UI, Arial" font-size="24">eta errepikapenak baztertzen ditu</text>
+  <rect x="770" y="140" width="540" height="620" rx="24" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+  <text x="990" y="190" fill="#4c1d95" font-family="Segoe UI, Arial" font-size="30">U2 memoria</text>
+  <text x="910" y="230" fill="#4c1d95" font-family="Consolas, monospace" font-size="26">0xA7</text>
+  <text x="950" y="230" fill="#4c1d95" font-family="Segoe UI, Arial" font-size="22">komandoarekin aktibatzen da</text>
+  <rect x="830" y="290" width="420" height="390" rx="18" fill="#ffffff" stroke="#c4b5fd"/>
+  <text x="875" y="340" fill="#334155" font-family="Segoe UI, Arial" font-size="24">Index tartea: 0 - 59</text>
+  <text x="875" y="385" fill="#334155" font-family="Segoe UI, Arial" font-size="24">BM58 batzuek U1 + U2 nahastuta bueltatzen dute</text>
+  <text x="875" y="430" fill="#334155" font-family="Segoe UI, Arial" font-size="24">horregatik `data[3]`/`data[4]` barruko</text>
+  <text x="875" y="475" fill="#334155" font-family="Segoe UI, Arial" font-size="24">0x80 bita erabiltzen da benetako bankua</text>
+  <text x="875" y="520" fill="#334155" font-family="Segoe UI, Arial" font-size="24">detektatzeko</text>
+  <line x1="700" y1="180" x2="700" y2="720" stroke="#0f172a" stroke-width="3" stroke-dasharray="12 12"/>
+  <text x="90" y="835" fill="#475569" font-family="Segoe UI, Arial" font-size="22">Driver-ak U2 bankua irakurri aurretik `0xA5` + `0xA4` egiten du askotan, banku-aldaketa seguruagoa izan dadin.</text>
+</svg>

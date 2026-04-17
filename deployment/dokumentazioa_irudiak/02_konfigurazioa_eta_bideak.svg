@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="920" viewBox="0 0 1400 920">
+  <rect width="1400" height="920" fill="#f8fafc"/>
+  <text x="70" y="70" fill="#0f172a" font-family="Segoe UI, Arial" font-size="34">Konfigurazioa kanpora ateratzea: appsettings.json + AplikazioBideak</text>
+  <rect x="60" y="110" width="620" height="740" rx="18" fill="#0f172a"/>
+  <rect x="720" y="110" width="620" height="740" rx="18" fill="#111827"/>
+  <text x="90" y="160" fill="#93c5fd" font-family="Consolas, monospace" font-size="26">AplikazioKonfigurazioa.cs</text>
+  <text x="90" y="215" fill="#e2e8f0" font-family="Consolas, monospace" font-size="22">public sealed class DatuBaseKonfigurazioa</text>
+  <text x="110" y="255" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">string Zerbitzaria = "localhost";</text>
+  <text x="110" y="290" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">uint Portua = 3306;</text>
+  <text x="110" y="325" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">string DatuBasea = "GOsasun_DB";</text>
+  <text x="110" y="360" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">string Erabiltzailea = "root";</text>
+  <text x="110" y="395" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">string Pasahitza = "1MG32025";</text>
+  <text x="90" y="465" fill="#e2e8f0" font-family="Consolas, monospace" font-size="22">public static class AplikazioBideak</text>
+  <text x="110" y="505" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">LortuWebErroa()</text>
+  <text x="110" y="540" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">LortuDokumentuKarpeta()</text>
+  <text x="110" y="575" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">LortuPazienteDokumentuKarpeta()</text>
+  <text x="110" y="610" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">LortuXmlKarpeta()</text>
+  <text x="110" y="645" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">LortuIrudiKarpeta()</text>
+  <text x="110" y="680" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">ZiurtatuBiltegiratzeKarpetak()</text>
+  <text x="90" y="775" fill="#93c5fd" font-family="Segoe UI, Arial" font-size="22">Helburua</text>
+  <text x="90" y="810" fill="#cbd5e1" font-family="Segoe UI, Arial" font-size="21">Lehen hardcoded zeuden DB eta Apache bideak</text>
+  <text x="90" y="840" fill="#cbd5e1" font-family="Segoe UI, Arial" font-size="21">instalazio bakoitzean konfiguragarri bihurtzea.</text>
+  <text x="750" y="160" fill="#93c5fd" font-family="Consolas, monospace" font-size="26">appsettings.json</text>
+  <text x="750" y="215" fill="#e2e8f0" font-family="Consolas, monospace" font-size="22">{</text>
+  <text x="780" y="250" fill="#e2e8f0" font-family="Consolas, monospace" font-size="22">"bertsioa": 1,</text>
+  <text x="780" y="285" fill="#e2e8f0" font-family="Consolas, monospace" font-size="22">"datuBasea": {</text>
+  <text x="810" y="320" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">"zerbitzaria": "192.168.1.20",</text>
+  <text x="810" y="355" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">"portua": 3306,</text>
+  <text x="810" y="390" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">"datuBasea": "GOsasun_DB",</text>
+  <text x="810" y="425" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">"erabiltzailea": "root",</text>
+  <text x="810" y="460" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">"pasahitza": "******"</text>
+  <text x="780" y="500" fill="#e2e8f0" font-family="Consolas, monospace" font-size="22">},</text>
+  <text x="780" y="535" fill="#e2e8f0" font-family="Consolas, monospace" font-size="22">"biltegiratzea": {</text>
+  <text x="810" y="570" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">"webErroa": "C:\\Apache24-64\\htdocs\\GOsasun_web"</text>
+  <text x="780" y="610" fill="#e2e8f0" font-family="Consolas, monospace" font-size="22">},</text>
+  <text x="780" y="645" fill="#e2e8f0" font-family="Consolas, monospace" font-size="22">"abioa": {</text>
+  <text x="810" y="680" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">"sortuDatuBaseEskemaLehenAbioan": true,</text>
+  <text x="810" y="715" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">"kargatuHasierakoDatuakLehenAbioan": true</text>
+  <text x="780" y="755" fill="#e2e8f0" font-family="Consolas, monospace" font-size="22">}</text>
+  <text x="750" y="825" fill="#93c5fd" font-family="Segoe UI, Arial" font-size="22">Emaitza</text>
+  <text x="750" y="860" fill="#cbd5e1" font-family="Segoe UI, Arial" font-size="21">Instalatzaileak JSON hau sortzen du, eta aplikazioak hortik irakurtzen du guztia.</text>
+</svg>

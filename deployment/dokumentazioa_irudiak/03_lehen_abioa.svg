@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#ecfeff"/>
+  <text x="70" y="70" fill="#0f172a" font-family="Segoe UI, Arial" font-size="34">Lehen abioaren automatizazioa</text>
+  <rect x="520" y="110" width="360" height="80" rx="16" fill="#0f172a"/>
+  <text x="590" y="160" fill="#f8fafc" font-family="Consolas, monospace" font-size="28">Program.Main()</text>
+  <line x1="700" y1="190" x2="700" y2="240" stroke="#0f172a" stroke-width="4"/>
+  <rect x="430" y="240" width="540" height="90" rx="16" fill="#082f49"/>
+  <text x="500" y="295" fill="#e0f2fe" font-family="Consolas, monospace" font-size="26">HasierakoPrestaketaZerbitzua.Exekutatu()</text>
+  <line x1="700" y1="330" x2="700" y2="380" stroke="#0f172a" stroke-width="4"/>
+  <rect x="120" y="380" width="260" height="120" rx="16" fill="#cffafe" stroke="#0e7490"/>
+  <text x="150" y="430" fill="#164e63" font-family="Segoe UI, Arial" font-size="24">1. Karpetak sortu</text>
+  <text x="150" y="465" fill="#164e63" font-family="Segoe UI, Arial" font-size="21">dokumentuak</text>
+  <text x="150" y="495" fill="#164e63" font-family="Segoe UI, Arial" font-size="21">xml_paziente_neurketak</text>
+  <rect x="430" y="380" width="260" height="120" rx="16" fill="#dbeafe" stroke="#2563eb"/>
+  <text x="458" y="430" fill="#1e3a8a" font-family="Segoe UI, Arial" font-size="24">2. SQL zerbitzaria</text>
+  <text x="458" y="465" fill="#1e3a8a" font-family="Segoe UI, Arial" font-size="21">eskuragarri dagoen</text>
+  <text x="458" y="495" fill="#1e3a8a" font-family="Segoe UI, Arial" font-size="21">probatu</text>
+  <rect x="740" y="380" width="260" height="120" rx="16" fill="#ede9fe" stroke="#7c3aed"/>
+  <text x="768" y="430" fill="#4c1d95" font-family="Segoe UI, Arial" font-size="24">3. Eskema eta datuak</text>
+  <text x="768" y="465" fill="#4c1d95" font-family="Segoe UI, Arial" font-size="21">GOsasun_DB.sql</text>
+  <text x="768" y="495" fill="#4c1d95" font-family="Segoe UI, Arial" font-size="21">GOsasun_DB_data.sql</text>
+  <rect x="1050" y="380" width="260" height="120" rx="16" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="1084" y="430" fill="#14532d" font-family="Segoe UI, Arial" font-size="24">4. DB konektibitatea</text>
+  <text x="1084" y="465" fill="#14532d" font-family="Segoe UI, Arial" font-size="21">ProbatuKonexioa()</text>
+  <line x1="250" y1="500" x2="250" y2="585" stroke="#0f172a" stroke-width="3"/>
+  <line x1="560" y1="500" x2="560" y2="585" stroke="#0f172a" stroke-width="3"/>
+  <line x1="870" y1="500" x2="870" y2="585" stroke="#0f172a" stroke-width="3"/>
+  <line x1="1180" y1="500" x2="1180" y2="585" stroke="#0f172a" stroke-width="3"/>
+  <rect x="340" y="585" width="720" height="110" rx="18" fill="#0f172a"/>
+  <text x="450" y="645" fill="#f8fafc" font-family="Segoe UI, Arial" font-size="30">Dena ondo badago: SaioaHasi pantaila ireki</text>
+  <rect x="340" y="735" width="720" height="90" rx="18" fill="#fee2e2" stroke="#ef4444"/>
+  <text x="430" y="790" fill="#7f1d1d" font-family="Segoe UI, Arial" font-size="28">Bestela: errore argia erakutsi eta ez jarraitu login-era</text>
+</svg>

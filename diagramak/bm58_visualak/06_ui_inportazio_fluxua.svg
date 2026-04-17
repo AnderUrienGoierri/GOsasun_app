@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#faf5ff"/>
+  <text x="70" y="70" fill="#581c87" font-family="Segoe UI, Arial" font-size="34">UI inportazioaren azken fluxua</text>
+  <rect x="100" y="150" width="1200" height="620" rx="24" fill="#ffffff" stroke="#d8b4fe" stroke-width="3"/>
+  <text x="145" y="215" fill="#6b21a8" font-family="Segoe UI, Arial" font-size="28">TentsiometroNeurketak.cs</text>
+  <text x="160" y="275" fill="#334155" font-family="Segoe UI, Arial" font-size="24">1. Gailua aurkitu dela berriz egiaztatu</text>
+  <text x="160" y="320" fill="#334155" font-family="Segoe UI, Arial" font-size="24">2. Itxaron leihoa erakutsi eta `IrakurriErrekordGuztiak(...)` exekutatu</text>
+  <text x="160" y="365" fill="#334155" font-family="Segoe UI, Arial" font-size="24">3. `AnalizatuErrekordak(...)` bidez U1/U2 neurketa kopurua kalkulatu</text>
+  <text x="160" y="410" fill="#334155" font-family="Segoe UI, Arial" font-size="24">4. Erabiltzaileari galdetu zein memoria nahi duen: U1 ala U2</text>
+  <text x="160" y="455" fill="#334155" font-family="Segoe UI, Arial" font-size="24">5. Galdetu inportazio mota: azken neurketa ala batezbestekoa</text>
+  <text x="160" y="500" fill="#334155" font-family="Segoe UI, Arial" font-size="24">6. `LortuAzkenNeurketa(...)` edo `KalkulatuBatezbestekoa(...)` deitu</text>
+  <text x="160" y="545" fill="#334155" font-family="Segoe UI, Arial" font-size="24">7. Jarraipena DB-an gorde eta XML esportazioa egin</text>
+  <rect x="830" y="255" width="390" height="320" rx="20" fill="#0f172a"/>
+  <text x="865" y="315" fill="#93c5fd" font-family="Consolas, monospace" font-size="22">var neurria = mota == AzkenNeurketa</text>
+  <text x="890" y="350" fill="#93c5fd" font-family="Consolas, monospace" font-size="22">? _driver.LortuAzkenNeurketa(...)</text>
+  <text x="890" y="385" fill="#93c5fd" font-family="Consolas, monospace" font-size="22">: _driver.KalkulatuBatezbestekoa(...)</text>
+  <text x="865" y="455" fill="#22c55e" font-family="Consolas, monospace" font-size="22">_jarraipenaKontrolatzailea.GordeJarraipena(neurria)</text>
+  <text x="865" y="490" fill="#22c55e" font-family="Consolas, monospace" font-size="22">_jarraipenaKontrolatzailea.EsportatuXML(neurria)</text>
+  <text x="120" y="840" fill="#6b7280" font-family="Segoe UI, Arial" font-size="22">Puntu garrantzitsua: BM58 driver-ak neurketa gordinak ekartzen ditu; UI-ak aukeratzen du zer gorde behar den eta zein pazienteri lotu.</text>
+</svg>

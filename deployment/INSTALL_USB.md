@@ -39,7 +39,15 @@ Nahi baduzu, `sql` fitxategiak ere kopiatu azalpen edo mantentze lanetarako.
 
 1. USB sartu.
 2. `GOsasun_app_Setup.exe` administratzaile gisa exekutatu.
-3. Instalazioan zehar galdetuko zaizu:
+3. Lehen pantailan irakurri azalpen laburra. Prest izan hurrengo datuak:
+
+- web/Apache erroaren bidea
+- SQL zerbitzariaren IP edo hostname-a
+- SQL portua
+- datu-basearen izena
+- erabiltzailea eta pasahitza
+
+4. Instalazioan zehar galdetuko zaizu, ordena honetan:
 
 - aplikazioa non instalatu nahi duzun
 - Apache/web erroaren bidea
@@ -47,7 +55,14 @@ Nahi baduzu, `sql` fitxategiak ere kopiatu azalpen edo mantentze lanetarako.
 - portua, datu-basea, erabiltzailea eta pasahitza
 - lehen exekuzioan eskema eta seed datuak automatikoki prestatu nahi dituzun
 
-4. Instalazio lehenetsia hemen egingo da:
+5. Aukera gomendatua ingurune berrirako:
+
+- web erroa: zure zerbitzarian erabiltzen duzun bidea
+- SQL host/IP: eskolako zerbitzaria edo MySQL dagoen makina
+- eskema sortu: `Bai`
+- hasierako datuak kargatu: `Bai`
+
+6. Instalazio lehenetsia hemen egingo da:
 
 ```text
 C:\GOsasun_app
@@ -63,6 +78,13 @@ Instalatzaileak aukeratutako web erroaren barruan karpeta hauek sortzen saiatzen
 ```
 
 Oharra: `webErroa` lokala izan daiteke edo sareko UNC bide bat, adibidez `\\192.168.1.20\GOsasun_web`.
+
+### Instalazioa amaitutakoan zer egin
+
+1. Sakatu `Amaitu` eta nahi baduzu aplikazioa berehala abiarazi.
+2. Lehen abioan, aplikazioak karpetak sortu eta DB konexioa egiaztatuko du.
+3. Eskema eta seed datuak aktibatu badituzu, lehen abioak pixka bat gehiago iraun dezake.
+4. Errore bat agertzen bada, berrikusi lehenengo `appsettings.json`-en sartutako SQL host/IP-a eta web erroaren bidea.
 
 ## 5. Instalazioak funtzionatzeko bete beharreko baldintzak
 
@@ -99,6 +121,18 @@ Prestaketa hori huts egiten badu, aplikazioak errore argi bat erakusten du eta e
 ### Administratzaile baimenak
 
 `C:\` erroan instalatzeko edo bide lokal babestuetan karpetak sortzeko, administratzaile baimenak behar dira.
+
+## Arazo ohikoena
+
+### "Ez da publish karpeta aurkitu"
+
+Mezu hori ez da helburuko ordenagailuan instalatzean agertu behar. Mezu hori agertzen bazen, instalatzaile zahar bat erabiltzen ari zinen. Instalatzeko erabili behar den fitxategia beti da aurrez konpilatutako hau:
+
+```text
+deployment\output\GOsasun_app_Setup.exe
+```
+
+Ez da beharrezkoa helburuko ordenagailuan `Publish-GOsasun.ps1` exekutatzea.
 
 ## Gomendioa
 

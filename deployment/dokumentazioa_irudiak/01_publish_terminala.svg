@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860">
+  <rect width="1400" height="860" fill="#0f172a"/>
+  <rect x="70" y="60" width="1260" height="740" rx="24" fill="#111827" stroke="#334155"/>
+  <circle cx="115" cy="102" r="10" fill="#ef4444"/>
+  <circle cx="145" cy="102" r="10" fill="#f59e0b"/>
+  <circle cx="175" cy="102" r="10" fill="#22c55e"/>
+  <text x="220" y="110" fill="#cbd5e1" font-family="Segoe UI, Arial" font-size="28">PowerShell - Publish prozesua</text>
+  <text x="110" y="170" fill="#93c5fd" font-family="Consolas, monospace" font-size="28">PS C:\Ander\Workspace\C\proiektuak\GOsasun_app&gt;</text>
+  <text x="110" y="220" fill="#e2e8f0" font-family="Consolas, monospace" font-size="28">pwsh -ExecutionPolicy Bypass -File .\deployment\Publish-GOsasun.ps1</text>
+  <text x="110" y="300" fill="#94a3b8" font-family="Consolas, monospace" font-size="25">param(Configuration = "Release", Runtime = "win-x64")</text>
+  <text x="110" y="345" fill="#94a3b8" font-family="Consolas, monospace" font-size="25">dotnet publish GOsasun_app.csproj -c Release -r win-x64 --self-contained true</text>
+  <text x="110" y="425" fill="#f8fafc" font-family="Consolas, monospace" font-size="25">Zergatik horrela?</text>
+  <text x="140" y="470" fill="#cbd5e1" font-family="Consolas, monospace" font-size="24">- single-file modua kendu zen Assembly.Location abisuengatik</text>
+  <text x="140" y="510" fill="#cbd5e1" font-family="Consolas, monospace" font-size="24">- self-contained folder publish mantendu zen beste PC batean runtime-a ez eskatzeko</text>
+  <text x="140" y="550" fill="#cbd5e1" font-family="Consolas, monospace" font-size="24">- emaitza publish\win-x64 karpetan uzten da</text>
+  <rect x="105" y="610" width="1190" height="120" rx="16" fill="#0b1220" stroke="#1d4ed8"/>
+  <text x="140" y="665" fill="#22c55e" font-family="Consolas, monospace" font-size="28">Publish-a osatu da:</text>
+  <text x="140" y="705" fill="#e2e8f0" font-family="Consolas, monospace" font-size="26">C:\Ander\Workspace\C\proiektuak\GOsasun_app\publish\win-x64</text>
+  <text x="100" y="815" fill="#94a3b8" font-family="Segoe UI, Arial" font-size="24">Irudi honek exekutagarria sortzeko lehen pausoa erakusten du: .NET aplikazioa karpeta autoedukitu batera argitaratzea.</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="920" viewBox="0 0 1400 920">
+  <rect width="1400" height="920" fill="#f8fafc"/>
+  <text x="70" y="70" fill="#0f172a" font-family="Segoe UI, Arial" font-size="34">Instalagarritasuna lortzeko ukitu diren fitxategiak</text>
+  <rect x="70" y="120" width="1260" height="740" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="100" y="175" fill="#1d4ed8" font-family="Segoe UI, Arial" font-size="26">Deployment eta packaging</text>
+  <text x="120" y="220" fill="#334155" font-family="Consolas, monospace" font-size="22">deployment/Publish-GOsasun.ps1</text>
+  <text x="560" y="220" fill="#475569" font-family="Segoe UI, Arial" font-size="21">dotnet publish exekutatu eta publish\win-x64 sortu</text>
+  <text x="120" y="255" fill="#334155" font-family="Consolas, monospace" font-size="22">deployment/GOsasun_app.iss</text>
+  <text x="560" y="255" fill="#475569" font-family="Segoe UI, Arial" font-size="21">instalatzailea, wizard-a eta appsettings.json sortzea</text>
+  <text x="120" y="290" fill="#334155" font-family="Consolas, monospace" font-size="22">deployment/INSTALL_USB.md</text>
+  <text x="560" y="290" fill="#475569" font-family="Segoe UI, Arial" font-size="21">azken banaketa gida</text>
+  <text x="100" y="370" fill="#1d4ed8" font-family="Segoe UI, Arial" font-size="26">Runtime konfigurazioa</text>
+  <text x="120" y="415" fill="#334155" font-family="Consolas, monospace" font-size="22">GOsasun_app/Kontrola/Zerbitzuak/AplikazioKonfigurazioa.cs</text>
+  <text x="120" y="450" fill="#334155" font-family="Consolas, monospace" font-size="22">GOsasun_app/Repositorioa/DatuBaseKonexioa.cs</text>
+  <text x="120" y="485" fill="#334155" font-family="Consolas, monospace" font-size="22">GOsasun_app/Kontrola/Zerbitzuak/HasierakoPrestaketaZerbitzua.cs</text>
+  <text x="120" y="520" fill="#334155" font-family="Consolas, monospace" font-size="22">GOsasun_app/Program.cs</text>
+  <text x="780" y="415" fill="#475569" font-family="Segoe UI, Arial" font-size="21">DB, web erroa eta lehen-abio aukerak irakurri</text>
+  <text x="780" y="450" fill="#475569" font-family="Segoe UI, Arial" font-size="21">konexio katea hardcoded izatetik JSON bidez sortzera pasa</text>
+  <text x="780" y="485" fill="#475569" font-family="Segoe UI, Arial" font-size="21">karpetak sortu, SQL exekutatu eta konektibitatea probatu</text>
+  <text x="780" y="520" fill="#475569" font-family="Segoe UI, Arial" font-size="21">login aurretik prestaketa osoa exekutatu</text>
+  <text x="100" y="600" fill="#1d4ed8" font-family="Segoe UI, Arial" font-size="26">Bide absolutuen ordez centralizatutako bideak</text>
+  <text x="120" y="645" fill="#334155" font-family="Consolas, monospace" font-size="22">GOsasun_app/Repositorioa/ErabiltzaileDB.cs</text>
+  <text x="120" y="680" fill="#334155" font-family="Consolas, monospace" font-size="22">GOsasun_app/Kontrola/JarraipenaKontrolatzailea.cs</text>
+  <text x="120" y="715" fill="#334155" font-family="Consolas, monospace" font-size="22">GOsasun_app/Kontrola/Zerbitzuak/DokumentuPdfZerbitzua.cs</text>
+  <text x="780" y="645" fill="#475569" font-family="Segoe UI, Arial" font-size="21">erabiltzailearen irudiak web erro berrian gorde</text>
+  <text x="780" y="680" fill="#475569" font-family="Segoe UI, Arial" font-size="21">XML esportazioa karpeta konfiguragarrian utzi</text>
+  <text x="780" y="715" fill="#475569" font-family="Segoe UI, Arial" font-size="21">PDF eta irudi bilaketak bide helperretik pasatu</text>
+  <text x="100" y="815" fill="#475569" font-family="Segoe UI, Arial" font-size="22">Hau izan da gakoa: aplikazioa ez zen soilik "konpilatu"; lehenik ingurunearekiko mendekotasunak kanpora atera behar izan ziren.</text>
+</svg>

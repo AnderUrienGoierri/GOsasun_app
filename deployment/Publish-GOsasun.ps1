@@ -9,6 +9,7 @@ $repoRoot = Split-Path -Parent $PSScriptRoot
 $projectPath = Join-Path $repoRoot "GOsasun_app\GOsasun_app.csproj"
 $publishRoot = Join-Path $repoRoot "publish"
 $publishDir = Join-Path $publishRoot $Runtime
+$installerAssetsScript = Join-Path $PSScriptRoot "Generate-InstallerAssets.ps1"
 
 if (-not (Test-Path $projectPath)) {
     throw "Ez da proiektua aurkitu: $projectPath"
@@ -19,6 +20,12 @@ if (Test-Path $publishDir) {
 }
 
 New-Item -ItemType Directory -Path $publishDir -Force | Out-Null
+
+if (-not (Test-Path $installerAssetsScript)) {
+    throw "Ez da installer asset-en script-a aurkitu: $installerAssetsScript"
+}
+
+& $installerAssetsScript
 
 dotnet publish $projectPath `
     -c $Configuration `

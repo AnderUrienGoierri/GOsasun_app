@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="920" viewBox="0 0 1400 920">
+  <rect width="1400" height="920" fill="#ecfdf5"/>
+  <text x="70" y="70" fill="#14532d" font-family="Segoe UI, Arial" font-size="34">`IrakurriBankua()` metodoaren zikloa</text>
+  <rect x="560" y="110" width="300" height="80" rx="16" fill="#14532d"/>
+  <text x="617" y="160" fill="#f0fdf4" font-family="Consolas, monospace" font-size="26">for idx = 0..59</text>
+  <line x1="710" y1="190" x2="710" y2="250" stroke="#14532d" stroke-width="4"/>
+  <rect x="450" y="250" width="520" height="90" rx="16" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="520" y="305" fill="#14532d" font-family="Segoe UI, Arial" font-size="26">`0xA3, idx` bidali eta payload-a irakurri</text>
+  <line x1="710" y1="340" x2="710" y2="400" stroke="#14532d" stroke-width="4"/>
+  <rect x="170" y="400" width="300" height="140" rx="18" fill="#ffffff" stroke="#86efac"/>
+  <text x="220" y="455" fill="#166534" font-family="Segoe UI, Arial" font-size="24">Balioztatu</text>
+  <text x="205" y="490" fill="#166534" font-family="Segoe UI, Arial" font-size="21">data[0] 10..250</text>
+  <text x="205" y="520" fill="#166534" font-family="Segoe UI, Arial" font-size="21">hilabetea 1..12</text>
+  <text x="205" y="550" fill="#166534" font-family="Segoe UI, Arial" font-size="21">eguna 1..31</text>
+  <rect x="550" y="400" width="320" height="140" rx="18" fill="#ffffff" stroke="#86efac"/>
+  <text x="592" y="455" fill="#166534" font-family="Segoe UI, Arial" font-size="24">U2 bita kalkulatu</text>
+  <text x="585" y="490" fill="#166534" font-family="Segoe UI, Arial" font-size="21">(data[4] &amp; 0x80) != 0</text>
+  <text x="585" y="520" fill="#166534" font-family="Segoe UI, Arial" font-size="21">edo</text>
+  <text x="585" y="550" fill="#166534" font-family="Segoe UI, Arial" font-size="21">(data[3] &amp; 0x80) != 0</text>
+  <rect x="950" y="400" width="280" height="140" rx="18" fill="#ffffff" stroke="#86efac"/>
+  <text x="990" y="455" fill="#166534" font-family="Segoe UI, Arial" font-size="24">Errepikatuak baztertu</text>
+  <text x="980" y="490" fill="#166534" font-family="Segoe UI, Arial" font-size="21">lastData != data</text>
+  <text x="980" y="520" fill="#166534" font-family="Segoe UI, Arial" font-size="21">alreadyExists == false</text>
+  <line x1="710" y1="540" x2="710" y2="600" stroke="#14532d" stroke-width="4"/>
+  <rect x="420" y="600" width="580" height="100" rx="18" fill="#14532d"/>
+  <text x="495" y="658" fill="#f0fdf4" font-family="Segoe UI, Arial" font-size="28">records.Add(new BM58RawRecord { ... UserId = benetakoUserId })</text>
+  <rect x="350" y="745" width="720" height="100" rx="18" fill="#fef2f2" stroke="#ef4444"/>
+  <text x="430" y="805" fill="#991b1b" font-family="Segoe UI, Arial" font-size="27">8 erantzun huts jarraian badaude, driver-ak irakurketa eteten du</text>
+</svg>

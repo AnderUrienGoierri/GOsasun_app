@@ -3,6 +3,7 @@
 #define MyAppPublisher "GOsasun"
 #define MyAppExeName "GOsasun_app.exe"
 #define MyPublishDir "..\\publish\\win-x64"
+#define MyInstallerAssetsDir ".\\installer_assets"
 
 [Setup]
 AppId={{2A5E7560-5E20-4D76-A6A0-7B6D8A9476E4}
@@ -20,6 +21,9 @@ OutputBaseFilename=GOsasun_app_Setup
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
+SetupIconFile={#MyInstallerAssetsDir}\GOsasun_logo_whatsap.ico
+WizardImageFile={#MyInstallerAssetsDir}\GOsasun_logo_whatsap_wizard.bmp
+WizardSmallImageFile={#MyInstallerAssetsDir}\GOsasun_logo_whatsap_wizard_small.bmp
 DisableProgramGroupPage=yes
 UninstallDisplayIcon={app}\{#MyAppExeName}
 
@@ -42,28 +46,25 @@ Filename: "{app}\{#MyAppExeName}"; Description: "Abiarazi {#MyAppName}"; Flags: 
 
 [Code]
 var
+  OharOrria: TOutputMsgWizardPage;
   WebErroaOrria: TInputDirWizardPage;
   DatuBaseOrria: TInputQueryWizardPage;
   HasierakoPrestaketaOrria: TInputOptionWizardPage;
 
-function InitializeSetup(): Boolean;
-begin
-  Result := True;
-  if not DirExists(ExpandConstant('{src}\..\publish\win-x64')) then
-  begin
-    MsgBox(
-      'Ez da publish karpeta aurkitu.' + #13#10 +
-      'Lehenik exekutatu deployment\\Publish-GOsasun.ps1 script-a.',
-      mbError,
-      MB_OK);
-    Result := False;
-  end;
-end;
-
 procedure InitializeWizard();
 begin
+  OharOrria := CreateOutputMsgPage(
+    wpWelcome,
+    'Instalatu aurretik irakurri',
+    'Instalazio honek konfigurazio batzuk galdetuko dizkizu. Prest izan hurrengo datuak:',
+    '1. Aplikazioa non instalatu nahi duzun.' + #13#10 +
+    '2. Web/Apache erroaren bidea, adibidez C:\Apache24-64\htdocs\GOsasun_web edo sareko UNC bide bat.' + #13#10 +
+    '3. SQL zerbitzariaren IP edo hostname-a, portua, datu-basearen izena, erabiltzailea eta pasahitza.' + #13#10 +
+    '4. Ingurune berria bada, lehen abioan eskema eta hasierako datuak kargatzea gomendatzen da.' + #13#10 + #13#10 +
+    'Instalazioa amaitzean, aplikazioak lehen exekuzioan karpetak sortu eta DB konexioa egiaztatuko ditu.');
+
   WebErroaOrria := CreateInputDirPage(
-    wpSelectDir,
+    OharOrria.ID,
     'Biltegiratze bideak',
     'Konfiguratu Apache/web erroa',
     'Hemen gorde dira dokumentuak, XML fitxategiak eta pazienteen irudiak. UNC bide bat ere erabil dezakezu, adibidez \\192.168.1.20\GOsasun_web.',

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#fff7ed"/>
+  <text x="70" y="70" fill="#7c2d12" font-family="Segoe UI, Arial" font-size="34">Inno Setup script-aren moldaketak</text>
+  <rect x="70" y="120" width="560" height="700" rx="20" fill="#111827"/>
+  <text x="100" y="170" fill="#93c5fd" font-family="Consolas, monospace" font-size="26">GOsasun_app.iss</text>
+  <text x="100" y="225" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">DefaultDirName=C:\GOsasun_app</text>
+  <text x="100" y="265" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">PrivilegesRequired=admin</text>
+  <text x="100" y="305" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">[Files]</text>
+  <text x="130" y="340" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">publish\win-x64 -&gt; {app}</text>
+  <text x="130" y="375" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">sql\* -&gt; {app}\sql</text>
+  <text x="100" y="430" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">InitializeWizard()</text>
+  <text x="130" y="465" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">CreateInputDirPage(... web erroa ...)</text>
+  <text x="130" y="500" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">CreateInputQueryPage(... SQL host/IP ...)</text>
+  <text x="130" y="535" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">CreateInputOptionPage(... eskema/seed ...)</text>
+  <text x="100" y="590" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">CurStepChanged(ssPostInstall)</text>
+  <text x="130" y="625" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">ForceDirectories(...)</text>
+  <text x="130" y="660" fill="#cbd5e1" font-family="Consolas, monospace" font-size="21">SaveStringToFile({app}\appsettings.json, ...)</text>
+  <text x="100" y="750" fill="#fbbf24" font-family="Segoe UI, Arial" font-size="21">Script-ak instalazioan galdetzen duena</text>
+  <text x="100" y="785" fill="#e5e7eb" font-family="Segoe UI, Arial" font-size="20">instalazio karpeta, web erroa, DB host/IP, portua, DB izena, erabiltzailea, pasahitza,</text>
+  <text x="100" y="813" fill="#e5e7eb" font-family="Segoe UI, Arial" font-size="20">eta lehen abioan eskema eta hasierako datuak kargatu nahi diren.</text>
+  <rect x="690" y="150" width="630" height="620" rx="22" fill="#fffbeb" stroke="#f59e0b" stroke-width="3"/>
+  <text x="735" y="205" fill="#92400e" font-family="Segoe UI, Arial" font-size="30">Wizard pantailen laburpena</text>
+  <rect x="740" y="250" width="530" height="110" rx="14" fill="#ffffff" stroke="#fdba74"/>
+  <text x="770" y="295" fill="#7c2d12" font-family="Segoe UI, Arial" font-size="24">1. Biltegiratze bideak</text>
+  <text x="770" y="330" fill="#7c2d12" font-family="Segoe UI, Arial" font-size="20">Apache/web erroa hautatu</text>
+  <rect x="740" y="390" width="530" height="140" rx="14" fill="#ffffff" stroke="#fdba74"/>
+  <text x="770" y="435" fill="#7c2d12" font-family="Segoe UI, Arial" font-size="24">2. Datu-basearen konfigurazioa</text>
+  <text x="770" y="470" fill="#7c2d12" font-family="Segoe UI, Arial" font-size="20">SQL zerbitzaria / IP-a</text>
+  <text x="770" y="500" fill="#7c2d12" font-family="Segoe UI, Arial" font-size="20">Portua, DB izena, erabiltzailea, pasahitza</text>
+  <rect x="740" y="560" width="530" height="150" rx="14" fill="#ffffff" stroke="#fdba74"/>
+  <text x="770" y="605" fill="#7c2d12" font-family="Segoe UI, Arial" font-size="24">3. Lehen exekuzioko prestaketa</text>
+  <text x="770" y="640" fill="#7c2d12" font-family="Segoe UI, Arial" font-size="20">Eskema sortu edo eguneratu</text>
+  <text x="770" y="670" fill="#7c2d12" font-family="Segoe UI, Arial" font-size="20">Hasierako erregistroak kargatu</text>
+  <text x="760" y="810" fill="#7c2d12" font-family="Segoe UI, Arial" font-size="22">Instalatzaileak konfigurazio hori gordetzen du eta aplikazioa prest uzten du lehen abiorako.</text>
+</svg>
