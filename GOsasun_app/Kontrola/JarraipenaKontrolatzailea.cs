@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using GOsasun_app.Modeloa;
 using GOsasun_app.Repositorioa;
+using GOsasun_app.Kontrola.Zerbitzuak;
 using System.IO;
 using System.Xml.Linq;
 using System;
@@ -90,7 +91,7 @@ namespace GOsasun_app.Kontrola
                 XDocument doc = new XDocument(new XDeclaration("1.0", "utf-8", "yes"),
                     new XElement("Jarraipenak", jarraipenaNode));
 
-                string path = @"C:\Apache24-64\htdocs\GOsasun_web\xml_paziente_neurketak";
+                string path = AplikazioBideak.LortuXmlKarpeta();
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
                 string izena = $"JARRAIPENA_{n.PazienteId}_{n.ErregistroData:yyyyMMdd_HHmmss}.xml";

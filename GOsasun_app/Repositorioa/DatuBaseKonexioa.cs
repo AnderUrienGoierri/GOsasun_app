@@ -5,6 +5,7 @@
 // kudeatzen duen klasea. Konexio katea era seguruan gordetzen du.
 // ============================================================
 
+using GOsasun_app.Kontrola.Zerbitzuak;
 using MySql.Data.MySqlClient;
 
 namespace GOsasun_app.Repositorioa
@@ -15,27 +16,32 @@ namespace GOsasun_app.Repositorioa
     /// </summary>
     public static class DatuBaseKonexioa
     {
-        // -----------------------------------------------------------
-        // Konexio parametroak (zure ingurunera egokitu)
-        // -----------------------------------------------------------
-        private static readonly string Zerbitzaria = "localhost";
-        private static readonly int Portua = 3306;
-        private static readonly string DatuBasea = "GOsasun_DB";
-        private static readonly string Erabiltzailea = "root";
-        private static readonly string Pasahitza = "1MG32025";
+        private static string SortuKonexioKatea(bool datuBasearekin)
+        {
+            DatuBaseKonfigurazioa konfigurazioa = AplikazioKonfigurazioaHornitzailea.LortuKonfigurazioa().DatuBasea;
+            MySqlConnectionStringBuilder eraikitzailea = new MySqlConnectionStringBuilder
+            {
+                Server = konfigurazioa.Zerbitzaria,
+                Port = konfigurazioa.Portua,
+                UserID = konfigurazioa.Erabiltzailea,
+                Password = konfigurazioa.Pasahitza,
+                SslMode = MySqlSslMode.Preferred,
+                CharacterSet = "utf8mb4",
+                ConnectionTimeout = 10
+            };
 
-        /// <summary>
-        /// Konexio katea eraikitzen du parametroekwrekin.
-        /// </summary>
-        private static string KonexioKatea =>
-            $"Server={Zerbitzaria};" +
-            $"Port={Portua};" +
-            $"Database={DatuBasea};" +
-            $"Uid={Erabiltzailea};" +
-            $"Pwd={Pasahitza};" +
-            "SslMode=Preferred;" +
-            "CharSet=utf8mb4;" +
-            "ConnectionTimeout=10;";
+            if (datuBasearekin && !string.IsNullOrWhiteSpace(konfigurazioa.DatuBasea))
+            {
+                eraikitzailea.Database = konfigurazioa.DatuBasea;
+            }
+
+            return eraikitzailea.ConnectionString;
+        }
+
+        public static string LortuDatuBaseIzena()
+        {
+            return AplikazioKonfigurazioaHornitzailea.LortuKonfigurazioa().DatuBasea.DatuBasea;
+        }
 
         /// <summary>
         /// MySQL konexio berri bat sortzen du eta irekitzen du.
@@ -43,9 +49,9 @@ namespace GOsasun_app.Repositorioa
         /// </summary>
         /// <returns>Irekitako MySqlConnection objektua</returns>
         /// <exception cref="MySqlException">Konexioa ezin bada ezarri</exception>
-        public static MySqlConnection LortuKonexioa()
+        public static MySqlConnection LortuKonexioa(bool datuBasearekin = true)
         {
-            MySqlConnection konexioa = new MySqlConnection(KonexioKatea);
+            MySqlConnection konexioa = new MySqlConnection(SortuKonexioKatea(datuBasearekin));
             konexioa.Open();
             return konexioa;
         }

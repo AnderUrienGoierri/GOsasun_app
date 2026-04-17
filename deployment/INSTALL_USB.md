@@ -39,50 +39,67 @@ Nahi baduzu, `sql` fitxategiak ere kopiatu azalpen edo mantentze lanetarako.
 
 1. USB sartu.
 2. `GOsasun_app_Setup.exe` administratzaile gisa exekutatu.
-3. Instalazio lehenetsia hemen egingo da:
+3. Instalazioan zehar galdetuko zaizu:
+
+- aplikazioa non instalatu nahi duzun
+- Apache/web erroaren bidea
+- SQL zerbitzariaren IP edo hostname-a
+- portua, datu-basea, erabiltzailea eta pasahitza
+- lehen exekuzioan eskema eta seed datuak automatikoki prestatu nahi dituzun
+
+4. Instalazio lehenetsia hemen egingo da:
 
 ```text
 C:\GOsasun_app
 ```
 
-Instalatzaileak karpeta hauek ere sortzen ditu, aplikazioak kodean bide absolutu horiek erabiltzen dituelako:
+Instalatzaileak aukeratutako web erroaren barruan karpeta hauek sortzen saiatzen da:
 
 ```text
-C:\Apache24-64\htdocs\GOsasun_web\dokumentuak
-C:\Apache24-64\htdocs\GOsasun_web\paziente_dokumentuak
-C:\Apache24-64\htdocs\GOsasun_web\xml_paziente_neurketak
-C:\Apache24-64\htdocs\GOsasun_web\img\png
+<webErroa>\dokumentuak
+<webErroa>\paziente_dokumentuak
+<webErroa>\xml_paziente_neurketak
+<webErroa>\img\png
 ```
+
+Oharra: `webErroa` lokala izan daiteke edo sareko UNC bide bat, adibidez `\\192.168.1.20\GOsasun_web`.
 
 ## 5. Instalazioak funtzionatzeko bete beharreko baldintzak
 
 ### MySQL
 
-Aplikazioak une honetan konexio hauek hardcodeatuta ditu [GOsasun_app/Repositorioa/DatuBaseKonexioa.cs](GOsasun_app/Repositorioa/DatuBaseKonexioa.cs#L18):
-
-- Zerbitzaria: `localhost`
-- Portua: `3306`
-- Datu-basea: `GOsasun_DB`
-- Erabiltzailea: `root`
-- Pasahitza: `1MG32025`
-
-Horrek esan nahi du helburuko ordenagailuan MySQL instalatuta egon behar dela eta datu-base hori sortuta egon behar dela.
+Aplikazioak hemendik aurrera `appsettings.json`-etik irakurtzen du DB konfigurazioa, eta instalatzaileak balio horiek sortzen ditu. Beraz, helburuko ordenagailuan edo sarean eskuragarri dagoen SQL zerbitzaria konfiguratu dezakezu, eskola zerbitzariko IP-a barne.
 
 ### SQL inportazioa
 
-Gutxienez hauek inportatu behar dira:
+Instalazioan aukeratzen baduzu, aplikazioak lehen exekuzioan automatikoki exekutatuko ditu gutxienez hauek:
 
 - `sql\GOsasun_DB.sql`
 - `sql\GOsasun_DB_data.sql`
 
+Eta baita hauek ere eskema osatzeko:
+
+- `sql\GOsasun_DB_trigger.sql`
+- `sql\GOsasun_DB_bistak.sql`
+- `sql\GOsasun_DB_indizeak.sql`
+
+Horrela, lehen abioaren ondoren aplikazioa martxan geratzeko beharrezko oinarria prestatuta uzten da.
+
+### Lehen exekuzio automatikoa
+
+Aplikazioa lehen aldiz irekitzean:
+
+- konfigurazioa irakurtzen du
+- web/Apache karpetak existitzen direla egiaztatzen du eta beharrezkoa bada sortzen ditu
+- aukeratu baduzu, DB eskema eta hasierako datuak exekutatzen ditu
+- DB konexioa probatzen du
+
+Prestaketa hori huts egiten badu, aplikazioak errore argi bat erakusten du eta ez da login pantailara iristen, arazoa ezkutuan gera ez dadin.
+
 ### Administratzaile baimenak
 
-`C:\` erroan instalatzeko eta `C:\Apache24-64\...` azpikarpetak sortzeko, administratzaile baimenak behar dira.
+`C:\` erroan instalatzeko edo bide lokal babestuetan karpetak sortzeko, administratzaile baimenak behar dira.
 
 ## Gomendioa
 
-Egonkor hedatu nahi baduzu, hurrengo hobekuntza teknikoa egitea komeni da:
-
-1. DB konexioa `appsettings.json` edo antzeko konfigurazio-fitxategi batera ateratzea.
-2. `C:\Apache24-64\...` bide absolutuak konfiguragarri bihurtzea.
-3. Orduan instalatzailea askoz eramangarriagoa izango da.
+Une honetan DB eta Apache/web bide nagusiak konfiguragarri bihurtuta daude. Hurrengo hobekuntza gomendagarria da instalatzaileari konektibitate-proba gehitzea instalazioan bertan, SQL zerbitzaria eskuragarri dagoen unean bertan egiaztatzeko.

@@ -9,7 +9,7 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
 {
     public class DokumentuPdfZerbitzua
     {
-        private const string PazienteDokumentuKarpeta = @"C:\Apache24-64\htdocs\GOsasun_web\paziente_dokumentuak";
+        private static string PazienteDokumentuKarpeta => AplikazioBideak.LortuPazienteDokumentuKarpeta();
 
         private readonly ErabiltzaileDB _erabiltzaileDb = new ErabiltzaileDB();
         private readonly JarraipenaDB _jarraipenaDb = new JarraipenaDB();
@@ -605,54 +605,15 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
         private static IEnumerable<string> LortuIrudiErroak()
         {
             HashSet<string> erroak = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-            string zerbitzarikoIrudiErroa = Path.Combine("C:", "Apache24-64", "htdocs", "GOsasun_web", "img", "png");
-            if (Directory.Exists(zerbitzarikoIrudiErroa))
+            foreach (string erroa in AplikazioBideak.LortuIrudiErroak())
             {
-                erroak.Add(zerbitzarikoIrudiErroa);
-            }
-
-            string? aplikazioIrudiErroa = LortuAplikazioIrudiErroa();
-            if (!string.IsNullOrWhiteSpace(aplikazioIrudiErroa) && Directory.Exists(aplikazioIrudiErroa))
-            {
-                erroak.Add(aplikazioIrudiErroa);
+                if (Directory.Exists(erroa))
+                {
+                    erroak.Add(erroa);
+                }
             }
 
             return erroak;
-        }
-
-        private static string? LortuAplikazioIrudiErroa()
-        {
-            string?[] hasierakoak =
-            {
-                Application.StartupPath,
-                AppContext.BaseDirectory,
-                Directory.GetCurrentDirectory(),
-                Environment.CurrentDirectory,
-                Path.GetDirectoryName(typeof(DokumentuPdfZerbitzua).Assembly.Location)
-            };
-
-            foreach (string? hasiera in hasierakoak)
-            {
-                if (string.IsNullOrWhiteSpace(hasiera) || !Directory.Exists(hasiera))
-                {
-                    continue;
-                }
-
-                DirectoryInfo? karpeta = new DirectoryInfo(hasiera);
-                while (karpeta != null)
-                {
-                    string imgErroa = Path.Combine(karpeta.FullName, "img");
-                    if (string.Equals(karpeta.Name, "GOsasun_app", StringComparison.OrdinalIgnoreCase) && Directory.Exists(imgErroa))
-                    {
-                        return imgErroa;
-                    }
-
-                    karpeta = karpeta.Parent;
-                }
-            }
-
-            return null;
         }
 
         private static IEnumerable<string> LortuBideAukerak(string erroa, string normalizatua)

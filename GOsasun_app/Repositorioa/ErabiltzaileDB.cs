@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using GOsasun_app.Kontrola.Zerbitzuak;
 using MySql.Data.MySqlClient;
 using GOsasun_app.Modeloa;
 
@@ -67,38 +68,9 @@ namespace GOsasun_app.Repositorioa
             return rolIzena.Replace(" ", string.Empty).Trim().ToLowerInvariant();
         }
 
-        private static IEnumerable<string> LortuIrudiErroak()
-        {
-            string exekuzioErroa = AppContext.BaseDirectory;
-            string unekoErroa = Directory.GetCurrentDirectory();
-
-            string[] erroak =
-            {
-                exekuzioErroa,
-                Path.Combine(exekuzioErroa, "..", "..", ".."),
-                Path.Combine(exekuzioErroa, "..", "..", "..", ".."),
-                unekoErroa,
-                Path.Combine(unekoErroa, "GOsasun_app")
-            };
-
-            return erroak
-                .Select(Path.GetFullPath)
-                .Distinct(StringComparer.OrdinalIgnoreCase);
-        }
-
         private static string LortuIrudiBideAbsolutua(string irudiErlatiboa)
         {
-            string irudiBideNormala = irudiErlatiboa.Replace('/', Path.DirectorySeparatorChar);
-
-            foreach (string erroa in LortuIrudiErroak())
-            {
-                if (Directory.Exists(erroa))
-                {
-                    return Path.Combine(erroa, irudiBideNormala);
-                }
-            }
-
-            return Path.Combine(AppContext.BaseDirectory, irudiBideNormala);
+            return AplikazioBideak.LortuIrudiHelmugaBidea(irudiErlatiboa);
         }
 
         private static string GordeErabiltzaileIrudia(string? iturburuBidea, string azpiKarpeta, string fitxategiIzena)

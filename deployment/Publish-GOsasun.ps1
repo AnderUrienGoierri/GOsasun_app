@@ -24,9 +24,6 @@ dotnet publish $projectPath `
     -c $Configuration `
     -r $Runtime `
     --self-contained true `
-    -p:PublishSingleFile=true `
-    -p:IncludeNativeLibrariesForSelfExtract=true `
-    -p:EnableCompressionInSingleFile=true `
     -o $publishDir
 
 Write-Host ""
