@@ -17,7 +17,7 @@ namespace GOsasun_app.Interfazea
     /// Saioa hasteko formularioa (Saioa Hasi Formularioa).
     /// Tablet-entzako diseinatua, ukipen-elementu handiekin.
     /// </summary>
-    public partial class SaioaHasi : Form
+    public partial class SaioaHasi : GOsasunForm
     {
         private static readonly Size PortadaTamaina = new Size(1514, 1394);
         private readonly ErabiltzaileKontrolatzailea _kontrolatzailea;

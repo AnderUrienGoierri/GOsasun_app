@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace GOsasun_app.Interfazea
 {
-    public partial class JarraipenOharrakLaguntzailea : Form
+    public partial class JarraipenOharrakLaguntzailea : GOsasunForm
     {
         [EditorBrowsable(EditorBrowsableState.Never)]
         public JarraipenOharrakLaguntzailea()

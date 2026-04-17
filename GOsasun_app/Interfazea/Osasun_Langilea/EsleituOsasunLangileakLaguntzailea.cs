@@ -3,7 +3,7 @@ using GOsasun_app.Modeloa;
 
 namespace GOsasun_app.Interfazea
 {
-    public partial class EsleituOsasunLangileakLaguntzailea : Form
+    public partial class EsleituOsasunLangileakLaguntzailea : GOsasunForm
     {
         private readonly List<OsasunLangilea> _langileGuztiak = new List<OsasunLangilea>();
         private readonly HashSet<int> _jadaEsleitutaIds = new HashSet<int>();

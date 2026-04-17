@@ -3,7 +3,7 @@ using GOsasun_app.Modeloa;
 
 namespace GOsasun_app.Interfazea
 {
-    public partial class DokumentuaEditatuLaguntzailea : Form
+    public partial class DokumentuaEditatuLaguntzailea : GOsasunForm
     {
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DokumentuaEditatuLaguntzailea()

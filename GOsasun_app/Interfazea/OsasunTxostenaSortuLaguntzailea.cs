@@ -4,7 +4,7 @@ using GOsasun_app.Modeloa;
 
 namespace GOsasun_app.Interfazea
 {
-    public partial class OsasunTxostenaSortuLaguntzailea : Form
+    public partial class OsasunTxostenaSortuLaguntzailea : GOsasunForm
     {
         private readonly List<Pazientea> _hasierakoPazienteak = new List<Pazientea>();
         private List<Pazientea> _unekoPazienteak = new List<Pazientea>();

@@ -3,7 +3,7 @@ using GOsasun_app.Modeloa;
 
 namespace GOsasun_app.Interfazea
 {
-    public partial class DokumentuBerriaLaguntzailea : Form
+    public partial class DokumentuBerriaLaguntzailea : GOsasunForm
     {
         private readonly List<Pazientea> _hasierakoPazienteak = new List<Pazientea>();
         private List<Pazientea> _unekoPazienteak = new List<Pazientea>();

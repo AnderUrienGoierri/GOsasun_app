@@ -4,7 +4,7 @@ using GOsasun_app.Modeloa;
 
 namespace GOsasun_app.Interfazea
 {
-    public partial class JarraipenaEditatuLaguntzailea : Form
+    public partial class JarraipenaEditatuLaguntzailea : GOsasunForm
     {
         private readonly List<Dokumentua> _dokumentuak = new List<Dokumentua>();
         private Action<Dokumentua>? _irekiDokumentua;

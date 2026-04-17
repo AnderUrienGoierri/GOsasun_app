@@ -18,7 +18,7 @@ namespace GOsasun_app.Interfazea
     /// Formulario guztien oinarri klasea.
     /// Egurrezko atzeko planoa eta nabigazio estandarra eskaintzen ditu.
     /// </summary>
-    public partial class OinarriPantaila : Form
+    public partial class OinarriPantaila : GOsasunForm
     {
         private static readonly Size PortadaIrudiTamaina = new Size(1514, 1394);
         private static readonly Size OinarriPantailaTamaina = new Size(1902, 1394);

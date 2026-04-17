@@ -3,7 +3,7 @@ using GOsasun_app.Modeloa;
 
 namespace GOsasun_app.Interfazea
 {
-    public partial class JarraipenXehetasunakLaguntzailea : Form
+    public partial class JarraipenXehetasunakLaguntzailea : GOsasunForm
     {
         [EditorBrowsable(EditorBrowsableState.Never)]
         public JarraipenXehetasunakLaguntzailea()
