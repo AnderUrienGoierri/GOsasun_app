@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Globalization;
+using System.Threading.Tasks;
 using GOsasun_app.Kontrola;
 using GOsasun_app.Modeloa;
 using Svg;
@@ -31,6 +32,8 @@ namespace GOsasun_app.Interfazea
         private readonly int? _pazienteIdFiltroa;
         private readonly string? _pazienteIzenburua;
         private Bitmap? _oharraIkonoa;
+        private bool _hasierakoJarraipenakKargatuta;
+        private bool _hasierakoJarraipenakKargatzen;
 
         private string _azkenOrdenazioZutabea = string.Empty;
         private bool _ordenazioGorakorra = true;
@@ -80,8 +83,56 @@ namespace GOsasun_app.Interfazea
                 KargatuDiseinuDatuak();
                 return;
             }
+        }
 
-            KargatuJarraipenak();
+        private async Task KargatuHasierakoJarraipenakAsync()
+        {
+            _hasierakoJarraipenakKargatzen = true;
+            EzarriHasierakoKargaEgoera(true);
+
+            try
+            {
+                string bilaketa = _txtBilatu.Text.Trim();
+                (DateTime? hasieraData, DateTime? amaieraData) = LortuDataTartea();
+                List<Jarraipena> jarraipenak = await Task.Run(() =>
+                    _jarraipenaKontrolatzailea.LortuJarraipenGuztiak(bilaketa, hasieraData, amaieraData, _pazienteIdFiltroa));
+
+                if (IsDisposed)
+                {
+                    return;
+                }
+
+                AplikatuJarraipenak(jarraipenak);
+                _hasierakoJarraipenakKargatuta = true;
+            }
+            catch (Exception ex)
+            {
+                if (!IsDisposed)
+                {
+                    MessageBox.Show("Errorea jarraipenak kargatzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            finally
+            {
+                _hasierakoJarraipenakKargatzen = false;
+                if (!IsDisposed)
+                {
+                    EzarriHasierakoKargaEgoera(false);
+                }
+            }
+        }
+
+        private void EzarriHasierakoKargaEgoera(bool kargatzen)
+        {
+            UseWaitCursor = kargatzen;
+            Cursor = kargatzen ? Cursors.WaitCursor : Cursors.Default;
+            _txtBilatu.Enabled = !kargatzen;
+            _dtpHasieraData.Enabled = !kargatzen;
+            _dtpAmaieraData.Enabled = !kargatzen;
+            _btnFiltroakGarbitu.Enabled = !kargatzen;
+            _chkJarraipenGuztiakIkusi.Enabled = !kargatzen;
+            _btnJarraipenBerria.Enabled = !kargatzen;
+            _dgvJarraipenak.Enabled = !kargatzen;
         }
 
         private void EguneratuIzenburua()
@@ -111,9 +162,12 @@ namespace GOsasun_app.Interfazea
             _dgvJarraipenak.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             _dgvJarraipenak.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             _dgvJarraipenak.ColumnHeadersHeight = TaularenGoiburuAltuera;
+            _dgvJarraipenak.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             _dgvJarraipenak.DefaultCellStyle.Font = new Font("Segoe UI", 10.5F);
             _dgvJarraipenak.DefaultCellStyle.SelectionBackColor = Color.FromArgb(232, 240, 254);
             _dgvJarraipenak.DefaultCellStyle.SelectionForeColor = Color.FromArgb(44, 62, 80);
+            _dgvJarraipenak.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+            _dgvJarraipenak.GridColor = Color.FromArgb(205, 211, 217);
             _dgvJarraipenak.AutoGenerateColumns = false;
             _dgvJarraipenak.RowTemplate.Height = JarraipenFilaAltuera;
             _dgvJarraipenak.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
@@ -376,14 +430,20 @@ namespace GOsasun_app.Interfazea
         {
             try
             {
-                _jarraipenak.Clear();
-                _jarraipenak.AddRange(_jarraipenaKontrolatzailea.LortuJarraipenGuztiak(bilaketa, hasieraData, amaieraData, _pazienteIdFiltroa));
-                BistaratuJarraipenak();
+                List<Jarraipena> jarraipenak = _jarraipenaKontrolatzailea.LortuJarraipenGuztiak(bilaketa, hasieraData, amaieraData, _pazienteIdFiltroa);
+                AplikatuJarraipenak(jarraipenak);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Errorea jarraipenak kargatzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void AplikatuJarraipenak(List<Jarraipena> jarraipenak)
+        {
+            _jarraipenak.Clear();
+            _jarraipenak.AddRange(jarraipenak);
+            BistaratuJarraipenak();
         }
 
         private void BistaratuJarraipenak()
@@ -679,10 +739,18 @@ namespace GOsasun_app.Interfazea
             }
         }
 
-        protected override void OnShown(EventArgs e)
+        protected override async void OnShown(EventArgs e)
         {
             base.OnShown(e);
             EguneratuPantailaDiseinua();
+
+            if (_hasierakoJarraipenakKargatuta || _hasierakoJarraipenakKargatzen || DiseinuModuan())
+            {
+                return;
+            }
+
+            await Task.Yield();
+            await KargatuHasierakoJarraipenakAsync();
         }
 
         protected override void OnResize(EventArgs e)
@@ -812,6 +880,14 @@ namespace GOsasun_app.Interfazea
             if (e.RowIndex < 0) return;
             if (e.Graphics == null) return;
 
+            if (!OharrakZutabeaDa(e.ColumnIndex) && !EkintzakZutabeaDa(e.ColumnIndex))
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All & ~DataGridViewPaintParts.Border);
+                MarraztuGelaxkaErtzak(e.Graphics, e.CellBounds);
+                e.Handled = true;
+                return;
+            }
+
             if (OharrakZutabeaDa(e.ColumnIndex))
             {
                 MarraztuOharGelaxka(e);
@@ -820,13 +896,18 @@ namespace GOsasun_app.Interfazea
 
             if (!EkintzakZutabeaDa(e.ColumnIndex)) return;
 
-            e.PaintBackground(e.CellBounds, true);
-            e.Paint(e.ClipBounds, DataGridViewPaintParts.Border);
+            e.Paint(e.CellBounds,
+                DataGridViewPaintParts.All
+                & ~DataGridViewPaintParts.ContentForeground
+                & ~DataGridViewPaintParts.ErrorIcon
+                & ~DataGridViewPaintParts.Border);
 
             foreach (var botoia in LortuEkintzaBotoiak(e.CellBounds))
             {
                 MarraztuEkintzaBotoia(e.Graphics, botoia.Key, botoia.Value);
             }
+
+            MarraztuGelaxkaErtzak(e.Graphics, e.CellBounds);
 
             e.Handled = true;
         }
@@ -941,8 +1022,11 @@ namespace GOsasun_app.Interfazea
             DataGridViewCellStyle estiloa = e.CellStyle ?? new DataGridViewCellStyle();
             Font testuFont = estiloa.Font ?? _dgvJarraipenak.DefaultCellStyle.Font ?? _dgvJarraipenak.Font;
 
-            e.PaintBackground(e.CellBounds, true);
-            e.Paint(e.ClipBounds, DataGridViewPaintParts.Border);
+            e.Paint(e.CellBounds,
+                DataGridViewPaintParts.All
+                & ~DataGridViewPaintParts.ContentForeground
+                & ~DataGridViewPaintParts.ErrorIcon
+                & ~DataGridViewPaintParts.Border);
 
             string testua = (_dgvJarraipenak.Rows[e.RowIndex].DataBoundItem as Jarraipena)?.Oharrak?.Trim() ?? string.Empty;
             string aurrebista = string.IsNullOrWhiteSpace(testua) ? "Oharrik ez" : testua;
@@ -963,7 +1047,15 @@ namespace GOsasun_app.Interfazea
                 TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis | TextFormatFlags.NoPrefix);
 
             MarraztuOharBotoia(graphics, botoia);
+            MarraztuGelaxkaErtzak(graphics, e.CellBounds);
             e.Handled = true;
+        }
+
+        private void MarraztuGelaxkaErtzak(Graphics graphics, Rectangle bounds)
+        {
+            using Pen pen = new Pen(_dgvJarraipenak.GridColor);
+            graphics.DrawLine(pen, bounds.Right - 1, bounds.Top, bounds.Right - 1, bounds.Bottom - 1);
+            graphics.DrawLine(pen, bounds.Left, bounds.Bottom - 1, bounds.Right - 1, bounds.Bottom - 1);
         }
 
         private void MarraztuOharBotoia(Graphics graphics, Rectangle rectangle)

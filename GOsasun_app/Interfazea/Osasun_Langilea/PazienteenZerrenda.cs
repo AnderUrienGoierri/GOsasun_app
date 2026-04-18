@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using GOsasun_app.Interfazea.Kontrolak;
 using GOsasun_app.Modeloa;
@@ -26,6 +27,8 @@ namespace GOsasun_app.Interfazea
         private readonly ErabiltzaileKontrolatzailea _kontrolatzailea;
         private List<Pazientea> _pazienteak = new List<Pazientea>();
         private readonly Dictionary<string, Bitmap?> _ekintzaIkonoak = new Dictionary<string, Bitmap?>();
+        private bool _hasierakoPazienteakKargatuta;
+        private bool _hasierakoPazienteakKargatzen;
 
         public PazienteenZerrenda(Erabiltzailea medikua)
             : base(medikua)
@@ -52,7 +55,6 @@ namespace GOsasun_app.Interfazea
 
             KonfiguratuTaula();
             KargatuEkintzaIkonoak();
-            KargatuPazienteak();
 
             // Gertaerak
             txtBilatu.TextChanged += TxtBilatu_TextChanged;
@@ -158,17 +160,22 @@ namespace GOsasun_app.Interfazea
             EzarriFormularioZabalera();
         }
 
-        protected override void OnShown(EventArgs e)
+        protected override async void OnShown(EventArgs e)
         {
             base.OnShown(e);
-            BeginInvoke(new Action(() =>
+            await Task.Yield();
+
+            EzarriFormularioZabalera();
+            EguneratuBilatzailearenDiseinua();
+            EguneratuTaularenZabalerak();
+            ZentratuPantailaLanEremuan();
+
+            if (_hasierakoPazienteakKargatuta || _hasierakoPazienteakKargatzen || DiseinuModuan())
             {
-                EzarriFormularioZabalera();
-                EguneratuBilatzailearenDiseinua();
-                EguneratuTaularenZabalerak();
-                KargatuPazienteak(txtBilatu.Text.Trim());
-                ZentratuPantailaLanEremuan();
-            }));
+                return;
+            }
+
+            await KargatuHasierakoPazienteakAsync();
         }
 
         protected override void OnResize(EventArgs e)
@@ -180,6 +187,56 @@ namespace GOsasun_app.Interfazea
                 EguneratuBilatzailearenDiseinua();
                 EguneratuTaularenZabalerak();
             }
+        }
+
+        private async Task KargatuHasierakoPazienteakAsync()
+        {
+            _hasierakoPazienteakKargatzen = true;
+            EzarriHasierakoKargaEgoera(true);
+
+            try
+            {
+                string bilaketa = txtBilatu.Text.Trim();
+                string? egoeraFiltroa = LortuEgoeraFiltroa();
+                bool pazienteGuztiak = chkPazienteGuztiak.Checked;
+                List<Pazientea> pazienteak = await Task.Run(() => LortuPazienteZerrenda(bilaketa, egoeraFiltroa, pazienteGuztiak));
+
+                if (IsDisposed)
+                {
+                    return;
+                }
+
+                AplikatuPazienteZerrenda(pazienteak);
+                _hasierakoPazienteakKargatuta = true;
+            }
+            catch (Exception ex)
+            {
+                if (!IsDisposed)
+                {
+                    MessageBox.Show("Errorea pazienteak kargatzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            finally
+            {
+                _hasierakoPazienteakKargatzen = false;
+                if (!IsDisposed)
+                {
+                    EzarriHasierakoKargaEgoera(false);
+                }
+            }
+        }
+
+        private void EzarriHasierakoKargaEgoera(bool kargatzen)
+        {
+            UseWaitCursor = kargatzen;
+            Cursor = kargatzen ? Cursors.WaitCursor : Cursors.Default;
+            txtBilatu.Enabled = !kargatzen;
+            chkPazienteGuztiak.Enabled = !kargatzen && _erabiltzailea is not HarrerakoLangilea;
+            chkAltan.Enabled = !kargatzen;
+            chkBajan.Enabled = !kargatzen;
+            btnPazienteBerria.Enabled = !kargatzen;
+            btnOsasunLangileaSortu.Enabled = !kargatzen;
+            dgvPazienteak.Enabled = !kargatzen;
         }
 
         private int LortuDoitutakoZabalera(int oinarrizkoZabalera)
@@ -523,26 +580,31 @@ namespace GOsasun_app.Interfazea
             try
             {
                 string? egoeraFiltroa = LortuEgoeraFiltroa();
-                if (_erabiltzailea is HarrerakoLangilea)
-                {
-                    _pazienteak = _kontrolatzailea.LortuGuztiakPazienteak(testua, egoeraFiltroa);
-                }
-                else if (chkPazienteGuztiak.Checked)
-                {
-                    _pazienteak = _kontrolatzailea.LortuGuztiakPazienteak(testua, egoeraFiltroa);
-                }
-                else
-                {
-                    _pazienteak = _kontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea!.Id, testua, egoeraFiltroa);
-                }
-
-                dgvPazienteak.DataSource = null;
-                dgvPazienteak.DataSource = _pazienteak;
+                bool pazienteGuztiak = chkPazienteGuztiak.Checked;
+                List<Pazientea> pazienteak = LortuPazienteZerrenda(testua, egoeraFiltroa, pazienteGuztiak);
+                AplikatuPazienteZerrenda(pazienteak);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Errorea pazienteak kargatzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private List<Pazientea> LortuPazienteZerrenda(string? testua, string? egoeraFiltroa, bool pazienteGuztiak)
+        {
+            if (_erabiltzailea is HarrerakoLangilea || pazienteGuztiak)
+            {
+                return _kontrolatzailea.LortuGuztiakPazienteak(testua, egoeraFiltroa);
+            }
+
+            return _kontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea!.Id, testua, egoeraFiltroa);
+        }
+
+        private void AplikatuPazienteZerrenda(List<Pazientea> pazienteak)
+        {
+            _pazienteak = pazienteak;
+            dgvPazienteak.DataSource = null;
+            dgvPazienteak.DataSource = _pazienteak;
         }
 
         private void BtnPazienteBerria_Click(object? sender, EventArgs e)

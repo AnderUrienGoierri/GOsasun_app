@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using GOsasun_app.Kontrola;
 using GOsasun_app.Modeloa;
@@ -17,6 +18,8 @@ namespace GOsasun_app.Interfazea
         private readonly List<Pazientea> _pazienteGuztiak = new List<Pazientea>();
         private readonly List<GrafikoSeriea> _unekoSerieak = new List<GrafikoSeriea>();
         private bool _dataTarteaEguneratzen;
+        private bool _hasierakoPazienteakKargatuta;
+        private bool _hasierakoPazienteakKargatzen;
         private string _grafikoIzenburua = "Osasun datuen bilakaera";
         private string _ardatzYIzenburua = "Balioa";
 
@@ -41,6 +44,13 @@ namespace GOsasun_app.Interfazea
             public Color Kolorea { get; init; }
             public bool Etena { get; init; }
             public List<(DateTime Data, double Balioa)> Puntuak { get; init; } = new List<(DateTime Data, double Balioa)>();
+        }
+
+        private sealed class HasierakoGrafikaKargaEmaitza
+        {
+            public required List<Pazientea> Pazienteak { get; init; }
+            public int? HautatutakoPazienteId { get; init; }
+            public DateTime? LehenJarraipenData { get; init; }
         }
 
         public Grafikak() : base()
@@ -68,7 +78,6 @@ namespace GOsasun_app.Interfazea
             KonfiguratuGrafikoa();
             KonfiguratuGrafikaMotenZerrenda();
             KonfiguratuGertaerak();
-            KargatuPazienteak();
             KargatuHasierakoBalioak();
         }
 
@@ -79,6 +88,19 @@ namespace GOsasun_app.Interfazea
             _goiburuBarra.Width = ClientSize.Width;
             _edukiPanela.Size = new Size(ClientSize.Width, _edukiPanela.Height);
             ZentratuPantailaLanEremuan();
+        }
+
+        protected override async void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+
+            if (_hasierakoPazienteakKargatuta || _hasierakoPazienteakKargatzen || DiseinuModuan())
+            {
+                return;
+            }
+
+            await Task.Yield();
+            await KargatuHasierakoPazienteakAsync();
         }
 
         private void KonfiguratuGrafikoa()
@@ -109,6 +131,177 @@ namespace GOsasun_app.Interfazea
             dtpHasiera.ValueChanged += (_, _) => BalidatuDataTartea();
             dtpAmaiera.ValueChanged += (_, _) => BalidatuDataTartea();
             chkPazienteGuztiak.CheckedChanged += (_, _) => KargatuPazienteak();
+        }
+
+        private async Task KargatuHasierakoPazienteakAsync()
+        {
+            _hasierakoPazienteakKargatzen = true;
+            EzarriHasierakoKargaEgoera(true);
+
+            try
+            {
+                int? hautatutakoPazienteId = cmbPazienteak.SelectedItem is Pazientea hautatutakoPazientea
+                    ? hautatutakoPazientea.Id
+                    : null;
+                bool pazienteGuztiak = chkPazienteGuztiak.Checked;
+
+                HasierakoGrafikaKargaEmaitza emaitza = await Task.Run(() => PrestatuHasierakoGrafikaKarga(pazienteGuztiak, hautatutakoPazienteId));
+
+                if (IsDisposed)
+                {
+                    return;
+                }
+
+                AplikatuHasierakoGrafikaKarga(emaitza);
+                _hasierakoPazienteakKargatuta = true;
+            }
+            catch (Exception ex)
+            {
+                if (!IsDisposed)
+                {
+                    MessageBox.Show("Errorea pazienteak kargatzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            finally
+            {
+                _hasierakoPazienteakKargatzen = false;
+                if (!IsDisposed)
+                {
+                    EzarriHasierakoKargaEgoera(false);
+                }
+            }
+        }
+
+        private void EzarriHasierakoKargaEgoera(bool kargatzen)
+        {
+            UseWaitCursor = kargatzen;
+            Cursor = kargatzen ? Cursors.WaitCursor : Cursors.Default;
+            txtPazienteBilatu.Enabled = !kargatzen;
+            cmbPazienteak.Enabled = !kargatzen && _erabiltzailea?.DaPazientea() != true;
+            chkPazienteGuztiak.Enabled = !kargatzen && _erabiltzailea?.DaOsasunLangilea() == true;
+            btnGrafikoaErakutsi.Enabled = !kargatzen;
+            dtpHasiera.Enabled = !kargatzen;
+            dtpAmaiera.Enabled = !kargatzen;
+
+            if (kargatzen)
+            {
+                lblEgoera.Text = "Pazienteak kargatzen...";
+            }
+        }
+
+        private HasierakoGrafikaKargaEmaitza PrestatuHasierakoGrafikaKarga(bool pazienteGuztiak, int? hautatutakoPazienteId)
+        {
+            List<Pazientea> pazienteak = LortuPazienteenZerrenda(pazienteGuztiak);
+            int? aukeratutakoId = hautatutakoPazienteId.HasValue && pazienteak.Any(p => p.Id == hautatutakoPazienteId.Value)
+                ? hautatutakoPazienteId.Value
+                : pazienteak.FirstOrDefault()?.Id;
+            DateTime? lehenJarraipenData = null;
+
+            if (aukeratutakoId.HasValue)
+            {
+                lehenJarraipenData = _jarraipenaKontrolatzailea
+                    .LortuJarraipenGuztiak(pazienteId: aukeratutakoId.Value)
+                    .OrderBy(j => j.ErregistroData)
+                    .Select(j => (DateTime?)j.ErregistroData.Date)
+                    .FirstOrDefault();
+            }
+
+            return new HasierakoGrafikaKargaEmaitza
+            {
+                Pazienteak = pazienteak,
+                HautatutakoPazienteId = aukeratutakoId,
+                LehenJarraipenData = lehenJarraipenData
+            };
+        }
+
+        private List<Pazientea> LortuPazienteenZerrenda(bool pazienteGuztiak)
+        {
+            if (_erabiltzailea?.DaPazientea() == true)
+            {
+                Pazientea? pazientea = _erabiltzaileKontrolatzailea.LortuPazientea(_erabiltzailea.Id);
+                return pazientea == null ? new List<Pazientea>() : new List<Pazientea> { pazientea };
+            }
+
+            if (_erabiltzailea?.DaOsasunLangilea() == true)
+            {
+                IEnumerable<Pazientea> pazienteak = pazienteGuztiak
+                    ? _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak()
+                    : _erabiltzaileKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea.Id);
+
+                return pazienteak
+                    .OrderBy(p => p.Abizenak)
+                    .ThenBy(p => p.Izena)
+                    .ToList();
+            }
+
+            return _erabiltzaileKontrolatzailea
+                .LortuGuztiakPazienteak()
+                .OrderBy(p => p.Abizenak)
+                .ThenBy(p => p.Izena)
+                .ToList();
+        }
+
+        private void AplikatuHasierakoGrafikaKarga(HasierakoGrafikaKargaEmaitza emaitza)
+        {
+            _pazienteGuztiak.Clear();
+            _pazienteGuztiak.AddRange(emaitza.Pazienteak);
+
+            bool pazienteBakarrik = _erabiltzailea?.DaPazientea() == true;
+            txtPazienteBilatu.Visible = !pazienteBakarrik;
+            lblPazienteBilatu.Visible = !pazienteBakarrik;
+            cmbPazienteak.Enabled = !pazienteBakarrik;
+            chkPazienteGuztiak.Visible = _erabiltzailea?.DaOsasunLangilea() == true;
+            chkPazienteGuztiak.Enabled = _erabiltzailea?.DaOsasunLangilea() == true;
+
+            cmbPazienteak.DataSource = null;
+            cmbPazienteak.DisplayMember = nameof(Pazientea.IzenOsoa);
+            cmbPazienteak.ValueMember = nameof(Pazientea.Id);
+            cmbPazienteak.DataSource = emaitza.Pazienteak;
+
+            if (emaitza.Pazienteak.Count == 0)
+            {
+                lblEgoera.Text = "Ez da pazienterik aurkitu emandako bilaketarekin.";
+                lblPazienteDatuak.Text = "Pazientea: -";
+                GarbituGrafikoa();
+                return;
+            }
+
+            int indizea = emaitza.HautatutakoPazienteId.HasValue
+                ? emaitza.Pazienteak.FindIndex(pazientea => pazientea.Id == emaitza.HautatutakoPazienteId.Value)
+                : -1;
+
+            cmbPazienteak.SelectedIndex = indizea >= 0 ? indizea : 0;
+
+            if (cmbPazienteak.SelectedItem is Pazientea pazientea)
+            {
+                EguneratuPazienteInfoa(pazientea);
+                AplikatuHasierakoDataTartea(emaitza.LehenJarraipenData);
+            }
+        }
+
+        private void AplikatuHasierakoDataTartea(DateTime? lehenJarraipenData)
+        {
+            if (!lehenJarraipenData.HasValue)
+            {
+                return;
+            }
+
+            _dataTarteaEguneratzen = true;
+            try
+            {
+                DateTime gaur = DateTime.Today;
+                DateTime lehenengoa = lehenJarraipenData.Value.Date;
+                dtpHasiera.MinDate = lehenengoa;
+                dtpAmaiera.MinDate = lehenengoa;
+                dtpHasiera.MaxDate = gaur;
+                dtpAmaiera.MaxDate = gaur;
+                dtpHasiera.Value = lehenengoa;
+                dtpAmaiera.Value = MugatuDataTartean(dtpAmaiera, gaur);
+            }
+            finally
+            {
+                _dataTarteaEguneratzen = false;
+            }
         }
 
         private void KargatuPazienteak()

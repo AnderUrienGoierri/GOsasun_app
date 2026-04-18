@@ -39,12 +39,10 @@ namespace GOsasun_app.Interfazea
             _edukiPanela.Controls.Add(lblBilatuPazientea);
             _edukiPanela.Controls.Add(calEgutegia);
             _edukiPanela.Controls.Add(lblIzenburua);
-            _edukiPanela.Location = new Point(0, 310);
-            _edukiPanela.Size = new Size(1902, 745);
+            _edukiPanela.Size = new Size(1902, 874);
             // 
             // _goiburuBarra
             // 
-            _goiburuBarra.Size = new Size(1902, 310);
             _goiburuBarra.Paint += _goiburuBarra_Paint;
             // 
             // _atzeraBotoia
@@ -65,7 +63,7 @@ namespace GOsasun_app.Interfazea
             // 
             // calEgutegia
             // 
-            calEgutegia.Location = new Point(153, 150);
+            calEgutegia.Location = new Point(41, 249);
             calEgutegia.Name = "calEgutegia";
             calEgutegia.TabIndex = 3;
             // 
@@ -89,9 +87,9 @@ namespace GOsasun_app.Interfazea
             btnGuztiak.FlatStyle = FlatStyle.Flat;
             btnGuztiak.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             btnGuztiak.ForeColor = Color.FromArgb(43, 71, 92);
-            btnGuztiak.Location = new Point(34, 810);
+            btnGuztiak.Location = new Point(40, 468);
             btnGuztiak.Name = "btnGuztiak";
-            btnGuztiak.Size = new Size(325, 86);
+            btnGuztiak.Size = new Size(253, 48);
             btnGuztiak.TabIndex = 7;
             btnGuztiak.Text = "Erakutsi Guztiak";
             btnGuztiak.UseVisualStyleBackColor = false;
@@ -102,7 +100,7 @@ namespace GOsasun_app.Interfazea
             lblBilatuPazientea.AutoSize = true;
             lblBilatuPazientea.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblBilatuPazientea.ForeColor = Color.FromArgb(44, 62, 80);
-            lblBilatuPazientea.Location = new Point(34, 501);
+            lblBilatuPazientea.Location = new Point(40, 157);
             lblBilatuPazientea.Name = "lblBilatuPazientea";
             lblBilatuPazientea.Size = new Size(210, 23);
             lblBilatuPazientea.TabIndex = 8;
@@ -111,7 +109,7 @@ namespace GOsasun_app.Interfazea
             // txtPazienteBilatu
             // 
             txtPazienteBilatu.Font = new Font("Segoe UI", 10F);
-            txtPazienteBilatu.Location = new Point(34, 548);
+            txtPazienteBilatu.Location = new Point(40, 181);
             txtPazienteBilatu.Name = "txtPazienteBilatu";
             txtPazienteBilatu.PlaceholderText = "Abizena, izena edo NAN/DNI";
             txtPazienteBilatu.Size = new Size(325, 30);
@@ -122,7 +120,7 @@ namespace GOsasun_app.Interfazea
             chkPazienteGuztiak.AutoSize = true;
             chkPazienteGuztiak.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             chkPazienteGuztiak.ForeColor = Color.FromArgb(44, 62, 80);
-            chkPazienteGuztiak.Location = new Point(40, 617);
+            chkPazienteGuztiak.Location = new Point(41, 213);
             chkPazienteGuztiak.Name = "chkPazienteGuztiak";
             chkPazienteGuztiak.Size = new Size(159, 25);
             chkPazienteGuztiak.TabIndex = 10;

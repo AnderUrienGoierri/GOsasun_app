@@ -86,7 +86,7 @@ namespace GOsasun_app.Interfazea
             pnlIragazkiak.Controls.Add(btnGrafikoaErakutsi);
             pnlIragazkiak.Location = new Point(94, 114);
             pnlIragazkiak.Name = "pnlIragazkiak";
-            pnlIragazkiak.Size = new Size(1714, 82);
+            pnlIragazkiak.Size = new Size(1714, 67);
             pnlIragazkiak.TabIndex = 1;
             // 
             // lblPazienteBilatu
@@ -221,9 +221,9 @@ namespace GOsasun_app.Interfazea
             // 
             lblEgoera.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblEgoera.ForeColor = Color.White;
-            lblEgoera.Location = new Point(94, 80);
+            lblEgoera.Location = new Point(94, 85);
             lblEgoera.Name = "lblEgoera";
-            lblEgoera.Size = new Size(1714, 36);
+            lblEgoera.Size = new Size(1714, 31);
             lblEgoera.TabIndex = 3;
             lblEgoera.Text = "-";
             // 
@@ -231,9 +231,9 @@ namespace GOsasun_app.Interfazea
             // 
             lblPazienteDatuak.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblPazienteDatuak.ForeColor = Color.White;
-            lblPazienteDatuak.Location = new Point(94, 199);
+            lblPazienteDatuak.Location = new Point(95, 180);
             lblPazienteDatuak.Name = "lblPazienteDatuak";
-            lblPazienteDatuak.Size = new Size(580, 36);
+            lblPazienteDatuak.Size = new Size(580, 31);
             lblPazienteDatuak.TabIndex = 2;
             lblPazienteDatuak.Text = "Pazientea: -";
             // 
@@ -241,9 +241,9 @@ namespace GOsasun_app.Interfazea
             // 
             lblAzalpena.Font = new Font("Segoe UI", 9.5F);
             lblAzalpena.ForeColor = Color.WhiteSmoke;
-            lblAzalpena.Location = new Point(680, 199);
+            lblAzalpena.Location = new Point(668, 180);
             lblAzalpena.Name = "lblAzalpena";
-            lblAzalpena.Size = new Size(653, 36);
+            lblAzalpena.Size = new Size(653, 31);
             lblAzalpena.TabIndex = 4;
             lblAzalpena.Text = "-";
             lblAzalpena.Click += lblAzalpena_Click;
@@ -252,7 +252,7 @@ namespace GOsasun_app.Interfazea
             // 
             pnlGrafikoa.BackColor = Color.White;
             pnlGrafikoa.BorderStyle = BorderStyle.FixedSingle;
-            pnlGrafikoa.Location = new Point(94, 233);
+            pnlGrafikoa.Location = new Point(94, 212);
             pnlGrafikoa.Name = "pnlGrafikoa";
             pnlGrafikoa.Size = new Size(1714, 719);
             pnlGrafikoa.TabIndex = 5;

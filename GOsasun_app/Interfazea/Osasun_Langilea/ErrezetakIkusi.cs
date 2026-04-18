@@ -83,7 +83,8 @@ namespace GOsasun_app.Interfazea
 
             if (aurkitua != null && aurkitua.Botikak != null && aurkitua.Botikak.Count > 0)
             {
-                bsBotikak.DataSource = aurkitua.Botikak.Select(b => new {
+                bsBotikak.DataSource = aurkitua.Botikak.Select(b => new
+                {
                     Botika = b.BotikaIzena,
                     b.Dosia,
                     b.Maiztasuna
@@ -164,7 +165,8 @@ namespace GOsasun_app.Interfazea
 
             if (iragazita.Count > 0)
             {
-                var dtoList = iragazita.Select(e => new ErrezetaGridItem {
+                var dtoList = iragazita.Select(e => new ErrezetaGridItem
+                {
                     ErrezetaId = e.ErrezetaId,
                     Pazientea = e.PazienteIzenOsoa,
                     NAN = e.PazienteNan,
@@ -237,12 +239,12 @@ namespace GOsasun_app.Interfazea
                 int id = Convert.ToInt32(cellValue);
 
                 var result = MessageBox.Show(
-                    "Ziur zaude errezeta hau eta lotutako botikak ezabatu nahi dituzula?", 
+                    "Ziur zaude errezeta hau eta lotutako botikak ezabatu nahi dituzula?",
                     "Ezabatu", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
-                    if(errezetaDB.EzabatuErrezeta(id))
+                    if (errezetaDB.EzabatuErrezeta(id))
                     {
                         MessageBox.Show("Errezeta ongi ezabatu da.");
                         KargatuDatuak();
@@ -257,6 +259,11 @@ namespace GOsasun_app.Interfazea
             {
                 MessageBox.Show($"Errorea ezabatzean: {ex.Message}", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void txtBilatuPaz_TextChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

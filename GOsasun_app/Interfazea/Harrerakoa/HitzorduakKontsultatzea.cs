@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using GOsasun_app.Interfazea.Kontrolak;
 using GOsasun_app.Kontrola;
@@ -13,6 +14,8 @@ namespace GOsasun_app.Interfazea
         private readonly HitzorduKontrolatzailea _kontrolatzailea;
         private List<Hitzordua> _hitzorduGuztiak = new List<Hitzordua>();
         private bool _dataIragazkiaAldiBaterakoKendu;
+        private bool _hasierakoDatuakKargatuta;
+        private bool _hasierakoDatuakKargatzen;
 
         public HitzorduakKontsultatzea(Erabiltzailea erabiltzailea) : base(erabiltzailea)
         {
@@ -20,12 +23,24 @@ namespace GOsasun_app.Interfazea
             _kontrolatzailea = new HitzorduKontrolatzailea();
 
             KonfiguratuTaula();
-            KargatuDatuak();
 
             calEgutegia.DateChanged += CalEgutegia_DateChanged;
             btnGuztiak.Click += BtnGuztiak_Click;
             txtPazienteBilatu.TextChanged += TxtPazienteBilatu_TextChanged;
             chkPazienteGuztiak.CheckedChanged += ChkPazienteGuztiak_CheckedChanged;
+        }
+
+        protected override async void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+
+            if (_hasierakoDatuakKargatuta || _hasierakoDatuakKargatzen || DiseinuModuan())
+            {
+                return;
+            }
+
+            await Task.Yield();
+            await KargatuHasierakoDatuakAsync();
         }
 
         private void KonfiguratuTaula()
@@ -108,24 +123,84 @@ namespace GOsasun_app.Interfazea
         {
             try
             {
-                if (_erabiltzailea is OsasunLangilea m)
-                {
-                    _hitzorduGuztiak = chkPazienteGuztiak.Checked
-                        ? _kontrolatzailea.LortuHitzorduGuztiak()
-                        : _kontrolatzailea.LortuOsasunLangilearenHitzorduak(m.Id);
-                }
-                else if (_erabiltzailea is Pazientea p)
-                {
-                    _hitzorduGuztiak = _kontrolatzailea.LortuPazientearenHitzorduak(p.Id);
-                }
-
-                HasieratuEgutegia();
-                AplikatuIragazkiak();
+                bool pazienteGuztiak = chkPazienteGuztiak.Checked;
+                List<Hitzordua> hitzorduak = LortuHitzorduak(pazienteGuztiak);
+                AplikatuHitzorduak(hitzorduak);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Errorea hitzorduak kargatzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private async Task KargatuHasierakoDatuakAsync()
+        {
+            _hasierakoDatuakKargatzen = true;
+            EzarriHasierakoKargaEgoera(true);
+
+            try
+            {
+                bool pazienteGuztiak = chkPazienteGuztiak.Checked;
+                List<Hitzordua> hitzorduak = await Task.Run(() => LortuHitzorduak(pazienteGuztiak));
+
+                if (IsDisposed)
+                {
+                    return;
+                }
+
+                AplikatuHitzorduak(hitzorduak);
+                _hasierakoDatuakKargatuta = true;
+            }
+            catch (Exception ex)
+            {
+                if (!IsDisposed)
+                {
+                    MessageBox.Show("Errorea hitzorduak kargatzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            finally
+            {
+                _hasierakoDatuakKargatzen = false;
+                if (!IsDisposed)
+                {
+                    EzarriHasierakoKargaEgoera(false);
+                }
+            }
+        }
+
+        private void EzarriHasierakoKargaEgoera(bool kargatzen)
+        {
+            UseWaitCursor = kargatzen;
+            Cursor = kargatzen ? Cursors.WaitCursor : Cursors.Default;
+            dgvHitzorduak.Enabled = !kargatzen;
+            calEgutegia.Enabled = !kargatzen;
+            btnGuztiak.Enabled = !kargatzen;
+            txtPazienteBilatu.Enabled = !kargatzen;
+            chkPazienteGuztiak.Enabled = !kargatzen;
+        }
+
+        private List<Hitzordua> LortuHitzorduak(bool pazienteGuztiak)
+        {
+            if (_erabiltzailea is OsasunLangilea m)
+            {
+                return pazienteGuztiak
+                    ? _kontrolatzailea.LortuHitzorduGuztiak()
+                    : _kontrolatzailea.LortuOsasunLangilearenHitzorduak(m.Id);
+            }
+
+            if (_erabiltzailea is Pazientea p)
+            {
+                return _kontrolatzailea.LortuPazientearenHitzorduak(p.Id);
+            }
+
+            return new List<Hitzordua>();
+        }
+
+        private void AplikatuHitzorduak(List<Hitzordua> hitzorduak)
+        {
+            _hitzorduGuztiak = hitzorduak;
+            HasieratuEgutegia();
+            AplikatuIragazkiak();
         }
 
         private void HasieratuEgutegia()

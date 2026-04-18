@@ -2,6 +2,7 @@ using GOsasun_app.Kontrola;
 using GOsasun_app.Kontrola.Zerbitzuak;
 using GOsasun_app.Modeloa;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace GOsasun_app.Interfazea
 {
@@ -23,8 +24,17 @@ namespace GOsasun_app.Interfazea
         private Image? _ikusiIkonoa;
         private Image? _editatuIkonoa;
         private Image? _ezabatuIkonoa;
+        private bool _hasierakoDatuakKargatuta;
+        private bool _hasierakoDatuakKargatzen;
         private string _azkenOrdenazioZutabea = "IgotzeData";
         private bool _ordenazioGorakorra;
+
+        private sealed class DokumentuKargaEmaitza
+        {
+            public required List<Dokumentua> OrdenatutakoDokumentuak { get; init; }
+            public required List<Dokumentua> BistaratzekoDokumentuak { get; init; }
+            public required string EgoeraTestua { get; init; }
+        }
 
         public Dokumentuak()
             : base()
@@ -38,7 +48,18 @@ namespace GOsasun_app.Interfazea
         {
             InitializeComponent();
             HasieratuPantaila();
-            KargatuDokumentuak();
+        }
+
+        protected override async void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+
+            if (_hasierakoDatuakKargatuta || _hasierakoDatuakKargatzen || DiseinuModuan())
+            {
+                return;
+            }
+
+            await KargatuHasierakoDatuakAsync();
         }
 
         private void HasieratuPantaila()
@@ -79,6 +100,59 @@ namespace GOsasun_app.Interfazea
             iragazkiPanela.BringToFront();
             _osasunTxostenaSortuBotoia.BringToFront();
             _dokumentuBerriaBotoia.BringToFront();
+            _egoeraLabel.Text = "Dokumentuak kargatzen...";
+        }
+
+        private async Task KargatuHasierakoDatuakAsync()
+        {
+            _hasierakoDatuakKargatzen = true;
+            EzarriHasierakoKargaEgoera(true);
+
+            try
+            {
+                await KargatuDokumentuakAsync();
+                _hasierakoDatuakKargatuta = true;
+            }
+            catch (Exception ex)
+            {
+                if (!IsDisposed)
+                {
+                    MessageBox.Show(
+                        "Ezin izan da dokumentuen hasierako informazioa kargatu: " + ex.Message,
+                        "Errorea",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+            finally
+            {
+                _hasierakoDatuakKargatzen = false;
+                if (!IsDisposed)
+                {
+                    EzarriHasierakoKargaEgoera(false);
+                }
+            }
+        }
+
+        private void EzarriHasierakoKargaEgoera(bool kargatzen)
+        {
+            UseWaitCursor = kargatzen;
+            Cursor = kargatzen ? Cursors.WaitCursor : Cursors.Default;
+            _dokumentuakGrid.Visible = !kargatzen;
+            _dokumentuakGrid.Enabled = !kargatzen;
+            _bilaketaTextBox.Enabled = !kargatzen;
+            _hasieraDataPicker.Enabled = !kargatzen;
+            _amaieraDataPicker.Enabled = !kargatzen;
+            _bilatuBotoia.Enabled = !kargatzen;
+            _garbituBotoia.Enabled = !kargatzen;
+            _jarraipenGuztiakCheckBox.Enabled = !kargatzen;
+            _osasunTxostenaSortuBotoia.Enabled = !kargatzen;
+            _dokumentuBerriaBotoia.Enabled = !kargatzen;
+
+            if (kargatzen)
+            {
+                _egoeraLabel.Text = "Dokumentuak kargatzen...";
+            }
         }
 
         private void EzarriFormularioZabalera()
@@ -198,32 +272,82 @@ namespace GOsasun_app.Interfazea
             string? bilaketa = string.IsNullOrWhiteSpace(_bilaketaTextBox.Text) ? null : _bilaketaTextBox.Text.Trim();
             int? pazienteId = DaPazientea() ? _erabiltzailea?.Id : null;
             (DateTime? hasieraData, DateTime? amaieraData) = LortuDataTartea();
+            bool dokumentuGuztiakErakutsi = DaPazientea() || _jarraipenGuztiakCheckBox.Checked;
 
+            DokumentuKargaEmaitza emaitza = PrestatuDokumentuKarga(
+                bilaketa,
+                pazienteId,
+                hasieraData,
+                amaieraData,
+                dokumentuGuztiakErakutsi);
+
+            AplikatuDokumentuKargaEmaitza(emaitza);
+        }
+
+        private async Task KargatuDokumentuakAsync()
+        {
+            string? bilaketa = string.IsNullOrWhiteSpace(_bilaketaTextBox.Text) ? null : _bilaketaTextBox.Text.Trim();
+            int? pazienteId = DaPazientea() ? _erabiltzailea?.Id : null;
+            (DateTime? hasieraData, DateTime? amaieraData) = LortuDataTartea();
+            bool dokumentuGuztiakErakutsi = DaPazientea() || _jarraipenGuztiakCheckBox.Checked;
+
+            DokumentuKargaEmaitza emaitza = await Task.Run(() => PrestatuDokumentuKarga(
+                bilaketa,
+                pazienteId,
+                hasieraData,
+                amaieraData,
+                dokumentuGuztiakErakutsi));
+
+            if (IsDisposed)
+            {
+                return;
+            }
+
+            AplikatuDokumentuKargaEmaitza(emaitza);
+        }
+
+        private DokumentuKargaEmaitza PrestatuDokumentuKarga(
+            string? bilaketa,
+            int? pazienteId,
+            DateTime? hasieraData,
+            DateTime? amaieraData,
+            bool dokumentuGuztiakErakutsi)
+        {
             List<Dokumentua> dokumentuak = _dokumentuaKontrolatzailea
                 .LortuDokumentuak(bilaketa, pazienteId: pazienteId)
                 .Where(dokumentua => DataTarteanDago(dokumentua.IgotzeData, hasieraData, amaieraData))
                 .ToList();
 
             List<Dokumentua> ordenatutakoDokumentuak = AplikatuOrdenazioa(dokumentuak);
-            bool dokumentuGuztiakErakutsi = DaPazientea() || _jarraipenGuztiakCheckBox.Checked;
             List<Dokumentua> bistaratzekoDokumentuak = dokumentuGuztiakErakutsi
                 ? ordenatutakoDokumentuak
                 : ordenatutakoDokumentuak.Take(GehienezkoErregistroDefektuz).ToList();
 
-            _dokumentuak.Clear();
-            _dokumentuak.AddRange(bistaratzekoDokumentuak);
-            _bindingSource.DataSource = null;
-            _bindingSource.DataSource = _dokumentuak.ToList();
-            EzarriOrdenazioIkurra();
-
             int guztira = ordenatutakoDokumentuak.Count;
-            _egoeraLabel.Text = guztira == 0
+            string egoeraTestua = guztira == 0
                 ? "Ez da dokumenturik aurkitu."
                 : guztira == 1
                     ? "Dokumentu 1 aurkitu da."
                     : dokumentuGuztiakErakutsi || guztira <= GehienezkoErregistroDefektuz
                         ? $"{guztira} dokumentu aurkitu dira."
-                        : $"{_dokumentuak.Count} dokumentu erakusten dira lehenetsita ({guztira} guztira).";
+                        : $"{bistaratzekoDokumentuak.Count} dokumentu erakusten dira lehenetsita ({guztira} guztira).";
+
+            return new DokumentuKargaEmaitza
+            {
+                OrdenatutakoDokumentuak = ordenatutakoDokumentuak,
+                BistaratzekoDokumentuak = bistaratzekoDokumentuak,
+                EgoeraTestua = egoeraTestua
+            };
+        }
+
+        private void AplikatuDokumentuKargaEmaitza(DokumentuKargaEmaitza emaitza)
+        {
+            _dokumentuak.Clear();
+            _dokumentuak.AddRange(emaitza.BistaratzekoDokumentuak);
+            _bindingSource.DataSource = null;
+            _bindingSource.DataSource = _dokumentuak.ToList();
+            EzarriOrdenazioIkurra();
+            _egoeraLabel.Text = emaitza.EgoeraTestua;
         }
 
         private void GarbituIragazkia()

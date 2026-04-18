@@ -245,6 +245,12 @@ namespace GOsasun_app.Interfazea
                 return;
             }
 
+            if (saskia.Count == 0)
+            {
+                MessageBox.Show("Gutxienez botika bat gehitu behar duzu errezeta gorde aurretik.", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             int index = dgvPazienteak.SelectedRows[0].Index;
             var paz = pazienteak[index];
 
@@ -270,7 +276,7 @@ namespace GOsasun_app.Interfazea
             bool emaitza = errezetaDB.SortuErrezeta(berria);
             if (emaitza)
             {
-                MessageBox.Show("Errezeta zuzen sortu da. Datu-basean botikak gorde dira.", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Errezeta berria ondo gorde da aukeratutako pazientearentzat.", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtDiagnostikoa.Clear();
                 dtpIraungitzeData.Value = DateTime.Now.AddMonths(1);
                 saskia.Clear();

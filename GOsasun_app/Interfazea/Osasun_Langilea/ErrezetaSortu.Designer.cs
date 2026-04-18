@@ -74,7 +74,7 @@ namespace GOsasun_app.Interfazea
             lblIzenburua.Size = new Size(1898, 128);
             lblIzenburua.TabIndex = 0;
             lblIzenburua.Text = "ERREZETA BERRIA SORTU";
-            lblIzenburua.TextAlign = ContentAlignment.MiddleCenter;
+            lblIzenburua.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // pnlEzkerra
             // 
@@ -98,14 +98,14 @@ namespace GOsasun_app.Interfazea
             dgvPazienteak.BackgroundColor = Color.White;
             dgvPazienteak.ColumnHeadersHeight = 46;
             dgvPazienteak.Dock = DockStyle.Fill;
-            dgvPazienteak.Location = new Point(10, 110);
+            dgvPazienteak.Location = new Point(10, 155);
             dgvPazienteak.MultiSelect = false;
             dgvPazienteak.Name = "dgvPazienteak";
             dgvPazienteak.ReadOnly = true;
             dgvPazienteak.RowHeadersVisible = false;
             dgvPazienteak.RowHeadersWidth = 82;
             dgvPazienteak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPazienteak.Size = new Size(426, 578);
+            dgvPazienteak.Size = new Size(426, 577);
             dgvPazienteak.TabIndex = 0;
             // 
             // chkPazienteGuztiak
@@ -118,7 +118,7 @@ namespace GOsasun_app.Interfazea
             chkPazienteGuztiak.Margin = new Padding(0, 8, 0, 8);
             chkPazienteGuztiak.Name = "chkPazienteGuztiak";
             chkPazienteGuztiak.Padding = new Padding(0, 6, 0, 12);
-            chkPazienteGuztiak.Size = new Size(426, 57);
+            chkPazienteGuztiak.Size = new Size(426, 45);
             chkPazienteGuztiak.TabIndex = 3;
             chkPazienteGuztiak.Text = "Paziente guztiak";
             chkPazienteGuztiak.UseVisualStyleBackColor = true;
@@ -166,15 +166,16 @@ namespace GOsasun_app.Interfazea
             // 
             // btnSortuErrezeta
             // 
+            btnSortuErrezeta.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnSortuErrezeta.BackColor = Color.FromArgb(52, 152, 219);
             btnSortuErrezeta.FlatStyle = FlatStyle.Flat;
             btnSortuErrezeta.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             btnSortuErrezeta.ForeColor = Color.White;
-            btnSortuErrezeta.Location = new Point(36, 867);
+            btnSortuErrezeta.Location = new Point(6, 642);
             btnSortuErrezeta.Name = "btnSortuErrezeta";
-            btnSortuErrezeta.Size = new Size(680, 97);
+            btnSortuErrezeta.Size = new Size(420, 60);
             btnSortuErrezeta.TabIndex = 0;
-            btnSortuErrezeta.Text = "ERREZETA SORTU ETA GORDE";
+            btnSortuErrezeta.Text = "GORDE ERREZETA";
             btnSortuErrezeta.UseVisualStyleBackColor = false;
             // 
             // grpBotikak
@@ -191,9 +192,9 @@ namespace GOsasun_app.Interfazea
             grpBotikak.Controls.Add(btnKenduBotika);
             grpBotikak.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             grpBotikak.ForeColor = Color.White;
-            grpBotikak.Location = new Point(36, 158);
+            grpBotikak.Location = new Point(6, 136);
             grpBotikak.Name = "grpBotikak";
-            grpBotikak.Size = new Size(1340, 670);
+            grpBotikak.Size = new Size(1347, 500);
             grpBotikak.TabIndex = 1;
             grpBotikak.TabStop = false;
             grpBotikak.Text = "3. Botikak Gehitu";
@@ -251,7 +252,7 @@ namespace GOsasun_app.Interfazea
             btnGehituBotika.BackColor = Color.FromArgb(46, 204, 113);
             btnGehituBotika.FlatStyle = FlatStyle.Flat;
             btnGehituBotika.ForeColor = Color.White;
-            btnGehituBotika.Location = new Point(1109, 49);
+            btnGehituBotika.Location = new Point(1104, 43);
             btnGehituBotika.Name = "btnGehituBotika";
             btnGehituBotika.Size = new Size(207, 50);
             btnGehituBotika.TabIndex = 6;
@@ -272,7 +273,7 @@ namespace GOsasun_app.Interfazea
             dgvBotikak.RowHeadersVisible = false;
             dgvBotikak.RowHeadersWidth = 82;
             dgvBotikak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvBotikak.Size = new Size(1310, 354);
+            dgvBotikak.Size = new Size(1310, 258);
             dgvBotikak.TabIndex = 7;
             // 
             // btnKenduBotika
@@ -280,9 +281,9 @@ namespace GOsasun_app.Interfazea
             btnKenduBotika.BackColor = Color.FromArgb(231, 76, 60);
             btnKenduBotika.FlatStyle = FlatStyle.Flat;
             btnKenduBotika.ForeColor = Color.White;
-            btnKenduBotika.Location = new Point(1002, 505);
+            btnKenduBotika.Location = new Point(1104, 99);
             btnKenduBotika.Name = "btnKenduBotika";
-            btnKenduBotika.Size = new Size(314, 59);
+            btnKenduBotika.Size = new Size(207, 37);
             btnKenduBotika.TabIndex = 8;
             btnKenduBotika.Text = "Aukeratua Kendu";
             btnKenduBotika.UseVisualStyleBackColor = false;
@@ -291,7 +292,7 @@ namespace GOsasun_app.Interfazea
             // 
             dtpIraungitzeData.Font = new Font("Segoe UI", 12F);
             dtpIraungitzeData.Format = DateTimePickerFormat.Short;
-            dtpIraungitzeData.Location = new Point(860, 124);
+            dtpIraungitzeData.Location = new Point(860, 84);
             dtpIraungitzeData.Name = "dtpIraungitzeData";
             dtpIraungitzeData.Size = new Size(224, 34);
             dtpIraungitzeData.TabIndex = 2;
@@ -300,7 +301,7 @@ namespace GOsasun_app.Interfazea
             // 
             lblIraungitzeData.Font = new Font("Segoe UI", 12F);
             lblIraungitzeData.ForeColor = Color.White;
-            lblIraungitzeData.Location = new Point(860, 71);
+            lblIraungitzeData.Location = new Point(860, 48);
             lblIraungitzeData.Name = "lblIraungitzeData";
             lblIraungitzeData.Size = new Size(210, 50);
             lblIraungitzeData.TabIndex = 3;
@@ -309,7 +310,7 @@ namespace GOsasun_app.Interfazea
             // txtDiagnostikoa
             // 
             txtDiagnostikoa.Font = new Font("Segoe UI", 12F);
-            txtDiagnostikoa.Location = new Point(166, 118);
+            txtDiagnostikoa.Location = new Point(166, 86);
             txtDiagnostikoa.Name = "txtDiagnostikoa";
             txtDiagnostikoa.Size = new Size(530, 34);
             txtDiagnostikoa.TabIndex = 4;
@@ -318,7 +319,7 @@ namespace GOsasun_app.Interfazea
             // 
             lblDiagnostikoa.Font = new Font("Segoe UI", 12F);
             lblDiagnostikoa.ForeColor = Color.White;
-            lblDiagnostikoa.Location = new Point(160, 76);
+            lblDiagnostikoa.Location = new Point(160, 53);
             lblDiagnostikoa.Name = "lblDiagnostikoa";
             lblDiagnostikoa.Size = new Size(250, 64);
             lblDiagnostikoa.TabIndex = 5;
