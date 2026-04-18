@@ -11,7 +11,6 @@ using GOsasun_app.Kontrola;
 using GOsasun_app.Kontrola.Zerbitzuak;
 using GOsasun_app.Modeloa;
 using System.ComponentModel;
-using System.Drawing.Drawing2D;
 using Svg;
 
 namespace GOsasun_app.Interfazea
@@ -92,15 +91,12 @@ namespace GOsasun_app.Interfazea
             KonfiguratuEdukiPanela(_edukiPanela);
         }
 
-        private void KonfiguratuEdukiPanela(Panel panela)
+        private void KonfiguratuEdukiPanela(PortadaPanela panela)
         {
             panela.Dock = DockStyle.Fill;
             panela.AutoScroll = true;
             panela.BackColor = PortadaAtzekoKolorea;
-            panela.Paint -= EdukiPanela_Paint; 
-            panela.Paint += EdukiPanela_Paint;
-            panela.Resize -= EdukiPanela_Resize;
-            panela.Resize += EdukiPanela_Resize;
+            panela.AtzekoKolorea = PortadaAtzekoKolorea;
             // Padding manualki kudeatuko dugu elementuen X,Y bitartez diseinatzailean
         }
 
@@ -119,7 +115,7 @@ namespace GOsasun_app.Interfazea
                 this.BackgroundImage = null;
                 if (_edukiPanela != null)
                 {
-                    _edukiPanela.BackgroundImage = null;
+                    _edukiPanela.AtzekoPlanoaIrudia = _atzekoPlanoaIrudia;
                     _edukiPanela.Invalidate();
                 }
 
@@ -135,7 +131,7 @@ namespace GOsasun_app.Interfazea
                 this.BackColor = PortadaAtzekoKolorea;
                 if (_edukiPanela != null)
                 {
-                    _edukiPanela.BackgroundImage = null;
+                    _edukiPanela.AtzekoPlanoaIrudia = null;
                     _edukiPanela.Invalidate();
                 }
                 this.ClientSize = OinarriPantailaTamaina;
@@ -180,6 +176,8 @@ namespace GOsasun_app.Interfazea
                 int goiburuBehea = _goiburuBarra?.Bottom ?? 0;
                 _edukiPanela.Location = new Point(0, goiburuBehea);
                 _edukiPanela.Size = new Size(helmugaTamaina.Width, helmugaTamaina.Height - goiburuAltuera);
+                _edukiPanela.AtzekoKolorea = PortadaAtzekoKolorea;
+                _edukiPanela.AtzekoPlanoaIrudia = _atzekoPlanoaIrudia;
                 _edukiPanela.Invalidate();
             }
 
@@ -187,40 +185,6 @@ namespace GOsasun_app.Interfazea
             {
                 _atzeraBotoia.BringToFront();
             }
-        }
-
-        private void EdukiPanela_Resize(object? sender, EventArgs e)
-        {
-            _edukiPanela?.Invalidate();
-        }
-
-        private void EdukiPanela_Paint(object? sender, PaintEventArgs e)
-        {
-            if (sender is not Panel panela)
-            {
-                return;
-            }
-
-            e.Graphics.Clear(PortadaAtzekoKolorea);
-
-            if (_atzekoPlanoaIrudia == null)
-            {
-                return;
-            }
-
-            e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
-            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-            float eskala = Math.Max(
-                panela.ClientSize.Width / (float)_atzekoPlanoaIrudia.Width,
-                panela.ClientSize.Height / (float)_atzekoPlanoaIrudia.Height);
-
-            int zabalera = Math.Max(1, (int)Math.Round(_atzekoPlanoaIrudia.Width * eskala));
-            int altuera = Math.Max(1, (int)Math.Round(_atzekoPlanoaIrudia.Height * eskala));
-            int x = (panela.ClientSize.Width - zabalera) / 2;
-            int y = (panela.ClientSize.Height - altuera) / 2;
-            e.Graphics.DrawImage(_atzekoPlanoaIrudia, x, y, zabalera, altuera);
         }
 
         private static string? BilatuPortadaBidea()

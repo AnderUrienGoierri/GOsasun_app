@@ -44,8 +44,8 @@ namespace GOsasun_app.Interfazea
                 {
                     DataPropertyName = "PazienteIzenOsoa",
                     HeaderText = "Pazientea",
-                    FillWeight = 26,
-                    MinimumWidth = 190
+                    FillWeight = 19,
+                    MinimumWidth = 150
                 });
             }
             else
@@ -54,8 +54,8 @@ namespace GOsasun_app.Interfazea
                 {
                     DataPropertyName = "OsasunLangileIzenOsoa",
                     HeaderText = "Osasun langilea",
-                    FillWeight = 26,
-                    MinimumWidth = 190
+                    FillWeight = 19,
+                    MinimumWidth = 150
                 });
             }
 
@@ -63,39 +63,39 @@ namespace GOsasun_app.Interfazea
             {
                 DataPropertyName = "Data",
                 HeaderText = "Data",
-                FillWeight = 13,
-                MinimumWidth = 110,
+                FillWeight = 9,
+                MinimumWidth = 90,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "yyyy-MM-dd" }
             });
             dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "HasieraOrdua",
                 HeaderText = "Hasiera",
-                FillWeight = 10,
-                MinimumWidth = 90,
+                FillWeight = 8,
+                MinimumWidth = 80,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = @"hh\:mm" }
             });
             dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "BukaeraOrdua",
                 HeaderText = "Bukaera",
-                FillWeight = 10,
-                MinimumWidth = 90,
+                FillWeight = 8,
+                MinimumWidth = 80,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = @"hh\:mm", NullValue = "-" }
             });
             dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Arrazoia",
                 HeaderText = "Arrazoia",
-                FillWeight = 27,
+                FillWeight = 40,
                 MinimumWidth = 180
             });
             dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Egoera",
                 HeaderText = "Egoera",
-                FillWeight = 14,
-                MinimumWidth = 105
+                FillWeight = 10,
+                MinimumWidth = 85
             });
 
             bool osasunLangileaDa = _erabiltzailea is OsasunLangilea;

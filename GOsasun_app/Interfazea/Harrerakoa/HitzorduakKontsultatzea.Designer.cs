@@ -79,7 +79,7 @@ namespace GOsasun_app.Interfazea
             dgvHitzorduak.ReadOnly = true;
             dgvHitzorduak.RowHeadersVisible = false;
             dgvHitzorduak.RowHeadersWidth = 82;
-            dgvHitzorduak.Size = new Size(1592, 800);
+            dgvHitzorduak.Size = new Size(1460, 800);
             dgvHitzorduak.TabIndex = 5;
             //
             // btnGuztiak

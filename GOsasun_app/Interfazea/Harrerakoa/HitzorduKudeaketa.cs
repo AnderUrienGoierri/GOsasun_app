@@ -167,11 +167,6 @@ namespace GOsasun_app.Interfazea
             }
         }
 
-        private void _edukiPanela_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void lblBukaera_Click(object sender, EventArgs e)
         {
 

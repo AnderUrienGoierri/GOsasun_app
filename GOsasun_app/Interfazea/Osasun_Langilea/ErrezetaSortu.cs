@@ -65,6 +65,7 @@ namespace GOsasun_app.Interfazea
         private void LoadData()
         {
             txtBilatuPaz.TextChanged += TxtBilatuPaz_TextChanged;
+            chkPazienteGuztiak.CheckedChanged += ChkPazienteGuztiak_CheckedChanged;
             btnGehituBotika.Click += BtnGehituBotika_Click;
             btnKenduBotika.Click += BtnKenduBotika_Click;
             btnSortuErrezeta.Click += BtnSortuErrezeta_Click;
@@ -75,6 +76,10 @@ namespace GOsasun_app.Interfazea
             cmbBotikak.ValueMember = "BotikaId";
 
             dtpIraungitzeData.Value = DateTime.Now.AddMonths(1);
+
+            bool osasunLangileaDa = _erabiltzailea is OsasunLangilea;
+            chkPazienteGuztiak.Visible = osasunLangileaDa;
+            chkPazienteGuztiak.Checked = false;
 
             EguneratuPazienteak("");
             EguneratuSaskia();
@@ -113,10 +118,12 @@ namespace GOsasun_app.Interfazea
         {
             if (_erabiltzailea != null && _erabiltzailea is OsasunLangilea)
             {
-                pazienteak = erabiltzaileDB.LortuLangilearenPazienteak(_erabiltzailea.Id, bilatzailea);
+                pazienteak = chkPazienteGuztiak.Checked
+                    ? erabiltzaileDB.LortuGuztiakPazienteak(bilatzailea)
+                    : erabiltzaileDB.LortuLangilearenPazienteak(_erabiltzailea.Id, bilatzailea);
 
                 // Fallback: If not found in doctor's list (e.g. editing an old prescription), search all patients
-                if (pazienteak.Count == 0 && !string.IsNullOrEmpty(bilatzailea))
+                if (pazienteak.Count == 0 && !string.IsNullOrEmpty(bilatzailea) && !chkPazienteGuztiak.Checked)
                 {
                     var guztiak = erabiltzaileDB.LortuGuztiakPazienteak();
                     var aurkitua = guztiak.FirstOrDefault(p => p.Nan != null && p.Nan.Equals(bilatzailea, StringComparison.OrdinalIgnoreCase));
@@ -150,6 +157,11 @@ namespace GOsasun_app.Interfazea
                     }
                 }
             }
+        }
+
+        private void ChkPazienteGuztiak_CheckedChanged(object? sender, EventArgs e)
+        {
+            EguneratuPazienteak(txtBilatuPaz.Text);
         }
 
         private void BtnGehituBotika_Click(object? sender, EventArgs e)

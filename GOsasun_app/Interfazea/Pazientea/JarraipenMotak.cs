@@ -218,9 +218,5 @@ namespace GOsasun_app.Interfazea
             formularioa.Show();
         }
 
-        private void _edukiPanela_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }

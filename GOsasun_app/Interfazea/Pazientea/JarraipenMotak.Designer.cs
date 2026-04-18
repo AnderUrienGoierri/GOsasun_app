@@ -35,7 +35,6 @@ namespace GOsasun_app.Interfazea
             _edukiPanela.Controls.Add(btnPisua);
             _edukiPanela.Controls.Add(btnAltuera);
             _edukiPanela.Size = new Size(1902, 1153);
-            _edukiPanela.Paint += _edukiPanela_Paint;
             //
             // _atzeraBotoia
             //

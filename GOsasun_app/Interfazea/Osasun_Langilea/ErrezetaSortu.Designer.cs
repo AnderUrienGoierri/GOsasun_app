@@ -20,6 +20,7 @@ namespace GOsasun_app.Interfazea
             lblIzenburua = new Label();
             pnlEzkerra = new Panel();
             dgvPazienteak = new DataGridView();
+            chkPazienteGuztiak = new CheckBox();
             txtBilatuPaz = new TextBox();
             lblPazientea = new Label();
             pnlEskuina = new Panel();
@@ -79,6 +80,7 @@ namespace GOsasun_app.Interfazea
             // 
             pnlEzkerra.BackColor = Color.Transparent;
             pnlEzkerra.Controls.Add(dgvPazienteak);
+            pnlEzkerra.Controls.Add(chkPazienteGuztiak);
             pnlEzkerra.Controls.Add(txtBilatuPaz);
             pnlEzkerra.Controls.Add(lblPazientea);
             pnlEzkerra.Dock = DockStyle.Left;
@@ -103,8 +105,23 @@ namespace GOsasun_app.Interfazea
             dgvPazienteak.RowHeadersVisible = false;
             dgvPazienteak.RowHeadersWidth = 82;
             dgvPazienteak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPazienteak.Size = new Size(426, 622);
+            dgvPazienteak.Size = new Size(426, 578);
             dgvPazienteak.TabIndex = 0;
+            // 
+            // chkPazienteGuztiak
+            // 
+            chkPazienteGuztiak.AutoSize = true;
+            chkPazienteGuztiak.Dock = DockStyle.Top;
+            chkPazienteGuztiak.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            chkPazienteGuztiak.ForeColor = Color.White;
+            chkPazienteGuztiak.Location = new Point(10, 110);
+            chkPazienteGuztiak.Margin = new Padding(0, 8, 0, 8);
+            chkPazienteGuztiak.Name = "chkPazienteGuztiak";
+            chkPazienteGuztiak.Padding = new Padding(0, 6, 0, 12);
+            chkPazienteGuztiak.Size = new Size(426, 57);
+            chkPazienteGuztiak.TabIndex = 3;
+            chkPazienteGuztiak.Text = "Paziente guztiak";
+            chkPazienteGuztiak.UseVisualStyleBackColor = true;
             // 
             // txtBilatuPaz
             // 
@@ -113,7 +130,7 @@ namespace GOsasun_app.Interfazea
             txtBilatuPaz.Location = new Point(10, 76);
             txtBilatuPaz.Margin = new Padding(0, 5, 0, 10);
             txtBilatuPaz.Name = "txtBilatuPaz";
-            txtBilatuPaz.PlaceholderText = "Bilatu...";
+            txtBilatuPaz.PlaceholderText = "Bilatu abizena, izena edo NAN/DNI...";
             txtBilatuPaz.Size = new Size(426, 34);
             txtBilatuPaz.TabIndex = 1;
             // 
@@ -342,6 +359,7 @@ namespace GOsasun_app.Interfazea
         private System.Windows.Forms.Panel pnlEzkerra;
         private System.Windows.Forms.Label lblPazientea;
         private System.Windows.Forms.TextBox txtBilatuPaz;
+        private System.Windows.Forms.CheckBox chkPazienteGuztiak;
         private System.Windows.Forms.DataGridView dgvPazienteak;
         
         private System.Windows.Forms.Panel pnlEskuina;

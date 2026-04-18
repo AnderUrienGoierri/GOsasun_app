@@ -45,7 +45,6 @@ namespace GOsasun_app.Interfazea
             _edukiPanela.Controls.Add(lblAzalpena);
             _edukiPanela.Controls.Add(pnlIragazkiak);
             _edukiPanela.Controls.Add(lblIzenburua);
-            _edukiPanela.Paint += _edukiPanela_Paint;
             // 
             // _atzeraBotoia
             // 

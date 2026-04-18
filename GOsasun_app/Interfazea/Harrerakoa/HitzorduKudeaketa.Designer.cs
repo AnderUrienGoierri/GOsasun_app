@@ -53,7 +53,6 @@ namespace GOsasun_app.Interfazea
             _edukiPanela.Margin = new Padding(6);
             _edukiPanela.Padding = new Padding(4);
             _edukiPanela.Size = new Size(2199, 1299);
-            _edukiPanela.Paint += _edukiPanela_Paint;
             //
             // _goiburuBarra
             //

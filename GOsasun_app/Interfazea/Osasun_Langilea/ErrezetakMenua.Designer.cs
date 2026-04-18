@@ -29,7 +29,6 @@ namespace GOsasun_app.Interfazea
             _edukiPanela.Controls.Add(btnErrezetaSortu);
             _edukiPanela.Controls.Add(btnErrezetakIkusi);
             _edukiPanela.Size = new Size(1902, 874);
-            _edukiPanela.Paint += _edukiPanela_Paint;
             // 
             // _atzeraBotoia
             // 

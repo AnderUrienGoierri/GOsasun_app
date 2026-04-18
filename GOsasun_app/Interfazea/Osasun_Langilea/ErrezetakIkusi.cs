@@ -10,12 +10,12 @@ namespace GOsasun_app.Interfazea
 {
     public partial class ErrezetakIkusi : OinarriPantaila
     {
-        private ErrezetaDB errezetaDB = new ErrezetaDB();
+        private readonly ErrezetaDB errezetaDB = new ErrezetaDB();
         private List<Errezeta> errezetakGuztiak = new List<Errezeta>();
         private DateTime? filtroData = null;
 
-        private BindingSource bsErrezetak = new BindingSource();
-        private BindingSource bsBotikak = new BindingSource();
+        private readonly BindingSource bsErrezetak = new BindingSource();
+        private readonly BindingSource bsBotikak = new BindingSource();
 
         private class ErrezetaGridItem
         {
@@ -30,15 +30,27 @@ namespace GOsasun_app.Interfazea
         public ErrezetakIkusi() : base()
         {
             InitializeComponent();
+            HasieratuPantaila();
         }
 
         public ErrezetakIkusi(Erabiltzailea u) : base(u)
         {
             InitializeComponent();
+            HasieratuPantaila();
+        }
+
+        private void HasieratuPantaila()
+        {
             dgvErrezetak.DataSource = bsErrezetak;
             dgvBotikak.DataSource = bsBotikak;
+            chkPazienteGuztiak.Visible = _erabiltzailea is OsasunLangilea;
+            chkPazienteGuztiak.Checked = false;
             KargatuGertaerak();
-            KargatuDatuak();
+
+            if (_erabiltzailea != null)
+            {
+                KargatuDatuak();
+            }
         }
 
         private void KargatuGertaerak()
@@ -46,6 +58,7 @@ namespace GOsasun_app.Interfazea
             txtBilatuPaz.TextChanged += TxtBilatuPaz_TextChanged;
             mcDataFiltroa.DateSelected += McDataFiltroa_DateSelected;
             btnGarbituFiltroak.Click += BtnGarbituFiltroak_Click;
+            chkPazienteGuztiak.CheckedChanged += ChkPazienteGuztiak_CheckedChanged;
             dgvErrezetak.SelectionChanged += DgvErrezetak_SelectionChanged;
             btnEditatu.Click += BtnEditatu_Click;
             btnEzabatu.Click += BtnEzabatu_Click;
@@ -78,18 +91,36 @@ namespace GOsasun_app.Interfazea
 
                 if (dgvBotikak.Columns.Count > 0)
                 {
-                    dgvBotikak.Columns["Botika"].HeaderText = "Botika";
-                    dgvBotikak.Columns["Dosia"].HeaderText = "Dosia";
-                    dgvBotikak.Columns["Maiztasuna"].HeaderText = "Maiztasuna";
+                    if (dgvBotikak.Columns["Botika"] is DataGridViewColumn botikaZutabea)
+                    {
+                        botikaZutabea.HeaderText = "Botika";
+                    }
+
+                    if (dgvBotikak.Columns["Dosia"] is DataGridViewColumn dosiZutabea)
+                    {
+                        dosiZutabea.HeaderText = "Dosia";
+                    }
+
+                    if (dgvBotikak.Columns["Maiztasuna"] is DataGridViewColumn maiztasunZutabea)
+                    {
+                        maiztasunZutabea.HeaderText = "Maiztasuna";
+                    }
                 }
             }
         }
 
         public void KargatuDatuak()
         {
-            if (_erabiltzailea != null)
+            if (_erabiltzailea is OsasunLangilea osasunLangilea)
             {
-                errezetakGuztiak = errezetaDB.LortuOsasunLangilearenErrezetak(_erabiltzailea.Id);
+                errezetakGuztiak = chkPazienteGuztiak.Checked
+                    ? errezetaDB.LortuErrezetaGuztiak()
+                    : errezetaDB.LortuOsasunLangilearenErrezetak(osasunLangilea.Id);
+                IragaziDatuak();
+            }
+            else if (_erabiltzailea is Pazientea pazientea)
+            {
+                errezetakGuztiak = errezetaDB.LortuPazientearenErrezetak(pazientea.Id);
                 IragaziDatuak();
             }
         }
@@ -117,11 +148,11 @@ namespace GOsasun_app.Interfazea
 
         private void IragaziDatuak()
         {
-            string query = txtBilatuPaz.Text.ToLower();
+            string query = txtBilatuPaz.Text.Trim();
             var iragazita = errezetakGuztiak.Where(e =>
                 (string.IsNullOrEmpty(query) ||
-                (e.PazienteNan != null && e.PazienteNan.ToLower().Contains(query)) ||
-                (e.PazienteIzenOsoa != null && e.PazienteIzenOsoa.ToLower().Contains(query)))
+                BalioaDauka(e.PazienteNan, query) ||
+                BalioaDauka(e.PazienteIzenOsoa, query))
                 &&
                 (!filtroData.HasValue ||
                 e.IgorpenData.Date == filtroData.Value ||
@@ -146,11 +177,25 @@ namespace GOsasun_app.Interfazea
 
                 if (dgvErrezetak.Columns.Count > 0)
                 {
-                    dgvErrezetak.Columns["ErrezetaId"].Visible = false;
+                    if (dgvErrezetak.Columns["ErrezetaId"] is DataGridViewColumn errezetaIdZutabea)
+                    {
+                        errezetaIdZutabea.Visible = false;
+                    }
                 }
             }
 
             EguneratuBotikaGrid();
+        }
+
+        private static bool BalioaDauka(string? testua, string bilaketa)
+        {
+            return !string.IsNullOrWhiteSpace(testua)
+                && testua.Contains(bilaketa, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private void ChkPazienteGuztiak_CheckedChanged(object? sender, EventArgs e)
+        {
+            KargatuDatuak();
         }
 
         private void BtnEditatu_Click(object? sender, EventArgs e)
@@ -163,7 +208,7 @@ namespace GOsasun_app.Interfazea
                     return;
                 }
 
-                var cellValue = dgvErrezetak.SelectedRows[0].Cells["ErrezetaId"].Value;
+                var cellValue = dgvErrezetak.SelectedRows[0].Cells["ErrezetaId"]?.Value;
                 if (cellValue == null) return;
 
                 int id = Convert.ToInt32(cellValue);
@@ -189,7 +234,7 @@ namespace GOsasun_app.Interfazea
             {
                 if (dgvErrezetak.SelectedRows.Count == 0) return;
 
-                var cellValue = dgvErrezetak.SelectedRows[0].Cells["ErrezetaId"].Value;
+                var cellValue = dgvErrezetak.SelectedRows[0].Cells["ErrezetaId"]?.Value;
                 if (cellValue == null) return;
 
                 int id = Convert.ToInt32(cellValue);

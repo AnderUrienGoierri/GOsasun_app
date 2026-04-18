@@ -15,6 +15,7 @@ namespace GOsasun_app.Interfazea
             pnlEzkerra = new Panel();
             lblFiltroa = new Label();
             txtBilatuPaz = new TextBox();
+            chkPazienteGuztiak = new CheckBox();
             lblEgutegia = new Label();
             mcDataFiltroa = new MonthCalendar();
             btnGarbituFiltroak = new Button();
@@ -47,6 +48,7 @@ namespace GOsasun_app.Interfazea
             pnlEzkerra.BackColor = Color.White;
             pnlEzkerra.Controls.Add(lblFiltroa);
             pnlEzkerra.Controls.Add(txtBilatuPaz);
+            pnlEzkerra.Controls.Add(chkPazienteGuztiak);
             pnlEzkerra.Controls.Add(lblEgutegia);
             pnlEzkerra.Controls.Add(mcDataFiltroa);
             pnlEzkerra.Controls.Add(btnGarbituFiltroak);
@@ -72,27 +74,40 @@ namespace GOsasun_app.Interfazea
             txtBilatuPaz.Size = new Size(360, 50);
             txtBilatuPaz.TabIndex = 1;
             //
+            // chkPazienteGuztiak
+            //
+            chkPazienteGuztiak.AutoSize = true;
+            chkPazienteGuztiak.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+            chkPazienteGuztiak.ForeColor = Color.FromArgb(44, 62, 80);
+            chkPazienteGuztiak.Location = new Point(20, 188);
+            chkPazienteGuztiak.Name = "chkPazienteGuztiak";
+            chkPazienteGuztiak.Size = new Size(252, 42);
+            chkPazienteGuztiak.TabIndex = 2;
+            chkPazienteGuztiak.Text = "Paziente guztiak";
+            chkPazienteGuztiak.UseVisualStyleBackColor = true;
+            //
             // lblEgutegia
             //
             lblEgutegia.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblEgutegia.Location = new Point(20, 190);
+            lblEgutegia.Location = new Point(20, 250);
             lblEgutegia.Name = "lblEgutegia";
             lblEgutegia.Size = new Size(360, 64);
-            lblEgutegia.TabIndex = 2;
+            lblEgutegia.TabIndex = 3;
             lblEgutegia.Text = "Data Bidezko Filtroa:";
             //
             // mcDataFiltroa
             //
-            mcDataFiltroa.Location = new Point(32, 278);
+            mcDataFiltroa.Location = new Point(32, 338);
             mcDataFiltroa.Name = "mcDataFiltroa";
-            mcDataFiltroa.TabIndex = 3;
+            mcDataFiltroa.TabIndex = 4;
             //
             // btnGarbituFiltroak
             //
-            btnGarbituFiltroak.Location = new Point(20, 480);
+            btnGarbituFiltroak.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+            btnGarbituFiltroak.Location = new Point(20, 700);
             btnGarbituFiltroak.Name = "btnGarbituFiltroak";
             btnGarbituFiltroak.Size = new Size(360, 50);
-            btnGarbituFiltroak.TabIndex = 4;
+            btnGarbituFiltroak.TabIndex = 5;
             btnGarbituFiltroak.Text = "FILTROAK GARBITU";
             //
             // pnlEskuina
@@ -166,10 +181,11 @@ namespace GOsasun_app.Interfazea
             lblIzenburua.ForeColor = Color.White;
             lblIzenburua.Location = new Point(0, 0);
             lblIzenburua.Name = "lblIzenburua";
+            lblIzenburua.Padding = new Padding(48, 0, 0, 0);
             lblIzenburua.Size = new Size(1902, 120);
             lblIzenburua.TabIndex = 0;
             lblIzenburua.Text = "ERREZETEN ZERRENDA ETA KUDEAKETA";
-            lblIzenburua.TextAlign = ContentAlignment.MiddleCenter;
+            lblIzenburua.TextAlign = ContentAlignment.MiddleLeft;
             //
             // ErrezetakIkusi
             //
@@ -190,6 +206,7 @@ namespace GOsasun_app.Interfazea
         private System.Windows.Forms.Panel pnlEzkerra;
         private System.Windows.Forms.Label lblFiltroa;
         private System.Windows.Forms.TextBox txtBilatuPaz;
+        private System.Windows.Forms.CheckBox chkPazienteGuztiak;
         private System.Windows.Forms.Label lblEgutegia;
         private System.Windows.Forms.MonthCalendar mcDataFiltroa;
         private System.Windows.Forms.Button btnGarbituFiltroak;
