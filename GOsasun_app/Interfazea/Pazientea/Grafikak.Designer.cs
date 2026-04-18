@@ -226,7 +226,7 @@ namespace GOsasun_app.Interfazea
             // 
             lblPazienteDatuak.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblPazienteDatuak.ForeColor = Color.White;
-            lblPazienteDatuak.Location = new Point(90, 644);
+            lblPazienteDatuak.Location = new Point(94, 641);
             lblPazienteDatuak.Name = "lblPazienteDatuak";
             lblPazienteDatuak.Size = new Size(1714, 36);
             lblPazienteDatuak.TabIndex = 2;
@@ -236,7 +236,7 @@ namespace GOsasun_app.Interfazea
             // 
             lblAzalpena.Font = new Font("Segoe UI", 9.5F);
             lblAzalpena.ForeColor = Color.WhiteSmoke;
-            lblAzalpena.Location = new Point(94, 600);
+            lblAzalpena.Location = new Point(94, 598);
             lblAzalpena.Name = "lblAzalpena";
             lblAzalpena.Size = new Size(1714, 44);
             lblAzalpena.TabIndex = 4;
@@ -254,7 +254,6 @@ namespace GOsasun_app.Interfazea
             // 
             // Grafikak
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1575);
             Name = "Grafikak";

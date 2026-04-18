@@ -151,25 +151,55 @@ namespace GOsasun_app.Interfazea
                 oharrakZutabea.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
                 oharrakZutabea.DefaultCellStyle.Padding = new Padding(12, 0, 52, 0);
             }
+
+            EzarriZutabeOrdena();
         }
 
         private static DataGridViewColumn[] SortuJarraipenZutabeak()
         {
             return new DataGridViewColumn[]
             {
+                SortuTestuZutabea("ErregistroData", "Data", 188, "g"),
+                SortuEkintzaZutabea(),
+                SortuTestuZutabea("Oharrak", "Oharrak", OharrakZutabeZabalera),
                 SortuTestuZutabea("PazienteNan", "NAN/DNI", 115),
                 SortuTestuZutabea("PazienteIzena", "Izena", 100),
                 SortuTestuZutabea("PazienteAbizenak", "Abizenak", 130),
-                SortuTestuZutabea("ErregistroData", "Data", 188, "g"),
                 SortuTestuZutabea("TentsioSistolikoa", "Sist.", 54),
                 SortuTestuZutabea("TentsioDiastolikoa", "Diast.", 54),
                 SortuTestuZutabea("PultsuaPpm", "Pultsua", 78),
                 SortuTestuZutabea("PisuaKg", "Pisua (kg)", 80, "N2"),
                 SortuTestuZutabea("Altuera", "Altuera (m)", 80, "N2"),
-                SortuTestuZutabea("DokumentuKopurua", "Dok.", 52),
-                SortuTestuZutabea("Oharrak", "Oharrak", OharrakZutabeZabalera),
-                SortuEkintzaZutabea()
+                SortuTestuZutabea("DokumentuKopurua", "Dok.", 52)
             };
+        }
+
+        private void EzarriZutabeOrdena()
+        {
+            string[] ordena =
+            {
+                "ErregistroData",
+                "Ekintzak",
+                "Oharrak",
+                "PazienteNan",
+                "PazienteIzena",
+                "PazienteAbizenak",
+                "TentsioSistolikoa",
+                "TentsioDiastolikoa",
+                "PultsuaPpm",
+                "PisuaKg",
+                "Altuera",
+                "DokumentuKopurua"
+            };
+
+            for (int i = 0; i < ordena.Length; i++)
+            {
+                DataGridViewColumn? zutabea = BilatuZutabea(ordena[i]);
+                if (zutabea != null)
+                {
+                    zutabea.DisplayIndex = i;
+                }
+            }
         }
 
         private void KonfiguratuZutabea(
@@ -202,7 +232,10 @@ namespace GOsasun_app.Interfazea
             foreach (DataGridViewColumn zutabea in _dgvJarraipenak.Columns)
             {
                 string izena = ZutabeGakoa(zutabea);
-                if (string.Equals(izena, gakoa, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(izena, gakoa, StringComparison.OrdinalIgnoreCase)
+                    || string.Equals(zutabea.Name, gakoa, StringComparison.OrdinalIgnoreCase)
+                    || string.Equals(zutabea.HeaderText, gakoa, StringComparison.OrdinalIgnoreCase)
+                    || string.Equals(zutabea.DataPropertyName, gakoa, StringComparison.OrdinalIgnoreCase))
                 {
                     return zutabea;
                 }
@@ -623,45 +656,89 @@ namespace GOsasun_app.Interfazea
 
         private void EguneratuPantailaDiseinua()
         {
-            if (ClientSize.Width < JarraipenPantailaTamaina.Width || ClientSize.Height < JarraipenPantailaTamaina.Height)
+            if (_goiburuBarra == null
+                || _atzeraBotoia == null
+                || _edukiPanela == null
+                || _lblIzenburua == null
+                || _btnJarraipenBerria == null
+                || _lblBilatu == null
+                || _txtBilatu == null
+                || _lblDataFiltroa == null
+                || _dtpHasieraData == null
+                || _dtpAmaieraData == null
+                || _btnFiltroakGarbitu == null
+                || _chkJarraipenGuztiakIkusi == null
+                || _dgvJarraipenak == null)
             {
-                ClientSize = new Size(
-                    Math.Max(ClientSize.Width, JarraipenPantailaTamaina.Width),
-                    Math.Max(ClientSize.Height, JarraipenPantailaTamaina.Height));
+                return;
             }
 
-                    _goiburuBarra.Height = GoiburuAltuera;
+            _goiburuBarra.Height = GoiburuAltuera;
             _goiburuBarra.Width = ClientSize.Width;
-                    _atzeraBotoia.Location = new Point(40, 93);
-                    _atzeraBotoia.Size = new Size(250, 59);
+            _atzeraBotoia.Location = new Point(40, 93);
+            _atzeraBotoia.Size = new Size(250, 59);
             _edukiPanela.Location = new Point(0, _goiburuBarra.Bottom);
             _edukiPanela.Size = new Size(ClientSize.Width, ClientSize.Height - _goiburuBarra.Height);
 
-                    _lblIzenburua.Location = new Point(KanpokoMarjina, 35);
-            _btnJarraipenBerria.Size = new Size(320, 64);
-                    _btnJarraipenBerria.Location = new Point(_edukiPanela.ClientSize.Width - _btnJarraipenBerria.Width - KanpokoMarjina, 32);
+            int panelZabalera = _edukiPanela.ClientSize.Width;
+            int panelAltuera = _edukiPanela.ClientSize.Height;
+            int marjina = panelZabalera < 1400 ? 42 : KanpokoMarjina;
+            int goikoTartea = panelAltuera < 900 ? 24 : 35;
+            int elementuTartea = panelAltuera < 900 ? 14 : 18;
+            int etiketaBotoiLerroa = goikoTartea;
 
-                        _lblBilatu.Location = new Point(KanpokoMarjina, 115);
-                        _txtBilatu.Location = new Point(KanpokoMarjina, 160);
-            _txtBilatu.Size = new Size(Math.Max(900, _edukiPanela.ClientSize.Width - (KanpokoMarjina * 2)), 52);
+            _lblIzenburua.Location = new Point(marjina, etiketaBotoiLerroa);
+            _btnJarraipenBerria.Size = new Size(panelZabalera < 1400 ? 260 : 320, panelAltuera < 900 ? 52 : 64);
+            _btnJarraipenBerria.Location = new Point(panelZabalera - _btnJarraipenBerria.Width - marjina, etiketaBotoiLerroa);
 
-                        _lblDataFiltroa.Location = new Point(KanpokoMarjina, 225);
-                        _dtpHasieraData.Location = new Point(KanpokoMarjina, 274);
-                        _dtpHasieraData.Size = new Size(DataFiltroZabalera, 47);
-                        _dtpAmaieraData.Location = new Point(_dtpHasieraData.Right + 26, 274);
-                        _dtpAmaieraData.Size = new Size(DataFiltroZabalera, 47);
-                        _btnFiltroakGarbitu.Location = new Point(_dtpAmaieraData.Right + 30, 274);
-                        _btnFiltroakGarbitu.Size = new Size(FiltroakGarbituZabalera, 47);
-                        _chkJarraipenGuztiakIkusi.Location = new Point(KanpokoMarjina, 346);
+            int bilatuEtiketaY = Math.Max(_lblIzenburua.Bottom, _btnJarraipenBerria.Bottom) + elementuTartea;
+            _lblBilatu.Location = new Point(marjina, bilatuEtiketaY);
 
-            _dgvJarraipenak.Location = new Point(KanpokoMarjina, TaulaGoikoPosizioa);
-            _dgvJarraipenak.Size = new Size(_edukiPanela.ClientSize.Width - (KanpokoMarjina * 2), _edukiPanela.ClientSize.Height - TaulaGoikoPosizioa - 40);
+            int testuAltuera = panelAltuera < 900 ? 44 : 52;
+            int bilatuKaxaY = _lblBilatu.Bottom + 8;
+            _txtBilatu.Location = new Point(marjina, bilatuKaxaY);
+            _txtBilatu.Size = new Size(Math.Max(560, panelZabalera - (marjina * 2)), testuAltuera);
+
+            int dataEtiketaY = _txtBilatu.Bottom + elementuTartea;
+            _lblDataFiltroa.Location = new Point(marjina, dataEtiketaY);
+
+            int filtroY = _lblDataFiltroa.Bottom + 8;
+            bool diseinuEstua = panelZabalera < 1500;
+            int dataZabalera = diseinuEstua ? Math.Max(300, (panelZabalera - (marjina * 2) - 18) / 2) : DataFiltroZabalera;
+            int filtroBotoiZabalera = diseinuEstua ? 190 : FiltroakGarbituZabalera;
+            _dtpHasieraData.Location = new Point(marjina, filtroY);
+            _dtpHasieraData.Size = new Size(dataZabalera, 47);
+            _dtpAmaieraData.Location = new Point(_dtpHasieraData.Right + 18, filtroY);
+            _dtpAmaieraData.Size = new Size(dataZabalera, 47);
+
+            if (diseinuEstua)
+            {
+                _btnFiltroakGarbitu.Location = new Point(marjina, _dtpHasieraData.Bottom + 14);
+                _btnFiltroakGarbitu.Size = new Size(filtroBotoiZabalera, 44);
+                _chkJarraipenGuztiakIkusi.Location = new Point(_btnFiltroakGarbitu.Right + 24, _btnFiltroakGarbitu.Top + 2);
+            }
+            else
+            {
+                _btnFiltroakGarbitu.Location = new Point(_dtpAmaieraData.Right + 24, filtroY);
+                _btnFiltroakGarbitu.Size = new Size(filtroBotoiZabalera, 47);
+                _chkJarraipenGuztiakIkusi.Location = new Point(_btnFiltroakGarbitu.Right + 24, filtroY + 3);
+            }
+
+            int taulaY = Math.Max(_chkJarraipenGuztiakIkusi.Bottom, _btnFiltroakGarbitu.Bottom) + 18;
+            _dgvJarraipenak.Location = new Point(marjina, taulaY);
+            _dgvJarraipenak.Size = new Size(panelZabalera - (marjina * 2), Math.Max(220, panelAltuera - taulaY - 20));
             _dgvJarraipenak.RowTemplate.Height = JarraipenFilaAltuera;
 
             DataGridViewColumn? ekintzakZutabea = BilatuZutabea("Ekintzak");
             if (ekintzakZutabea != null)
             {
-                ekintzakZutabea.Width = EkintzaZutabeZabalera;
+                ekintzakZutabea.Width = panelZabalera < 1400 ? 240 : EkintzaZutabeZabalera;
+            }
+
+            DataGridViewColumn? oharrakZutabea = BilatuZutabea("Oharrak");
+            if (oharrakZutabea != null)
+            {
+                oharrakZutabea.Width = panelZabalera < 1400 ? 320 : OharrakZutabeZabalera;
             }
         }
 
@@ -723,6 +800,34 @@ namespace GOsasun_app.Interfazea
         {
             if (e.RowIndex < 0) return;
 
+            if (_dgvJarraipenak.Rows[e.RowIndex].DataBoundItem is Jarraipena jarraipena)
+            {
+                string gakoa = ZutabeGakoa(_dgvJarraipenak.Columns[e.ColumnIndex]);
+                switch (gakoa)
+                {
+                    case "TentsioSistolikoa":
+                        e.Value = FormateatuBalioOsoa(jarraipena.TentsioSistolikoa);
+                        e.FormattingApplied = true;
+                        break;
+                    case "TentsioDiastolikoa":
+                        e.Value = FormateatuBalioOsoa(jarraipena.TentsioDiastolikoa);
+                        e.FormattingApplied = true;
+                        break;
+                    case "PultsuaPpm":
+                        e.Value = FormateatuBalioOsoa(jarraipena.PultsuaPpm);
+                        e.FormattingApplied = true;
+                        break;
+                    case "PisuaKg":
+                        e.Value = FormateatuHamartarra(jarraipena.PisuaKg);
+                        e.FormattingApplied = true;
+                        break;
+                    case "Altuera":
+                        e.Value = FormateatuHamartarra(jarraipena.Altuera);
+                        e.FormattingApplied = true;
+                        break;
+                }
+            }
+
             string columnName = ZutabeGakoa(_dgvJarraipenak.Columns[e.ColumnIndex]);
             bool arriskutsua = columnName switch
             {
@@ -739,6 +844,16 @@ namespace GOsasun_app.Interfazea
                 e.CellStyle.ForeColor = Color.FromArgb(192, 57, 43);
                 e.CellStyle.Font = new Font(_dgvJarraipenak.Font, FontStyle.Bold);
             }
+        }
+
+        private static string FormateatuBalioOsoa(int? balioa)
+        {
+            return balioa.HasValue ? balioa.Value.ToString(CultureInfo.InvariantCulture) : "-";
+        }
+
+        private static string FormateatuHamartarra(decimal? balioa)
+        {
+            return balioa.HasValue ? balioa.Value.ToString("N2", CultureInfo.InvariantCulture) : "-";
         }
 
         private static bool BalioOsasungaitza(object? value, int minimoNormala, int maximoNormala)

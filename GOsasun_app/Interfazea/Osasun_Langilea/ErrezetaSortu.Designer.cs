@@ -52,7 +52,11 @@ namespace GOsasun_app.Interfazea
             _edukiPanela.Controls.Add(pnlEskuina);
             _edukiPanela.Controls.Add(pnlEzkerra);
             _edukiPanela.Controls.Add(lblIzenburua);
-            _edukiPanela.Size = new Size(1902, 1099);
+            _edukiPanela.Size = new Size(1902, 874);
+            // 
+            // _goiburuBarra
+            // 
+            _goiburuBarra.Paint += _goiburuBarra_Paint;
             // 
             // _atzeraBotoia
             // 
@@ -70,9 +74,9 @@ namespace GOsasun_app.Interfazea
             lblIzenburua.TabIndex = 0;
             lblIzenburua.Text = "ERREZETA BERRIA SORTU";
             lblIzenburua.TextAlign = ContentAlignment.MiddleCenter;
-            //
+            // 
             // pnlEzkerra
-            //
+            // 
             pnlEzkerra.BackColor = Color.Transparent;
             pnlEzkerra.Controls.Add(dgvPazienteak);
             pnlEzkerra.Controls.Add(txtBilatuPaz);
@@ -81,25 +85,25 @@ namespace GOsasun_app.Interfazea
             pnlEzkerra.Location = new Point(2, 130);
             pnlEzkerra.Name = "pnlEzkerra";
             pnlEzkerra.Padding = new Padding(10);
-            pnlEzkerra.Size = new Size(446, 967);
+            pnlEzkerra.Size = new Size(446, 742);
             pnlEzkerra.TabIndex = 1;
-            //
+            // 
             // dgvPazienteak
-            //
+            // 
             dgvPazienteak.AllowUserToAddRows = false;
             dgvPazienteak.AllowUserToDeleteRows = false;
             dgvPazienteak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvPazienteak.BackgroundColor = Color.White;
             dgvPazienteak.ColumnHeadersHeight = 46;
             dgvPazienteak.Dock = DockStyle.Fill;
-            dgvPazienteak.Location = new Point(10, 126);
+            dgvPazienteak.Location = new Point(10, 110);
             dgvPazienteak.MultiSelect = false;
             dgvPazienteak.Name = "dgvPazienteak";
             dgvPazienteak.ReadOnly = true;
             dgvPazienteak.RowHeadersVisible = false;
             dgvPazienteak.RowHeadersWidth = 82;
             dgvPazienteak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPazienteak.Size = new Size(426, 831);
+            dgvPazienteak.Size = new Size(426, 622);
             dgvPazienteak.TabIndex = 0;
             // 
             // txtBilatuPaz
@@ -110,7 +114,7 @@ namespace GOsasun_app.Interfazea
             txtBilatuPaz.Margin = new Padding(0, 5, 0, 10);
             txtBilatuPaz.Name = "txtBilatuPaz";
             txtBilatuPaz.PlaceholderText = "Bilatu...";
-            txtBilatuPaz.Size = new Size(426, 50);
+            txtBilatuPaz.Size = new Size(426, 34);
             txtBilatuPaz.TabIndex = 1;
             // 
             // lblPazientea
@@ -139,7 +143,7 @@ namespace GOsasun_app.Interfazea
             pnlEskuina.Location = new Point(448, 130);
             pnlEskuina.Name = "pnlEskuina";
             pnlEskuina.Padding = new Padding(20);
-            pnlEskuina.Size = new Size(1452, 967);
+            pnlEskuina.Size = new Size(1452, 742);
             pnlEskuina.TabIndex = 0;
             pnlEskuina.Paint += pnlEskuina_Paint;
             // 
@@ -170,7 +174,7 @@ namespace GOsasun_app.Interfazea
             grpBotikak.Controls.Add(btnKenduBotika);
             grpBotikak.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             grpBotikak.ForeColor = Color.White;
-            grpBotikak.Location = new Point(36, 182);
+            grpBotikak.Location = new Point(36, 158);
             grpBotikak.Name = "grpBotikak";
             grpBotikak.Size = new Size(1340, 670);
             grpBotikak.TabIndex = 1;
@@ -190,7 +194,7 @@ namespace GOsasun_app.Interfazea
             cmbBotikak.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbBotikak.Location = new Point(20, 99);
             cmbBotikak.Name = "cmbBotikak";
-            cmbBotikak.Size = new Size(300, 53);
+            cmbBotikak.Size = new Size(300, 36);
             cmbBotikak.TabIndex = 1;
             // 
             // lblDosia
@@ -206,7 +210,7 @@ namespace GOsasun_app.Interfazea
             txtDosia.Location = new Point(351, 99);
             txtDosia.Name = "txtDosia";
             txtDosia.PlaceholderText = "(adib. 1 pilula)";
-            txtDosia.Size = new Size(272, 50);
+            txtDosia.Size = new Size(272, 34);
             txtDosia.TabIndex = 3;
             // 
             // lblMaiztasuna
@@ -222,7 +226,7 @@ namespace GOsasun_app.Interfazea
             txtMaiztasuna.Location = new Point(656, 99);
             txtMaiztasuna.Name = "txtMaiztasuna";
             txtMaiztasuna.PlaceholderText = "(adib. 8 ordu)";
-            txtMaiztasuna.Size = new Size(244, 50);
+            txtMaiztasuna.Size = new Size(244, 34);
             txtMaiztasuna.TabIndex = 5;
             // 
             // btnGehituBotika
@@ -230,7 +234,7 @@ namespace GOsasun_app.Interfazea
             btnGehituBotika.BackColor = Color.FromArgb(46, 204, 113);
             btnGehituBotika.FlatStyle = FlatStyle.Flat;
             btnGehituBotika.ForeColor = Color.White;
-            btnGehituBotika.Location = new Point(1109, 124);
+            btnGehituBotika.Location = new Point(1109, 49);
             btnGehituBotika.Name = "btnGehituBotika";
             btnGehituBotika.Size = new Size(207, 50);
             btnGehituBotika.TabIndex = 6;
@@ -244,7 +248,7 @@ namespace GOsasun_app.Interfazea
             dgvBotikak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvBotikak.BackgroundColor = Color.White;
             dgvBotikak.ColumnHeadersHeight = 46;
-            dgvBotikak.Location = new Point(6, 180);
+            dgvBotikak.Location = new Point(15, 136);
             dgvBotikak.MultiSelect = false;
             dgvBotikak.Name = "dgvBotikak";
             dgvBotikak.ReadOnly = true;
@@ -259,7 +263,7 @@ namespace GOsasun_app.Interfazea
             btnKenduBotika.BackColor = Color.FromArgb(231, 76, 60);
             btnKenduBotika.FlatStyle = FlatStyle.Flat;
             btnKenduBotika.ForeColor = Color.White;
-            btnKenduBotika.Location = new Point(1002, 540);
+            btnKenduBotika.Location = new Point(1002, 505);
             btnKenduBotika.Name = "btnKenduBotika";
             btnKenduBotika.Size = new Size(314, 59);
             btnKenduBotika.TabIndex = 8;
@@ -272,7 +276,7 @@ namespace GOsasun_app.Interfazea
             dtpIraungitzeData.Format = DateTimePickerFormat.Short;
             dtpIraungitzeData.Location = new Point(860, 124);
             dtpIraungitzeData.Name = "dtpIraungitzeData";
-            dtpIraungitzeData.Size = new Size(224, 50);
+            dtpIraungitzeData.Size = new Size(224, 34);
             dtpIraungitzeData.TabIndex = 2;
             // 
             // lblIraungitzeData
@@ -288,9 +292,9 @@ namespace GOsasun_app.Interfazea
             // txtDiagnostikoa
             // 
             txtDiagnostikoa.Font = new Font("Segoe UI", 12F);
-            txtDiagnostikoa.Location = new Point(166, 126);
+            txtDiagnostikoa.Location = new Point(166, 118);
             txtDiagnostikoa.Name = "txtDiagnostikoa";
-            txtDiagnostikoa.Size = new Size(530, 50);
+            txtDiagnostikoa.Size = new Size(530, 34);
             txtDiagnostikoa.TabIndex = 4;
             // 
             // lblDiagnostikoa
@@ -316,9 +320,8 @@ namespace GOsasun_app.Interfazea
             // 
             // ErrezetaSortu
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1902, 1280);
+            ClientSize = new Size(1902, 1055);
             Name = "ErrezetaSortu";
             Text = "GOsasun - Errezetak";
             _edukiPanela.ResumeLayout(false);

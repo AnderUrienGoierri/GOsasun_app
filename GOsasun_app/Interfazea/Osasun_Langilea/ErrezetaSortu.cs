@@ -13,7 +13,7 @@ namespace GOsasun_app.Interfazea
         private ErabiltzaileDB erabiltzaileDB = new ErabiltzaileDB();
         private BotikaDB botikaDB = new BotikaDB();
         private ErrezetaDB errezetaDB = new ErrezetaDB();
-        
+
         private Errezeta? _editatzekoErrezeta;
 
         private List<Pazientea> pazienteak = new List<Pazientea>();
@@ -22,7 +22,7 @@ namespace GOsasun_app.Interfazea
 
         private BindingSource bsPazienteak = new BindingSource();
         private BindingSource bsSaskia = new BindingSource();
-        
+
         private class PazienteGridItem
         {
             public string? Nan { get; set; }
@@ -88,7 +88,7 @@ namespace GOsasun_app.Interfazea
                 txtDiagnostikoa.Text = _editatzekoErrezeta.Diagnostikoa;
                 if (_editatzekoErrezeta.IraungitzeData.HasValue) dtpIraungitzeData.Value = _editatzekoErrezeta.IraungitzeData.Value;
 
-                foreach(var eb in _editatzekoErrezeta.Botikak)
+                foreach (var eb in _editatzekoErrezeta.Botikak)
                 {
                     saskia.Add(new ErrezetaBotikaItem
                     {
@@ -123,32 +123,32 @@ namespace GOsasun_app.Interfazea
                     if (aurkitua != null) pazienteak.Add(aurkitua);
                 }
 
-            dgvPazienteak.CurrentCell = null;
-            bsPazienteak.DataSource = null;
+                dgvPazienteak.CurrentCell = null;
+                bsPazienteak.DataSource = null;
 
-            if (pazienteak.Count > 0)
-            {
-                var dtoList = pazienteak.Select(p => new PazienteGridItem
+                if (pazienteak.Count > 0)
                 {
-                    Nan = p.Nan,
-                    IzenOsoa = $"{p.Izena} {p.Abizenak}"
-                }).ToList();
+                    var dtoList = pazienteak.Select(p => new PazienteGridItem
+                    {
+                        Nan = p.Nan,
+                        IzenOsoa = $"{p.Izena} {p.Abizenak}"
+                    }).ToList();
 
-                bsPazienteak.DataSource = dtoList;
+                    bsPazienteak.DataSource = dtoList;
 
-                if (dgvPazienteak.Columns.Count > 0)
-                {
-                    dgvPazienteak.Columns["Nan"].HeaderText = "NAN";
-                    dgvPazienteak.Columns["IzenOsoa"].HeaderText = "Pazientea";
+                    if (dgvPazienteak.Columns.Count > 0)
+                    {
+                        dgvPazienteak.Columns["Nan"].HeaderText = "NAN";
+                        dgvPazienteak.Columns["IzenOsoa"].HeaderText = "Pazientea";
+                    }
+
+                    // Auto-select if there's only one match (common during editing or specific searches)
+                    if (pazienteak.Count == 1 && dgvPazienteak.Rows.Count > 0)
+                    {
+                        dgvPazienteak.ClearSelection();
+                        dgvPazienteak.Rows[0].Selected = true;
+                    }
                 }
-
-                // Auto-select if there's only one match (common during editing or specific searches)
-                if (pazienteak.Count == 1 && dgvPazienteak.Rows.Count > 0)
-                {
-                    dgvPazienteak.ClearSelection();
-                    dgvPazienteak.Rows[0].Selected = true;
-                }
-            }
             }
         }
 
@@ -271,6 +271,11 @@ namespace GOsasun_app.Interfazea
         }
 
         private void pnlEskuina_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void _goiburuBarra_Paint(object sender, PaintEventArgs e)
         {
 
         }

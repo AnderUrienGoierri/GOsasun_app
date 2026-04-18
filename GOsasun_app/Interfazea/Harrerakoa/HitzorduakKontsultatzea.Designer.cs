@@ -23,6 +23,9 @@ namespace GOsasun_app.Interfazea
             calEgutegia = new MonthCalendar();
             dgvHitzorduak = new DataGridView();
             btnGuztiak = new Button();
+            lblBilatuPazientea = new Label();
+            txtPazienteBilatu = new TextBox();
+            chkPazienteGuztiak = new CheckBox();
             _edukiPanela.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHitzorduak).BeginInit();
             SuspendLayout();
@@ -31,6 +34,9 @@ namespace GOsasun_app.Interfazea
             //
             _edukiPanela.Controls.Add(dgvHitzorduak);
             _edukiPanela.Controls.Add(btnGuztiak);
+            _edukiPanela.Controls.Add(chkPazienteGuztiak);
+            _edukiPanela.Controls.Add(txtPazienteBilatu);
+            _edukiPanela.Controls.Add(lblBilatuPazientea);
             _edukiPanela.Controls.Add(calEgutegia);
             _edukiPanela.Controls.Add(lblIzenburua);
             _edukiPanela.Location = new Point(0, 310);
@@ -73,7 +79,7 @@ namespace GOsasun_app.Interfazea
             dgvHitzorduak.ReadOnly = true;
             dgvHitzorduak.RowHeadersVisible = false;
             dgvHitzorduak.RowHeadersWidth = 82;
-            dgvHitzorduak.Size = new Size(1611, 800);
+            dgvHitzorduak.Size = new Size(1592, 800);
             dgvHitzorduak.TabIndex = 5;
             //
             // btnGuztiak
@@ -82,13 +88,45 @@ namespace GOsasun_app.Interfazea
             btnGuztiak.FlatStyle = FlatStyle.Flat;
             btnGuztiak.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             btnGuztiak.ForeColor = Color.FromArgb(43, 71, 92);
-            btnGuztiak.Location = new Point(6, 479);
+            btnGuztiak.Location = new Point(34, 810);
             btnGuztiak.Name = "btnGuztiak";
-            btnGuztiak.Size = new Size(374, 165);
-            btnGuztiak.TabIndex = 4;
+            btnGuztiak.Size = new Size(325, 86);
+            btnGuztiak.TabIndex = 7;
             btnGuztiak.Text = "Erakutsi Guztiak";
             btnGuztiak.UseVisualStyleBackColor = false;
             btnGuztiak.Click += btnGuztiak_Click_1;
+            // 
+            // lblBilatuPazientea
+            // 
+            lblBilatuPazientea.AutoSize = true;
+            lblBilatuPazientea.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblBilatuPazientea.ForeColor = Color.FromArgb(44, 62, 80);
+            lblBilatuPazientea.Location = new Point(34, 501);
+            lblBilatuPazientea.Name = "lblBilatuPazientea";
+            lblBilatuPazientea.Size = new Size(322, 37);
+            lblBilatuPazientea.TabIndex = 8;
+            lblBilatuPazientea.Text = "Bilatu pazientea edo DNI";
+            // 
+            // txtPazienteBilatu
+            // 
+            txtPazienteBilatu.Font = new Font("Segoe UI", 10F);
+            txtPazienteBilatu.Location = new Point(34, 548);
+            txtPazienteBilatu.Name = "txtPazienteBilatu";
+            txtPazienteBilatu.PlaceholderText = "Abizena, izena edo NAN/DNI";
+            txtPazienteBilatu.Size = new Size(325, 43);
+            txtPazienteBilatu.TabIndex = 9;
+            // 
+            // chkPazienteGuztiak
+            // 
+            chkPazienteGuztiak.AutoSize = true;
+            chkPazienteGuztiak.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            chkPazienteGuztiak.ForeColor = Color.FromArgb(44, 62, 80);
+            chkPazienteGuztiak.Location = new Point(40, 617);
+            chkPazienteGuztiak.Name = "chkPazienteGuztiak";
+            chkPazienteGuztiak.Size = new Size(228, 39);
+            chkPazienteGuztiak.TabIndex = 10;
+            chkPazienteGuztiak.Text = "Paziente guztiak";
+            chkPazienteGuztiak.UseVisualStyleBackColor = true;
             //
             // HitzorduakKontsultatzea
             //
@@ -109,6 +147,9 @@ namespace GOsasun_app.Interfazea
         private System.Windows.Forms.MonthCalendar calEgutegia;
         private System.Windows.Forms.DataGridView dgvHitzorduak;
         private System.Windows.Forms.Button btnGuztiak;
+        private Label lblBilatuPazientea;
+        private TextBox txtPazienteBilatu;
+        private CheckBox chkPazienteGuztiak;
     }
 }
 

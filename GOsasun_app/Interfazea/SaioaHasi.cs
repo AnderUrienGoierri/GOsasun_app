@@ -39,8 +39,8 @@ namespace GOsasun_app.Interfazea
         private void KonfiguratuFormularioa()
         {
             this.Text = "GOsasun - Saioa Hasi";
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.Sizable;
+            this.MaximizeBox = true;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.DoubleBuffered = true;
             this.ClientSize = PortadaTamaina;
@@ -49,21 +49,24 @@ namespace GOsasun_app.Interfazea
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            EguneratuLoginDiseinua();
             ZentratuPantailaLanEremuan();
         }
 
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
-            BeginInvoke(new Action(ZentratuPantailaLanEremuan));
+            BeginInvoke(new Action(EguneratuLoginDiseinua));
         }
 
-        private void ZentratuPantailaLanEremuan()
+        protected override void OnResize(EventArgs e)
         {
-            Rectangle lanEremua = Screen.FromControl(this).WorkingArea;
-            int x = lanEremua.Left + Math.Max(0, (lanEremua.Width - Width) / 2);
-            int y = lanEremua.Top + Math.Max(0, (lanEremua.Height - Height) / 2);
-            Location = new Point(x, y);
+            base.OnResize(e);
+
+            if (!DesignMode && LicenseManager.UsageMode != LicenseUsageMode.Designtime)
+            {
+                EguneratuLoginDiseinua();
+            }
         }
 
         // Irudiak kargatu
@@ -74,7 +77,7 @@ namespace GOsasun_app.Interfazea
             if (!string.IsNullOrEmpty(atzekoPlanoaBidea) && File.Exists(atzekoPlanoaBidea))
             {
                 this.BackgroundImage = Image.FromFile(atzekoPlanoaBidea);
-                this.BackgroundImageLayout = ImageLayout.None;
+                this.BackgroundImageLayout = ImageLayout.Zoom;
                 this.ClientSize = this.BackgroundImage.Size;
             }
             else
@@ -165,6 +168,80 @@ namespace GOsasun_app.Interfazea
             return erroak;
         }
 
+        private void EguneratuLoginDiseinua()
+        {
+            if (_loginPanela == null
+                || _logoPicture == null
+                || _tituluLabel == null
+                || _erabiltzaileLabel == null
+                || _erabiltzaileTextBox == null
+                || _pasahitzaLabel == null
+                || _pasahitzaTextBox == null
+                || _erakutsiPasahitza == null
+                || _mezuLabel == null
+                || _loginBotoia == null
+                || _itzaliBotoia == null
+                || ClientSize.Width <= 0
+                || ClientSize.Height <= 0)
+            {
+                return;
+            }
+
+            int panelZabalera = Math.Max(430, Math.Min(760, (int)Math.Round(ClientSize.Width * 0.38)));
+            int panelAltuera = Math.Max(600, Math.Min(900, (int)Math.Round(ClientSize.Height * 0.78)));
+            int panelX = (ClientSize.Width - panelZabalera) / 2;
+            int panelY = Math.Max(28, (ClientSize.Height - panelAltuera) / 2);
+            _loginPanela.Bounds = new Rectangle(panelX, panelY, panelZabalera, panelAltuera);
+
+            int alboMarjina = Math.Max(28, (int)Math.Round(panelZabalera * 0.16));
+            int eremuZabalera = Math.Max(260, panelZabalera - (alboMarjina * 2));
+            int y = Math.Max(12, (int)Math.Round(panelAltuera * 0.02));
+
+            int logoZabalera = Math.Max(170, Math.Min(250, (int)Math.Round(panelZabalera * 0.46)));
+            int logoAltuera = Math.Max(110, (int)Math.Round(logoZabalera * 0.64));
+            _logoPicture.Bounds = new Rectangle((panelZabalera - logoZabalera) / 2, y, logoZabalera, logoAltuera);
+            y = _logoPicture.Bottom + Math.Max(6, (int)Math.Round(panelAltuera * 0.01));
+
+            Size tituluNeurria = TextRenderer.MeasureText(_tituluLabel.Text, _tituluLabel.Font);
+            _tituluLabel.Bounds = new Rectangle(
+                (panelZabalera - eremuZabalera) / 2,
+                y,
+                eremuZabalera,
+                Math.Max(tituluNeurria.Height + 6, 42));
+            y = _tituluLabel.Bottom + Math.Max(18, (int)Math.Round(panelAltuera * 0.05));
+
+            _erabiltzaileLabel.Location = new Point(alboMarjina, y);
+            y = _erabiltzaileLabel.Bottom + 8;
+            _erabiltzaileTextBox.Bounds = new Rectangle(alboMarjina, y, eremuZabalera, _erabiltzaileTextBox.Height);
+            y = _erabiltzaileTextBox.Bottom + 16;
+
+            _pasahitzaLabel.Location = new Point(alboMarjina, y);
+            y = _pasahitzaLabel.Bottom + 8;
+            _pasahitzaTextBox.Bounds = new Rectangle(alboMarjina, y, eremuZabalera, _pasahitzaTextBox.Height);
+            y = _pasahitzaTextBox.Bottom + 12;
+
+            _erakutsiPasahitza.Location = new Point(alboMarjina, y);
+            y = _erakutsiPasahitza.Bottom + 12;
+
+            int mezuAltuera = Math.Max(56, (int)Math.Round(panelAltuera * 0.12));
+            _mezuLabel.Bounds = new Rectangle(alboMarjina, y, eremuZabalera, mezuAltuera);
+
+            int botoiZabalera = Math.Max(220, Math.Min(eremuZabalera, (int)Math.Round(panelZabalera * 0.58)));
+            int botoiX = (panelZabalera - botoiZabalera) / 2;
+            int botoienTartea = 12;
+            int behekoMarjina = Math.Max(26, (int)Math.Round(panelAltuera * 0.05));
+            int botoiakBehe = panelAltuera - behekoMarjina;
+
+            _itzaliBotoia.Bounds = new Rectangle(botoiX, botoiakBehe - _itzaliBotoia.Height, botoiZabalera, _itzaliBotoia.Height);
+            _loginBotoia.Bounds = new Rectangle(botoiX, _itzaliBotoia.Top - botoienTartea - _loginBotoia.Height, botoiZabalera, _loginBotoia.Height);
+
+            if (_mezuLabel.Bottom > _loginBotoia.Top - 12)
+            {
+                int gehienezkoMezuAltuera = Math.Max(36, _loginBotoia.Top - 12 - _mezuLabel.Top);
+                _mezuLabel.Height = gehienezkoMezuAltuera;
+            }
+        }
+
 
         private void LoginPanela_Paint(object? sender, PaintEventArgs e)
         {
@@ -231,7 +308,26 @@ namespace GOsasun_app.Interfazea
                         EguneratuLoginSegurtasuna();
                         this.Show();
                     };
-                    this.Hide();
+
+                    if (menuForm is GOsasunForm hurrengoPantaila)
+                    {
+                        EventHandler? prestHandler = null;
+                        prestHandler = (s, e) =>
+                        {
+                            hurrengoPantaila.HasierakoAurkezpenaOsatuta -= prestHandler;
+                            if (!IsDisposed)
+                            {
+                                Hide();
+                            }
+                        };
+
+                        hurrengoPantaila.HasierakoAurkezpenaOsatuta += prestHandler;
+                    }
+                    else
+                    {
+                        Hide();
+                    }
+
                     menuForm.Show();
                 }
                 else

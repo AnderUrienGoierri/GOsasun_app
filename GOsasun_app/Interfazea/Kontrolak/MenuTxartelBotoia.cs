@@ -114,6 +114,9 @@ namespace GOsasun_app.Interfazea.Kontrolak
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
+            float eskala = Math.Min(this.Width / 400f, this.Height / 320f);
+            eskala = Math.Max(0.45f, eskala);
+
             // 1. Borde biribiltuen bidea sortu
             Rectangle rect = new Rectangle(2, 2, this.Width - 5, this.Height - 5);
             GraphicsPath bidea = SortuBideBiribila(rect, _bordeBiribiltasuna);
@@ -149,11 +152,14 @@ namespace GOsasun_app.Interfazea.Kontrolak
             // 5. Ikonoa marraztu (erdian, goialdean)
             if (_ikonoa != null)
             {
-                int maxTamaina = Math.Min(this.Width - 120, this.Height - 190);
-                int ikonoTamaina = Math.Max(maxTamaina, 80);
+                int alboMarjina = Math.Max(24, (int)Math.Round(120 * eskala));
+                int beheMarjina = Math.Max(70, (int)Math.Round(190 * eskala));
+                int gutxienekoIkonoa = Math.Max(42, (int)Math.Round(80 * eskala));
+                int maxTamaina = Math.Min(this.Width - alboMarjina, this.Height - beheMarjina);
+                int ikonoTamaina = Math.Max(Math.Min(maxTamaina, (int)Math.Round(150 * eskala)), gutxienekoIkonoa);
 
                 int ikonoX = (this.Width - ikonoTamaina) / 2;
-                int ikonoY = 25; // Zertxobait gorago jarri tokia lortzeko
+                int ikonoY = Math.Max(12, (int)Math.Round(25 * eskala));
                 g.DrawImage(_ikonoa, new Rectangle(ikonoX, ikonoY, ikonoTamaina, ikonoTamaina));
             }
 
@@ -168,8 +174,11 @@ namespace GOsasun_app.Interfazea.Kontrolak
                 };
 
                 // Testua pixka bat beherago bultzatu ikonoa kabitzeko
-                int testuY = _ikonoa != null ? this.Height - 132 : (this.Height - 90) / 2;
-                Rectangle testuRect = new Rectangle(10, testuY, this.Width - 20, 108);
+                int testuBeheMarjina = Math.Max(46, (int)Math.Round(132 * eskala));
+                int testuAltuera = Math.Max(48, (int)Math.Round(108 * eskala));
+                int alboPadding = Math.Max(8, (int)Math.Round(10 * eskala));
+                int testuY = _ikonoa != null ? this.Height - testuBeheMarjina : (this.Height - testuAltuera) / 2;
+                Rectangle testuRect = new Rectangle(alboPadding, testuY, this.Width - (alboPadding * 2), testuAltuera);
 
                 using (SolidBrush testuBrotxa = new SolidBrush(_testuKolorea))
                 {

@@ -19,6 +19,7 @@ namespace GOsasun_app.Modeloa
         public DateTime SortzeData { get; set; } = DateTime.Now;
 
         // Propietate gehigarriak Grid-erako (JOIN bidez beteak)
+        public string? PazienteNan { get; set; }
         public string? PazienteIzena { get; set; }
         public string? PazienteAbizenak { get; set; }
         public string? OsasunLangileIzena { get; set; }

@@ -143,7 +143,7 @@ namespace GOsasun_app.Interfazea
         private void EzarriFormularioZabalera()
         {
             int pantailaZabalera = Screen.FromControl(this).WorkingArea.Width;
-            int zabalera = Math.Min(PazienteenZerrendaZabalera, Math.Max(1660, pantailaZabalera - 60));
+            int zabalera = Math.Min(PazienteenZerrendaZabalera, Math.Max(1040, pantailaZabalera - 60));
 
             ClientSize = new Size(zabalera, ClientSize.Height);
             _goiburuBarra.Width = zabalera;
@@ -164,10 +164,22 @@ namespace GOsasun_app.Interfazea
             BeginInvoke(new Action(() =>
             {
                 EzarriFormularioZabalera();
+                EguneratuBilatzailearenDiseinua();
                 EguneratuTaularenZabalerak();
                 KargatuPazienteak(txtBilatu.Text.Trim());
                 ZentratuPantailaLanEremuan();
             }));
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            if (!DiseinuModuan())
+            {
+                EguneratuBilatzailearenDiseinua();
+                EguneratuTaularenZabalerak();
+            }
         }
 
         private int LortuDoitutakoZabalera(int oinarrizkoZabalera)
@@ -177,14 +189,14 @@ namespace GOsasun_app.Interfazea
                 return oinarrizkoZabalera;
             }
 
-            int erabilgarri = Math.Max(1480, ClientSize.Width - 140);
+            int erabilgarri = Math.Max(900, ClientSize.Width - 140);
             double eskala = Math.Min(1d, (double)erabilgarri / OinarrizkoZutabeZabaleraGuztira);
             return Math.Max(70, (int)Math.Round(oinarrizkoZabalera * eskala));
         }
 
         private void EguneratuTaularenZabalerak()
         {
-            if (dgvPazienteak.Columns.Count == 0 || _erabiltzailea is HarrerakoLangilea)
+            if (dgvPazienteak == null || dgvPazienteak.Columns.Count == 0 || _erabiltzailea is HarrerakoLangilea)
             {
                 return;
             }
@@ -216,29 +228,82 @@ namespace GOsasun_app.Interfazea
 
         private void EguneratuBilatzailearenDiseinua()
         {
-            int eskuinMuga = pnlBilatzailea.Width - 22;
-            int botoiakGoian = txtBilatu.Bottom + 18;
-            int botoiakEzkerrean = txtBilatu.Left;
+            if (pnlBilatzailea == null
+                || lblBilatu == null
+                || txtBilatu == null
+                || chkPazienteGuztiak == null
+                || chkAltan == null
+                || chkBajan == null
+                || btnPazienteBerria == null
+                || btnOsasunLangileaSortu == null)
+            {
+                return;
+            }
+
+            int panelZabalera = pnlBilatzailea.ClientSize.Width;
+            if (panelZabalera <= 0)
+            {
+                return;
+            }
+
+            int ezkerMarjina = Math.Max(20, (int)Math.Round(panelZabalera * 0.035));
+            int eskuinMarjina = ezkerMarjina;
             const int botoienArtekoTartea = 18;
+            bool diseinuEstua = panelZabalera < 1250;
+
+            lblBilatu.Location = new Point(ezkerMarjina, 28);
+            int bilaketaX = diseinuEstua ? lblBilatu.Right + 14 : ezkerMarjina + 110;
+            int bilaketaZabalera = diseinuEstua
+                ? panelZabalera - bilaketaX - eskuinMarjina
+                : Math.Max(320, panelZabalera - bilaketaX - eskuinMarjina - 360);
+            txtBilatu.Location = new Point(bilaketaX, 24);
+            txtBilatu.Width = Math.Max(320, bilaketaZabalera);
+
+            int checkY = txtBilatu.Bottom + 18;
+            int botoiakGoian;
+
+            if (diseinuEstua)
+            {
+                chkPazienteGuztiak.Location = new Point(ezkerMarjina, checkY);
+                chkAltan.Location = new Point(chkPazienteGuztiak.Right + 24, checkY);
+                chkBajan.Location = new Point(chkAltan.Right + 24, checkY);
+                botoiakGoian = chkPazienteGuztiak.Bottom + 22;
+            }
+            else
+            {
+                int eskuinMuga = panelZabalera - eskuinMarjina;
+                chkBajan.Location = new Point(eskuinMuga - chkBajan.Width, 28);
+                eskuinMuga = chkBajan.Left - 18;
+                chkAltan.Location = new Point(eskuinMuga - chkAltan.Width, 28);
+                eskuinMuga = chkAltan.Left - 18;
+                chkPazienteGuztiak.Location = new Point(eskuinMuga - chkPazienteGuztiak.Width, 28);
+                botoiakGoian = txtBilatu.Bottom + 18;
+            }
+
+            int botoiZabalera = diseinuEstua
+                ? Math.Max(220, (panelZabalera - (ezkerMarjina * 2) - botoienArtekoTartea) / 2)
+                : btnPazienteBerria.Width;
+            int botoiakEzkerrean = ezkerMarjina;
 
             if (btnPazienteBerria.Visible)
             {
+                btnPazienteBerria.Size = new Size(botoiZabalera, btnPazienteBerria.Height);
                 btnPazienteBerria.Location = new Point(botoiakEzkerrean, botoiakGoian);
                 botoiakEzkerrean = btnPazienteBerria.Right + botoienArtekoTartea;
             }
 
             if (btnOsasunLangileaSortu.Visible)
             {
+                btnOsasunLangileaSortu.Size = new Size(botoiZabalera, btnOsasunLangileaSortu.Height);
                 btnOsasunLangileaSortu.Location = new Point(botoiakEzkerrean, botoiakGoian);
             }
 
-            chkBajan.Location = new Point(eskuinMuga - chkBajan.Width, chkBajan.Location.Y);
-            eskuinMuga = chkBajan.Left - 18;
-            chkAltan.Location = new Point(eskuinMuga - chkAltan.Width, chkAltan.Location.Y);
-            eskuinMuga = chkAltan.Left - 18;
-            chkPazienteGuztiak.Location = new Point(eskuinMuga - chkPazienteGuztiak.Width, chkPazienteGuztiak.Location.Y);
-
-            txtBilatu.Width = Math.Max(560, chkPazienteGuztiak.Left - txtBilatu.Left - 26);
+            int panelAltuera = Math.Max(
+                btnPazienteBerria.Visible || btnOsasunLangileaSortu.Visible
+                    ? Math.Max(btnPazienteBerria.Bottom, btnOsasunLangileaSortu.Bottom)
+                    : txtBilatu.Bottom,
+                diseinuEstua ? chkPazienteGuztiak.Bottom : txtBilatu.Bottom) + 20;
+            pnlBilatzailea.Height = panelAltuera;
         }
 
         private static DataGridViewTextBoxColumn SortuTestuZutabea(string propertyName, string headerText, int width, string? format = null)

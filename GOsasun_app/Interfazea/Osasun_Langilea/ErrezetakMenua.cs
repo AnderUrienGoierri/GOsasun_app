@@ -32,5 +32,10 @@ namespace GOsasun_app.Interfazea
             this.Hide();
             form.Show();
         }
+
+        private void _edukiPanela_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

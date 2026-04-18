@@ -8,8 +8,10 @@
 
 using GOsasun_app.Interfazea.Kontrolak;
 using GOsasun_app.Kontrola;
+using GOsasun_app.Kontrola.Zerbitzuak;
 using GOsasun_app.Modeloa;
 using System.ComponentModel;
+using System.Drawing.Drawing2D;
 using Svg;
 
 namespace GOsasun_app.Interfazea
@@ -81,8 +83,8 @@ namespace GOsasun_app.Interfazea
             this.StartPosition = FormStartPosition.CenterScreen;
             this.DoubleBuffered = true;
             this.Text = "GOsasun";
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.Sizable;
+            this.MaximizeBox = true;
             this.ClientSize = OinarriPantailaTamaina;
             this.BackColor = PortadaAtzekoKolorea;
 
@@ -151,24 +153,9 @@ namespace GOsasun_app.Interfazea
         {
             base.OnShown(e);
             EgokituPortadarenNeurrira();
-            BeginInvoke(new Action(ZentratuPantailaLanEremuan));
         }
 
-        protected void ZentratuPantailaLanEremuan()
-        {
-            if (DiseinuModuan())
-            {
-                return;
-            }
-
-            Rectangle lanEremua = Owner != null
-                ? Screen.FromControl(Owner).WorkingArea
-                : Screen.FromControl(this).WorkingArea;
-
-            int x = lanEremua.Left + Math.Max(0, (lanEremua.Width - Width) / 2);
-            int y = lanEremua.Top + Math.Max(0, (lanEremua.Height - Height) / 2);
-            Location = new Point(x, y);
-        }
+        protected override bool PantailaOsoanIreki => true;
 
         private void EgokituPortadarenNeurrira()
         {
@@ -221,8 +208,19 @@ namespace GOsasun_app.Interfazea
                 return;
             }
 
-            int x = Math.Max(0, (panela.ClientSize.Width - _atzekoPlanoaIrudia.Width) / 2);
-            e.Graphics.DrawImage(_atzekoPlanoaIrudia, x, 0, _atzekoPlanoaIrudia.Width, _atzekoPlanoaIrudia.Height);
+            e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+            float eskala = Math.Max(
+                panela.ClientSize.Width / (float)_atzekoPlanoaIrudia.Width,
+                panela.ClientSize.Height / (float)_atzekoPlanoaIrudia.Height);
+
+            int zabalera = Math.Max(1, (int)Math.Round(_atzekoPlanoaIrudia.Width * eskala));
+            int altuera = Math.Max(1, (int)Math.Round(_atzekoPlanoaIrudia.Height * eskala));
+            int x = (panela.ClientSize.Width - zabalera) / 2;
+            int y = (panela.ClientSize.Height - altuera) / 2;
+            e.Graphics.DrawImage(_atzekoPlanoaIrudia, x, y, zabalera, altuera);
         }
 
         private static string? BilatuPortadaBidea()
@@ -250,6 +248,45 @@ namespace GOsasun_app.Interfazea
 
             string normalizatua = erlatiboa.Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar);
 
+            if (Path.IsPathRooted(normalizatua) && File.Exists(normalizatua))
+            {
+                return normalizatua;
+            }
+
+            try
+            {
+                string helmugaIrudia = AplikazioBideak.LortuIrudiHelmugaBidea(erlatiboa);
+                if (File.Exists(helmugaIrudia))
+                {
+                    return helmugaIrudia;
+                }
+            }
+            catch
+            {
+                // Fallback-arekin jarraitu, konfigurazioa ez badago prest.
+            }
+
+            foreach (string irudiErroa in AplikazioBideak.LortuIrudiErroak())
+            {
+                string[] irudiAukerak =
+                {
+                    Path.Combine(irudiErroa, Path.GetFileName(normalizatua)),
+                    Path.Combine(irudiErroa, normalizatua),
+                    Path.Combine(irudiErroa, normalizatua.StartsWith($"img{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase)
+                        ? normalizatua.Substring($"img{Path.DirectorySeparatorChar}".Length)
+                        : normalizatua),
+                    Path.Combine(irudiErroa, normalizatua.StartsWith($"img{Path.DirectorySeparatorChar}png{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase)
+                        ? normalizatua.Substring($"img{Path.DirectorySeparatorChar}png{Path.DirectorySeparatorChar}".Length)
+                        : normalizatua)
+                };
+
+                string? irudiAurkitua = irudiAukerak.FirstOrDefault(File.Exists);
+                if (!string.IsNullOrWhiteSpace(irudiAurkitua))
+                {
+                    return irudiAurkitua;
+                }
+            }
+
             foreach (string root in LortuBilaketaErroak())
             {
                 string[] aukerak =
@@ -266,11 +303,6 @@ namespace GOsasun_app.Interfazea
             }
 
             return null;
-        }
-
-        protected bool DiseinuModuan()
-        {
-            return LicenseManager.UsageMode == LicenseUsageMode.Designtime || DesignMode || (Site?.DesignMode ?? false);
         }
 
         private static IEnumerable<string> LortuBilaketaErroak()
@@ -375,7 +407,25 @@ namespace GOsasun_app.Interfazea
                 }
             };
 
-            Hide();
+            if (formularioa is GOsasunForm hurrengoPantaila)
+            {
+                EventHandler? prestHandler = null;
+                prestHandler = (s, e) =>
+                {
+                    hurrengoPantaila.HasierakoAurkezpenaOsatuta -= prestHandler;
+                    if (!IsDisposed)
+                    {
+                        Hide();
+                    }
+                };
+
+                hurrengoPantaila.HasierakoAurkezpenaOsatuta += prestHandler;
+            }
+            else
+            {
+                Hide();
+            }
+
             formularioa.Show();
         }
 

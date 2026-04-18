@@ -83,9 +83,10 @@ namespace GOsasun_app.Interfazea
 
         private void EzarriFormularioZabalera()
         {
-            ClientSize = new Size(DokumentuakPantailaZabalera, ClientSize.Height);
-            _goiburuBarra.Width = DokumentuakPantailaZabalera;
-            _edukiPanela.Size = new Size(DokumentuakPantailaZabalera, _edukiPanela.Height);
+            int zabalera = LortuPantailaraEgokitutakoZabalera(DokumentuakPantailaZabalera);
+            ClientSize = new Size(zabalera, ClientSize.Height);
+            _goiburuBarra.Width = zabalera;
+            _edukiPanela.Size = new Size(zabalera, _edukiPanela.Height);
         }
 
         private void KargatuEkintzaIkonoak()

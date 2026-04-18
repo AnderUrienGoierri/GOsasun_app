@@ -20,6 +20,7 @@ namespace GOsasun_app.Repositorioa
                 Arrazoia = reader.IsDBNull(reader.GetOrdinal("arrazoia")) ? null : DatuBaseTestua.Zuzendu(reader.GetString("arrazoia")),
                 Egoera = DatuBaseTestua.Zuzendu(reader.GetString("egoera")),
                 SortzeData = reader.GetDateTime("sortze_data"),
+                PazienteNan = reader.IsDBNull(reader.GetOrdinal("p_nan")) ? null : DatuBaseTestua.Zuzendu(reader.GetString("p_nan")),
                 PazienteIzena = reader.IsDBNull(reader.GetOrdinal("p_izena")) ? null : DatuBaseTestua.Zuzendu(reader.GetString("p_izena")),
                 PazienteAbizenak = reader.IsDBNull(reader.GetOrdinal("p_abizena")) ? null : DatuBaseTestua.Zuzendu(reader.GetString("p_abizena")),
                 OsasunLangileIzena = reader.IsDBNull(reader.GetOrdinal("m_izena")) ? null : DatuBaseTestua.Zuzendu(reader.GetString("m_izena")),
@@ -34,7 +35,7 @@ namespace GOsasun_app.Repositorioa
             {
                 string query = @"
                     SELECT h.*, 
-                            ep.izena as p_izena, ep.abizenak as p_abizena,
+                        ep.nan as p_nan, ep.izena as p_izena, ep.abizenak as p_abizena,
                             em.izena as m_izena, em.abizenak as m_abizena
                     FROM hitzorduak h
                     JOIN erabiltzaileak ep ON h.paziente_id = ep.id
@@ -56,7 +57,7 @@ namespace GOsasun_app.Repositorioa
             {
                 string query = @"
                     SELECT h.*, 
-                            ep.izena as p_izena, ep.abizenak as p_abizena,
+                        ep.nan as p_nan, ep.izena as p_izena, ep.abizenak as p_abizena,
                             em.izena as m_izena, em.abizenak as m_abizena
                     FROM hitzorduak h
                     JOIN erabiltzaileak ep ON h.paziente_id = ep.id
@@ -82,7 +83,7 @@ namespace GOsasun_app.Repositorioa
             {
                 string query = @"
                     SELECT h.*, 
-                            ep.izena as p_izena, ep.abizenak as p_abizena,
+                        ep.nan as p_nan, ep.izena as p_izena, ep.abizenak as p_abizena,
                             em.izena as m_izena, em.abizenak as m_abizena
                     FROM hitzorduak h
                     JOIN erabiltzaileak ep ON h.paziente_id = ep.id
