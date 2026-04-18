@@ -22,54 +22,7 @@ namespace GOsasun_app.Kontrola
 
         public List<Dokumentua> LortuPazientearenBesteDokumentuak(int pazienteId, int? baztertuJarraipenaId = null, string? bilaketa = null)
         {
-            List<Dokumentua> dokumentuak = _dokumentuaDb.LortuPazientearenBesteDokumentuak(pazienteId, baztertuJarraipenaId, bilaketa);
-
-            if (!baztertuJarraipenaId.HasValue)
-            {
-                return dokumentuak;
-            }
-
-            List<Dokumentua> jarraipenekoDokumentuak = _dokumentuaDb.LortuJarraipenarenDokumentuak(baztertuJarraipenaId.Value);
-            if (jarraipenekoDokumentuak.Count == 0)
-            {
-                return dokumentuak;
-            }
-
-            HashSet<string> dokumentuSinadurak = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            foreach (Dokumentua dokumentua in jarraipenekoDokumentuak)
-            {
-                GehituDokumentuSinadurak(dokumentuSinadurak, dokumentua);
-            }
-
-            return dokumentuak
-                .Where(dokumentua => !DokumentuaJadaLotutaDago(dokumentua, dokumentuSinadurak))
-                .ToList();
-        }
-
-        private static bool DokumentuaJadaLotutaDago(Dokumentua dokumentua, HashSet<string> dokumentuSinadurak)
-        {
-            return LortuDokumentuSinadurak(dokumentua).Any(dokumentuSinadurak.Contains);
-        }
-
-        private static void GehituDokumentuSinadurak(HashSet<string> dokumentuSinadurak, Dokumentua dokumentua)
-        {
-            foreach (string sinadura in LortuDokumentuSinadurak(dokumentua))
-            {
-                dokumentuSinadurak.Add(sinadura);
-            }
-        }
-
-        private static IEnumerable<string> LortuDokumentuSinadurak(Dokumentua dokumentua)
-        {
-            if (!string.IsNullOrWhiteSpace(dokumentua.BideaZerbitzarian))
-            {
-                yield return $"path:{dokumentua.BideaZerbitzarian.Trim()}";
-            }
-
-            if (!string.IsNullOrWhiteSpace(dokumentua.FitxategiIzena))
-            {
-                yield return $"file:{dokumentua.FitxategiIzena.Trim()}";
-            }
+            return _dokumentuaDb.LortuPazientearenBesteDokumentuak(pazienteId, baztertuJarraipenaId, bilaketa);
         }
 
         public Dokumentua? LortuDokumentua(int dokumentuId)
@@ -141,20 +94,52 @@ namespace GOsasun_app.Kontrola
             return ondo;
         }
 
+        public bool GehituTxostena(int pazienteId, int? jarraipenaId, int? osasunLangileId, string dokumentuIzena, string? deskribapena)
+        {
+            int? benetakoJarraipenaId = ZiurtatuJarraipena(pazienteId, jarraipenaId, osasunLangileId, "Txosten mediko automatikoa sortzeko jarraipena");
+            if (!benetakoJarraipenaId.HasValue) return false;
+
+            string pdfBidea = _pdfZerbitzua.SortuPazientearenTxostena(pazienteId, dokumentuIzena);
+
+            Dokumentua dokumentua = new Dokumentua
+            {
+                JarraipenaId = benetakoJarraipenaId.Value,
+                PazienteId = pazienteId,
+                FitxategiIzena = Path.GetFileName(pdfBidea),
+                BideaZerbitzarian = pdfBidea,
+                DokumentuIzena = dokumentuIzena,
+                Deskribapena = string.IsNullOrWhiteSpace(deskribapena) ? "Txosten mediko automatikoa" : deskribapena.Trim(),
+                IgotzeData = DateTime.Now
+            };
+
+            bool ondo = _dokumentuaDb.GordeDokumentua(dokumentua);
+            if (!ondo && File.Exists(pdfBidea))
+            {
+                File.Delete(pdfBidea);
+            }
+
+            return ondo;
+        }
+
         public bool GehituTxostena(
             int pazienteId,
             int? jarraipenaId,
             int? osasunLangileId,
             string dokumentuIzena,
             string? deskribapena,
-            IReadOnlyCollection<TxostenGrafikaMota>? grafikaMotak = null,
-            DateTime? grafikaHasieraData = null,
-            DateTime? grafikaAmaieraData = null)
+            IReadOnlyCollection<TxostenGrafikaMota>? grafikaMotak,
+            DateTime? grafikaHasieraData,
+            DateTime? grafikaAmaieraData)
         {
             int? benetakoJarraipenaId = ZiurtatuJarraipena(pazienteId, jarraipenaId, osasunLangileId, "Txosten mediko automatikoa sortzeko jarraipena");
             if (!benetakoJarraipenaId.HasValue) return false;
 
-            string pdfBidea = _pdfZerbitzua.SortuPazientearenTxostena(pazienteId, dokumentuIzena, grafikaMotak, grafikaHasieraData, grafikaAmaieraData);
+            string pdfBidea = _pdfZerbitzua.SortuPazientearenTxostena(
+                pazienteId,
+                dokumentuIzena,
+                grafikaMotak,
+                grafikaHasieraData,
+                grafikaAmaieraData);
 
             Dokumentua dokumentua = new Dokumentua
             {

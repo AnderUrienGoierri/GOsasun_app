@@ -11,33 +11,27 @@ namespace GOsasun_app.Kontrola
     /// </summary>
     public class ErabiltzaileKontrolatzailea
     {
-        // ---------------------------SORTU OBJETUA----------------------------------------------
+        // ---------------------------SORTU OBJETUA------------------------------------------------------    
         private readonly ErabiltzaileDB _db = new ErabiltzaileDB();
         private readonly LoginBlokeoZerbitzua _loginBlokeoZerbitzua = new LoginBlokeoZerbitzua();
 
-        // ---------------------------LORTU------------------------------------------------------
+        // ---------------------------LORTU------------------------------------------------------        
 
         /// <summary>
         /// Erabiltzailea datu-basean egiaztatzen du email eta pasahitz bidez.
         /// </summary>
         public LoginEmaitza Login(string emaila, string pasahitza)
         {
-            LoginSegurtasunEgoera egoera = _loginBlokeoZerbitzua.LortuEgoera();
-
-            if (egoera.Blokeatuta)
+            LoginSegurtasunEgoera unekoEgoera = _loginBlokeoZerbitzua.LortuEgoera();
+            if (unekoEgoera.Blokeatuta)
             {
-                return new LoginEmaitza
-                {
-                    Egoera = egoera
-                };
+                return new LoginEmaitza { Egoera = unekoEgoera };
             }
 
             Erabiltzailea? erabiltzailea = _db.Login(emaila, pasahitza);
-
             if (erabiltzailea != null)
             {
                 _loginBlokeoZerbitzua.Berrezarri();
-
                 return new LoginEmaitza
                 {
                     Erabiltzailea = erabiltzailea,
@@ -83,24 +77,14 @@ namespace GOsasun_app.Kontrola
             return _db.LortuGuztiakOsasunLangileak();
         }
 
-        public List<OsasunLangilea> LortuPazientearenOsasunLangileak(int pazienteId)
-        {
-            return _db.LortuPazientearenOsasunLangileak(pazienteId);
-        }
-
-        public bool EsleituOsasunLangileakPazienteari(int pazienteId, IReadOnlyCollection<int> langileIds)
-        {
-            return _db.EsleituOsasunLangileakPazienteari(pazienteId, langileIds);
-        }
-
-        public OsasunLangilea? LortuOsasunLangilea(int langileId)
-        {
-            return _db.LortuOsasunLangilea(langileId);
-        }
-
         public Pazientea? LortuPazientea(int pazienteId)
         {
             return _db.LortuPazientea(pazienteId);
+        }
+
+        public OsasunLangilea? LortuOsasunLangilea(int osasunLangileId)
+        {
+            return _db.LortuOsasunLangilea(osasunLangileId);
         }
 
         /// <summary>
@@ -111,9 +95,14 @@ namespace GOsasun_app.Kontrola
             return _db.LortuGuztiakHarrerakoak();
         }
 
-        public HarrerakoLangilea? LortuHarrerakoa(int harrerakoId)
+        public HarrerakoLangilea? LortuHarrerakoa(int harrerakoaId)
         {
-            return _db.LortuHarrerakoa(harrerakoId);
+            return _db.LortuHarrerakoa(harrerakoaId);
+        }
+
+        public List<OsasunLangilea> LortuPazientearenOsasunLangileak(int pazienteId)
+        {
+            return _db.LortuPazientearenOsasunLangileak(pazienteId);
         }
 
 // ------------------------SORTU------------------------------------
@@ -123,24 +112,9 @@ namespace GOsasun_app.Kontrola
             return _db.SortuPazientea(p);
         }
 
-        public bool SortuPazientea(Pazientea p, int langileId)
+        public bool SortuPazientea(Pazientea p, IEnumerable<int> osasunLangileIds, string? irudiBidea)
         {
-            return _db.SortuPazientea(p, langileId);
-        }
-
-        public bool SortuPazientea(Pazientea p, IReadOnlyCollection<int> langileIds, string? irudiIturria = null)
-        {
-            return _db.SortuPazientea(p, langileIds, irudiIturria);
-        }
-
-        public bool SortuPazientea(Pazientea p, string? irudiIturria)
-        {
-            return _db.SortuPazientea(p, irudiIturria);
-        }
-
-        public bool SortuPazientea(Pazientea p, int langileId, string? irudiIturria)
-        {
-            return _db.SortuPazientea(p, langileId, irudiIturria);
+            return _db.SortuPazientea(p, osasunLangileIds, irudiBidea);
         }
 
         public bool SortuOsasunLangilea(OsasunLangilea m)
@@ -148,9 +122,9 @@ namespace GOsasun_app.Kontrola
             return _db.SortuOsasunLangilea(m);
         }
 
-        public bool SortuOsasunLangilea(OsasunLangilea m, string? irudiIturria)
+        public bool SortuOsasunLangilea(OsasunLangilea m, string? irudiBidea)
         {
-            return _db.SortuOsasunLangilea(m, irudiIturria);
+            return _db.SortuOsasunLangilea(m, irudiBidea);
         }
 
         public bool SortuHarrerakoa(HarrerakoLangilea h)
@@ -158,9 +132,14 @@ namespace GOsasun_app.Kontrola
             return _db.SortuHarrerakoa(h);
         }
 
-        public bool SortuHarrerakoa(HarrerakoLangilea h, string? irudiIturria)
+        public bool SortuHarrerakoa(HarrerakoLangilea h, string? irudiBidea)
         {
-            return _db.SortuHarrerakoa(h, irudiIturria);
+            return _db.SortuHarrerakoa(h, irudiBidea);
+        }
+
+        public bool EsleituOsasunLangileakPazienteari(int pazienteId, IEnumerable<int> osasunLangileIds)
+        {
+            return _db.EsleituOsasunLangileakPazienteari(pazienteId, osasunLangileIds);
         }
 
 // ------------------------EZABATU------------------------------------
@@ -169,15 +148,14 @@ namespace GOsasun_app.Kontrola
         {
             return _db.EzabatuPazientea(id);
         }
+        public bool EguneratuPazientea(Pazientea p)
+        {
+            return _db.EguneratuPazientea(p);
+        }
 
         public bool AldatuPazientearenEgoera(int pazienteId, string egoeraBerria)
         {
             return _db.AldatuPazientearenEgoera(pazienteId, egoeraBerria);
-        }
-
-        public bool EguneratuPazientea(Pazientea p)
-        {
-            return _db.EguneratuPazientea(p);
         }
     }
 }

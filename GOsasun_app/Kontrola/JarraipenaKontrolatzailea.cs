@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using GOsasun_app.Modeloa;
 using GOsasun_app.Repositorioa;
-using GOsasun_app.Kontrola.Zerbitzuak;
 using System.IO;
 using System.Xml.Linq;
 using System;
@@ -13,11 +12,11 @@ namespace GOsasun_app.Kontrola
     /// </summary>
     public class JarraipenaKontrolatzailea
     {
-        // ---------------------------SORTU OBJETUA------------------------------------------------------
+        // ---------------------------SORTU OBJETUA------------------------------------------------------    
         private readonly JarraipenaDB _db = new JarraipenaDB();
         private readonly DokumentuaDB _dokumentuaDb = new DokumentuaDB();
 
-        // ---------------------------LORTU------------------------------------------------------
+        // ---------------------------LORTU------------------------------------------------------        
 
         /// <summary>
         /// Paziente baten jarraipen guztien zerrenda lortzen du.
@@ -50,14 +49,14 @@ namespace GOsasun_app.Kontrola
             return _db.GordeJarraipenaEtaLortuId(jarraipena);
         }
 
-        public bool EguneratuJarraipena(Jarraipena jarraipena)
-        {
-            return _db.EguneratuJarraipena(jarraipena);
-        }
-
         public bool EzabatuJarraipena(int jarraipenaId)
         {
             return _db.EzabatuJarraipena(jarraipenaId);
+        }
+
+        public bool EguneratuJarraipena(Jarraipena jarraipena)
+        {
+            return _db.EguneratuJarraipena(jarraipena);
         }
 
         public List<Dokumentua> LortuJarraipenarenDokumentuak(int jarraipenaId)
@@ -78,8 +77,8 @@ namespace GOsasun_app.Kontrola
             try
             {
                 var jarraipenaNode = new XElement("Jarraipena",
-                                    new XElement("erregistro_data", n.ErregistroData.ToString("yyyy-MM-dd HH:mm:ss")),
-                                    new XElement("paziente_id", n.PazienteId)
+                                     new XElement("erregistro_data", n.ErregistroData.ToString("yyyy-MM-dd HH:mm:ss")),
+                                     new XElement("paziente_id", n.PazienteId)
                 );
 
                 if (n.TentsioSistolikoa.HasValue) jarraipenaNode.Add(new XElement("tentsio_sistolikoa", n.TentsioSistolikoa.Value));
@@ -90,10 +89,10 @@ namespace GOsasun_app.Kontrola
 
                 XDocument doc = new XDocument(new XDeclaration("1.0", "utf-8", "yes"),
                     new XElement("Jarraipenak", jarraipenaNode));
-
-                string path = AplikazioBideak.LortuXmlKarpeta();
+                
+                string path = @"C:\Apache24-64\htdocs\GOsasun_web\xml_paziente_neurketak";
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-
+                
                 string izena = $"JARRAIPENA_{n.PazienteId}_{n.ErregistroData:yyyyMMdd_HHmmss}.xml";
                 doc.Save(Path.Combine(path, izena));
             }

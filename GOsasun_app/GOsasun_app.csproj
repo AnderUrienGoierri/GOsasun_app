@@ -6,7 +6,6 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>img\png\logoak\GOsasun_logo_whatsap.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
