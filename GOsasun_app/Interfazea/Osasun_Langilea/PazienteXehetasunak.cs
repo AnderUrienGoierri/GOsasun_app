@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
+using GOsasun_app.Interfazea.Kontrolak;
 using GOsasun_app.Kontrola;
 using GOsasun_app.Modeloa;
 
@@ -299,11 +300,13 @@ namespace GOsasun_app.Interfazea
                     continue;
                 }
 
-                using Image irudia = Image.FromFile(bidea);
-                pbIrudia.Image = new Bitmap(irudia);
+                Image? aurrekoa = pbIrudia.Image;
+                pbIrudia.Image = IrudiCachea.LortuBitmapa(bidea);
+                aurrekoa?.Dispose();
                 return;
             }
 
+            pbIrudia.Image?.Dispose();
             pbIrudia.Image = SortuPlaceholderIrudia();
         }
 

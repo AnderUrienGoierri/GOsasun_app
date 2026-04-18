@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
+using GOsasun_app.Interfazea.Kontrolak;
 using GOsasun_app.Modeloa;
 
 namespace GOsasun_app.Interfazea
@@ -216,11 +217,13 @@ namespace GOsasun_app.Interfazea
             string? bidea = BilatuFitxategiErlatiboa(_erabiltzaileaOsoa.Irudia);
             if (!string.IsNullOrWhiteSpace(bidea) && File.Exists(bidea))
             {
-                using Image jatorrizkoa = Image.FromFile(bidea);
-                pbIrudia.Image = new Bitmap(jatorrizkoa);
+                Image? aurrekoa = pbIrudia.Image;
+                pbIrudia.Image = IrudiCachea.LortuBitmapa(bidea);
+                aurrekoa?.Dispose();
                 return;
             }
 
+            pbIrudia.Image?.Dispose();
             pbIrudia.Image = SortuPlaceholderIrudia(_erabiltzaileaOsoa.Rola);
         }
 

@@ -9,6 +9,7 @@
 using GOsasun_app.Modeloa;
 using GOsasun_app.Kontrola;
 using GOsasun_app.Kontrola.Zerbitzuak;
+using GOsasun_app.Interfazea.Kontrolak;
 using System.ComponentModel;
 
 namespace GOsasun_app.Interfazea
@@ -76,9 +77,12 @@ namespace GOsasun_app.Interfazea
 
             if (!string.IsNullOrEmpty(atzekoPlanoaBidea) && File.Exists(atzekoPlanoaBidea))
             {
-                this.BackgroundImage = Image.FromFile(atzekoPlanoaBidea);
+                this.BackgroundImage = IrudiCachea.LortuBitmapa(atzekoPlanoaBidea);
                 this.BackgroundImageLayout = ImageLayout.Zoom;
-                this.ClientSize = this.BackgroundImage.Size;
+                if (this.BackgroundImage != null)
+                {
+                    this.ClientSize = this.BackgroundImage.Size;
+                }
             }
             else
             {
@@ -112,7 +116,7 @@ namespace GOsasun_app.Interfazea
             {
                 try
                 {
-                    _logoPicture.Image = Image.FromFile(logoBidea);
+                    _logoPicture.Image = IrudiCachea.LortuBitmapa(logoBidea);
                     _logoPicture.BackColor = Color.Transparent;
                 }
                 catch

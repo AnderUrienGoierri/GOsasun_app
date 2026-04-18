@@ -75,7 +75,7 @@ namespace GOsasun_app.Interfazea.Kontrolak
 
             if (File.Exists(logoPath))
             {
-                _logoPictureBox.Image = Image.FromFile(logoPath);
+                _logoPictureBox.Image = IrudiCachea.LortuBitmapa(logoPath);
             }
 
             // Erabiltzaile izena

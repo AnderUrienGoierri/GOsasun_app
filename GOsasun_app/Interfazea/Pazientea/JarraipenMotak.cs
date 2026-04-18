@@ -1,6 +1,7 @@
 ﻿using GOsasun_app.Modeloa;
 using GOsasun_app.Kontrola.Zerbitzuak;
 using GOsasun_app.Kontrola;
+using GOsasun_app.Interfazea.Kontrolak;
 using System.Collections.Generic;
 using System;
 using System.Drawing;
@@ -114,8 +115,7 @@ namespace GOsasun_app.Interfazea
                 string? aurkitua = aukerak.FirstOrDefault(File.Exists);
                 if (!string.IsNullOrWhiteSpace(aurkitua))
                 {
-                    using Image jatorrizkoa = Image.FromFile(aurkitua);
-                    return new Bitmap(jatorrizkoa);
+                    return IrudiCachea.LortuBitmapa(aurkitua);
                 }
             }
 

@@ -118,11 +118,6 @@ namespace GOsasun_app.Interfazea
             _dgvJarraipenak.RowTemplate.Height = JarraipenFilaAltuera;
             _dgvJarraipenak.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
 
-            if (BackgroundImage != null)
-            {
-                _edukiPanela.BackgroundImage = BackgroundImage;
-                _edukiPanela.BackgroundImageLayout = ImageLayout.Center;
-            }
         }
 
         private void KonfiguratuTaula()

@@ -5,6 +5,8 @@ namespace GOsasun_app.Interfazea.Kontrolak
 {
     public sealed class PortadaPanela : Panel
     {
+        private const int WmEraseBkgnd = 0x0014;
+        private const int WsExComposited = 0x02000000;
         private Image? _atzekoPlanoaIrudia;
         private Color _atzekoKolorea = Color.FromArgb(214, 224, 229);
 
@@ -13,6 +15,16 @@ namespace GOsasun_app.Interfazea.Kontrolak
             DoubleBuffered = true;
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
             UpdateStyles();
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams createParams = base.CreateParams;
+                createParams.ExStyle |= WsExComposited;
+                return createParams;
+            }
         }
 
         [Browsable(false)]
@@ -78,13 +90,24 @@ namespace GOsasun_app.Interfazea.Kontrolak
         protected override void OnScroll(ScrollEventArgs se)
         {
             base.OnScroll(se);
-            Invalidate();
+            Invalidate(true);
         }
 
         protected override void OnResize(EventArgs eventargs)
         {
             base.OnResize(eventargs);
             Invalidate();
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == WmEraseBkgnd)
+            {
+                m.Result = (IntPtr)1;
+                return;
+            }
+
+            base.WndProc(ref m);
         }
     }
 }

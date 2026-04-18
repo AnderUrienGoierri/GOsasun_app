@@ -29,9 +29,9 @@ namespace GOsasun_app.Interfazea
             _edukiPanela.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHitzorduak).BeginInit();
             SuspendLayout();
-            //
+            // 
             // _edukiPanela
-            //
+            // 
             _edukiPanela.Controls.Add(dgvHitzorduak);
             _edukiPanela.Controls.Add(btnGuztiak);
             _edukiPanela.Controls.Add(chkPazienteGuztiak);
@@ -40,36 +40,37 @@ namespace GOsasun_app.Interfazea
             _edukiPanela.Controls.Add(calEgutegia);
             _edukiPanela.Controls.Add(lblIzenburua);
             _edukiPanela.Location = new Point(0, 310);
-            _edukiPanela.Size = new Size(2036, 1120);
-            //
+            _edukiPanela.Size = new Size(1902, 745);
+            // 
             // _goiburuBarra
-            //
-            _goiburuBarra.Size = new Size(2036, 310);
+            // 
+            _goiburuBarra.Size = new Size(1902, 310);
             _goiburuBarra.Paint += _goiburuBarra_Paint;
-            //
+            // 
             // _atzeraBotoia
-            //
+            // 
             _atzeraBotoia.FlatAppearance.BorderSize = 0;
-            //
+            // 
             // lblIzenburua
-            //
+            // 
             lblIzenburua.AutoSize = true;
             lblIzenburua.Font = new Font("Segoe UI", 36F, FontStyle.Bold);
             lblIzenburua.ForeColor = Color.White;
-            lblIzenburua.Location = new Point(385, 19);
+            lblIzenburua.Location = new Point(40, 66);
             lblIzenburua.Name = "lblIzenburua";
-            lblIzenburua.Size = new Size(1162, 128);
+            lblIzenburua.Size = new Size(727, 81);
             lblIzenburua.TabIndex = 2;
             lblIzenburua.Text = "HITZORDUEN EGUTEGIA";
-            //
+            lblIzenburua.Click += lblIzenburua_Click;
+            // 
             // calEgutegia
-            //
-            calEgutegia.Location = new Point(34, 150);
+            // 
+            calEgutegia.Location = new Point(153, 150);
             calEgutegia.Name = "calEgutegia";
             calEgutegia.TabIndex = 3;
-            //
+            // 
             // dgvHitzorduak
-            //
+            // 
             dgvHitzorduak.AllowUserToAddRows = false;
             dgvHitzorduak.AllowUserToDeleteRows = false;
             dgvHitzorduak.BackgroundColor = Color.White;
@@ -81,9 +82,9 @@ namespace GOsasun_app.Interfazea
             dgvHitzorduak.RowHeadersWidth = 82;
             dgvHitzorduak.Size = new Size(1460, 800);
             dgvHitzorduak.TabIndex = 5;
-            //
+            // 
             // btnGuztiak
-            //
+            // 
             btnGuztiak.BackColor = Color.White;
             btnGuztiak.FlatStyle = FlatStyle.Flat;
             btnGuztiak.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
@@ -103,7 +104,7 @@ namespace GOsasun_app.Interfazea
             lblBilatuPazientea.ForeColor = Color.FromArgb(44, 62, 80);
             lblBilatuPazientea.Location = new Point(34, 501);
             lblBilatuPazientea.Name = "lblBilatuPazientea";
-            lblBilatuPazientea.Size = new Size(322, 37);
+            lblBilatuPazientea.Size = new Size(210, 23);
             lblBilatuPazientea.TabIndex = 8;
             lblBilatuPazientea.Text = "Bilatu pazientea edo DNI";
             // 
@@ -113,7 +114,7 @@ namespace GOsasun_app.Interfazea
             txtPazienteBilatu.Location = new Point(34, 548);
             txtPazienteBilatu.Name = "txtPazienteBilatu";
             txtPazienteBilatu.PlaceholderText = "Abizena, izena edo NAN/DNI";
-            txtPazienteBilatu.Size = new Size(325, 43);
+            txtPazienteBilatu.Size = new Size(325, 30);
             txtPazienteBilatu.TabIndex = 9;
             // 
             // chkPazienteGuztiak
@@ -123,17 +124,16 @@ namespace GOsasun_app.Interfazea
             chkPazienteGuztiak.ForeColor = Color.FromArgb(44, 62, 80);
             chkPazienteGuztiak.Location = new Point(40, 617);
             chkPazienteGuztiak.Name = "chkPazienteGuztiak";
-            chkPazienteGuztiak.Size = new Size(228, 39);
+            chkPazienteGuztiak.Size = new Size(159, 25);
             chkPazienteGuztiak.TabIndex = 10;
             chkPazienteGuztiak.Text = "Paziente guztiak";
             chkPazienteGuztiak.UseVisualStyleBackColor = true;
-            //
+            // 
             // HitzorduakKontsultatzea
-            //
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(142, 121, 102);
-            ClientSize = new Size(2036, 1430);
+            ClientSize = new Size(1902, 1055);
             Margin = new Padding(11, 9, 11, 9);
             Name = "HitzorduakKontsultatzea";
             Text = "GOsasun - Hitzorduak Kontsultatzea";

@@ -211,5 +211,10 @@ namespace GOsasun_app.Interfazea
         {
 
         }
+
+        private void lblIzenburua_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
