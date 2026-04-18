@@ -39,6 +39,7 @@ namespace GOsasun_app.Interfazea
             _edukiPanela.Controls.Add(dgvPazienteak);
             _edukiPanela.Controls.Add(pnlBilatzailea);
             _edukiPanela.Controls.Add(lblIzenburua);
+            _edukiPanela.Size = new Size(1902, 874);
             // 
             // _atzeraBotoia
             // 
@@ -72,7 +73,7 @@ namespace GOsasun_app.Interfazea
             dgvPazienteak.DefaultCellStyle = dataGridViewCellStyle2;
             dgvPazienteak.Dock = DockStyle.Fill;
             dgvPazienteak.EnableHeadersVisualStyles = false;
-            dgvPazienteak.Location = new Point(2, 495);
+            dgvPazienteak.Location = new Point(2, 874);
             dgvPazienteak.Margin = new Padding(6);
             dgvPazienteak.MultiSelect = false;
             dgvPazienteak.Name = "dgvPazienteak";
@@ -81,7 +82,7 @@ namespace GOsasun_app.Interfazea
             dgvPazienteak.RowHeadersWidth = 82;
             dgvPazienteak.RowTemplate.Height = 64;
             dgvPazienteak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPazienteak.Size = new Size(1898, 897);
+            dgvPazienteak.Size = new Size(1898, 0);
             dgvPazienteak.TabIndex = 1;
             dgvPazienteak.CellContentClick += dgvPazienteak_CellContentClick;
             // 
@@ -98,6 +99,7 @@ namespace GOsasun_app.Interfazea
             lblIzenburua.TabIndex = 0;
             lblIzenburua.Text = "NIRE PAZIENTEAK";
             lblIzenburua.TextAlign = ContentAlignment.MiddleCenter;
+            lblIzenburua.Click += lblIzenburua_Click;
             // 
             // pnlBilatzailea
             // 
@@ -113,105 +115,103 @@ namespace GOsasun_app.Interfazea
             pnlBilatzailea.Location = new Point(2, 96);
             pnlBilatzailea.Margin = new Padding(6);
             pnlBilatzailea.Name = "pnlBilatzailea";
-            pnlBilatzailea.Size = new Size(1898, 399);
+            pnlBilatzailea.Size = new Size(1898, 778);
             pnlBilatzailea.TabIndex = 2;
-            //
+            // 
             // chkBajan
-            //
+            // 
             chkBajan.AutoSize = true;
             chkBajan.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             chkBajan.ForeColor = Color.White;
-            chkBajan.Location = new Point(1570, 38);
+            chkBajan.Location = new Point(359, 81);
             chkBajan.Name = "chkBajan";
-            chkBajan.Size = new Size(122, 42);
+            chkBajan.Size = new Size(82, 29);
             chkBajan.TabIndex = 4;
             chkBajan.Text = "Bajan";
             chkBajan.UseVisualStyleBackColor = true;
-            //
+            // 
             // chkAltan
-            //
+            // 
             chkAltan.AutoSize = true;
             chkAltan.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             chkAltan.ForeColor = Color.White;
-            chkAltan.Location = new Point(1444, 37);
+            chkAltan.Location = new Point(273, 81);
             chkAltan.Name = "chkAltan";
-            chkAltan.Size = new Size(120, 42);
+            chkAltan.Size = new Size(80, 29);
             chkAltan.TabIndex = 3;
             chkAltan.Text = "Altan";
             chkAltan.UseVisualStyleBackColor = true;
-            //
+            // 
             // chkPazienteGuztiak
-            //
+            // 
             chkPazienteGuztiak.AutoSize = true;
             chkPazienteGuztiak.Checked = true;
             chkPazienteGuztiak.CheckState = CheckState.Checked;
             chkPazienteGuztiak.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             chkPazienteGuztiak.ForeColor = Color.White;
-            chkPazienteGuztiak.Location = new Point(1105, 37);
+            chkPazienteGuztiak.Location = new Point(38, 81);
             chkPazienteGuztiak.Name = "chkPazienteGuztiak";
-            chkPazienteGuztiak.Size = new Size(333, 42);
+            chkPazienteGuztiak.Size = new Size(219, 29);
             chkPazienteGuztiak.TabIndex = 2;
             chkPazienteGuztiak.Text = "Paziente guztiak ikusi";
             chkPazienteGuztiak.UseVisualStyleBackColor = true;
-            //
+            // 
             // btnPazienteBerria
-            //
+            // 
             btnPazienteBerria.BackColor = Color.FromArgb(52, 152, 219);
             btnPazienteBerria.FlatAppearance.BorderSize = 0;
             btnPazienteBerria.FlatStyle = FlatStyle.Flat;
             btnPazienteBerria.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             btnPazienteBerria.ForeColor = Color.White;
-            btnPazienteBerria.Location = new Point(136, 102);
+            btnPazienteBerria.Location = new Point(38, 110);
             btnPazienteBerria.Margin = new Padding(6);
             btnPazienteBerria.Name = "btnPazienteBerria";
             btnPazienteBerria.Size = new Size(394, 56);
             btnPazienteBerria.TabIndex = 5;
             btnPazienteBerria.Text = "Paziente berria gehitu";
             btnPazienteBerria.UseVisualStyleBackColor = false;
-            //
+            // 
             // btnOsasunLangileaSortu
-            //
+            // 
             btnOsasunLangileaSortu.BackColor = Color.FromArgb(22, 160, 133);
             btnOsasunLangileaSortu.FlatAppearance.BorderSize = 0;
             btnOsasunLangileaSortu.FlatStyle = FlatStyle.Flat;
             btnOsasunLangileaSortu.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             btnOsasunLangileaSortu.ForeColor = Color.White;
-            btnOsasunLangileaSortu.Location = new Point(548, 102);
+            btnOsasunLangileaSortu.Location = new Point(549, 110);
             btnOsasunLangileaSortu.Margin = new Padding(6);
             btnOsasunLangileaSortu.Name = "btnOsasunLangileaSortu";
             btnOsasunLangileaSortu.Size = new Size(403, 56);
             btnOsasunLangileaSortu.TabIndex = 6;
             btnOsasunLangileaSortu.Text = "Osasun-langilea sortu";
             btnOsasunLangileaSortu.UseVisualStyleBackColor = false;
-            btnOsasunLangileaSortu.Visible = true;
-            //
+            // 
             // txtBilatu
-            //
+            // 
             txtBilatu.Font = new Font("Segoe UI", 12F);
-            txtBilatu.Location = new Point(136, 30);
+            txtBilatu.Location = new Point(112, 30);
             txtBilatu.Margin = new Padding(6);
             txtBilatu.Name = "txtBilatu";
             txtBilatu.PlaceholderText = "Bilatu izena, abizena edo NAN...";
-            txtBilatu.Size = new Size(923, 50);
+            txtBilatu.Size = new Size(597, 34);
             txtBilatu.TabIndex = 1;
-            //
+            // 
             // lblBilatu
-            //
+            // 
             lblBilatu.AutoSize = true;
             lblBilatu.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblBilatu.ForeColor = Color.White;
-            lblBilatu.Location = new Point(21, 30);
+            lblBilatu.Location = new Point(38, 33);
             lblBilatu.Margin = new Padding(6, 0, 6, 0);
             lblBilatu.Name = "lblBilatu";
-            lblBilatu.Size = new Size(116, 45);
+            lblBilatu.Size = new Size(73, 28);
             lblBilatu.TabIndex = 0;
             lblBilatu.Text = "Bilatu:";
-            //
+            // 
             // PazienteenZerrenda
-            //
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1902, 1575);
+            ClientSize = new Size(1902, 1055);
             Margin = new Padding(11, 9, 11, 9);
             Name = "PazienteenZerrenda";
             Text = "GOsasun - Pazienteen Zerrenda";

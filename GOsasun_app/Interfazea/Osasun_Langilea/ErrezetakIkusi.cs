@@ -216,10 +216,7 @@ namespace GOsasun_app.Interfazea
 
                 if (aurkitua != null && _erabiltzailea != null)
                 {
-                    var editForm = new ErrezetaSortu(_erabiltzailea, aurkitua);
-                    editForm.FormClosed += (s, args) => { this.Show(); KargatuDatuak(); };
-                    this.Hide();
-                    editForm.Show();
+                    IrekiAzpiPantaila(() => new ErrezetaSortu(_erabiltzailea, aurkitua), KargatuDatuak);
                 }
             }
             catch (Exception ex)

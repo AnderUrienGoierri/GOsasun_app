@@ -131,7 +131,7 @@ namespace GOsasun_app.Interfazea
 
         private void KonfiguratuGertaerak()
         {
-            btnNeurketaBerria.Click += (s, e) => IrekiFormularioa(new JarraipenMotak(_erabiltzailea!));
+            btnNeurketaBerria.Click += (s, e) => IrekiFormularioa(() => new JarraipenMotak(_erabiltzailea!));
             txtBilatuOharrak.TextChanged += (s, e) => KargatuIragazkiekin();
             dtpHasieraData.ValueChanged += (s, e) => KargatuIragazkiekin();
             dtpAmaieraData.ValueChanged += (s, e) => KargatuIragazkiekin();
@@ -723,14 +723,14 @@ namespace GOsasun_app.Interfazea
             Process.Start(new ProcessStartInfo(dokumentua.BideaZerbitzarian) { UseShellExecute = true });
         }
 
+        private void IrekiFormularioa(Func<Form> formularioSortzailea)
+        {
+            IrekiAzpiPantaila(formularioSortzailea, KargatuIragazkiekin);
+        }
+
         private void IrekiFormularioa(Form formularioa)
         {
-            formularioa.FormClosed += (s, e) => {
-                this.Show();
-                KargatuIragazkiekin();
-            };
-            this.Hide();
-            formularioa.Show();
+            IrekiAzpiPantaila(formularioa, KargatuIragazkiekin);
         }
     }
 }

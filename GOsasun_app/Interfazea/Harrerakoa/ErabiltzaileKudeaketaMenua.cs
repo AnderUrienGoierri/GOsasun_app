@@ -29,21 +29,24 @@ namespace GOsasun_app.Interfazea
 
         private void KonfiguratuGertaerak()
         {
-            btnSortu.Click += (s, e) => IrekiFormularioa(new ErabiltzaileaSortu(_rolIzena, _erabiltzailea!));
+            btnSortu.Click += (s, e) => IrekiFormularioa(() => new ErabiltzaileaSortu(_rolIzena, _erabiltzailea!));
             btnZerrendatu.Click += (s, e) =>
             {
                 if (_rolIzena == "Pazientea")
-                    IrekiFormularioa(new PazienteenZerrenda(_erabiltzailea!));
+                    IrekiFormularioa(() => new PazienteenZerrenda(_erabiltzailea!));
                 else
                     MessageBox.Show("Modulu hau garatzen ari da.", "Laster...", MessageBoxButtons.OK, MessageBoxIcon.Information);
             };
         }
 
+        private void IrekiFormularioa(Func<Form> formularioSortzailea)
+        {
+            IrekiAzpiPantaila(formularioSortzailea);
+        }
+
         private void IrekiFormularioa(Form formularioa)
         {
-            formularioa.FormClosed += (s, e) => this.Show();
-            this.Hide();
-            formularioa.Show();
+            IrekiAzpiPantaila(formularioa);
         }
     }
 }

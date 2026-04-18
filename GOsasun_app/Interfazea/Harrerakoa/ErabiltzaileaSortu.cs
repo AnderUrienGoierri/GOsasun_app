@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using GOsasun_app.Kontrola;
 using GOsasun_app.Modeloa;
@@ -19,6 +20,8 @@ namespace GOsasun_app.Interfazea
         private readonly List<OsasunLangilea> _langileGuztiak = new List<OsasunLangilea>();
         private readonly List<OsasunLangilea> _hautatutakoLangileak = new List<OsasunLangilea>();
         private string? _hautatutakoIrudiBidea;
+        private bool _hasierakoDatuakKargatuta;
+        private bool _hasierakoDatuakKargatzen;
 
         public ErabiltzaileaSortu(string rolIzena, Erabiltzailea unekoLangilea, int? esleitutakoLangileId = null) : base(unekoLangilea)
         {
@@ -29,8 +32,18 @@ namespace GOsasun_app.Interfazea
             InitializeComponent();
 
             KonfiguratuIkuspegia();
-            KargatuIrudiLehenetsia();
-            KargatuOsasunLangileak();
+        }
+
+        protected override async void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+
+            if (_hasierakoDatuakKargatuta || _hasierakoDatuakKargatzen || DiseinuModuan())
+            {
+                return;
+            }
+
+            await KargatuHasierakoDatuakAsync();
         }
 
         private void KonfiguratuIkuspegia()
@@ -92,10 +105,94 @@ namespace GOsasun_app.Interfazea
             cmbOsasunLangileak.DropDownStyle = ComboBoxStyle.DropDown;
             cmbOsasunLangileak.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cmbOsasunLangileak.AutoCompleteSource = AutoCompleteSource.ListItems;
+            lblIrudiFitxategia.Text = "Kargatzen...";
 
             btnIrudiaAukeratu.Click += BtnIrudiaAukeratu_Click;
             btnLangileaGehitu.Click += BtnLangileaGehitu_Click;
             btnLangileaKendu.Click += BtnLangileaKendu_Click;
+        }
+
+        private async Task KargatuHasierakoDatuakAsync()
+        {
+            _hasierakoDatuakKargatzen = true;
+            EzarriHasierakoKargaEgoera(true);
+
+            try
+            {
+                string? lehenetsia = await Task.Run(() => BilatuFitxategia(IrudiLehenetsia));
+                List<OsasunLangilea> langileak = RolPazienteaDa()
+                    ? await Task.Run(() => _kontrolatzailea.LortuGuztiakOsasunLangileak()
+                        .OrderBy(langilea => langilea.IzenOsoa)
+                        .ToList())
+                    : new List<OsasunLangilea>();
+
+                if (IsDisposed)
+                {
+                    return;
+                }
+
+                lblIrudiFitxategia.Text = "Irudi lehenetsia";
+                if (!string.IsNullOrWhiteSpace(lehenetsia))
+                {
+                    KargatuIrudiaAurrebistan(lehenetsia);
+                }
+
+                if (RolPazienteaDa())
+                {
+                    _langileGuztiak.Clear();
+                    _langileGuztiak.AddRange(langileak);
+                    _hautatutakoLangileak.Clear();
+
+                    if (_esleitutakoLangileId.HasValue)
+                    {
+                        OsasunLangilea? aurkitutakoa = _langileGuztiak.FirstOrDefault(langilea => langilea.Id == _esleitutakoLangileId.Value);
+                        if (aurkitutakoa != null)
+                        {
+                            _hautatutakoLangileak.Add(aurkitutakoa);
+                        }
+                    }
+
+                    EguneratuLangileenAukerak();
+                    EguneratuHautatutakoLangileenZerrenda();
+                }
+
+                _hasierakoDatuakKargatuta = true;
+            }
+            catch (Exception ex)
+            {
+                if (!IsDisposed)
+                {
+                    MessageBox.Show(
+                        "Ezin izan da erabiltzailea sortzeko pantailako hasierako informazioa kargatu: " + ex.Message,
+                        "Errorea",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+            finally
+            {
+                _hasierakoDatuakKargatzen = false;
+                if (!IsDisposed)
+                {
+                    EzarriHasierakoKargaEgoera(false);
+                }
+            }
+        }
+
+        private void EzarriHasierakoKargaEgoera(bool kargatzen)
+        {
+            UseWaitCursor = kargatzen;
+            Cursor = kargatzen ? Cursors.WaitCursor : Cursors.Default;
+            btnGorde.Enabled = !kargatzen;
+            btnIrudiaAukeratu.Enabled = !kargatzen;
+
+            if (RolPazienteaDa())
+            {
+                cmbOsasunLangileak.Enabled = !kargatzen;
+                btnLangileaGehitu.Enabled = !kargatzen;
+                btnLangileaKendu.Enabled = !kargatzen;
+                lstEsleitutakoLangileak.Enabled = !kargatzen;
+            }
         }
 
         private bool RolPazienteaDa()

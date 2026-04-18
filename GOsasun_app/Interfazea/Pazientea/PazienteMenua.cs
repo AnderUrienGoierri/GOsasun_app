@@ -56,11 +56,16 @@ namespace GOsasun_app.Interfazea
 
         private void KonfiguratuGertaerak()
         {
-            btnNeurketak.Click += (s, e) => IrekiFormularioa(new NireJarraipenak(_erabiltzailea!));
-            btnErrezetak.Click += (s, e) => IrekiFormularioa(new ErrezetaSortu(_erabiltzailea!));
-            btnGrafikak.Click += (s, e) => IrekiFormularioa(new Grafikak(_erabiltzailea!));
-            btnDokumentuak.Click += (s, e) => IrekiFormularioa(new Dokumentuak(_erabiltzailea!));
-            btnHitzorduak.Click += (s, e) => IrekiFormularioa(new HitzorduakKontsultatzea(_erabiltzailea!));
+            btnNeurketak.Click += (s, e) => IrekiFormularioa(() => new NireJarraipenak(_erabiltzailea!));
+            btnErrezetak.Click += (s, e) => IrekiFormularioa(() => new ErrezetaSortu(_erabiltzailea!));
+            btnGrafikak.Click += (s, e) => IrekiFormularioa(() => new Grafikak(_erabiltzailea!));
+            btnDokumentuak.Click += (s, e) => IrekiFormularioa(() => new Dokumentuak(_erabiltzailea!));
+            btnHitzorduak.Click += (s, e) => IrekiFormularioa(() => new HitzorduakKontsultatzea(_erabiltzailea!));
+        }
+
+        private void IrekiFormularioa(Func<Form> formularioSortzailea)
+        {
+            IrekiAzpiPantaila(formularioSortzailea);
         }
 
         private void IrekiFormularioa(Form formularioa)

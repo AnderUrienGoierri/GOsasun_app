@@ -312,69 +312,12 @@ namespace GOsasun_app.Interfazea
         private void KargatuEkintzaIkonoak()
         {
             _ekintzaIkonoak.Clear();
-            _ekintzaIkonoak[EkintzaMota.Ikusi] = KargatuSvgIkonoa("eye.svg");
-            _ekintzaIkonoak[EkintzaMota.Editatu] = KargatuSvgIkonoa("pencil.svg");
-            _ekintzaIkonoak[EkintzaMota.GehituDokumentua] = KargatuSvgIkonoa("plus-circle.svg");
-            _ekintzaIkonoak[EkintzaMota.IkusiDokumentuak] = KargatuSvgIkonoa("file-text.svg");
-            _ekintzaIkonoak[EkintzaMota.Ezabatu] = KargatuSvgIkonoa("trash-2.svg");
-            _oharraIkonoa = KargatuSvgIkonoa("search.svg");
-        }
-
-        private Bitmap? KargatuSvgIkonoa(string fileName)
-        {
-            string? bidea = BilatuSvgBidea(fileName);
-            if (string.IsNullOrEmpty(bidea) || !File.Exists(bidea)) return null;
-
-            try
-            {
-                string svgEdukia = File.ReadAllText(bidea);
-                svgEdukia = svgEdukia.Replace("currentColor", "#FFFFFF", StringComparison.OrdinalIgnoreCase);
-
-                using MemoryStream memoria = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(svgEdukia));
-                SvgDocument svg = SvgDocument.Open<SvgDocument>(memoria);
-                return svg.Draw(EkintzaIkonoTamaina, EkintzaIkonoTamaina);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        private static string? BilatuSvgBidea(string fileName)
-        {
-            HashSet<string> erroak = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            string?[] hasierakoak = {
-                Application.StartupPath,
-                AppContext.BaseDirectory,
-                Directory.GetCurrentDirectory(),
-                Environment.CurrentDirectory,
-                Path.GetDirectoryName(typeof(Jarraipenak).Assembly.Location)
-            };
-
-            foreach (string? hasiera in hasierakoak)
-            {
-                if (string.IsNullOrWhiteSpace(hasiera) || !Directory.Exists(hasiera)) continue;
-
-                DirectoryInfo? karpeta = new DirectoryInfo(hasiera);
-                while (karpeta != null)
-                {
-                    erroak.Add(karpeta.FullName);
-                    karpeta = karpeta.Parent;
-                }
-            }
-
-            foreach (string root in erroak)
-            {
-                string[] aukerak = {
-                    Path.Combine(root, "img", "svg", fileName),
-                    Path.Combine(root, "GOsasun_app", "img", "svg", fileName)
-                };
-
-                string? aurkitua = aukerak.FirstOrDefault(File.Exists);
-                if (!string.IsNullOrEmpty(aurkitua)) return aurkitua;
-            }
-
-            return null;
+            _ekintzaIkonoak[EkintzaMota.Ikusi] = KargatuIkonoBitmapa("eye.svg", Color.White, EkintzaIkonoTamaina);
+            _ekintzaIkonoak[EkintzaMota.Editatu] = KargatuIkonoBitmapa("pencil.svg", Color.White, EkintzaIkonoTamaina);
+            _ekintzaIkonoak[EkintzaMota.GehituDokumentua] = KargatuIkonoBitmapa("plus-circle.svg", Color.White, EkintzaIkonoTamaina);
+            _ekintzaIkonoak[EkintzaMota.IkusiDokumentuak] = KargatuIkonoBitmapa("file-text.svg", Color.White, EkintzaIkonoTamaina);
+            _ekintzaIkonoak[EkintzaMota.Ezabatu] = KargatuIkonoBitmapa("trash-2.svg", Color.White, EkintzaIkonoTamaina);
+            _oharraIkonoa = KargatuIkonoBitmapa("search.svg", Color.White, EkintzaIkonoTamaina);
         }
 
         private void KonfiguratuGertaerak()
@@ -386,10 +329,9 @@ namespace GOsasun_app.Interfazea
             _btnFiltroakGarbitu.Click += (s, e) => GarbituFiltroak();
             _btnJarraipenBerria.Click += (s, e) =>
             {
-                Form formularioa = _pazienteIdFiltroa.HasValue
+                IrekiFormularioa(() => _pazienteIdFiltroa.HasValue
                     ? new JarraipenMotak(_erabiltzailea!, _pazienteIdFiltroa.Value, _pazienteIzenburua)
-                    : new JarraipenMotak(_erabiltzailea!);
-                IrekiFormularioa(formularioa);
+                    : new JarraipenMotak(_erabiltzailea!));
             };
             _dgvJarraipenak.ColumnHeaderMouseClick += DgvJarraipenak_ColumnHeaderMouseClick;
             _dgvJarraipenak.CellFormatting += DgvJarraipenak_CellFormatting;
@@ -1564,11 +1506,14 @@ namespace GOsasun_app.Interfazea
             }
         }
 
+        private void IrekiFormularioa(Func<Form> formularioSortzailea)
+        {
+            IrekiAzpiPantaila(formularioSortzailea);
+        }
+
         private void IrekiFormularioa(Form formularioa)
         {
-            formularioa.FormClosed += (s, e) => this.Show();
-            this.Hide();
-            formularioa.Show();
+            IrekiAzpiPantaila(formularioa);
         }
     }
 }

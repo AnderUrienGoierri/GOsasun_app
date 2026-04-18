@@ -285,50 +285,8 @@ namespace GOsasun_app.Interfazea
 
                 if (erabiltzaileaObj != null)
                 {
-                    Form menuForm;
-                    if (erabiltzaileaObj is OsasunLangilea)
-                    {
-                        menuForm = new MenuaOsasunLangilea(erabiltzaileaObj);
-                    }
-                    else if (erabiltzaileaObj is Pazientea)
-                    {
-                        menuForm = new PazienteMenua(erabiltzaileaObj);
-                    }
-                    else
-                    {
-                        menuForm = new HarreraMenua(erabiltzaileaObj);
-                    }
-
                     _blokeoEguneratzeTimerra.Stop();
-
-                    menuForm.FormClosed += (s, args) =>
-                    {
-                        _erabiltzaileTextBox.Text = "";
-                        _pasahitzaTextBox.Text = "";
-                        EguneratuLoginSegurtasuna();
-                        this.Show();
-                    };
-
-                    if (menuForm is GOsasunForm hurrengoPantaila)
-                    {
-                        EventHandler? prestHandler = null;
-                        prestHandler = (s, e) =>
-                        {
-                            hurrengoPantaila.HasierakoAurkezpenaOsatuta -= prestHandler;
-                            if (!IsDisposed)
-                            {
-                                Hide();
-                            }
-                        };
-
-                        hurrengoPantaila.HasierakoAurkezpenaOsatuta += prestHandler;
-                    }
-                    else
-                    {
-                        Hide();
-                    }
-
-                    menuForm.Show();
+                    IrekiMenuNagusia(() => SortuMenuNagusia(erabiltzaileaObj));
                 }
                 else
                 {
@@ -346,6 +304,76 @@ namespace GOsasun_app.Interfazea
             {
                 ErakutsiMezua($"Errorea saioa hastean: {ex.Message}", Color.FromArgb(231, 76, 60));
             }
+        }
+
+        private Form SortuMenuNagusia(Erabiltzailea erabiltzaileaObj)
+        {
+            if (erabiltzaileaObj is OsasunLangilea)
+            {
+                return new MenuaOsasunLangilea(erabiltzaileaObj);
+            }
+
+            if (erabiltzaileaObj is Pazientea)
+            {
+                return new PazienteMenua(erabiltzaileaObj);
+            }
+
+            return new HarreraMenua(erabiltzaileaObj);
+        }
+
+        private void IrekiMenuNagusia(Func<Form> formularioSortzailea)
+        {
+            UseWaitCursor = true;
+            Cursor = Cursors.WaitCursor;
+
+            BeginInvoke(new Action(() =>
+            {
+                try
+                {
+                    Form menuForm = formularioSortzailea();
+                    menuForm.Owner = this;
+                    menuForm.FormClosed += (s, args) =>
+                    {
+                        _erabiltzaileTextBox.Text = "";
+                        _pasahitzaTextBox.Text = "";
+                        EguneratuLoginSegurtasuna();
+                        UseWaitCursor = false;
+                        Cursor = Cursors.Default;
+                        Show();
+                    };
+
+                    if (menuForm is GOsasunForm hurrengoPantaila)
+                    {
+                        EventHandler? prestHandler = null;
+                        prestHandler = (s, e) =>
+                        {
+                            hurrengoPantaila.HasierakoAurkezpenaOsatuta -= prestHandler;
+                            if (!IsDisposed)
+                            {
+                                UseWaitCursor = false;
+                                Cursor = Cursors.Default;
+                                Hide();
+                            }
+                        };
+
+                        hurrengoPantaila.HasierakoAurkezpenaOsatuta += prestHandler;
+                    }
+                    else
+                    {
+                        UseWaitCursor = false;
+                        Cursor = Cursors.Default;
+                        Hide();
+                    }
+
+                    menuForm.Show();
+                }
+                catch (Exception ex)
+                {
+                    UseWaitCursor = false;
+                    Cursor = Cursors.Default;
+                    ErakutsiMezua($"Errorea menua irekitzean: {ex.Message}", Color.FromArgb(231, 76, 60));
+                }
+            }));
         }
 
         private void KonfiguratuGertakariak()

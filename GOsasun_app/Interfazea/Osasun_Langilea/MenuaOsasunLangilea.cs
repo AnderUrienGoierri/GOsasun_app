@@ -67,17 +67,22 @@ namespace GOsasun_app.Interfazea
 
         private void KonfiguratuGertaerak()
         {
-            btnPazienteak.Click += (s, e) => IrekiFormularioa(new PazienteenZerrenda(_erabiltzailea!));
-            btnNeurketak.Click += (s, e) => IrekiFormularioa(new Jarraipenak(_erabiltzailea!));
-            btnErrezetak.Click += (s, e) => IrekiFormularioa(new ErrezetakMenua(_erabiltzailea!));
-            btnGrafikak.Click += (s, e) => IrekiFormularioa(new Grafikak(_erabiltzailea!));
-            btnDokumentuak.Click += (s, e) => IrekiFormularioa(new Dokumentuak(_erabiltzailea!));
-            btnHitzorduak.Click += (s, e) => IrekiFormularioa(new HitzorduakKontsultatzea(_erabiltzailea!));
+            btnPazienteak.Click += (s, e) => IrekiFormularioa(() => new PazienteenZerrenda(_erabiltzailea!));
+            btnNeurketak.Click += (s, e) => IrekiFormularioa(() => new Jarraipenak(_erabiltzailea!));
+            btnErrezetak.Click += (s, e) => IrekiFormularioa(() => new ErrezetakMenua(_erabiltzailea!));
+            btnGrafikak.Click += (s, e) => IrekiFormularioa(() => new Grafikak(_erabiltzailea!));
+            btnDokumentuak.Click += (s, e) => IrekiFormularioa(() => new Dokumentuak(_erabiltzailea!));
+            btnHitzorduak.Click += (s, e) => IrekiFormularioa(() => new HitzorduakKontsultatzea(_erabiltzailea!));
         }
 
         // -----------------------------------------------------------
         // Azpi-formularioa ireki eta hau ezkutatu (itxita bueltatu)
         // -----------------------------------------------------------
+        private void IrekiFormularioa(Func<Form> formularioSortzailea)
+        {
+            IrekiAzpiPantaila(formularioSortzailea);
+        }
+
         private void IrekiFormularioa(Form formularioa)
         {
             IrekiAzpiPantaila(formularioa);

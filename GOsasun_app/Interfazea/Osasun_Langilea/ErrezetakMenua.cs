@@ -16,8 +16,8 @@ namespace GOsasun_app.Interfazea
         {
             InitializeComponent();
             KargatuIkonoak();
-            btnErrezetaSortu.Click += (s, e) => IrekiFormularioa(new ErrezetaSortu(_erabiltzailea!));
-            btnErrezetakIkusi.Click += (s, e) => IrekiFormularioa(new ErrezetakIkusi(_erabiltzailea!));
+            btnErrezetaSortu.Click += (s, e) => IrekiFormularioa(() => new ErrezetaSortu(_erabiltzailea!));
+            btnErrezetakIkusi.Click += (s, e) => IrekiFormularioa(() => new ErrezetakIkusi(_erabiltzailea!));
         }
 
         private void KargatuIkonoak()
@@ -26,11 +26,14 @@ namespace GOsasun_app.Interfazea
             btnErrezetakIkusi.Ikonoa = KargatuIkonoIrudia("pill.svg");
         }
 
+        private void IrekiFormularioa(Func<Form> formSortzailea)
+        {
+            IrekiAzpiPantaila(formSortzailea);
+        }
+
         private void IrekiFormularioa(Form form)
         {
-            form.FormClosed += (s, e) => this.Show();
-            this.Hide();
-            form.Show();
+            IrekiAzpiPantaila(form);
         }
 
     }

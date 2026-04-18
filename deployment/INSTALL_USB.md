@@ -12,9 +12,16 @@ PowerShell-etik exekutatu:
 pwsh -ExecutionPolicy Bypass -File .\deployment\Publish-GOsasun.ps1
 ```
 
-Honek `publish\win-x64` karpetan autoedukitutako bertsioa sortuko du.
+Honek hauek egingo ditu automatikoki:
+
+- `publish\win-x64` karpetan autoedukitutako bertsioa sortu
+- `deployment\GOsasun_app.iss` konpilatu Inno Setup-rekin
+- azken instalatzailea `deployment\output\GOsasun_app_Setup.exe` fitxategian eguneratu
+- kopia bat `D:\Instalatzailea\GOsasun_app_Setup.exe` helmugan utzi
 
 ## 2. Instaladorea sortu
+
+Publish script-a erabilita, urrats hau automatikoki egiten da. Eskuz egin nahi baduzu:
 
 1. Instalatu `Inno Setup`.
 2. Ireki `deployment\GOsasun_app.iss`.
@@ -27,7 +34,13 @@ deployment\output\GOsasun_app_Setup.exe
 
 ## 3. USB-an gorde
 
-USB-ra kopiatu gutxienez hau:
+USB helmuga lehenetsia hau da:
+
+```text
+D:\Instalatzailea\GOsasun_app_Setup.exe
+```
+
+Beste USB edo karpeta batera kopiatu nahi baduzu, gutxienez hau eraman:
 
 ```text
 deployment\output\GOsasun_app_Setup.exe

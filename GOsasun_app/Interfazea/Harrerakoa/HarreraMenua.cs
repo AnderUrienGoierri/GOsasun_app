@@ -65,13 +65,17 @@ namespace GOsasun_app.Interfazea
                 IrekiAzpiPantaila(h);
             };
 
-            btnDokumentuak.Click += (s, e) => IrekiFormularioa(new Dokumentuak(_erabiltzailea!));
+            btnDokumentuak.Click += (s, e) => IrekiFormularioa(() => new Dokumentuak(_erabiltzailea!));
         }
 
         private void IrekiKudeaketa(string rolIzena)
         {
-            var m = new ErabiltzaileKudeaketaMenua(rolIzena, _erabiltzailea!);
-            IrekiAzpiPantaila(m);
+            IrekiAzpiPantaila(() => new ErabiltzaileKudeaketaMenua(rolIzena, _erabiltzailea!));
+        }
+
+        private void IrekiFormularioa(Func<Form> formularioSortzailea)
+        {
+            IrekiAzpiPantaila(formularioSortzailea);
         }
 
         private void IrekiFormularioa(Form formularioa)

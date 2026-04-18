@@ -10,6 +10,7 @@ using GOsasun_app.Interfazea.Kontrolak;
 using GOsasun_app.Kontrola;
 using GOsasun_app.Kontrola.Zerbitzuak;
 using GOsasun_app.Modeloa;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using Svg;
 
@@ -24,6 +25,10 @@ namespace GOsasun_app.Interfazea
         private static readonly Size PortadaIrudiTamaina = new Size(1514, 1394);
         private static readonly Size OinarriPantailaTamaina = new Size(1902, 1394);
         private static readonly Color PortadaAtzekoKolorea = Color.FromArgb(214, 224, 229);
+        private static readonly object PortadaIrudiBlokeoa = new object();
+        private static readonly ConcurrentDictionary<string, Bitmap> SvgIkonoCachea = new ConcurrentDictionary<string, Bitmap>(StringComparer.OrdinalIgnoreCase);
+        private static Image? _portadaIrudiPartekatua;
+        private static string? _portadaIrudiBideaCache;
         private Image? _atzekoPlanoaIrudia;
 
         // Erabiltzaile informazioa (OOP)
@@ -105,13 +110,10 @@ namespace GOsasun_app.Interfazea
         // -----------------------------------------------------------
         protected void KargatuBaliabideak()
         {
-            string? atzekoPlanoaBidea = BilatuPortadaBidea();
-            if (!string.IsNullOrEmpty(atzekoPlanoaBidea) && File.Exists(atzekoPlanoaBidea))
-            {
-                _atzekoPlanoaIrudia?.Dispose();
-                using Image jatorrizkoIrudia = Image.FromFile(atzekoPlanoaBidea);
-                _atzekoPlanoaIrudia = new Bitmap(jatorrizkoIrudia);
+            _atzekoPlanoaIrudia = LortuPortadaIrudiPartekatua();
 
+            if (_atzekoPlanoaIrudia != null)
+            {
                 this.BackgroundImage = null;
                 if (_edukiPanela != null)
                 {
@@ -126,7 +128,6 @@ namespace GOsasun_app.Interfazea
             }
             else
             {
-                _atzekoPlanoaIrudia?.Dispose();
                 _atzekoPlanoaIrudia = null;
                 this.BackColor = PortadaAtzekoKolorea;
                 if (_edukiPanela != null)
@@ -135,6 +136,41 @@ namespace GOsasun_app.Interfazea
                     _edukiPanela.Invalidate();
                 }
                 this.ClientSize = OinarriPantailaTamaina;
+            }
+        }
+
+        private static Image? LortuPortadaIrudiPartekatua()
+        {
+            lock (PortadaIrudiBlokeoa)
+            {
+                if (_portadaIrudiPartekatua != null)
+                {
+                    return _portadaIrudiPartekatua;
+                }
+
+                string? atzekoPlanoaBidea = LortuPortadaBideaCacheatuta();
+                if (string.IsNullOrWhiteSpace(atzekoPlanoaBidea) || !File.Exists(atzekoPlanoaBidea))
+                {
+                    return null;
+                }
+
+                using Image jatorrizkoIrudia = Image.FromFile(atzekoPlanoaBidea);
+                _portadaIrudiPartekatua = new Bitmap(jatorrizkoIrudia);
+                return _portadaIrudiPartekatua;
+            }
+        }
+
+        private static string? LortuPortadaBideaCacheatuta()
+        {
+            lock (PortadaIrudiBlokeoa)
+            {
+                if (!string.IsNullOrWhiteSpace(_portadaIrudiBideaCache) && File.Exists(_portadaIrudiBideaCache))
+                {
+                    return _portadaIrudiBideaCache;
+                }
+
+                _portadaIrudiBideaCache = BilatuPortadaBidea();
+                return _portadaIrudiBideaCache;
             }
         }
 
@@ -322,20 +358,38 @@ namespace GOsasun_app.Interfazea
         protected Image? KargatuIkonoIrudia(string fitxategiIzena, Color? svgKolorea = null, int svgTamaina = 256)
         {
             string? svgBidea = BilatuBaliabidea("img", "svg", fitxategiIzena);
+            return KargatuSvgIkonoCachetik(svgBidea, svgKolorea ?? Color.FromArgb(44, 62, 80), svgTamaina);
+        }
+
+        protected Bitmap? KargatuIkonoBitmapa(string fitxategiIzena, Color? svgKolorea = null, int svgTamaina = 256)
+        {
+            return KargatuIkonoIrudia(fitxategiIzena, svgKolorea, svgTamaina) as Bitmap;
+        }
+
+        protected static Bitmap? KargatuSvgIkonoCachetik(string? svgBidea, Color kolorea, int svgTamaina)
+        {
             if (string.IsNullOrWhiteSpace(svgBidea) || !File.Exists(svgBidea))
             {
                 return null;
             }
 
+            string cacheGakoa = $"{svgBidea}|{kolorea.ToArgb()}|{svgTamaina}";
+            if (SvgIkonoCachea.TryGetValue(cacheGakoa, out Bitmap? cachekoIkonoa))
+            {
+                return new Bitmap(cachekoIkonoa);
+            }
+
             try
             {
                 string svgEdukia = File.ReadAllText(svgBidea);
-                string ordezkoKolorea = ColorTranslator.ToHtml(svgKolorea ?? Color.FromArgb(44, 62, 80));
+                string ordezkoKolorea = ColorTranslator.ToHtml(kolorea);
                 svgEdukia = svgEdukia.Replace("currentColor", ordezkoKolorea, StringComparison.OrdinalIgnoreCase);
 
                 using MemoryStream memoria = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(svgEdukia));
                 SvgDocument svg = SvgDocument.Open<SvgDocument>(memoria);
-                return svg.Draw(svgTamaina, svgTamaina);
+                Bitmap marraztua = svg.Draw(svgTamaina, svgTamaina);
+                SvgIkonoCachea.TryAdd(cacheGakoa, new Bitmap(marraztua));
+                return marraztua;
             }
             catch
             {
@@ -359,13 +413,41 @@ namespace GOsasun_app.Interfazea
             return null;
         }
 
-        protected void IrekiAzpiPantaila(Form formularioa)
+        protected void IrekiAzpiPantaila(Func<Form> formularioSortzailea, Action? itzultzean = null)
         {
+            ArgumentNullException.ThrowIfNull(formularioSortzailea);
+
+            ErakutsiNabigazioKarga();
+
+            BeginInvoke(new Action(() =>
+            {
+                try
+                {
+                    Form formularioa = formularioSortzailea();
+                    IrekiAzpiPantaila(formularioa, itzultzean);
+                }
+                catch (Exception ex)
+                {
+                    GarbituNabigazioKarga();
+                    MessageBox.Show(
+                        "Ezin izan da pantaila berria ireki: " + ex.Message,
+                        "Errorea",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }));
+        }
+
+        protected void IrekiAzpiPantaila(Form formularioa, Action? itzultzean = null)
+        {
+            ErakutsiNabigazioKarga();
             formularioa.Owner = this;
             formularioa.FormClosed += (s, e) =>
             {
                 if (!IsDisposed)
                 {
+                    GarbituNabigazioKarga();
+                    itzultzean?.Invoke();
                     Show();
                     ZentratuPantailaLanEremuan();
                 }
@@ -380,6 +462,7 @@ namespace GOsasun_app.Interfazea
                     if (!IsDisposed)
                     {
                         Hide();
+                        GarbituNabigazioKarga();
                     }
                 };
 
@@ -388,9 +471,22 @@ namespace GOsasun_app.Interfazea
             else
             {
                 Hide();
+                GarbituNabigazioKarga();
             }
 
             formularioa.Show();
+        }
+
+        private void ErakutsiNabigazioKarga()
+        {
+            UseWaitCursor = true;
+            Cursor = Cursors.WaitCursor;
+        }
+
+        private void GarbituNabigazioKarga()
+        {
+            UseWaitCursor = false;
+            Cursor = Cursors.Default;
         }
 
         private void GoiburuBarra_ErabiltzaileaKlik(object? sender, EventArgs e)
@@ -413,7 +509,7 @@ namespace GOsasun_app.Interfazea
 
             _erabiltzailea = erabiltzaileOsoa;
             _goiburuBarra?.EguneratuInformazioa(_erabiltzailea.IzenOsoa, _erabiltzailea.Rola);
-            IrekiAzpiPantaila(new NireErabiltzaileFitxa(erabiltzaileOsoa));
+            IrekiAzpiPantaila(() => new NireErabiltzaileFitxa(erabiltzaileOsoa));
         }
 
         private static Erabiltzailea? LortuErabiltzaileOsoa(Erabiltzailea erabiltzailea)

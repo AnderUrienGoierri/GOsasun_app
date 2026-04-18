@@ -9,7 +9,6 @@ using System.Windows.Forms;
 using GOsasun_app.Interfazea.Kontrolak;
 using GOsasun_app.Modeloa;
 using GOsasun_app.Kontrola;
-using Svg;
 
 namespace GOsasun_app.Interfazea
 {
@@ -123,7 +122,8 @@ namespace GOsasun_app.Interfazea
             }
 
             dgvPazienteak.Cursor = Cursors.Default;
-            dgvPazienteak.CellMouseEnter += (s, e) => {
+            dgvPazienteak.CellMouseEnter += (s, e) =>
+            {
                 DataGridViewColumn? editZutabea = dgvPazienteak.Columns["btnEditatu"];
                 DataGridViewColumn? ezabatuZutabea = dgvPazienteak.Columns["btnEzabatu"];
 
@@ -229,6 +229,7 @@ namespace GOsasun_app.Interfazea
         private void EguneratuBilatzailearenDiseinua()
         {
             if (pnlBilatzailea == null
+                || lblIzenburua == null
                 || lblBilatu == null
                 || txtBilatu == null
                 || chkPazienteGuztiak == null
@@ -246,63 +247,57 @@ namespace GOsasun_app.Interfazea
                 return;
             }
 
-            int ezkerMarjina = Math.Max(20, (int)Math.Round(panelZabalera * 0.035));
+            int ezkerMarjina = Math.Max(38, (int)Math.Round(panelZabalera * 0.02));
             int eskuinMarjina = ezkerMarjina;
-            const int botoienArtekoTartea = 18;
-            bool diseinuEstua = panelZabalera < 1250;
+            const int elementuTartea = 24;
+            bool diseinuEstua = panelZabalera < 1080;
 
-            lblBilatu.Location = new Point(ezkerMarjina, 28);
-            int bilaketaX = diseinuEstua ? lblBilatu.Right + 14 : ezkerMarjina + 110;
-            int bilaketaZabalera = diseinuEstua
-                ? panelZabalera - bilaketaX - eskuinMarjina
-                : Math.Max(320, panelZabalera - bilaketaX - eskuinMarjina - 360);
-            txtBilatu.Location = new Point(bilaketaX, 24);
-            txtBilatu.Width = Math.Max(320, bilaketaZabalera);
+            lblIzenburua.TextAlign = ContentAlignment.MiddleLeft;
+            lblIzenburua.Padding = new Padding(ezkerMarjina, 0, 0, 0);
+
+            lblBilatu.Location = new Point(ezkerMarjina, 26);
+            int bilaketaX = lblBilatu.Right + 14;
+            int bilaketaZabalera = Math.Min(760, Math.Max(360, panelZabalera - bilaketaX - eskuinMarjina));
+            txtBilatu.Location = new Point(bilaketaX, 22);
+            txtBilatu.Width = bilaketaZabalera;
 
             int checkY = txtBilatu.Bottom + 18;
-            int botoiakGoian;
+            chkPazienteGuztiak.Location = new Point(ezkerMarjina, checkY);
+            chkAltan.Location = new Point(chkPazienteGuztiak.Right + elementuTartea, checkY);
+            chkBajan.Location = new Point(chkAltan.Right + elementuTartea, checkY);
 
-            if (diseinuEstua)
-            {
-                chkPazienteGuztiak.Location = new Point(ezkerMarjina, checkY);
-                chkAltan.Location = new Point(chkPazienteGuztiak.Right + 24, checkY);
-                chkBajan.Location = new Point(chkAltan.Right + 24, checkY);
-                botoiakGoian = chkPazienteGuztiak.Bottom + 22;
-            }
-            else
-            {
-                int eskuinMuga = panelZabalera - eskuinMarjina;
-                chkBajan.Location = new Point(eskuinMuga - chkBajan.Width, 28);
-                eskuinMuga = chkBajan.Left - 18;
-                chkAltan.Location = new Point(eskuinMuga - chkAltan.Width, 28);
-                eskuinMuga = chkAltan.Left - 18;
-                chkPazienteGuztiak.Location = new Point(eskuinMuga - chkPazienteGuztiak.Width, 28);
-                botoiakGoian = txtBilatu.Bottom + 18;
-            }
-
+            int botoiakGoian = chkPazienteGuztiak.Bottom + 20;
             int botoiZabalera = diseinuEstua
-                ? Math.Max(220, (panelZabalera - (ezkerMarjina * 2) - botoienArtekoTartea) / 2)
-                : btnPazienteBerria.Width;
-            int botoiakEzkerrean = ezkerMarjina;
+                ? Math.Max(280, panelZabalera - (ezkerMarjina * 2))
+                : Math.Min(430, Math.Max(280, (panelZabalera - (ezkerMarjina * 2) - elementuTartea) / 2));
 
             if (btnPazienteBerria.Visible)
             {
                 btnPazienteBerria.Size = new Size(botoiZabalera, btnPazienteBerria.Height);
-                btnPazienteBerria.Location = new Point(botoiakEzkerrean, botoiakGoian);
-                botoiakEzkerrean = btnPazienteBerria.Right + botoienArtekoTartea;
+                btnPazienteBerria.Location = new Point(ezkerMarjina, botoiakGoian);
             }
 
             if (btnOsasunLangileaSortu.Visible)
             {
                 btnOsasunLangileaSortu.Size = new Size(botoiZabalera, btnOsasunLangileaSortu.Height);
-                btnOsasunLangileaSortu.Location = new Point(botoiakEzkerrean, botoiakGoian);
+                btnOsasunLangileaSortu.Location = diseinuEstua
+                    ? new Point(ezkerMarjina, btnPazienteBerria.Bottom + 16)
+                    : new Point(btnPazienteBerria.Right + elementuTartea, botoiakGoian);
             }
 
-            int panelAltuera = Math.Max(
-                btnPazienteBerria.Visible || btnOsasunLangileaSortu.Visible
-                    ? Math.Max(btnPazienteBerria.Bottom, btnOsasunLangileaSortu.Bottom)
-                    : txtBilatu.Bottom,
-                diseinuEstua ? chkPazienteGuztiak.Bottom : txtBilatu.Bottom) + 20;
+            int azkenBehea = txtBilatu.Bottom;
+            azkenBehea = Math.Max(azkenBehea, chkPazienteGuztiak.Bottom);
+            if (btnPazienteBerria.Visible)
+            {
+                azkenBehea = Math.Max(azkenBehea, btnPazienteBerria.Bottom);
+            }
+
+            if (btnOsasunLangileaSortu.Visible)
+            {
+                azkenBehea = Math.Max(azkenBehea, btnOsasunLangileaSortu.Bottom);
+            }
+
+            int panelAltuera = azkenBehea + 20;
             pnlBilatzailea.Height = panelAltuera;
         }
 
@@ -328,58 +323,9 @@ namespace GOsasun_app.Interfazea
         {
             if (_erabiltzailea is HarrerakoLangilea) return;
 
-            _ekintzaIkonoak["fitxa"] = KargatuSvgIkonoa("eye.svg");
-            _ekintzaIkonoak["jarraipena"] = KargatuSvgIkonoa("stethoscope.svg");
-            _ekintzaIkonoak["esleitu"] = KargatuSvgIkonoa("users.svg");
-        }
-
-        private static Bitmap? KargatuSvgIkonoa(string fileName)
-        {
-            string? bidea = BilatuSvgBidea(fileName);
-            if (string.IsNullOrWhiteSpace(bidea) || !File.Exists(bidea)) return null;
-
-            try
-            {
-                string svg = File.ReadAllText(bidea).Replace("currentColor", "#FFFFFF", StringComparison.OrdinalIgnoreCase);
-                using MemoryStream memoria = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(svg));
-                SvgDocument dokumentua = SvgDocument.Open<SvgDocument>(memoria);
-                return dokumentua.Draw(EkintzaIkonoTamaina, EkintzaIkonoTamaina);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        private static string? BilatuSvgBidea(string fileName)
-        {
-            string[] erroak =
-            {
-                Application.StartupPath,
-                AppContext.BaseDirectory,
-                Directory.GetCurrentDirectory(),
-                Environment.CurrentDirectory,
-                Path.GetDirectoryName(typeof(PazienteenZerrenda).Assembly.Location) ?? string.Empty
-            };
-
-            foreach (string hasiera in erroak.Where(Directory.Exists))
-            {
-                DirectoryInfo? karpeta = new DirectoryInfo(hasiera);
-                while (karpeta != null)
-                {
-                    string[] aukerak =
-                    {
-                        Path.Combine(karpeta.FullName, "img", "svg", fileName),
-                        Path.Combine(karpeta.FullName, "GOsasun_app", "img", "svg", fileName)
-                    };
-
-                    string? aurkitua = aukerak.FirstOrDefault(File.Exists);
-                    if (!string.IsNullOrWhiteSpace(aurkitua)) return aurkitua;
-                    karpeta = karpeta.Parent;
-                }
-            }
-
-            return null;
+            _ekintzaIkonoak["fitxa"] = KargatuIkonoBitmapa("eye.svg", Color.White, EkintzaIkonoTamaina);
+            _ekintzaIkonoak["jarraipena"] = KargatuIkonoBitmapa("stethoscope.svg", Color.White, EkintzaIkonoTamaina);
+            _ekintzaIkonoak["esleitu"] = KargatuIkonoBitmapa("users.svg", Color.White, EkintzaIkonoTamaina);
         }
 
         private bool EkintzakZutabeaDa(int columnIndex)
@@ -589,7 +535,7 @@ namespace GOsasun_app.Interfazea
                 {
                     _pazienteak = _kontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea!.Id, testua, egoeraFiltroa);
                 }
-                
+
                 dgvPazienteak.DataSource = null;
                 dgvPazienteak.DataSource = _pazienteak;
             }
@@ -604,26 +550,16 @@ namespace GOsasun_app.Interfazea
             if (_erabiltzailea == null) return;
 
             int? esleitutakoLangileId = _erabiltzailea is OsasunLangilea ? _erabiltzailea.Id : null;
-            ErabiltzaileaSortu formularioa = new ErabiltzaileaSortu("Pazientea", _erabiltzailea, esleitutakoLangileId);
-            formularioa.FormClosed += (s, args) =>
-            {
-                Show();
-                KargatuPazienteak(txtBilatu.Text.Trim());
-            };
-
-            Hide();
-            formularioa.Show();
+            IrekiAzpiPantaila(
+                () => new ErabiltzaileaSortu("Pazientea", _erabiltzailea, esleitutakoLangileId),
+                () => KargatuPazienteak(txtBilatu.Text.Trim()));
         }
 
         private void BtnOsasunLangileaSortu_Click(object? sender, EventArgs e)
         {
             if (_erabiltzailea == null) return;
 
-            ErabiltzaileaSortu formularioa = new ErabiltzaileaSortu("Osasun Langilea", _erabiltzailea);
-            formularioa.FormClosed += (s, args) => Show();
-
-            Hide();
-            formularioa.Show();
+            IrekiAzpiPantaila(() => new ErabiltzaileaSortu("Osasun Langilea", _erabiltzailea));
         }
 
         private void TxtBilatu_TextChanged(object? sender, EventArgs e)
@@ -682,12 +618,12 @@ namespace GOsasun_app.Interfazea
                 // Ireki informazio zehatza (editatzeko aukerarik badugu bertan)
                 // Oraintxe bertan PazienteXehetasunak bakarrik erakusteko da, 
                 // baina erabiltzaileari editatzen utzi nahi diogu.
-                IrekiFormularioa(new PazienteXehetasunak(pazientea)); 
+                IrekiFormularioa(new PazienteXehetasunak(pazientea));
             }
             // Ezabatu botoia
             else if (dgvPazienteak.Columns[e.ColumnIndex].Name == "btnEzabatu")
             {
-                var emaitza = MessageBox.Show($"Ziur zaude {pazientea.IzenOsoa} pazientea ezabatu (desaktibatu) nahi duzula?", 
+                var emaitza = MessageBox.Show($"Ziur zaude {pazientea.IzenOsoa} pazientea ezabatu (desaktibatu) nahi duzula?",
                     "Berretsi ezabatzea", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (emaitza == DialogResult.Yes)
@@ -704,12 +640,19 @@ namespace GOsasun_app.Interfazea
                 }
             }
         }
-        private void IrekiFormularioa(Form formularioa)
+        private void IrekiFormularioa(Func<Form> formularioSortzailea)
         {
-            formularioa.FormClosed += (s, e) => this.Show();
-            this.Hide();
-            formularioa.Show();
+            IrekiAzpiPantaila(formularioSortzailea);
         }
 
+        private void IrekiFormularioa(Form formularioa)
+        {
+            IrekiAzpiPantaila(formularioa);
+        }
+
+        private void lblIzenburua_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

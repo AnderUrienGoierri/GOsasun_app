@@ -75,28 +75,25 @@ namespace GOsasun_app.Interfazea
             // Tentsiometroa: Pantaila berria ireki
             btnTentsiometroa.Click += (s, e) =>
             {
-                Form formularioa = _pazienteIdAurrehautatu.HasValue
+                IrekiFormularioa(() => _pazienteIdAurrehautatu.HasValue
                     ? new TentsiometroNeurketak(_erabiltzailea!, _pazienteIdAurrehautatu.Value, _pazienteIzenburua)
-                    : new TentsiometroNeurketak(_erabiltzailea!);
-                IrekiFormularioa(formularioa);
+                    : new TentsiometroNeurketak(_erabiltzailea!));
             };
 
             // Pisua: eskuzko sarrera
             btnPisua.Click += (s, e) =>
             {
-                Form formularioa = _pazienteIdAurrehautatu.HasValue
+                IrekiFormularioa(() => _pazienteIdAurrehautatu.HasValue
                     ? new EskuzkoNeurketak(_erabiltzailea!, true, _pazienteIdAurrehautatu.Value, _pazienteIzenburua)
-                    : new EskuzkoNeurketak(_erabiltzailea!, true);
-                IrekiFormularioa(formularioa);
+                    : new EskuzkoNeurketak(_erabiltzailea!, true));
             };
 
             // Altuera: eskuzko sarrera
             btnAltuera.Click += (s, e) =>
             {
-                Form formularioa = _pazienteIdAurrehautatu.HasValue
+                IrekiFormularioa(() => _pazienteIdAurrehautatu.HasValue
                     ? new EskuzkoNeurketak(_erabiltzailea!, false, _pazienteIdAurrehautatu.Value, _pazienteIzenburua)
-                    : new EskuzkoNeurketak(_erabiltzailea!, false);
-                IrekiFormularioa(formularioa);
+                    : new EskuzkoNeurketak(_erabiltzailea!, false));
             };
 
             btnOharra.Click += (s, e) => SortuOharJarraipena();
@@ -211,11 +208,14 @@ namespace GOsasun_app.Interfazea
             MessageBox.Show("Errorea gertatu da ohar bidezko jarraipena gordetzean.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        private void IrekiFormularioa(Func<Form> formularioSortzailea)
+        {
+            IrekiAzpiPantaila(formularioSortzailea);
+        }
+
         private void IrekiFormularioa(Form formularioa)
         {
-            formularioa.FormClosed += (s, e) => this.Show();
-            this.Hide();
-            formularioa.Show();
+            IrekiAzpiPantaila(formularioa);
         }
 
     }
