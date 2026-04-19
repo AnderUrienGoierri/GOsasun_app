@@ -18,7 +18,7 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
     /// </summary>
     public class BM58RawRecord
     {
-        public byte[] Data { get; set; }
+        public byte[] Data { get; set; } = Array.Empty<byte>();
         public int Index { get; set; }
         public int UserId { get; set; } // 1 edo 2
 
@@ -310,7 +310,7 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
                 channel.DiscardInBuffer();
             } catch { }
 
-            byte[] lastData = null;
+            byte[]? lastData = null;
             int hutsikJarraian = 0;
 
             for (int idx = 0; idx < 60; idx++)

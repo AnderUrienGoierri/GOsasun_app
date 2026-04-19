@@ -298,11 +298,11 @@ namespace GOsasun_app.Interfazea
 
         private void PazienteakBatu()
         {
-            string testua = _txtPazienteBilatu.Text.ToLower();
+            string testua = _txtPazienteBilatu.Text.Trim();
             var iragazita = _pazienteak.Where(p => 
-                p.Izena.ToLower().Contains(testua) || 
-                p.Abizenak.ToLower().Contains(testua) || 
-                p.Nan.ToLower().Contains(testua)
+                (!string.IsNullOrWhiteSpace(p.Izena) && p.Izena.Contains(testua, StringComparison.OrdinalIgnoreCase)) || 
+                (!string.IsNullOrWhiteSpace(p.Abizenak) && p.Abizenak.Contains(testua, StringComparison.OrdinalIgnoreCase)) || 
+                (!string.IsNullOrWhiteSpace(p.Nan) && p.Nan.Contains(testua, StringComparison.OrdinalIgnoreCase))
             ).ToList();
             GordeDgvDatuak(iragazita);
         }
@@ -316,8 +316,9 @@ namespace GOsasun_app.Interfazea
                 p.Id 
             }).ToList();
 
-            if (_dgvPazienteak.Columns["Id"] != null)
-                _dgvPazienteak.Columns["Id"].Visible = false;
+            DataGridViewColumn? idZutabea = _dgvPazienteak.Columns["Id"];
+            if (idZutabea != null)
+                idZutabea.Visible = false;
         }
 
         private void DatuakInportatu()
@@ -345,7 +346,7 @@ namespace GOsasun_app.Interfazea
                 pazienteId = int.Parse(pIdStr);
             }
 
-            List<BM58RawRecord> guztiak = null;
+            List<BM58RawRecord>? guztiak = null;
             string? konekzioErrorea = null;
             bool bilaketaBerrabiarazi = true;
             try
@@ -359,6 +360,7 @@ namespace GOsasun_app.Interfazea
 
                 _portuIzena = eguneratutakoPortua;
                 _isHid = isHidOrain;
+                string portuIzena = eguneratutakoPortua;
 
                 // 1. PRE-SCAN MODAL: Konexioa egiaztatu
                 DialogResult waitResult;
@@ -387,7 +389,7 @@ namespace GOsasun_app.Interfazea
                             await Task.Run(() => {
                                 try
                                 {
-                                    guztiak = _driver.IrakurriErrekordGuztiak(_portuIzena, _isHid);
+                                    guztiak = _driver.IrakurriErrekordGuztiak(portuIzena, _isHid);
                                 }
                                 catch (BM58KomunikazioSalbuespena ex)
                                 {

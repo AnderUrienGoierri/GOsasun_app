@@ -174,10 +174,17 @@ namespace GOsasun_app.Interfazea
                 {
                     foreach (DataGridViewColumn col in _dgvPazienteak.Columns) col.Visible = false;
 
-                    _dgvPazienteak.Columns["Izena"].Visible = true;
-                    _dgvPazienteak.Columns["Abizenak"].Visible = true;
-                    _dgvPazienteak.Columns["Nan"].Visible = true;
-                    _dgvPazienteak.Columns["Nan"].HeaderText = "NAN";
+                    DataGridViewColumn? izenaZutabea = _dgvPazienteak.Columns["Izena"];
+                    DataGridViewColumn? abizenakZutabea = _dgvPazienteak.Columns["Abizenak"];
+                    DataGridViewColumn? nanZutabea = _dgvPazienteak.Columns["Nan"];
+
+                    if (izenaZutabea != null) izenaZutabea.Visible = true;
+                    if (abizenakZutabea != null) abizenakZutabea.Visible = true;
+                    if (nanZutabea != null)
+                    {
+                        nanZutabea.Visible = true;
+                        nanZutabea.HeaderText = "NAN";
+                    }
                 }
             }
             catch (Exception ex)
@@ -214,9 +221,13 @@ namespace GOsasun_app.Interfazea
 
                 if (_dgvHistoriala.Columns.Count > 0)
                 {
-                    _dgvHistoriala.Columns["Data"].DefaultCellStyle.Format = "yyyy/MM/dd HH:mm";
-                    if (_isPisua) _dgvHistoriala.Columns["Pisua"].HeaderText = "Pisua (kg)";
-                    else _dgvHistoriala.Columns["Altuera"].HeaderText = "Altuera (m)";
+                    DataGridViewColumn? dataZutabea = _dgvHistoriala.Columns["Data"];
+                    DataGridViewColumn? pisuaZutabea = _dgvHistoriala.Columns["Pisua"];
+                    DataGridViewColumn? altueraZutabea = _dgvHistoriala.Columns["Altuera"];
+
+                    if (dataZutabea != null) dataZutabea.DefaultCellStyle.Format = "yyyy/MM/dd HH:mm";
+                    if (_isPisua && pisuaZutabea != null) pisuaZutabea.HeaderText = "Pisua (kg)";
+                    else if (!_isPisua && altueraZutabea != null) altueraZutabea.HeaderText = "Altuera (m)";
                 }
 
                 _lblHistoriala.Visible = true;

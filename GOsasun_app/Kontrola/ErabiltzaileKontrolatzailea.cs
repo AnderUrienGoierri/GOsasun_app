@@ -72,9 +72,9 @@ namespace GOsasun_app.Kontrola
         /// <summary>
         /// Sistema osoko osasun langile guztien zerrenda lortzen du.
         /// </summary>
-        public List<OsasunLangilea> LortuGuztiakOsasunLangileak()
+        public List<OsasunLangilea> LortuGuztiakOsasunLangileak(string? bilatzailea = null)
         {
-            return _db.LortuGuztiakOsasunLangileak();
+            return _db.LortuGuztiakOsasunLangileak(bilatzailea);
         }
 
         public Pazientea? LortuPazientea(int pazienteId)
@@ -90,9 +90,9 @@ namespace GOsasun_app.Kontrola
         /// <summary>
         /// Sistema osoko harrerako langile guztien zerrenda lortzen du.
         /// </summary>
-        public List<HarrerakoLangilea> LortuGuztiakHarrerakoak()
+        public List<HarrerakoLangilea> LortuGuztiakHarrerakoak(string? bilatzailea = null)
         {
-            return _db.LortuGuztiakHarrerakoak();
+            return _db.LortuGuztiakHarrerakoak(bilatzailea);
         }
 
         public HarrerakoLangilea? LortuHarrerakoa(int harrerakoaId)
@@ -148,9 +148,30 @@ namespace GOsasun_app.Kontrola
         {
             return _db.EzabatuPazientea(id);
         }
+
+        public bool EzabatuOsasunLangilea(int id)
+        {
+            return _db.EzabatuOsasunLangilea(id);
+        }
+
+        public bool EzabatuHarrerakoa(int id)
+        {
+            return _db.EzabatuHarrerakoa(id);
+        }
+
         public bool EguneratuPazientea(Pazientea p)
         {
             return _db.EguneratuPazientea(p);
+        }
+
+        public bool EguneratuOsasunLangilea(OsasunLangilea m)
+        {
+            return _db.EguneratuOsasunLangilea(m);
+        }
+
+        public bool EguneratuHarrerakoa(HarrerakoLangilea h)
+        {
+            return _db.EguneratuHarrerakoa(h);
         }
 
         public bool AldatuPazientearenEgoera(int pazienteId, string egoeraBerria)

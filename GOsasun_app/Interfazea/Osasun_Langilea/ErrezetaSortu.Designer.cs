@@ -149,7 +149,6 @@ namespace GOsasun_app.Interfazea
             // pnlEskuina
             // 
             pnlEskuina.BackColor = Color.Transparent;
-            pnlEskuina.Controls.Add(btnSortuErrezeta);
             pnlEskuina.Controls.Add(grpBotikak);
             pnlEskuina.Controls.Add(dtpIraungitzeData);
             pnlEskuina.Controls.Add(lblIraungitzeData);
@@ -171,7 +170,7 @@ namespace GOsasun_app.Interfazea
             btnSortuErrezeta.FlatStyle = FlatStyle.Flat;
             btnSortuErrezeta.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             btnSortuErrezeta.ForeColor = Color.White;
-            btnSortuErrezeta.Location = new Point(6, 642);
+            btnSortuErrezeta.Location = new Point(17, 400);
             btnSortuErrezeta.Name = "btnSortuErrezeta";
             btnSortuErrezeta.Size = new Size(420, 60);
             btnSortuErrezeta.TabIndex = 0;
@@ -181,6 +180,7 @@ namespace GOsasun_app.Interfazea
             // grpBotikak
             // 
             grpBotikak.BackColor = Color.FromArgb(100, 0, 0, 0);
+            grpBotikak.Controls.Add(btnSortuErrezeta);
             grpBotikak.Controls.Add(lblBotika);
             grpBotikak.Controls.Add(cmbBotikak);
             grpBotikak.Controls.Add(lblDosia);
@@ -252,7 +252,7 @@ namespace GOsasun_app.Interfazea
             btnGehituBotika.BackColor = Color.FromArgb(46, 204, 113);
             btnGehituBotika.FlatStyle = FlatStyle.Flat;
             btnGehituBotika.ForeColor = Color.White;
-            btnGehituBotika.Location = new Point(1104, 43);
+            btnGehituBotika.Location = new Point(954, 83);
             btnGehituBotika.Name = "btnGehituBotika";
             btnGehituBotika.Size = new Size(207, 50);
             btnGehituBotika.TabIndex = 6;
@@ -273,7 +273,7 @@ namespace GOsasun_app.Interfazea
             dgvBotikak.RowHeadersVisible = false;
             dgvBotikak.RowHeadersWidth = 82;
             dgvBotikak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvBotikak.Size = new Size(1310, 258);
+            dgvBotikak.Size = new Size(934, 258);
             dgvBotikak.TabIndex = 7;
             // 
             // btnKenduBotika
@@ -281,7 +281,7 @@ namespace GOsasun_app.Interfazea
             btnKenduBotika.BackColor = Color.FromArgb(231, 76, 60);
             btnKenduBotika.FlatStyle = FlatStyle.Flat;
             btnKenduBotika.ForeColor = Color.White;
-            btnKenduBotika.Location = new Point(1104, 99);
+            btnKenduBotika.Location = new Point(954, 357);
             btnKenduBotika.Name = "btnKenduBotika";
             btnKenduBotika.Size = new Size(207, 37);
             btnKenduBotika.TabIndex = 8;

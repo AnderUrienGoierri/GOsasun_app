@@ -7,11 +7,12 @@ namespace GOsasun_app.Repositorioa
 {
     public class ErrezetaDB
     {
-        public List<Errezeta> LortuErrezetaGuztiak()
+        public List<Errezeta> LortuErrezetaGuztiak(bool soilikAktiboak = true)
         {
             var errezetak = new List<Errezeta>();
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
+                string aktiboWhere = soilikAktiboak ? "WHERE e.aktibo = 1" : string.Empty;
                 string query = @"
                     SELECT e.id as ErrezetaId, e.hitzordu_id, e.osasun_langile_id, e.paziente_id, e.igorpen_data, e.iraungitze_data, e.diagnostiko_laburra, e.aktibo,
                            ep.izena, ep.abizenak, ep.nan,
@@ -19,7 +20,7 @@ namespace GOsasun_app.Repositorioa
                     FROM errezetak e
                     JOIN erabiltzaileak ep ON e.paziente_id = ep.id
                     LEFT JOIN hitzorduak h ON e.hitzordu_id = h.id
-                    WHERE e.aktibo = 1
+                    " + aktiboWhere + @"
                     ORDER BY e.igorpen_data DESC";
 
                 using (var cmd = new MySqlCommand(query, konexioa))
@@ -133,11 +134,12 @@ namespace GOsasun_app.Repositorioa
             }
         }
 
-        public List<Errezeta> LortuOsasunLangilearenErrezetak(int langileId)
+        public List<Errezeta> LortuOsasunLangilearenErrezetak(int langileId, bool soilikAktiboak = true)
         {
             var errezetak = new List<Errezeta>();
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
+                string aktiboFilter = soilikAktiboak ? " AND e.aktibo = 1" : string.Empty;
                 // Errezeten datu nagusiak + paziente onuraduna + balizko hitzordu data
                 string query = @"
                           SELECT e.id as ErrezetaId, e.hitzordu_id, e.osasun_langile_id, e.paziente_id, e.igorpen_data, e.iraungitze_data, e.diagnostiko_laburra, e.aktibo,
@@ -146,7 +148,7 @@ namespace GOsasun_app.Repositorioa
                     FROM errezetak e
                           JOIN erabiltzaileak ep ON e.paziente_id = ep.id
                     LEFT JOIN hitzorduak h ON e.hitzordu_id = h.id
-                    WHERE e.osasun_langile_id = @langileId AND e.aktibo = 1
+                    WHERE e.osasun_langile_id = @langileId" + aktiboFilter + @"
                     ORDER BY e.igorpen_data DESC";
 
                 using (var cmd = new MySqlCommand(query, konexioa))
@@ -208,11 +210,12 @@ namespace GOsasun_app.Repositorioa
             return errezetak;
         }
 
-        public List<Errezeta> LortuPazientearenErrezetak(int pazienteId)
+        public List<Errezeta> LortuPazientearenErrezetak(int pazienteId, bool soilikAktiboak = true)
         {
             var errezetak = new List<Errezeta>();
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
+                string aktiboFilter = soilikAktiboak ? " AND e.aktibo = 1" : string.Empty;
                 string query = @"
                     SELECT e.id as ErrezetaId, e.hitzordu_id, e.osasun_langile_id, e.paziente_id, e.igorpen_data, e.iraungitze_data, e.diagnostiko_laburra, e.aktibo,
                            ep.izena, ep.abizenak, ep.nan,
@@ -220,7 +223,7 @@ namespace GOsasun_app.Repositorioa
                     FROM errezetak e
                     JOIN erabiltzaileak ep ON e.paziente_id = ep.id
                     LEFT JOIN hitzorduak h ON e.hitzordu_id = h.id
-                    WHERE e.paziente_id = @pazienteId AND e.aktibo = 1
+                    WHERE e.paziente_id = @pazienteId" + aktiboFilter + @"
                     ORDER BY e.igorpen_data DESC";
 
                 using (var cmd = new MySqlCommand(query, konexioa))

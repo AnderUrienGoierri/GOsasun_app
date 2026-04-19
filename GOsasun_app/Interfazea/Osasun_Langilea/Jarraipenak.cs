@@ -14,7 +14,7 @@ namespace GOsasun_app.Interfazea
         private static readonly Size JarraipenPantailaTamaina = new Size(2700, 1394);
         private const int KanpokoMarjina = 70;
         private const int TaulaGoikoPosizioa = 420;
-        private const int JarraipenFilaAltuera = 128;
+        private const int JarraipenFilaAltuera = 96;
         private const int EkintzaZutabeZabalera = 280;
         private const int OharrakZutabeZabalera = 430;
         private const int GehienezkoIkusgaiJarraipenak = 10;
@@ -31,12 +31,28 @@ namespace GOsasun_app.Interfazea
         private readonly Dictionary<EkintzaMota, Bitmap?> _ekintzaIkonoak = new Dictionary<EkintzaMota, Bitmap?>();
         private readonly int? _pazienteIdFiltroa;
         private readonly string? _pazienteIzenburua;
+        private static readonly EkintzaMota[] PazienteEkintzak =
+        {
+            EkintzaMota.Ikusi,
+            EkintzaMota.GehituDokumentua,
+            EkintzaMota.IkusiDokumentuak
+        };
+        private static readonly EkintzaMota[] LangileEkintzak =
+        {
+            EkintzaMota.Ikusi,
+            EkintzaMota.Editatu,
+            EkintzaMota.GehituDokumentua,
+            EkintzaMota.IkusiDokumentuak,
+            EkintzaMota.Ezabatu
+        };
         private Bitmap? _oharraIkonoa;
         private bool _hasierakoJarraipenakKargatuta;
         private bool _hasierakoJarraipenakKargatzen;
 
         private string _azkenOrdenazioZutabea = string.Empty;
         private bool _ordenazioGorakorra = true;
+        private bool PazienteModuan => _erabiltzailea?.DaPazientea() == true;
+        private bool ErakutsiPazienteBilatzailea => !PazienteModuan;
 
         private enum EkintzaMota
         {
@@ -137,10 +153,25 @@ namespace GOsasun_app.Interfazea
 
         private void EguneratuIzenburua()
         {
+            if (PazienteModuan)
+            {
+                Text = "GOsasun - Nire Jarraipenak";
+                _lblIzenburua.Text = "NIRE JARRAIPENAK";
+                _btnJarraipenBerria.Text = "Jarraipena egin";
+                return;
+            }
+
+            _btnJarraipenBerria.Text = "Jarraipen berria";
+
             if (_pazienteIdFiltroa.HasValue && !string.IsNullOrWhiteSpace(_pazienteIzenburua))
             {
                 _lblIzenburua.Text = $"JARRAIPENAK - {_pazienteIzenburua!.ToUpperInvariant()}";
             }
+        }
+
+        private IReadOnlyList<EkintzaMota> LortuEkintzaMotak()
+        {
+            return PazienteModuan ? PazienteEkintzak : LangileEkintzak;
         }
 
         private void EraikiInterfazea()
@@ -378,9 +409,14 @@ namespace GOsasun_app.Interfazea
             _btnFiltroakGarbitu.Click += (s, e) => GarbituFiltroak();
             _btnJarraipenBerria.Click += (s, e) =>
             {
+                if (_erabiltzailea == null)
+                {
+                    return;
+                }
+
                 IrekiFormularioa(() => _pazienteIdFiltroa.HasValue
-                    ? new JarraipenMotak(_erabiltzailea!, _pazienteIdFiltroa.Value, _pazienteIzenburua)
-                    : new JarraipenMotak(_erabiltzailea!));
+                    ? new JarraipenMotak(_erabiltzailea, _pazienteIdFiltroa.Value, _pazienteIzenburua ?? (PazienteModuan ? _erabiltzailea.IzenOsoa : null))
+                    : new JarraipenMotak(_erabiltzailea));
             };
             _dgvJarraipenak.ColumnHeaderMouseClick += DgvJarraipenak_ColumnHeaderMouseClick;
             _dgvJarraipenak.CellFormatting += DgvJarraipenak_CellFormatting;
@@ -688,15 +724,27 @@ namespace GOsasun_app.Interfazea
             _btnJarraipenBerria.Size = new Size(panelZabalera < 1400 ? 260 : 320, panelAltuera < 900 ? 52 : 64);
             _btnJarraipenBerria.Location = new Point(panelZabalera - _btnJarraipenBerria.Width - marjina, etiketaBotoiLerroa);
 
-            int bilatuEtiketaY = Math.Max(_lblIzenburua.Bottom, _btnJarraipenBerria.Bottom) + elementuTartea;
-            _lblBilatu.Location = new Point(marjina, bilatuEtiketaY);
+            int goikoKontrolenBehea = Math.Max(_lblIzenburua.Bottom, _btnJarraipenBerria.Bottom);
+            if (ErakutsiPazienteBilatzailea)
+            {
+                int bilatuEtiketaY = goikoKontrolenBehea + elementuTartea;
+                _lblBilatu.Visible = true;
+                _txtBilatu.Visible = true;
+                _lblBilatu.Location = new Point(marjina, bilatuEtiketaY);
 
-            int testuAltuera = panelAltuera < 900 ? 44 : 52;
-            int bilatuKaxaY = _lblBilatu.Bottom + 8;
-            _txtBilatu.Location = new Point(marjina, bilatuKaxaY);
-            _txtBilatu.Size = new Size(Math.Max(560, panelZabalera - (marjina * 2)), testuAltuera);
+                int testuAltuera = panelAltuera < 900 ? 44 : 52;
+                int bilatuKaxaY = _lblBilatu.Bottom + 8;
+                _txtBilatu.Location = new Point(marjina, bilatuKaxaY);
+                _txtBilatu.Size = new Size(Math.Max(560, panelZabalera - (marjina * 2)), testuAltuera);
+                goikoKontrolenBehea = _txtBilatu.Bottom;
+            }
+            else
+            {
+                _lblBilatu.Visible = false;
+                _txtBilatu.Visible = false;
+            }
 
-            int dataEtiketaY = _txtBilatu.Bottom + elementuTartea;
+            int dataEtiketaY = goikoKontrolenBehea + elementuTartea;
             _lblDataFiltroa.Location = new Point(marjina, dataEtiketaY);
 
             int filtroY = _lblDataFiltroa.Bottom + 8;
@@ -989,23 +1037,23 @@ namespace GOsasun_app.Interfazea
             }
         }
 
-        private static Dictionary<EkintzaMota, Rectangle> LortuEkintzaBotoiak(Rectangle cellBounds)
+        private Dictionary<EkintzaMota, Rectangle> LortuEkintzaBotoiak(Rectangle cellBounds)
         {
             int paddingX = 14;
             int spacing = 10;
             int buttonSize = 42;
-            int totalWidth = (buttonSize * 5) + (spacing * 4);
+            IReadOnlyList<EkintzaMota> ekintzak = LortuEkintzaMotak();
+            int totalWidth = (buttonSize * ekintzak.Count) + (spacing * Math.Max(0, ekintzak.Count - 1));
             int left = cellBounds.Left + Math.Max(paddingX, (cellBounds.Width - totalWidth) / 2);
             int top = cellBounds.Top + Math.Max(8, (cellBounds.Height - buttonSize) / 2);
 
-            return new Dictionary<EkintzaMota, Rectangle>
+            Dictionary<EkintzaMota, Rectangle> botoiak = new Dictionary<EkintzaMota, Rectangle>();
+            for (int i = 0; i < ekintzak.Count; i++)
             {
-                [EkintzaMota.Ikusi] = new Rectangle(left, top, buttonSize, buttonSize),
-                [EkintzaMota.Editatu] = new Rectangle(left + buttonSize + spacing, top, buttonSize, buttonSize),
-                [EkintzaMota.GehituDokumentua] = new Rectangle(left + ((buttonSize + spacing) * 2), top, buttonSize, buttonSize),
-                [EkintzaMota.IkusiDokumentuak] = new Rectangle(left + ((buttonSize + spacing) * 3), top, buttonSize, buttonSize),
-                [EkintzaMota.Ezabatu] = new Rectangle(left + ((buttonSize + spacing) * 4), top, buttonSize, buttonSize)
-            };
+                botoiak[ekintzak[i]] = new Rectangle(left + ((buttonSize + spacing) * i), top, buttonSize, buttonSize);
+            }
+
+            return botoiak;
         }
 
         private static Rectangle LortuOharBotoia(Rectangle cellBounds)
@@ -1165,7 +1213,13 @@ namespace GOsasun_app.Interfazea
             bool aldaketakEginDira = false;
 
             using JarraipenOharrakLaguntzailea form = new JarraipenOharrakLaguntzailea();
-            form.Hasieratu($"Oharrak - {jarraipena.PazienteIzenOsoa}", xehetasuna.Oharrak);
+            form.Hasieratu($"Oharrak - {jarraipena.PazienteIzenOsoa}", xehetasuna.Oharrak, editagarria: !PazienteModuan);
+
+            if (PazienteModuan)
+            {
+                form.ShowDialog(this);
+                return;
+            }
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
@@ -1601,6 +1655,11 @@ namespace GOsasun_app.Interfazea
         private void IrekiFormularioa(Form formularioa)
         {
             IrekiAzpiPantaila(formularioa);
+        }
+
+        private void _dtpHasieraData_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

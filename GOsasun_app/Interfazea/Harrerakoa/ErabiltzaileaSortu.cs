@@ -17,17 +17,37 @@ namespace GOsasun_app.Interfazea
         private readonly string _rolIzena;
         private readonly ErabiltzaileKontrolatzailea _kontrolatzailea;
         private readonly int? _esleitutakoLangileId;
+        private readonly Erabiltzailea? _editatzenErabiltzailea;
         private readonly List<OsasunLangilea> _langileGuztiak = new List<OsasunLangilea>();
         private readonly List<OsasunLangilea> _hautatutakoLangileak = new List<OsasunLangilea>();
         private string? _hautatutakoIrudiBidea;
+        private string? _jatorrizkoIrudiBidea;
         private bool _hasierakoDatuakKargatuta;
         private bool _hasierakoDatuakKargatzen;
+        private bool EditatzenAriDa => _editatzenErabiltzailea != null;
 
-        public ErabiltzaileaSortu(string rolIzena, Erabiltzailea unekoLangilea, int? esleitutakoLangileId = null) : base(unekoLangilea)
+        public ErabiltzaileaSortu(string rolIzena, Erabiltzailea unekoLangilea, int? esleitutakoLangileId = null)
+            : this(rolIzena, unekoLangilea, esleitutakoLangileId, null)
+        {
+        }
+
+        public ErabiltzaileaSortu(OsasunLangilea osasunLangilea, Erabiltzailea unekoLangilea)
+            : this("Osasun Langilea", unekoLangilea, null, osasunLangilea)
+        {
+        }
+
+        public ErabiltzaileaSortu(HarrerakoLangilea harrerakoa, Erabiltzailea unekoLangilea)
+            : this("Harrerako Langilea", unekoLangilea, null, harrerakoa)
+        {
+        }
+
+        private ErabiltzaileaSortu(string rolIzena, Erabiltzailea unekoLangilea, int? esleitutakoLangileId, Erabiltzailea? editatzekoErabiltzailea) : base(unekoLangilea)
         {
             _rolIzena = rolIzena;
             _kontrolatzailea = new ErabiltzaileKontrolatzailea();
             _esleitutakoLangileId = esleitutakoLangileId;
+            _editatzenErabiltzailea = editatzekoErabiltzailea;
+            _jatorrizkoIrudiBidea = editatzekoErabiltzailea?.Irudia;
 
             InitializeComponent();
 
@@ -48,7 +68,12 @@ namespace GOsasun_app.Interfazea
 
         private void KonfiguratuIkuspegia()
         {
-            lblIntegrazioa.Text = $"{_rolIzena.ToUpper()} SORTU";
+            lblEspezialitatea.Text = "Espezialitatea:";
+            lblLanaldia.Text = "Lanaldia:";
+            lblPostaKodea.Text = "Posta kodea:";
+            lblIntegrazioa.Text = EditatzenAriDa ? $"{_rolIzena.ToUpper()} EDITATU" : $"{_rolIzena.ToUpper()} SORTU";
+            btnGorde.Text = EditatzenAriDa ? "EGUNERATU" : "GORDE";
+            lblPasahitza.Text = EditatzenAriDa ? "Pasahitza (aukerakoa):" : "Pasahitza (*):";
 
             // Denak ezkutatu hasieran (Hizkuntza, Izena, Abizena, Emaila, Pasahitza eta NAN izan ezik)
             lblSexua.Visible = cmbSexua.Visible = false;
@@ -59,8 +84,8 @@ namespace GOsasun_app.Interfazea
             lblOdolTaldea.Visible = cmbOdolTaldea.Visible = false;
             lblPisua.Visible = txtPisua.Visible = false;
             lblAltuera.Visible = txtAltuera.Visible = false;
-            lblElkargokide.Visible = txtElkargokide.Visible = txtEspezialitatea.Visible = false;
-            lblKontsulta.Visible = txtKontsulta.Visible = cmbLanaldia.Visible = false;
+            lblElkargokide.Visible = txtElkargokide.Visible = lblEspezialitatea.Visible = txtEspezialitatea.Visible = false;
+            lblKontsulta.Visible = txtKontsulta.Visible = lblLanaldia.Visible = cmbLanaldia.Visible = false;
             lblTxanda.Visible = cmbTxanda.Visible = false;
             lblOsasunLangilea.Visible = cmbOsasunLangileak.Visible = btnLangileaGehitu.Visible = false;
             lblEsleitutakoLangileak.Visible = lstEsleitutakoLangileak.Visible = btnLangileaKendu.Visible = false;
@@ -85,15 +110,17 @@ namespace GOsasun_app.Interfazea
                 lblHelbidea.Visible = txtHelbidea.Visible = true;
                 lblHerria.Visible = txtHerria.Visible = txtPostaKodea.Visible = true;
                 lblNan.Visible = txtNan.Visible = true;
-                lblElkargokide.Visible = txtElkargokide.Visible = txtEspezialitatea.Visible = true;
-                lblKontsulta.Visible = txtKontsulta.Visible = cmbLanaldia.Visible = true;
+                lblElkargokide.Visible = txtElkargokide.Visible = lblEspezialitatea.Visible = txtEspezialitatea.Visible = true;
+                lblKontsulta.Visible = txtKontsulta.Visible = lblLanaldia.Visible = cmbLanaldia.Visible = true;
             }
             else if (_rolIzena == "Harrerako Langilea")
             {
                 lblJaiotzeData.Visible = dtpJaiotzeData.Visible = true;
                 lblTelefonoa.Visible = txtTelefonoa.Visible = true;
+                lblHelbidea.Visible = txtHelbidea.Visible = true;
+                lblHerria.Visible = txtHerria.Visible = txtPostaKodea.Visible = true;
                 lblTxanda.Visible = cmbTxanda.Visible = true;
-                lblNan.Visible = txtNan.Visible = false;
+                lblNan.Visible = txtNan.Visible = true;
             }
 
             cmbHizkuntza.SelectedIndex = 0;
@@ -154,6 +181,11 @@ namespace GOsasun_app.Interfazea
 
                     EguneratuLangileenAukerak();
                     EguneratuHautatutakoLangileenZerrenda();
+                }
+
+                if (EditatzenAriDa)
+                {
+                    BeteFormularioaEditatzeko();
                 }
 
                 _hasierakoDatuakKargatuta = true;
@@ -347,12 +379,108 @@ namespace GOsasun_app.Interfazea
             aurrekoa?.Dispose();
         }
 
+        private void BeteFormularioaEditatzeko()
+        {
+            if (_editatzenErabiltzailea == null)
+            {
+                return;
+            }
+
+            txtIzena.Text = _editatzenErabiltzailea.Izena;
+            txtAbizenak.Text = _editatzenErabiltzailea.Abizenak;
+            txtEmaila.Text = _editatzenErabiltzailea.Emaila;
+            txtPasahitza.Text = string.Empty;
+            txtNan.Text = _editatzenErabiltzailea.Nan;
+            txtTelefonoa.Text = _editatzenErabiltzailea.Telefonoa ?? string.Empty;
+            txtHelbidea.Text = _editatzenErabiltzailea.Helbidea ?? string.Empty;
+            txtHerria.Text = _editatzenErabiltzailea.Herria ?? string.Empty;
+            txtPostaKodea.Text = _editatzenErabiltzailea.PostaKodea ?? string.Empty;
+            dtpJaiotzeData.Value = _editatzenErabiltzailea.JaiotzeData == DateTime.MinValue
+                ? DateTime.Today
+                : _editatzenErabiltzailea.JaiotzeData;
+
+            HautatuComboBalioa(cmbHizkuntza, _editatzenErabiltzailea.Hizkuntza);
+
+            if (_editatzenErabiltzailea is OsasunLangilea osasunLangilea)
+            {
+                txtElkargokide.Text = osasunLangilea.ElkargokideZenbakia;
+                txtEspezialitatea.Text = osasunLangilea.Espezialitatea;
+                txtKontsulta.Text = osasunLangilea.Kontsulta ?? string.Empty;
+                HautatuComboBalioa(cmbLanaldia, osasunLangilea.Lanaldia);
+            }
+            else if (_editatzenErabiltzailea is HarrerakoLangilea harrerakoa)
+            {
+                HautatuComboBalioa(cmbTxanda, harrerakoa.Txanda);
+            }
+
+            KargatuHasierakoIrudia();
+        }
+
+        private void HautatuComboBalioa(ComboBox comboBox, string? balioa)
+        {
+            if (string.IsNullOrWhiteSpace(balioa))
+            {
+                return;
+            }
+
+            int indizea = comboBox.FindStringExact(balioa);
+            if (indizea >= 0)
+            {
+                comboBox.SelectedIndex = indizea;
+            }
+            else
+            {
+                comboBox.Text = balioa;
+            }
+        }
+
+        private void KargatuHasierakoIrudia()
+        {
+            if (string.IsNullOrWhiteSpace(_jatorrizkoIrudiBidea))
+            {
+                KargatuIrudiLehenetsia();
+                return;
+            }
+
+            string? aurkitutakoBidea = File.Exists(_jatorrizkoIrudiBidea)
+                ? _jatorrizkoIrudiBidea
+                : BilatuFitxategia(_jatorrizkoIrudiBidea);
+
+            if (string.IsNullOrWhiteSpace(aurkitutakoBidea))
+            {
+                KargatuIrudiLehenetsia();
+                return;
+            }
+
+            lblIrudiFitxategia.Text = Path.GetFileName(_jatorrizkoIrudiBidea);
+            KargatuIrudiaAurrebistan(aurkitutakoBidea);
+        }
+
+        private string LortuPasahitzaGordetzeko()
+        {
+            if (!EditatzenAriDa)
+            {
+                return txtPasahitza.Text;
+            }
+
+            return string.IsNullOrWhiteSpace(txtPasahitza.Text)
+                ? _editatzenErabiltzailea?.Pasahitza ?? string.Empty
+                : txtPasahitza.Text;
+        }
+
+        private string? LortuIrudiBideaGordetzeko()
+        {
+            return !string.IsNullOrWhiteSpace(_hautatutakoIrudiBidea)
+                ? _hautatutakoIrudiBidea
+                : _jatorrizkoIrudiBidea;
+        }
+
         private void btnGorde_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtIzena.Text) || 
                 string.IsNullOrWhiteSpace(txtAbizenak.Text) || 
                 string.IsNullOrWhiteSpace(txtEmaila.Text) || 
-                string.IsNullOrWhiteSpace(txtPasahitza.Text) ||
+                (!EditatzenAriDa && string.IsNullOrWhiteSpace(txtPasahitza.Text)) ||
                 ((RolPazienteaDa() || RolOsasunLangileaDa()) && string.IsNullOrWhiteSpace(txtNan.Text)))
             {
                 MessageBox.Show("(*) markatutako eremuak nahitaezkoak dira.", "Kontuz", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -379,7 +507,7 @@ namespace GOsasun_app.Interfazea
                 Pazientea p = new Pazientea
                 {
                     Emaila = txtEmaila.Text,
-                    Pasahitza = txtPasahitza.Text,
+                    Pasahitza = LortuPasahitzaGordetzeko(),
                     Hizkuntza = hizkuntzaSelected,
                     Izena = txtIzena.Text,
                     Abizenak = txtAbizenak.Text,
@@ -392,7 +520,8 @@ namespace GOsasun_app.Interfazea
                     PostaKodea = txtPostaKodea.Text,
                     OdolTaldea = string.IsNullOrWhiteSpace(cmbOdolTaldea.Text) ? null : cmbOdolTaldea.Text,
                     AzkenPisua = pisua,
-                    AzkenAltuera = altuera
+                    AzkenAltuera = altuera,
+                    Irudia = LortuIrudiBideaGordetzeko() ?? "img/lehenetsia.png"
                 };
                 ondoGordeta = _kontrolatzailea.SortuPazientea(
                     p,
@@ -401,50 +530,64 @@ namespace GOsasun_app.Interfazea
             }
             else if (RolOsasunLangileaDa())
             {
-                OsasunLangilea m = new OsasunLangilea
-                {
-                    Emaila = txtEmaila.Text,
-                    Pasahitza = txtPasahitza.Text,
-                    Hizkuntza = hizkuntzaSelected,
-                    Nan = txtNan.Text,
-                    Izena = txtIzena.Text,
-                    Abizenak = txtAbizenak.Text,
-                    JaiotzeData = dtpJaiotzeData.Value,
-                    ElkargokideZenbakia = txtElkargokide.Text,
-                    Espezialitatea = txtEspezialitatea.Text,
-                    Kontsulta = txtKontsulta.Text,
-                    Lanaldia = cmbLanaldia.SelectedItem?.ToString() ?? "Osoa",
-                    Telefonoa = txtTelefonoa.Text,
-                    Helbidea = txtHelbidea.Text,
-                    Herria = txtHerria.Text,
-                    PostaKodea = txtPostaKodea.Text
-                };
-                ondoGordeta = _kontrolatzailea.SortuOsasunLangilea(m, _hautatutakoIrudiBidea);
+                OsasunLangilea m = _editatzenErabiltzailea as OsasunLangilea ?? new OsasunLangilea();
+                m.Id = _editatzenErabiltzailea?.Id ?? 0;
+                m.Emaila = txtEmaila.Text;
+                m.Pasahitza = LortuPasahitzaGordetzeko();
+                m.Hizkuntza = hizkuntzaSelected;
+                m.Nan = txtNan.Text;
+                m.Izena = txtIzena.Text;
+                m.Abizenak = txtAbizenak.Text;
+                m.JaiotzeData = dtpJaiotzeData.Value;
+                m.ElkargokideZenbakia = txtElkargokide.Text;
+                m.Espezialitatea = txtEspezialitatea.Text;
+                m.Kontsulta = txtKontsulta.Text;
+                m.Lanaldia = cmbLanaldia.SelectedItem?.ToString() ?? "Osoa";
+                m.Telefonoa = txtTelefonoa.Text;
+                m.Helbidea = txtHelbidea.Text;
+                m.Herria = txtHerria.Text;
+                m.PostaKodea = txtPostaKodea.Text;
+                m.Irudia = LortuIrudiBideaGordetzeko() ?? "img/lehenetsia.png";
+                ondoGordeta = EditatzenAriDa
+                    ? _kontrolatzailea.EguneratuOsasunLangilea(m)
+                    : _kontrolatzailea.SortuOsasunLangilea(m, _hautatutakoIrudiBidea);
             }
             else if (_rolIzena == "Harrerako Langilea")
             {
-                HarrerakoLangilea h = new HarrerakoLangilea
-                {
-                    Emaila = txtEmaila.Text,
-                    Pasahitza = txtPasahitza.Text,
-                    Hizkuntza = hizkuntzaSelected,
-                    Izena = txtIzena.Text,
-                    Abizenak = txtAbizenak.Text,
-                    Txanda = cmbTxanda.SelectedItem?.ToString() ?? "Goizez",
-                    JaiotzeData = dtpJaiotzeData.Value,
-                    Telefonoa = txtTelefonoa.Text
-                };
-                ondoGordeta = _kontrolatzailea.SortuHarrerakoa(h, _hautatutakoIrudiBidea);
+                HarrerakoLangilea h = _editatzenErabiltzailea as HarrerakoLangilea ?? new HarrerakoLangilea();
+                h.Id = _editatzenErabiltzailea?.Id ?? 0;
+                h.Emaila = txtEmaila.Text;
+                h.Pasahitza = LortuPasahitzaGordetzeko();
+                h.Hizkuntza = hizkuntzaSelected;
+                h.Nan = txtNan.Text;
+                h.Izena = txtIzena.Text;
+                h.Abizenak = txtAbizenak.Text;
+                h.Txanda = cmbTxanda.SelectedItem?.ToString() ?? "Goizez";
+                h.JaiotzeData = dtpJaiotzeData.Value;
+                h.Telefonoa = txtTelefonoa.Text;
+                h.Helbidea = txtHelbidea.Text;
+                h.Herria = txtHerria.Text;
+                h.PostaKodea = txtPostaKodea.Text;
+                h.Irudia = LortuIrudiBideaGordetzeko() ?? "img/lehenetsia.png";
+                ondoGordeta = EditatzenAriDa
+                    ? _kontrolatzailea.EguneratuHarrerakoa(h)
+                    : _kontrolatzailea.SortuHarrerakoa(h, _hautatutakoIrudiBidea);
             }
 
             if (ondoGordeta)
             {
-                MessageBox.Show($"{_rolIzena} ondo gorde da sistemako datu-basean.", "Arrakasta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string mezua = EditatzenAriDa
+                    ? $"{_rolIzena} ondo eguneratu da sistemako datu-basean."
+                    : $"{_rolIzena} ondo gorde da sistemako datu-basean.";
+                MessageBox.Show(mezua, "Arrakasta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Errorea gertatu da gordetzean. Ziurtatu e-maila edota NAN-a ez direla errepikatzen ari.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string errorea = EditatzenAriDa
+                    ? "Errorea gertatu da eguneratzean. Ziurtatu e-maila edota NAN-a ez direla errepikatzen ari."
+                    : "Errorea gertatu da gordetzean. Ziurtatu e-maila edota NAN-a ez direla errepikatzen ari.";
+                MessageBox.Show(errorea, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

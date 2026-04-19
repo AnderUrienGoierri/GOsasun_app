@@ -31,13 +31,27 @@ namespace GOsasun_app.Interfazea
             };
         }
 
-        public void Hasieratu(string izenburua, string? edukia)
+        public void Hasieratu(string izenburua, string? edukia, bool editagarria = true)
         {
             Text = izenburua;
             txtOharrak.Text = edukia ?? string.Empty;
-            txtOharrak.SelectionStart = 0;
-            txtOharrak.SelectionLength = txtOharrak.TextLength;
-            ActiveControl = txtOharrak;
+            txtOharrak.ReadOnly = !editagarria;
+            btnGorde.Visible = editagarria;
+            btnGorde.Enabled = editagarria;
+            btnUtzi.Text = editagarria ? "Utzi" : "Itxi";
+
+            if (editagarria)
+            {
+                txtOharrak.SelectionStart = 0;
+                txtOharrak.SelectionLength = txtOharrak.TextLength;
+                ActiveControl = txtOharrak;
+            }
+            else
+            {
+                txtOharrak.SelectionStart = 0;
+                txtOharrak.SelectionLength = 0;
+                ActiveControl = btnUtzi;
+            }
         }
     }
 }

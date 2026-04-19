@@ -29,6 +29,8 @@ namespace GOsasun_app.Interfazea
             // 
             _edukiPanela.Controls.Add(btnSortu);
             _edukiPanela.Controls.Add(btnZerrendatu);
+            _edukiPanela.Size = new Size(1902, 874);
+            _edukiPanela.Paint += _edukiPanela_Paint;
             // 
             // _atzeraBotoia
             // 
@@ -38,13 +40,14 @@ namespace GOsasun_app.Interfazea
             // 
             btnSortu.BackColor = Color.White;
             btnSortu.BorderBiribiltasuna = 24;
+            btnSortu.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnSortu.Ikonoa = null;
             btnSortu.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
-            btnSortu.Location = new Point(309, 425);
+            btnSortu.Location = new Point(261, 183);
             btnSortu.Margin = new Padding(20);
             btnSortu.Name = "btnSortu";
             btnSortu.Padding = new Padding(19, 21, 19, 21);
-            btnSortu.Size = new Size(576, 512);
+            btnSortu.Size = new Size(319, 237);
             btnSortu.TabIndex = 0;
             btnSortu.Testua = "SORTU";
             btnSortu.TestuKolorea = Color.FromArgb(50, 50, 50);
@@ -53,22 +56,22 @@ namespace GOsasun_app.Interfazea
             // 
             btnZerrendatu.BackColor = Color.White;
             btnZerrendatu.BorderBiribiltasuna = 24;
+            btnZerrendatu.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnZerrendatu.Ikonoa = null;
             btnZerrendatu.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
-            btnZerrendatu.Location = new Point(1037, 425);
+            btnZerrendatu.Location = new Point(632, 183);
             btnZerrendatu.Margin = new Padding(20);
             btnZerrendatu.Name = "btnZerrendatu";
             btnZerrendatu.Padding = new Padding(19, 21, 19, 21);
-            btnZerrendatu.Size = new Size(576, 512);
+            btnZerrendatu.Size = new Size(319, 237);
             btnZerrendatu.TabIndex = 1;
             btnZerrendatu.Testua = "ZERRENDATU";
             btnZerrendatu.TestuKolorea = Color.FromArgb(50, 50, 50);
             // 
             // ErabiltzaileKudeaketaMenua
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1902, 1575);
+            ClientSize = new Size(1902, 1055);
             Name = "ErabiltzaileKudeaketaMenua";
             Text = "Kudeaketa Menua";
             _edukiPanela.ResumeLayout(false);

@@ -24,6 +24,7 @@ namespace GOsasun_app.Interfazea
             KonfiguratuTaula();
             KargatuKonboak();
             KargatuDatuak();
+            GarbituPantaila();
 
             btnGorde.Click += BtnGorde_Click;
             btnEzabatu.Click += BtnEzabatu_Click;
@@ -87,7 +88,8 @@ namespace GOsasun_app.Interfazea
             cmbEgoera.SelectedIndex = 0;
             if (cmbPazienteak.Items.Count > 0) cmbPazienteak.SelectedIndex = 0;
             if (cmbMedikuak.Items.Count > 0) cmbMedikuak.SelectedIndex = 0;
-            btnGorde.Text = "Gertatu / Sortu Berria";
+            btnGorde.Text = "Hitzordua sortu";
+            btnEzabatu.Enabled = false;
         }
 
         private void DgvHitzorduak_CellMouseDoubleClick(object? sender, DataGridViewCellMouseEventArgs e)
@@ -107,6 +109,7 @@ namespace GOsasun_app.Interfazea
                     cmbMedikuak.SelectedValue = hitzordua.OsasunLangileId;
 
                     btnGorde.Text = "Gorde Aldaketak";
+                    btnEzabatu.Enabled = true;
                 }
             }
         }
@@ -168,6 +171,16 @@ namespace GOsasun_app.Interfazea
         }
 
         private void lblBukaera_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpBukaera_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvHitzorduak_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

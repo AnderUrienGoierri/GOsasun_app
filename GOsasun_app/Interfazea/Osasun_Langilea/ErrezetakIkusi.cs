@@ -17,11 +17,14 @@ namespace GOsasun_app.Interfazea
         private readonly BindingSource bsErrezetak = new BindingSource();
         private readonly BindingSource bsBotikak = new BindingSource();
 
+        private bool ErrezetaKudeaketaBaimenduta => _erabiltzailea is OsasunLangilea;
+
         private class ErrezetaGridItem
         {
             public int ErrezetaId { get; set; }
             public string? Pazientea { get; set; }
             public string? NAN { get; set; }
+            public string? Aktibo { get; set; }
             public string? Diagnostikoa { get; set; }
             public string? IgorpenData { get; set; }
             public string? Hitzordua { get; set; }
@@ -43,8 +46,9 @@ namespace GOsasun_app.Interfazea
         {
             dgvErrezetak.DataSource = bsErrezetak;
             dgvBotikak.DataSource = bsBotikak;
-            chkPazienteGuztiak.Visible = _erabiltzailea is OsasunLangilea;
             chkPazienteGuztiak.Checked = false;
+            chkErrezetaAktiboak.Checked = false;
+            KonfiguratuIkuspegiaErabiltzailearenArabera();
             KargatuGertaerak();
 
             if (_erabiltzailea != null)
@@ -53,10 +57,36 @@ namespace GOsasun_app.Interfazea
             }
         }
 
+        private void KonfiguratuIkuspegiaErabiltzailearenArabera()
+        {
+            lblFiltroa.Visible = ErrezetaKudeaketaBaimenduta;
+            txtBilatuPaz.Visible = ErrezetaKudeaketaBaimenduta;
+            chkPazienteGuztiak.Visible = ErrezetaKudeaketaBaimenduta;
+            btnEditatu.Visible = ErrezetaKudeaketaBaimenduta;
+            btnEzabatu.Visible = ErrezetaKudeaketaBaimenduta;
+
+            if (ErrezetaKudeaketaBaimenduta)
+            {
+                lblEgutegia.Location = new Point(30, 198);
+                mcDataFiltroa.Location = new Point(30, 254);
+                chkErrezetaAktiboak.Location = new Point(20, 490);
+                btnGarbituFiltroak.Location = new Point(20, 540);
+                btnEditatu.Location = new Point(20, 610);
+                btnEzabatu.Location = new Point(20, 777);
+                return;
+            }
+
+            lblEgutegia.Location = new Point(20, 0);
+            mcDataFiltroa.Location = new Point(20, 56);
+            chkErrezetaAktiboak.Location = new Point(20, 292);
+            btnGarbituFiltroak.Location = new Point(20, 342);
+        }
+
         private void KargatuGertaerak()
         {
             txtBilatuPaz.TextChanged += TxtBilatuPaz_TextChanged;
             mcDataFiltroa.DateSelected += McDataFiltroa_DateSelected;
+            chkErrezetaAktiboak.CheckedChanged += ChkErrezetaAktiboak_CheckedChanged;
             btnGarbituFiltroak.Click += BtnGarbituFiltroak_Click;
             chkPazienteGuztiak.CheckedChanged += ChkPazienteGuztiak_CheckedChanged;
             dgvErrezetak.SelectionChanged += DgvErrezetak_SelectionChanged;
@@ -115,13 +145,13 @@ namespace GOsasun_app.Interfazea
             if (_erabiltzailea is OsasunLangilea osasunLangilea)
             {
                 errezetakGuztiak = chkPazienteGuztiak.Checked
-                    ? errezetaDB.LortuErrezetaGuztiak()
-                    : errezetaDB.LortuOsasunLangilearenErrezetak(osasunLangilea.Id);
+                    ? errezetaDB.LortuErrezetaGuztiak(false)
+                    : errezetaDB.LortuOsasunLangilearenErrezetak(osasunLangilea.Id, false);
                 IragaziDatuak();
             }
             else if (_erabiltzailea is Pazientea pazientea)
             {
-                errezetakGuztiak = errezetaDB.LortuPazientearenErrezetak(pazientea.Id);
+                errezetakGuztiak = errezetaDB.LortuPazientearenErrezetak(pazientea.Id, false);
                 IragaziDatuak();
             }
         }
@@ -137,10 +167,16 @@ namespace GOsasun_app.Interfazea
             IragaziDatuak();
         }
 
+        private void ChkErrezetaAktiboak_CheckedChanged(object? sender, EventArgs e)
+        {
+            IragaziDatuak();
+        }
+
         private void BtnGarbituFiltroak_Click(object? sender, EventArgs e)
         {
             txtBilatuPaz.Clear();
             filtroData = null;
+            chkErrezetaAktiboak.Checked = false;
             // Egin behar dugu reset MonthCalendar-i
             mcDataFiltroa.SelectionStart = DateTime.Today;
             mcDataFiltroa.SelectionEnd = DateTime.Today;
@@ -154,6 +190,8 @@ namespace GOsasun_app.Interfazea
                 (string.IsNullOrEmpty(query) ||
                 BalioaDauka(e.PazienteNan, query) ||
                 BalioaDauka(e.PazienteIzenOsoa, query))
+                &&
+                (!chkErrezetaAktiboak.Checked || e.Aktibo)
                 &&
                 (!filtroData.HasValue ||
                 e.IgorpenData.Date == filtroData.Value ||
@@ -170,6 +208,7 @@ namespace GOsasun_app.Interfazea
                     ErrezetaId = e.ErrezetaId,
                     Pazientea = e.PazienteIzenOsoa,
                     NAN = e.PazienteNan,
+                    Aktibo = e.Aktibo ? "Bai" : "Ez",
                     Diagnostikoa = e.Diagnostikoa,
                     IgorpenData = e.IgorpenData.ToShortDateString(),
                     Hitzordua = e.HitzorduData.HasValue ? e.HitzorduData.Value.ToShortDateString() : "-"
@@ -182,6 +221,11 @@ namespace GOsasun_app.Interfazea
                     if (dgvErrezetak.Columns["ErrezetaId"] is DataGridViewColumn errezetaIdZutabea)
                     {
                         errezetaIdZutabea.Visible = false;
+                    }
+
+                    if (dgvErrezetak.Columns["Aktibo"] is DataGridViewColumn aktiboZutabea)
+                    {
+                        aktiboZutabea.HeaderText = "AKTIBO";
                     }
                 }
             }
@@ -204,6 +248,11 @@ namespace GOsasun_app.Interfazea
         {
             try
             {
+                if (!ErrezetaKudeaketaBaimenduta)
+                {
+                    return;
+                }
+
                 if (dgvErrezetak.SelectedRows.Count == 0)
                 {
                     MessageBox.Show("Aukeratu errezeta bat mesedez.", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -231,6 +280,11 @@ namespace GOsasun_app.Interfazea
         {
             try
             {
+                if (!ErrezetaKudeaketaBaimenduta)
+                {
+                    return;
+                }
+
                 if (dgvErrezetak.SelectedRows.Count == 0) return;
 
                 var cellValue = dgvErrezetak.SelectedRows[0].Cells["ErrezetaId"]?.Value;

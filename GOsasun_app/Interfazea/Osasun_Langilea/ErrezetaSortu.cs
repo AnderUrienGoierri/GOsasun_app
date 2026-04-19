@@ -86,14 +86,15 @@ namespace GOsasun_app.Interfazea
 
             if (_editatzekoErrezeta != null)
             {
+                Errezeta editatzekoErrezeta = _editatzekoErrezeta;
                 lblIzenburua.Text = "ERREZETA EDITATU";
                 btnSortuErrezeta.Text = "ERREZETA EGUNERATU";
 
-                txtBilatuPaz.Text = _editatzekoErrezeta.PazienteNan;
-                txtDiagnostikoa.Text = _editatzekoErrezeta.Diagnostikoa;
-                if (_editatzekoErrezeta.IraungitzeData.HasValue) dtpIraungitzeData.Value = _editatzekoErrezeta.IraungitzeData.Value;
+                txtBilatuPaz.Text = editatzekoErrezeta.PazienteNan;
+                txtDiagnostikoa.Text = editatzekoErrezeta.Diagnostikoa;
+                if (editatzekoErrezeta.IraungitzeData.HasValue) dtpIraungitzeData.Value = editatzekoErrezeta.IraungitzeData.Value;
 
-                foreach (var eb in _editatzekoErrezeta.Botikak)
+                foreach (var eb in editatzekoErrezeta.Botikak)
                 {
                     saskia.Add(new ErrezetaBotikaItem
                     {
@@ -145,8 +146,11 @@ namespace GOsasun_app.Interfazea
 
                     if (dgvPazienteak.Columns.Count > 0)
                     {
-                        dgvPazienteak.Columns["Nan"].HeaderText = "NAN";
-                        dgvPazienteak.Columns["IzenOsoa"].HeaderText = "Pazientea";
+                        DataGridViewColumn? nanZutabea = dgvPazienteak.Columns["Nan"];
+                        DataGridViewColumn? izenOsoaZutabea = dgvPazienteak.Columns["IzenOsoa"];
+
+                        if (nanZutabea != null) nanZutabea.HeaderText = "NAN";
+                        if (izenOsoaZutabea != null) izenOsoaZutabea.HeaderText = "Pazientea";
                     }
 
                     // Auto-select if there's only one match (common during editing or specific searches)
@@ -199,10 +203,15 @@ namespace GOsasun_app.Interfazea
             bsSaskia.DataSource = saskia;
             if (dgvBotikak.Columns.Count > 0)
             {
-                dgvBotikak.Columns["BotikaId"].Visible = false;
-                dgvBotikak.Columns["BotikaIzena"].HeaderText = "Botika";
-                dgvBotikak.Columns["Dosia"].HeaderText = "Dosia";
-                dgvBotikak.Columns["Maiztasuna"].HeaderText = "Maiztasuna";
+                DataGridViewColumn? botikaIdZutabea = dgvBotikak.Columns["BotikaId"];
+                DataGridViewColumn? botikaIzenaZutabea = dgvBotikak.Columns["BotikaIzena"];
+                DataGridViewColumn? dosiaZutabea = dgvBotikak.Columns["Dosia"];
+                DataGridViewColumn? maiztasunaZutabea = dgvBotikak.Columns["Maiztasuna"];
+
+                if (botikaIdZutabea != null) botikaIdZutabea.Visible = false;
+                if (botikaIzenaZutabea != null) botikaIzenaZutabea.HeaderText = "Botika";
+                if (dosiaZutabea != null) dosiaZutabea.HeaderText = "Dosia";
+                if (maiztasunaZutabea != null) maiztasunaZutabea.HeaderText = "Maiztasuna";
             }
         }
 
@@ -212,13 +221,14 @@ namespace GOsasun_app.Interfazea
 
             if (_editatzekoErrezeta != null)
             {
-                _editatzekoErrezeta.Diagnostikoa = txtDiagnostikoa.Text;
-                _editatzekoErrezeta.IraungitzeData = dtpIraungitzeData.Value;
+                Errezeta editatzekoErrezeta = _editatzekoErrezeta;
+                editatzekoErrezeta.Diagnostikoa = txtDiagnostikoa.Text;
+                editatzekoErrezeta.IraungitzeData = dtpIraungitzeData.Value;
 
-                _editatzekoErrezeta.Botikak.Clear();
+                editatzekoErrezeta.Botikak.Clear();
                 foreach (var s in saskia)
                 {
-                    _editatzekoErrezeta.Botikak.Add(new ErrezetaBotika
+                    editatzekoErrezeta.Botikak.Add(new ErrezetaBotika
                     {
                         BotikaId = s.BotikaId,
                         Dosia = s.Dosia,
@@ -226,7 +236,7 @@ namespace GOsasun_app.Interfazea
                     });
                 }
 
-                bool eguneratuEmaitza = errezetaDB.EguneratuErrezeta(_editatzekoErrezeta);
+                bool eguneratuEmaitza = errezetaDB.EguneratuErrezeta(editatzekoErrezeta);
                 if (eguneratuEmaitza)
                 {
                     MessageBox.Show("Errezeta zuzen eguneratu da.", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
