@@ -1,11 +1,11 @@
 # GOsasun App
 
-Osasun kudeaketarako aplikazio integrala (Medikuak, Pazienteak eta Harrerako langileak).
+Osasun kudeaketarako aplikazio integrala (Osasun langileam, Pazienteak eta Harrerako langileak).
 
 ## Ezaugarriak
-- **Medikua**: Errezeten kudeaketa, pazienteen zerrenda, neurketak.
-- **Pazientea**: Nire neurketak, errezetak ikusi, osasuna.
-- **Harrerakoa**: Erabiltzaileen kudeaketa, hitzorduak.
+- **Osasun Langilea**: Osasun langile fitxa, pazienteen kudeaketa, Jarraipenen kudeaketa, Errezeten kudeaketa, dokumentuen kudeaketa, hitzorduen bistaratzea eta grafikak.
+- **Pazientea**: Nire jarraipenak, nire errezetak, nire hitzorduen bistaratzea, nire dokumentuak eta nire grafikak.
+- **Harrera Langilea**: Erabiltzaileen kudeaketa, hitzorduen kudeaketa.
 
 ## Azken Eguneraketak
 - Errezeten moduluaren inplementazio osoa (CRUD).
