@@ -6,6 +6,14 @@
 
 ## 1. Exekutagarria prestatu
 
+### Checklist laburra instalatzailea prestatu aurretik
+
+1. Egiaztatu USB-a konektatuta dagoela eta letra zuzena duela (`D:\`, `E:\`, etab.).
+2. Itxi aplikazioa irekita badago, publish-ak fitxategiak blokeatuta ez harrapatzeko.
+3. Egiaztatu `Inno Setup 6` instalatuta dagoela makina honetan.
+4. Egiaztatu azken kodea eta irudiak proiektuan eguneratuta daudela.
+5. PowerShell ireki repoaren erroan: `C:\Ander\Workspace\C\proiektuak\GOsasun_app`.
+
 PowerShell-etik exekutatu:
 
 ```powershell
@@ -19,14 +27,26 @@ Honek hauek egingo ditu automatikoki:
 - azken instalatzailea `deployment\output\GOsasun_app_Setup.exe` fitxategian eguneratu
 - kopia bat `D:\Instalatzailea\GOsasun_app_Setup.exe` helmugan utzi
 
+USB letra edo helmuga beste bat bada, exekutatu script bera helmuga pertsonalizatuta:
+
+```powershell
+pwsh -ExecutionPolicy Bypass -File .\deployment\Publish-GOsasun.ps1 -UsbDestination "E:\Instalatzailea"
+```
+
+Adibidez, setup-a zuzenean USB erroan utzi nahi baduzu:
+
+```powershell
+pwsh -ExecutionPolicy Bypass -File .\deployment\Publish-GOsasun.ps1 -UsbDestination "E:\"
+```
+
 ## 2. Instaladorea sortu
 
 Publish script-a erabilita, urrats hau automatikoki egiten da. Eskuz egin nahi baduzu:
 
 1. Instalatu `Inno Setup`.
-2. Ireki `deployment\GOsasun_app.iss`.
-3. Sakatu `Build`.
-4. Sortutako instalatzailea hemen agertuko da:
+1. Ireki `deployment\GOsasun_app.iss`.
+1. Sakatu `Build`.
+1. Sortutako instalatzailea hemen agertuko da:
 
 ```text
 deployment\output\GOsasun_app_Setup.exe
@@ -50,9 +70,17 @@ Nahi baduzu, `sql` fitxategiak ere kopiatu azalpen edo mantentze lanetarako.
 
 ## 4. Beste ordenagailuan instalatu
 
-1. USB sartu.
-2. `GOsasun_app_Setup.exe` administratzaile gisa exekutatu.
-3. Lehen pantailan irakurri azalpen laburra. Prest izan hurrengo datuak:
+### Checklist laburra instalatu aurretik
+
+1. Egiaztatu helburuko ordenagailuan administratzaile baimenak dituzula.
+2. Prest izan SQL zerbitzariaren host/IP-a, portua, DB izena, erabiltzailea eta pasahitza.
+3. Prest izan `webErroa` bidea, lokala edo sarekoa bada ere.
+4. Ingurune berria bada, aurrez erabaki eskema eta seed datuak kargatuko diren.
+5. Ziurtatu USB-an dagoen `GOsasun_app_Setup.exe` azken bertsioa dela.
+
+6. USB sartu.
+7. `GOsasun_app_Setup.exe` administratzaile gisa exekutatu.
+8. Lehen pantailan irakurri azalpen laburra. Prest izan hurrengo datuak:
 
 - web/Apache erroaren bidea
 - SQL zerbitzariaren IP edo hostname-a
@@ -60,7 +88,7 @@ Nahi baduzu, `sql` fitxategiak ere kopiatu azalpen edo mantentze lanetarako.
 - datu-basearen izena
 - erabiltzailea eta pasahitza
 
-4. Instalazioan zehar galdetuko zaizu, ordena honetan:
+1. Instalazioan zehar galdetuko zaizu, ordena honetan:
 
 - aplikazioa non instalatu nahi duzun
 - Apache/web erroaren bidea
@@ -68,14 +96,14 @@ Nahi baduzu, `sql` fitxategiak ere kopiatu azalpen edo mantentze lanetarako.
 - portua, datu-basea, erabiltzailea eta pasahitza
 - lehen exekuzioan eskema eta seed datuak automatikoki prestatu nahi dituzun
 
-5. Aukera gomendatua ingurune berrirako:
+1. Aukera gomendatua ingurune berrirako:
 
 - web erroa: zure zerbitzarian erabiltzen duzun bidea
 - SQL host/IP: eskolako zerbitzaria edo MySQL dagoen makina
 - eskema sortu: `Bai`
 - hasierako datuak kargatu: `Bai`
 
-6. Instalazio lehenetsia hemen egingo da:
+1. Instalazio lehenetsia hemen egingo da:
 
 ```text
 C:\GOsasun_app
@@ -95,9 +123,17 @@ Oharra: `webErroa` lokala izan daiteke edo sareko UNC bide bat, adibidez `\\192.
 ### Instalazioa amaitutakoan zer egin
 
 1. Sakatu `Amaitu` eta nahi baduzu aplikazioa berehala abiarazi.
-2. Lehen abioan, aplikazioak karpetak sortu eta DB konexioa egiaztatuko du.
-3. Eskema eta seed datuak aktibatu badituzu, lehen abioak pixka bat gehiago iraun dezake.
-4. Errore bat agertzen bada, berrikusi lehenengo `appsettings.json`-en sartutako SQL host/IP-a eta web erroaren bidea.
+1. Lehen abioan, aplikazioak karpetak sortu eta DB konexioa egiaztatuko du.
+1. Eskema eta seed datuak aktibatu badituzu, lehen abioak pixka bat gehiago iraun dezake.
+1. Errore bat agertzen bada, berrikusi lehenengo `appsettings.json`-en sartutako SQL host/IP-a eta web erroaren bidea.
+
+### Checklist laburra instalazioa amaitzean
+
+1. Ireki aplikazioa eta egiaztatu login pantailara iristen dela.
+2. Egiaztatu lehen abioan errorerik ez dela agertzen.
+3. Egiaztatu `appsettings.json` sortu dela instalazio karpetan.
+4. Egiaztatu dokumentu/web karpetak sortu direla aukeratutako `webErroa` barruan.
+5. DB konektibitate edo seed errorea badago, zuzendu konfigurazioa eta berriro ireki aplikazioa.
 
 ## 5. Instalazioak funtzionatzeko bete beharreko baldintzak
 
