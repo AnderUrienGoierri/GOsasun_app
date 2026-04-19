@@ -41,7 +41,7 @@ namespace GOsasun_app.Interfazea
             btnErrezetaSortu.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnErrezetaSortu.Ikonoa = null;
             btnErrezetaSortu.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
-            btnErrezetaSortu.Location = new Point(300, 300);
+            btnErrezetaSortu.Location = new Point(295, 160);
             btnErrezetaSortu.Margin = new Padding(20);
             btnErrezetaSortu.Name = "btnErrezetaSortu";
             btnErrezetaSortu.Padding = new Padding(10);
@@ -57,7 +57,7 @@ namespace GOsasun_app.Interfazea
             btnErrezetakIkusi.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnErrezetakIkusi.Ikonoa = null;
             btnErrezetakIkusi.KartaKolorea = Color.FromArgb(230, 255, 255, 255);
-            btnErrezetakIkusi.Location = new Point(1000, 300);
+            btnErrezetakIkusi.Location = new Point(978, 160);
             btnErrezetakIkusi.Margin = new Padding(20);
             btnErrezetakIkusi.Name = "btnErrezetakIkusi";
             btnErrezetakIkusi.Padding = new Padding(10);

@@ -60,7 +60,7 @@ namespace GOsasun_app.Interfazea
             btnErrezetak.Click += (s, e) => IrekiFormularioa(() => new ErrezetakIkusi(_erabiltzailea!));
             btnGrafikak.Click += (s, e) => IrekiFormularioa(() => new Grafikak(_erabiltzailea!));
             btnDokumentuak.Click += (s, e) => IrekiFormularioa(() => new Dokumentuak(_erabiltzailea!));
-            btnHitzorduak.Click += (s, e) => IrekiFormularioa(() => new HitzorduakKontsultatzea(_erabiltzailea!));
+            btnHitzorduak.Click += (s, e) => IrekiFormularioa(() => new HitzorduakKontsultatzea(_erabiltzailea!, _erabiltzailea!.Id));
         }
 
         private void IrekiFormularioa(Func<Form> formularioSortzailea)

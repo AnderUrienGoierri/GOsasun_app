@@ -187,7 +187,7 @@ namespace GOsasun_app.Interfazea
             EgokituPortadarenNeurrira();
         }
 
-        protected override bool PantailaOsoanIreki => true;
+        protected override bool PantailaOsoanIreki => false;
 
         private void EgokituPortadarenNeurrira()
         {
@@ -448,6 +448,7 @@ namespace GOsasun_app.Interfazea
                 {
                     GarbituNabigazioKarga();
                     itzultzean?.Invoke();
+                    AplikatuLeihoTamainaPartekatuaBerehala();
                     Show();
                     ZentratuPantailaLanEremuan();
                 }
@@ -455,6 +456,9 @@ namespace GOsasun_app.Interfazea
 
             if (formularioa is GOsasunForm hurrengoPantaila)
             {
+                GordeLeihoTamainaPartekatua();
+                hurrengoPantaila.AplikatuLeihoTamainaPartekatuaBerehala();
+
                 EventHandler? prestHandler = null;
                 prestHandler = (s, e) =>
                 {

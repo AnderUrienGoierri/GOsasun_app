@@ -123,7 +123,7 @@ namespace GOsasun_app.Interfazea
             chkBajan.AutoSize = true;
             chkBajan.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             chkBajan.ForeColor = Color.White;
-            chkBajan.Location = new Point(359, 81);
+            chkBajan.Location = new Point(263, 73);
             chkBajan.Name = "chkBajan";
             chkBajan.Size = new Size(82, 29);
             chkBajan.TabIndex = 4;
@@ -135,7 +135,7 @@ namespace GOsasun_app.Interfazea
             chkAltan.AutoSize = true;
             chkAltan.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             chkAltan.ForeColor = Color.White;
-            chkAltan.Location = new Point(273, 81);
+            chkAltan.Location = new Point(351, 73);
             chkAltan.Name = "chkAltan";
             chkAltan.Size = new Size(80, 29);
             chkAltan.TabIndex = 3;
@@ -149,7 +149,7 @@ namespace GOsasun_app.Interfazea
             chkPazienteGuztiak.CheckState = CheckState.Checked;
             chkPazienteGuztiak.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             chkPazienteGuztiak.ForeColor = Color.White;
-            chkPazienteGuztiak.Location = new Point(38, 81);
+            chkPazienteGuztiak.Location = new Point(38, 73);
             chkPazienteGuztiak.Name = "chkPazienteGuztiak";
             chkPazienteGuztiak.Size = new Size(219, 29);
             chkPazienteGuztiak.TabIndex = 2;
@@ -163,7 +163,7 @@ namespace GOsasun_app.Interfazea
             btnPazienteBerria.FlatStyle = FlatStyle.Flat;
             btnPazienteBerria.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             btnPazienteBerria.ForeColor = Color.White;
-            btnPazienteBerria.Location = new Point(38, 110);
+            btnPazienteBerria.Location = new Point(952, 8);
             btnPazienteBerria.Margin = new Padding(6);
             btnPazienteBerria.Name = "btnPazienteBerria";
             btnPazienteBerria.Size = new Size(394, 56);
@@ -178,7 +178,7 @@ namespace GOsasun_app.Interfazea
             btnOsasunLangileaSortu.FlatStyle = FlatStyle.Flat;
             btnOsasunLangileaSortu.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             btnOsasunLangileaSortu.ForeColor = Color.White;
-            btnOsasunLangileaSortu.Location = new Point(549, 110);
+            btnOsasunLangileaSortu.Location = new Point(1404, 8);
             btnOsasunLangileaSortu.Margin = new Padding(6);
             btnOsasunLangileaSortu.Name = "btnOsasunLangileaSortu";
             btnOsasunLangileaSortu.Size = new Size(403, 56);
@@ -188,12 +188,13 @@ namespace GOsasun_app.Interfazea
             // 
             // txtBilatu
             // 
+            txtBilatu.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtBilatu.Font = new Font("Segoe UI", 12F);
             txtBilatu.Location = new Point(112, 30);
             txtBilatu.Margin = new Padding(6);
             txtBilatu.Name = "txtBilatu";
             txtBilatu.PlaceholderText = "Bilatu izena, abizena edo NAN...";
-            txtBilatu.Size = new Size(597, 34);
+            txtBilatu.Size = new Size(303, 34);
             txtBilatu.TabIndex = 1;
             // 
             // lblBilatu

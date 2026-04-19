@@ -9,7 +9,7 @@ using GOsasun_app.Modeloa;
 
 namespace GOsasun_app.Interfazea
 {
-    public class LangileenZerrenda : OinarriPantaila
+    public partial class LangileenZerrenda : OinarriPantaila
     {
         private enum LangileMota
         {
@@ -55,20 +55,15 @@ namespace GOsasun_app.Interfazea
         private readonly ErabiltzaileKontrolatzailea _kontrolatzailea = new ErabiltzaileKontrolatzailea();
         private readonly Dictionary<EkintzaMota, Bitmap> _ekintzaIkonoak = new Dictionary<EkintzaMota, Bitmap>();
 
-        private readonly Label _lblIzenburua = new Label();
-        private readonly Panel _pnlBilatzailea = new Panel();
-        private readonly Panel _pnlPaginazioa = new Panel();
-        private readonly Label _lblBilatu = new Label();
-        private readonly Label _lblPaginazioa = new Label();
-        private readonly TextBox _txtBilatu = new TextBox();
-        private readonly DataGridView _dgvLangileak = new DataGridView();
-        private readonly Button _btnAurrekoOrria = new Button();
-        private readonly Button _btnHurrengoOrria = new Button();
-
         private List<LangileZerrendaItem> _langileak = new List<LangileZerrendaItem>();
         private string _azkenOrdenazioZutabea = string.Empty;
         private bool _ordenazioGorakorra = true;
         private int _unekoOrria = 1;
+        private bool _interfazeaHasieratuta;
+
+        public LangileenZerrenda() : this("Osasun Langilea", SortuDiseinukoErabiltzailea())
+        {
+        }
 
         public LangileenZerrenda(string rolIzena, Erabiltzailea erabiltzailea) : base(erabiltzailea)
         {
@@ -76,16 +71,24 @@ namespace GOsasun_app.Interfazea
                 ? LangileMota.HarrerakoLangilea
                 : LangileMota.OsasunLangilea;
 
+            InitializeComponent();
             HasieratuInterfazea();
             KonfiguratuInterfazea();
             KonfiguratuTaula();
             KonfiguratuGertaerak();
             KargatuEkintzaIkonoak();
+            _interfazeaHasieratuta = true;
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
+            if (!_interfazeaHasieratuta)
+            {
+                return;
+            }
+
             ClientSize = new Size(1680, 980);
             ZentratuPantailaLanEremuan();
             EguneratuDiseinua();
@@ -94,6 +97,12 @@ namespace GOsasun_app.Interfazea
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
+
+            if (DiseinuModuan())
+            {
+                return;
+            }
+
             KargatuLangileak();
         }
 
@@ -101,7 +110,7 @@ namespace GOsasun_app.Interfazea
         {
             base.OnResize(e);
 
-            if (!DiseinuModuan())
+            if (_interfazeaHasieratuta && !DiseinuModuan())
             {
                 EguneratuDiseinua();
             }
@@ -111,16 +120,12 @@ namespace GOsasun_app.Interfazea
         {
             if (disposing)
             {
+                components?.Dispose();
+
                 foreach (Bitmap bitmap in _ekintzaIkonoak.Values)
                 {
                     bitmap.Dispose();
                 }
-
-                _dgvLangileak.Dispose();
-                _txtBilatu.Dispose();
-                _lblBilatu.Dispose();
-                _pnlBilatzailea.Dispose();
-                _lblIzenburua.Dispose();
             }
 
             base.Dispose(disposing);
@@ -128,45 +133,24 @@ namespace GOsasun_app.Interfazea
 
         private void HasieratuInterfazea()
         {
-            _lblIzenburua.AutoSize = true;
-            _lblIzenburua.Font = new Font("Segoe UI Semibold", 24F, FontStyle.Bold);
-
             _pnlBilatzailea.BackColor = Color.White;
             _pnlBilatzailea.BorderStyle = BorderStyle.FixedSingle;
 
             _pnlPaginazioa.BackColor = Color.Transparent;
-
-            _lblBilatu.AutoSize = true;
-            _lblBilatu.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            _lblBilatu.Text = "Bilatu";
-
-            _lblPaginazioa.AutoSize = false;
             _lblPaginazioa.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
             _lblPaginazioa.ForeColor = Color.White;
             _lblPaginazioa.TextAlign = ContentAlignment.MiddleCenter;
-
-            _txtBilatu.Font = new Font("Segoe UI", 11F);
-            _txtBilatu.PlaceholderText = "Izena, abizenak edo NAN bidez bilatu";
-
-            _btnAurrekoOrria.Text = "Aurreko 10ak";
-            _btnAurrekoOrria.Size = new Size(150, 38);
             _btnAurrekoOrria.FlatStyle = FlatStyle.Flat;
             _btnAurrekoOrria.FlatAppearance.BorderSize = 0;
             _btnAurrekoOrria.BackColor = Color.FromArgb(52, 73, 94);
             _btnAurrekoOrria.ForeColor = Color.White;
             _btnAurrekoOrria.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-
-            _btnHurrengoOrria.Text = "Hurrengo 10ak";
-            _btnHurrengoOrria.Size = new Size(150, 38);
             _btnHurrengoOrria.FlatStyle = FlatStyle.Flat;
             _btnHurrengoOrria.FlatAppearance.BorderSize = 0;
             _btnHurrengoOrria.BackColor = Color.FromArgb(41, 128, 185);
             _btnHurrengoOrria.ForeColor = Color.White;
             _btnHurrengoOrria.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
 
-            _dgvLangileak.AllowUserToAddRows = false;
-            _dgvLangileak.AllowUserToDeleteRows = false;
-            _dgvLangileak.AllowUserToResizeRows = false;
             _dgvLangileak.AutoGenerateColumns = false;
             _dgvLangileak.BackgroundColor = Color.White;
             _dgvLangileak.BorderStyle = BorderStyle.None;
@@ -181,23 +165,13 @@ namespace GOsasun_app.Interfazea
             _dgvLangileak.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(33, 150, 243);
             _dgvLangileak.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             _dgvLangileak.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10.5F, FontStyle.Bold);
-            _dgvLangileak.ColumnHeadersHeight = 42;
+            _dgvLangileak.ColumnHeadersHeight = 64;
+            _dgvLangileak.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             _dgvLangileak.DefaultCellStyle.Font = new Font("Segoe UI", 10F);
             _dgvLangileak.DefaultCellStyle.SelectionBackColor = Color.FromArgb(227, 242, 253);
             _dgvLangileak.DefaultCellStyle.SelectionForeColor = Color.Black;
             _dgvLangileak.RowTemplate.Height = 42;
-
-            _pnlBilatzailea.Controls.Add(_lblBilatu);
-            _pnlBilatzailea.Controls.Add(_txtBilatu);
-
-            _pnlPaginazioa.Controls.Add(_btnAurrekoOrria);
-            _pnlPaginazioa.Controls.Add(_lblPaginazioa);
-            _pnlPaginazioa.Controls.Add(_btnHurrengoOrria);
-
-            _edukiPanela.Controls.Add(_lblIzenburua);
-            _edukiPanela.Controls.Add(_pnlBilatzailea);
-            _edukiPanela.Controls.Add(_dgvLangileak);
-            _edukiPanela.Controls.Add(_pnlPaginazioa);
+            _dgvLangileak.ScrollBars = ScrollBars.Both;
         }
 
         private void KonfiguratuInterfazea()
@@ -266,6 +240,7 @@ namespace GOsasun_app.Interfazea
 
             column.DefaultCellStyle.Alignment = alignment;
             column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            column.HeaderCell.Style.WrapMode = DataGridViewTriState.True;
             column.DefaultCellStyle.NullValue = "-";
             if (!string.IsNullOrWhiteSpace(format))
             {
@@ -317,7 +292,18 @@ namespace GOsasun_app.Interfazea
 
         private void EguneratuDiseinua()
         {
-            if (_edukiPanela == null || _edukiPanela.ClientSize.Width <= 0)
+            if (!_interfazeaHasieratuta
+                || _edukiPanela == null
+                || _lblIzenburua == null
+                || _pnlBilatzailea == null
+                || _lblBilatu == null
+                || _txtBilatu == null
+                || _dgvLangileak == null
+                || _pnlPaginazioa == null
+                || _btnAurrekoOrria == null
+                || _btnHurrengoOrria == null
+                || _lblPaginazioa == null
+                || _edukiPanela.ClientSize.Width <= 0)
             {
                 return;
             }
@@ -326,17 +312,41 @@ namespace GOsasun_app.Interfazea
             int altuera = _edukiPanela.ClientSize.Height;
             int marjina = zabalera < 1300 ? 28 : 36;
             int zabaleraErabilgarria = Math.Max(900, zabalera - (marjina * 2));
+            int bilatzaileZabalera = Math.Min(620, Math.Max(360, zabaleraErabilgarria / 2));
 
             _lblIzenburua.Location = new Point(marjina, 22);
-            _pnlBilatzailea.Bounds = new Rectangle(marjina, 92, zabaleraErabilgarria, 78);
+            _pnlBilatzailea.Bounds = new Rectangle(marjina, 92, bilatzaileZabalera, 78);
             _lblBilatu.Location = new Point(24, 26);
-            _txtBilatu.Bounds = new Rectangle(110, 18, Math.Max(260, _pnlBilatzailea.Width - 136), 40);
+            _txtBilatu.Bounds = new Rectangle(110, 18, Math.Max(180, _pnlBilatzailea.Width - 142), 40);
 
             int taulaGoia = _pnlBilatzailea.Bottom + 22;
-            int taulaAltuera = Math.Max(240, altuera - taulaGoia - PaginazioPanelAltuera - 24);
-            _dgvLangileak.Bounds = new Rectangle(marjina, taulaGoia, zabaleraErabilgarria, taulaAltuera);
+            int taulaAltueraErabilgarria = Math.Max(240, altuera - taulaGoia - PaginazioPanelAltuera - 24);
+            int taulaAltuera = Math.Min(taulaAltueraErabilgarria, LortuTaularenHelburuAltuera());
+            int taulaZabalera = Math.Min(zabaleraErabilgarria, LortuTaularenEdukiZabalera());
+            _dgvLangileak.Bounds = new Rectangle(marjina, taulaGoia, taulaZabalera, taulaAltuera);
             _pnlPaginazioa.Bounds = new Rectangle(marjina, _dgvLangileak.Bottom + 12, zabaleraErabilgarria, PaginazioPanelAltuera);
             EguneratuPaginazioKontrolak();
+        }
+
+        private int LortuTaularenEdukiZabalera()
+        {
+            int zutabeZabalera = _dgvLangileak.Columns
+                .Cast<DataGridViewColumn>()
+                .Where(column => column.Visible)
+                .Sum(column => column.Width);
+
+            int scrollEtaMarjina = SystemInformation.VerticalScrollBarWidth + 8;
+            return Math.Max(760, zutabeZabalera + scrollEtaMarjina);
+        }
+
+        private int LortuTaularenHelburuAltuera()
+        {
+            int goiburuAltuera = Math.Max(40, _dgvLangileak.ColumnHeadersHeight);
+            int errenkadaAltuera = Math.Max(32, _dgvLangileak.RowTemplate.Height);
+            int scrollAltuera = SystemInformation.HorizontalScrollBarHeight;
+            int ertzak = 6;
+
+            return goiburuAltuera + (errenkadaAltuera * OrrikoErregistroKopurua) + scrollAltuera + ertzak;
         }
 
         private void TxtBilatu_TextChanged(object? sender, EventArgs e)
@@ -414,6 +424,21 @@ namespace GOsasun_app.Interfazea
         private static string FormateatuTestua(string? balioa)
         {
             return string.IsNullOrWhiteSpace(balioa) ? "-" : balioa.Trim();
+        }
+
+        private static Erabiltzailea SortuDiseinukoErabiltzailea()
+        {
+            return new HarrerakoLangilea
+            {
+                Id = 1,
+                Izena = "Diseinu",
+                Abizenak = "Erabiltzailea",
+                Emaila = "designer@gosasun.local",
+                RolId = 3,
+                Nan = "00000000A",
+                Aktibo = true,
+                Hizkuntza = "Euskara"
+            };
         }
 
         private bool EkintzakZutabeaDa(int columnIndex)

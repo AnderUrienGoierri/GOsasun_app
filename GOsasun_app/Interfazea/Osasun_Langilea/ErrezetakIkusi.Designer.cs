@@ -38,6 +38,7 @@ namespace GOsasun_app.Interfazea
             _edukiPanela.Controls.Add(lblIzenburua);
             _edukiPanela.Controls.Add(pnlEzkerra);
             _edukiPanela.Controls.Add(pnlEskuina);
+            _edukiPanela.Size = new Size(1902, 874);
             // 
             // _atzeraBotoia
             // 
@@ -55,17 +56,17 @@ namespace GOsasun_app.Interfazea
             pnlEzkerra.Controls.Add(btnGarbituFiltroak);
             pnlEzkerra.Controls.Add(btnEditatu);
             pnlEzkerra.Controls.Add(btnEzabatu);
-            pnlEzkerra.Location = new Point(50, 150);
+            pnlEzkerra.Location = new Point(12, 59);
             pnlEzkerra.Name = "pnlEzkerra";
-            pnlEzkerra.Size = new Size(400, 1094);
+            pnlEzkerra.Size = new Size(400, 810);
             pnlEzkerra.TabIndex = 1;
             // 
             // lblFiltroa
             // 
             lblFiltroa.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblFiltroa.Location = new Point(20, 0);
+            lblFiltroa.Location = new Point(20, 10);
             lblFiltroa.Name = "lblFiltroa";
-            lblFiltroa.Size = new Size(360, 37);
+            lblFiltroa.Size = new Size(360, 27);
             lblFiltroa.TabIndex = 0;
             lblFiltroa.Text = "Pazientea Bilatu (NAN, Izena):";
             // 
@@ -74,7 +75,7 @@ namespace GOsasun_app.Interfazea
             txtBilatuPaz.Font = new Font("Segoe UI", 12F);
             txtBilatuPaz.Location = new Point(20, 40);
             txtBilatuPaz.Name = "txtBilatuPaz";
-            txtBilatuPaz.Size = new Size(360, 50);
+            txtBilatuPaz.Size = new Size(360, 34);
             txtBilatuPaz.TabIndex = 1;
             txtBilatuPaz.TextChanged += txtBilatuPaz_TextChanged_1;
             // 
@@ -85,7 +86,7 @@ namespace GOsasun_app.Interfazea
             chkPazienteGuztiak.ForeColor = Color.FromArgb(44, 62, 80);
             chkPazienteGuztiak.Location = new Point(20, 96);
             chkPazienteGuztiak.Name = "chkPazienteGuztiak";
-            chkPazienteGuztiak.Size = new Size(264, 42);
+            chkPazienteGuztiak.Size = new Size(175, 29);
             chkPazienteGuztiak.TabIndex = 2;
             chkPazienteGuztiak.Text = "Paziente guztiak";
             chkPazienteGuztiak.UseVisualStyleBackColor = true;
@@ -93,15 +94,15 @@ namespace GOsasun_app.Interfazea
             // lblEgutegia
             // 
             lblEgutegia.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblEgutegia.Location = new Point(30, 198);
+            lblEgutegia.Location = new Point(5, 128);
             lblEgutegia.Name = "lblEgutegia";
-            lblEgutegia.Size = new Size(350, 47);
+            lblEgutegia.Size = new Size(245, 33);
             lblEgutegia.TabIndex = 3;
             lblEgutegia.Text = "Data Bidezko Filtroa:";
             // 
             // mcDataFiltroa
             // 
-            mcDataFiltroa.Location = new Point(30, 254);
+            mcDataFiltroa.Location = new Point(20, 170);
             mcDataFiltroa.Name = "mcDataFiltroa";
             mcDataFiltroa.TabIndex = 4;
             // 
@@ -110,9 +111,9 @@ namespace GOsasun_app.Interfazea
             chkErrezetaAktiboak.AutoSize = true;
             chkErrezetaAktiboak.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             chkErrezetaAktiboak.ForeColor = Color.FromArgb(44, 62, 80);
-            chkErrezetaAktiboak.Location = new Point(20, 490);
+            chkErrezetaAktiboak.Location = new Point(201, 96);
             chkErrezetaAktiboak.Name = "chkErrezetaAktiboak";
-            chkErrezetaAktiboak.Size = new Size(255, 42);
+            chkErrezetaAktiboak.Size = new Size(183, 29);
             chkErrezetaAktiboak.TabIndex = 5;
             chkErrezetaAktiboak.Text = "Errezeta aktiboak";
             chkErrezetaAktiboak.UseVisualStyleBackColor = true;
@@ -120,9 +121,9 @@ namespace GOsasun_app.Interfazea
             // btnGarbituFiltroak
             // 
             btnGarbituFiltroak.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
-            btnGarbituFiltroak.Location = new Point(20, 540);
+            btnGarbituFiltroak.Location = new Point(20, 389);
             btnGarbituFiltroak.Name = "btnGarbituFiltroak";
-            btnGarbituFiltroak.Size = new Size(360, 50);
+            btnGarbituFiltroak.Size = new Size(200, 50);
             btnGarbituFiltroak.TabIndex = 6;
             btnGarbituFiltroak.Text = "FILTROAK GARBITU";
             // 
@@ -131,9 +132,9 @@ namespace GOsasun_app.Interfazea
             btnEditatu.BackColor = Color.SteelBlue;
             btnEditatu.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             btnEditatu.ForeColor = Color.White;
-            btnEditatu.Location = new Point(20, 610);
+            btnEditatu.Location = new Point(20, 445);
             btnEditatu.Name = "btnEditatu";
-            btnEditatu.Size = new Size(360, 151);
+            btnEditatu.Size = new Size(360, 64);
             btnEditatu.TabIndex = 7;
             btnEditatu.Text = "ERREZETA EDITATU";
             btnEditatu.UseVisualStyleBackColor = false;
@@ -143,9 +144,9 @@ namespace GOsasun_app.Interfazea
             btnEzabatu.BackColor = Color.IndianRed;
             btnEzabatu.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             btnEzabatu.ForeColor = Color.White;
-            btnEzabatu.Location = new Point(20, 777);
+            btnEzabatu.Location = new Point(20, 521);
             btnEzabatu.Name = "btnEzabatu";
-            btnEzabatu.Size = new Size(360, 136);
+            btnEzabatu.Size = new Size(360, 62);
             btnEzabatu.TabIndex = 8;
             btnEzabatu.Text = "ERREZETA EZABATU";
             btnEzabatu.UseVisualStyleBackColor = false;
@@ -155,9 +156,9 @@ namespace GOsasun_app.Interfazea
             pnlEskuina.BackColor = Color.White;
             pnlEskuina.Controls.Add(dgvErrezetak);
             pnlEskuina.Controls.Add(dgvBotikak);
-            pnlEskuina.Location = new Point(480, 150);
+            pnlEskuina.Location = new Point(428, 59);
             pnlEskuina.Name = "pnlEskuina";
-            pnlEskuina.Size = new Size(1410, 1094);
+            pnlEskuina.Size = new Size(1410, 810);
             pnlEskuina.TabIndex = 2;
             // 
             // dgvErrezetak
@@ -165,13 +166,13 @@ namespace GOsasun_app.Interfazea
             dgvErrezetak.AllowUserToAddRows = false;
             dgvErrezetak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvErrezetak.ColumnHeadersHeight = 46;
-            dgvErrezetak.Location = new Point(20, 22);
+            dgvErrezetak.Location = new Point(20, 10);
             dgvErrezetak.MultiSelect = false;
             dgvErrezetak.Name = "dgvErrezetak";
             dgvErrezetak.ReadOnly = true;
             dgvErrezetak.RowHeadersWidth = 82;
             dgvErrezetak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvErrezetak.Size = new Size(1368, 500);
+            dgvErrezetak.Size = new Size(1368, 413);
             dgvErrezetak.TabIndex = 0;
             // 
             // dgvBotikak
@@ -179,32 +180,32 @@ namespace GOsasun_app.Interfazea
             dgvBotikak.AllowUserToAddRows = false;
             dgvBotikak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvBotikak.ColumnHeadersHeight = 46;
-            dgvBotikak.Location = new Point(20, 540);
+            dgvBotikak.Location = new Point(20, 429);
             dgvBotikak.MultiSelect = false;
             dgvBotikak.Name = "dgvBotikak";
             dgvBotikak.ReadOnly = true;
             dgvBotikak.RowHeadersWidth = 82;
             dgvBotikak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvBotikak.Size = new Size(1368, 330);
+            dgvBotikak.Size = new Size(1368, 357);
             dgvBotikak.TabIndex = 4;
+            dgvBotikak.CellContentClick += dgvBotikak_CellContentClick;
             // 
             // lblIzenburua
             // 
             lblIzenburua.BackColor = Color.Transparent;
             lblIzenburua.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
             lblIzenburua.ForeColor = Color.White;
-            lblIzenburua.Location = new Point(0, 0);
+            lblIzenburua.Location = new Point(0, 2);
             lblIzenburua.Name = "lblIzenburua";
             lblIzenburua.Padding = new Padding(48, 0, 0, 0);
-            lblIzenburua.Size = new Size(1902, 120);
+            lblIzenburua.Size = new Size(507, 54);
             lblIzenburua.TabIndex = 0;
             lblIzenburua.Text = "ERREZETEN ZERRENDA";
-            lblIzenburua.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // ErrezetakIkusi
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1902, 1575);
+            ClientSize = new Size(1902, 1055);
             Name = "ErrezetakIkusi";
             Text = "GOsasun - Errezetak Ikusi";
             _edukiPanela.ResumeLayout(false);

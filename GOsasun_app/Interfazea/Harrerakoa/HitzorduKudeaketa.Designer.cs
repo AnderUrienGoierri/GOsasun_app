@@ -92,7 +92,7 @@ namespace GOsasun_app.Interfazea
             dgvHitzorduak.RowHeadersVisible = false;
             dgvHitzorduak.RowHeadersWidth = 82;
             dgvHitzorduak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvHitzorduak.Size = new Size(1230, 682);
+            dgvHitzorduak.Size = new Size(1230, 628);
             dgvHitzorduak.TabIndex = 3;
             dgvHitzorduak.CellContentClick += dgvHitzorduak_CellContentClick;
             // 
@@ -150,7 +150,7 @@ namespace GOsasun_app.Interfazea
             txtArrazoia.Margin = new Padding(6);
             txtArrazoia.Multiline = true;
             txtArrazoia.Name = "txtArrazoia";
-            txtArrazoia.Size = new Size(321, 150);
+            txtArrazoia.Size = new Size(321, 88);
             txtArrazoia.TabIndex = 11;
             // 
             // cmbEgoera
@@ -167,7 +167,7 @@ namespace GOsasun_app.Interfazea
             // 
             btnGorde.BackColor = Color.FromArgb(83, 148, 117);
             btnGorde.ForeColor = Color.White;
-            btnGorde.Location = new Point(13, 604);
+            btnGorde.Location = new Point(13, 532);
             btnGorde.Margin = new Padding(6);
             btnGorde.Name = "btnGorde";
             btnGorde.Size = new Size(321, 52);
@@ -179,7 +179,7 @@ namespace GOsasun_app.Interfazea
             // 
             btnEzabatu.BackColor = Color.IndianRed;
             btnEzabatu.ForeColor = Color.White;
-            btnEzabatu.Location = new Point(13, 670);
+            btnEzabatu.Location = new Point(13, 596);
             btnEzabatu.Margin = new Padding(6);
             btnEzabatu.Name = "btnEzabatu";
             btnEzabatu.Size = new Size(150, 46);
@@ -189,7 +189,7 @@ namespace GOsasun_app.Interfazea
             // 
             // btnGarbitu
             // 
-            btnGarbitu.Location = new Point(184, 670);
+            btnGarbitu.Location = new Point(184, 596);
             btnGarbitu.Margin = new Padding(6);
             btnGarbitu.Name = "btnGarbitu";
             btnGarbitu.Size = new Size(150, 46);
@@ -284,7 +284,7 @@ namespace GOsasun_app.Interfazea
             panelKudeaketa.Location = new Point(15, 10);
             panelKudeaketa.Margin = new Padding(6);
             panelKudeaketa.Name = "panelKudeaketa";
-            panelKudeaketa.Size = new Size(364, 752);
+            panelKudeaketa.Size = new Size(364, 688);
             panelKudeaketa.TabIndex = 4;
             // 
             // HitzorduKudeaketa

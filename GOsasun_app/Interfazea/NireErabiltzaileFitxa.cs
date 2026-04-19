@@ -53,9 +53,7 @@ namespace GOsasun_app.Interfazea
 
         private void KonfiguratuArgazkiaAtala()
         {
-            lblArgazkiAzalpena.Text = "Erabiltzailearen identifikazio bisuala. Irudirik ez badago, avatar medikal lehenetsia erabiliko da.";
-            lblArgazkiAzalpena.AutoSize = false;
-            lblArgazkiAzalpena.Size = new Size(242, 104);
+            lblArgazkiAzalpena.Visible = false;
         }
 
         private void KonfiguratuIdentifikazioAtala()

@@ -9,6 +9,10 @@ namespace GOsasun_app.Interfazea.Kontrolak
         private const int WsExComposited = 0x02000000;
         private Image? _atzekoPlanoaIrudia;
         private Color _atzekoKolorea = Color.FromArgb(214, 224, 229);
+        private Bitmap? _atzekoPlanoCachea;
+        private Size _cacheTamaina = Size.Empty;
+        private Image? _cacheIturria;
+        private Color _cacheKolorea = Color.Empty;
 
         public PortadaPanela()
         {
@@ -40,6 +44,7 @@ namespace GOsasun_app.Interfazea.Kontrolak
                 }
 
                 _atzekoPlanoaIrudia = value;
+                GarbituAtzekoPlanoCachea();
                 Invalidate();
             }
         }
@@ -58,33 +63,21 @@ namespace GOsasun_app.Interfazea.Kontrolak
 
                 _atzekoKolorea = value;
                 BackColor = value;
+                GarbituAtzekoPlanoCachea();
                 Invalidate();
             }
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
-            e.Graphics.Clear(_atzekoKolorea);
-
-            if (_atzekoPlanoaIrudia == null || ClientSize.Width <= 0 || ClientSize.Height <= 0)
+            Bitmap? cachea = LortuAtzekoPlanoCachea();
+            if (cachea == null)
             {
+                e.Graphics.Clear(_atzekoKolorea);
                 return;
             }
 
-            e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
-            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-            float eskala = Math.Max(
-                ClientSize.Width / (float)_atzekoPlanoaIrudia.Width,
-                ClientSize.Height / (float)_atzekoPlanoaIrudia.Height);
-
-            int zabalera = Math.Max(1, (int)Math.Round(_atzekoPlanoaIrudia.Width * eskala));
-            int altuera = Math.Max(1, (int)Math.Round(_atzekoPlanoaIrudia.Height * eskala));
-            int x = (ClientSize.Width - zabalera) / 2;
-            int y = (ClientSize.Height - altuera) / 2;
-
-            e.Graphics.DrawImage(_atzekoPlanoaIrudia, x, y, zabalera, altuera);
+            e.Graphics.DrawImageUnscaled(cachea, Point.Empty);
         }
 
         protected override void OnScroll(ScrollEventArgs se)
@@ -96,7 +89,72 @@ namespace GOsasun_app.Interfazea.Kontrolak
         protected override void OnResize(EventArgs eventargs)
         {
             base.OnResize(eventargs);
+            GarbituAtzekoPlanoCachea();
             Invalidate();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                GarbituAtzekoPlanoCachea();
+            }
+
+            base.Dispose(disposing);
+        }
+
+        private Bitmap? LortuAtzekoPlanoCachea()
+        {
+            if (ClientSize.Width <= 0 || ClientSize.Height <= 0)
+            {
+                return null;
+            }
+
+            if (_atzekoPlanoCachea != null
+                && _cacheTamaina == ClientSize
+                && ReferenceEquals(_cacheIturria, _atzekoPlanoaIrudia)
+                && _cacheKolorea == _atzekoKolorea)
+            {
+                return _atzekoPlanoCachea;
+            }
+
+            GarbituAtzekoPlanoCachea();
+            _cacheTamaina = ClientSize;
+            _cacheIturria = _atzekoPlanoaIrudia;
+            _cacheKolorea = _atzekoKolorea;
+            _atzekoPlanoCachea = new Bitmap(ClientSize.Width, ClientSize.Height);
+
+            using Graphics graphics = Graphics.FromImage(_atzekoPlanoCachea);
+            graphics.Clear(_atzekoKolorea);
+
+            if (_atzekoPlanoaIrudia != null)
+            {
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                float eskala = Math.Max(
+                    ClientSize.Width / (float)_atzekoPlanoaIrudia.Width,
+                    ClientSize.Height / (float)_atzekoPlanoaIrudia.Height);
+
+                int zabalera = Math.Max(1, (int)Math.Round(_atzekoPlanoaIrudia.Width * eskala));
+                int altuera = Math.Max(1, (int)Math.Round(_atzekoPlanoaIrudia.Height * eskala));
+                int x = (ClientSize.Width - zabalera) / 2;
+                int y = (ClientSize.Height - altuera) / 2;
+
+                graphics.DrawImage(_atzekoPlanoaIrudia, x, y, zabalera, altuera);
+            }
+
+            return _atzekoPlanoCachea;
+        }
+
+        private void GarbituAtzekoPlanoCachea()
+        {
+            _atzekoPlanoCachea?.Dispose();
+            _atzekoPlanoCachea = null;
+            _cacheTamaina = Size.Empty;
+            _cacheIturria = null;
+            _cacheKolorea = Color.Empty;
         }
 
         protected override void WndProc(ref Message m)

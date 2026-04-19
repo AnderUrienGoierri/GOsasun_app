@@ -20,6 +20,7 @@ namespace GOsasun_app.Interfazea
         }
 
         private static Icon? _ikonoNagusia;
+        private static Rectangle? _leihoBoundsPartekatua;
         private readonly Dictionary<Control, KontrolDiseinuDatuak> _kontrolDiseinuak = new();
         private Size _diseinuClientSize;
         private bool _hasierakoEskalatzeaAplikatuta;
@@ -45,6 +46,20 @@ namespace GOsasun_app.Interfazea
         {
             PrestatuHasierakoMarrazketa();
             base.OnLoad(e);
+
+            if (!DiseinuModuan())
+            {
+                SuspendLayout();
+
+                if (!_hasierakoEskalatzeaAplikatuta)
+                {
+                    AplikatuHasierakoEskalatzea();
+                }
+
+                AktibatuBufferBikoitza(this);
+                ResumeLayout(true);
+                PerformLayout();
+            }
         }
 
         protected override void OnHandleCreated(EventArgs e)
@@ -63,27 +78,30 @@ namespace GOsasun_app.Interfazea
             {
                 BeginInvoke(new Action(() =>
                 {
-                    SuspendLayout();
-
-                    if (!_hasierakoEskalatzeaAplikatuta)
-                    {
-                        AplikatuHasierakoEskalatzea();
-                    }
-
-                    AktibatuBufferBikoitza(this);
-                    ResumeLayout(true);
-                    PerformLayout();
-
-                    BeginInvoke(new Action(() =>
-                    {
-                        SuspendLayout();
-                        EzarriPantailaOsora();
-                        AktibatuBufferBikoitza(this);
-                        ResumeLayout(true);
-                        PerformLayout();
-                        AmaituHasierakoMarrazketa();
-                    }));
+                    AplikatuLeihoTamainaPartekatua();
+                    GordeLeihoTamainaPartekatua();
+                    AmaituHasierakoMarrazketa();
                 }));
+            }
+        }
+
+        protected override void OnResizeEnd(EventArgs e)
+        {
+            base.OnResizeEnd(e);
+
+            if (!DiseinuModuan())
+            {
+                GordeLeihoTamainaPartekatua();
+            }
+        }
+
+        protected override void OnMove(EventArgs e)
+        {
+            base.OnMove(e);
+
+            if (!DiseinuModuan() && Visible)
+            {
+                GordeLeihoTamainaPartekatua();
             }
         }
 
@@ -181,9 +199,38 @@ namespace GOsasun_app.Interfazea
             Bounds = lanEremua;
         }
 
+        internal void BehartuPantailaOsoraBerehala()
+        {
+            EzarriPantailaOsora();
+        }
+
+        protected void GordeLeihoTamainaPartekatua()
+        {
+            if (DiseinuModuan() || WindowState == FormWindowState.Minimized || Width <= 0 || Height <= 0)
+            {
+                return;
+            }
+
+            Rectangle lanEremua = LortuPantailarenLanEremua();
+            Rectangle oraingoBounds = WindowState == FormWindowState.Normal ? Bounds : RestoreBounds;
+
+            if (oraingoBounds.Width <= 0 || oraingoBounds.Height <= 0)
+            {
+                return;
+            }
+
+            _leihoBoundsPartekatua = DoituLeihoBounds(oraingoBounds, lanEremua);
+            _pantailaOsoaAplikatuta = false;
+        }
+
+        internal void AplikatuLeihoTamainaPartekatuaBerehala()
+        {
+            AplikatuLeihoTamainaPartekatua();
+        }
+
         protected void ZentratuPantailaLanEremuan()
         {
-            if (DiseinuModuan() || PantailaOsoanIreki || _pantailaOsoaAplikatuta)
+            if (DiseinuModuan() || _pantailaOsoaAplikatuta)
             {
                 return;
             }
@@ -192,6 +239,31 @@ namespace GOsasun_app.Interfazea
             int x = lanEremua.Left + Math.Max(0, (lanEremua.Width - Width) / 2);
             int y = lanEremua.Top + Math.Max(0, (lanEremua.Height - Height) / 2);
             Location = new Point(x, y);
+        }
+
+        private void AplikatuLeihoTamainaPartekatua()
+        {
+            if (DiseinuModuan() || !_leihoBoundsPartekatua.HasValue)
+            {
+                return;
+            }
+
+            Rectangle lanEremua = LortuPantailarenLanEremua();
+            Rectangle helmugaBounds = DoituLeihoBounds(_leihoBoundsPartekatua.Value, lanEremua);
+
+            StartPosition = FormStartPosition.Manual;
+            WindowState = FormWindowState.Normal;
+            Bounds = helmugaBounds;
+            _pantailaOsoaAplikatuta = false;
+        }
+
+        private static Rectangle DoituLeihoBounds(Rectangle jatorrizkoa, Rectangle lanEremua)
+        {
+            int zabalera = Math.Max(320, Math.Min(jatorrizkoa.Width, lanEremua.Width));
+            int altuera = Math.Max(240, Math.Min(jatorrizkoa.Height, lanEremua.Height));
+            int x = Math.Min(Math.Max(jatorrizkoa.X, lanEremua.Left), lanEremua.Right - zabalera);
+            int y = Math.Min(Math.Max(jatorrizkoa.Y, lanEremua.Top), lanEremua.Bottom - altuera);
+            return new Rectangle(x, y, zabalera, altuera);
         }
 
         protected int LortuPantailaraEgokitutakoZabalera(int nahitutakoZabalera, int marjina = 60)

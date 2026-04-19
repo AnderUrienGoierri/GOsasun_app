@@ -12,15 +12,17 @@ namespace GOsasun_app.Interfazea
     public partial class HitzorduakKontsultatzea : OinarriPantaila
     {
         private readonly HitzorduKontrolatzailea _kontrolatzailea;
+        private readonly int? _pazienteIragazkiId;
         private List<Hitzordua> _hitzorduGuztiak = new List<Hitzordua>();
         private bool _dataIragazkiaAldiBaterakoKendu;
         private bool _hasierakoDatuakKargatuta;
         private bool _hasierakoDatuakKargatzen;
 
-        public HitzorduakKontsultatzea(Erabiltzailea erabiltzailea) : base(erabiltzailea)
+        public HitzorduakKontsultatzea(Erabiltzailea erabiltzailea, int? pazienteIragazkiId = null) : base(erabiltzailea)
         {
             InitializeComponent();
             _kontrolatzailea = new HitzorduKontrolatzailea();
+            _pazienteIragazkiId = pazienteIragazkiId;
 
             KonfiguratuTaula();
 
@@ -53,7 +55,9 @@ namespace GOsasun_app.Interfazea
             dgvHitzorduak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvHitzorduak.ScrollBars = ScrollBars.Vertical;
 
-            if (_erabiltzailea is OsasunLangilea)
+            bool osasunLangileIkuspegia = _pazienteIragazkiId is null && _erabiltzailea is OsasunLangilea;
+
+            if (osasunLangileIkuspegia)
             {
                 dgvHitzorduak.Columns.Add(new DataGridViewTextBoxColumn
                 {
@@ -113,7 +117,7 @@ namespace GOsasun_app.Interfazea
                 MinimumWidth = 85
             });
 
-            bool osasunLangileaDa = _erabiltzailea is OsasunLangilea;
+            bool osasunLangileaDa = osasunLangileIkuspegia;
             lblBilatuPazientea.Visible = osasunLangileaDa;
             txtPazienteBilatu.Visible = osasunLangileaDa;
             chkPazienteGuztiak.Visible = osasunLangileaDa;
@@ -181,6 +185,11 @@ namespace GOsasun_app.Interfazea
 
         private List<Hitzordua> LortuHitzorduak(bool pazienteGuztiak)
         {
+            if (_pazienteIragazkiId.HasValue)
+            {
+                return _kontrolatzailea.LortuPazientearenHitzorduak(_pazienteIragazkiId.Value);
+            }
+
             if (_erabiltzailea is OsasunLangilea m)
             {
                 return pazienteGuztiak

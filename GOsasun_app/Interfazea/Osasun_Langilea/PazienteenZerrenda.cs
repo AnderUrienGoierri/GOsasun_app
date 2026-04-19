@@ -19,7 +19,6 @@ namespace GOsasun_app.Interfazea
     public partial class PazienteenZerrenda : OinarriPantaila
     {
         private const int PazienteenZerrendaZabalera = 2360;
-        private const int OinarrizkoZutabeZabaleraGuztira = 2100;
         private const int EkintzaZutabeZabalera = 260;
         private const int EkintzaIkonoTamaina = 30;
         private const int EkintzaBotoiTamaina = 52;
@@ -75,9 +74,7 @@ namespace GOsasun_app.Interfazea
         private void HasieratuPaginazioa()
         {
             _pnlPaginazioa.BackColor = Color.Transparent;
-            _pnlPaginazioa.Dock = DockStyle.Bottom;
-            _pnlPaginazioa.Height = 72;
-            _pnlPaginazioa.Padding = new Padding(24, 12, 24, 12);
+            _pnlPaginazioa.Height = 56;
 
             _btnAurrekoOrria.Text = "Aurreko 10ak";
             _btnAurrekoOrria.Size = new Size(150, 40);
@@ -105,7 +102,7 @@ namespace GOsasun_app.Interfazea
             _pnlPaginazioa.Controls.Add(_btnAurrekoOrria);
             _pnlPaginazioa.Controls.Add(_lblPaginazioa);
             _pnlPaginazioa.Controls.Add(_btnHurrengoOrria);
-            _edukiPanela.Controls.Add(_pnlPaginazioa);
+            pnlBilatzailea.Controls.Add(_pnlPaginazioa);
             _pnlPaginazioa.BringToFront();
 
             EguneratuPaginazioKontrolak();
@@ -115,6 +112,8 @@ namespace GOsasun_app.Interfazea
         {
             dgvPazienteak.AutoGenerateColumns = false;
             dgvPazienteak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvPazienteak.ScrollBars = ScrollBars.Both;
+            dgvPazienteak.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvPazienteak.Columns.Clear();
             dgvPazienteak.RowTemplate.Height = PazienteErrenkadaAltuera;
 
@@ -302,12 +301,12 @@ namespace GOsasun_app.Interfazea
                 return;
             }
 
-            _btnAurrekoOrria.Location = new Point(24, 14);
-            _btnHurrengoOrria.Location = new Point(_pnlPaginazioa.ClientSize.Width - _btnHurrengoOrria.Width - 24, 14);
+            _btnAurrekoOrria.Location = new Point(0, 8);
+            _btnHurrengoOrria.Location = new Point(_btnAurrekoOrria.Right + 14, 8);
             _lblPaginazioa.Bounds = new Rectangle(
-                _btnAurrekoOrria.Right + 18,
-                14,
-                Math.Max(260, _pnlPaginazioa.ClientSize.Width - (_btnAurrekoOrria.Width + _btnHurrengoOrria.Width + 84)),
+                _btnHurrengoOrria.Right + 18,
+                8,
+                Math.Max(260, _pnlPaginazioa.ClientSize.Width - (_btnAurrekoOrria.Width + _btnHurrengoOrria.Width + 32)),
                 40);
         }
 
@@ -335,19 +334,12 @@ namespace GOsasun_app.Interfazea
 
         private int LortuDoitutakoZabalera(int oinarrizkoZabalera)
         {
-            if (_erabiltzailea is HarrerakoLangilea)
-            {
-                return oinarrizkoZabalera;
-            }
-
-            int erabilgarri = Math.Max(900, ClientSize.Width - 140);
-            double eskala = Math.Min(1d, (double)erabilgarri / OinarrizkoZutabeZabaleraGuztira);
-            return Math.Max(70, (int)Math.Round(oinarrizkoZabalera * eskala));
+            return oinarrizkoZabalera;
         }
 
         private void EguneratuTaularenZabalerak()
         {
-            if (dgvPazienteak == null || dgvPazienteak.Columns.Count == 0 || _erabiltzailea is HarrerakoLangilea)
+            if (dgvPazienteak == null || dgvPazienteak.Columns.Count == 0)
             {
                 return;
             }
@@ -398,46 +390,27 @@ namespace GOsasun_app.Interfazea
                 return;
             }
 
-            int ezkerMarjina = Math.Max(38, (int)Math.Round(panelZabalera * 0.02));
-            int eskuinMarjina = ezkerMarjina;
-            const int elementuTartea = 24;
-            bool diseinuEstua = panelZabalera < 1080;
+            int ezkerMarjina = Math.Max(20, lblBilatu.Left);
+            int azkenBehea = 0;
 
-            lblIzenburua.TextAlign = ContentAlignment.MiddleLeft;
-            lblIzenburua.Padding = new Padding(ezkerMarjina, 0, 0, 0);
+            azkenBehea = Math.Max(azkenBehea, lblBilatu.Bottom);
+            azkenBehea = Math.Max(azkenBehea, txtBilatu.Bottom);
 
-            lblBilatu.Location = new Point(ezkerMarjina, 26);
-            int bilaketaX = lblBilatu.Right + 14;
-            int bilaketaZabalera = Math.Min(760, Math.Max(360, panelZabalera - bilaketaX - eskuinMarjina));
-            txtBilatu.Location = new Point(bilaketaX, 22);
-            txtBilatu.Width = bilaketaZabalera;
-
-            int checkY = txtBilatu.Bottom + 18;
-            chkPazienteGuztiak.Location = new Point(ezkerMarjina, checkY);
-            chkAltan.Location = new Point(chkPazienteGuztiak.Right + elementuTartea, checkY);
-            chkBajan.Location = new Point(chkAltan.Right + elementuTartea, checkY);
-
-            int botoiakGoian = chkPazienteGuztiak.Bottom + 20;
-            int botoiZabalera = diseinuEstua
-                ? Math.Max(280, panelZabalera - (ezkerMarjina * 2))
-                : Math.Min(430, Math.Max(280, (panelZabalera - (ezkerMarjina * 2) - elementuTartea) / 2));
-
-            if (btnPazienteBerria.Visible)
+            if (chkPazienteGuztiak.Visible)
             {
-                btnPazienteBerria.Size = new Size(botoiZabalera, btnPazienteBerria.Height);
-                btnPazienteBerria.Location = new Point(ezkerMarjina, botoiakGoian);
+                azkenBehea = Math.Max(azkenBehea, chkPazienteGuztiak.Bottom);
             }
 
-            if (btnOsasunLangileaSortu.Visible)
+            if (chkAltan.Visible)
             {
-                btnOsasunLangileaSortu.Size = new Size(botoiZabalera, btnOsasunLangileaSortu.Height);
-                btnOsasunLangileaSortu.Location = diseinuEstua
-                    ? new Point(ezkerMarjina, btnPazienteBerria.Bottom + 16)
-                    : new Point(btnPazienteBerria.Right + elementuTartea, botoiakGoian);
+                azkenBehea = Math.Max(azkenBehea, chkAltan.Bottom);
             }
 
-            int azkenBehea = txtBilatu.Bottom;
-            azkenBehea = Math.Max(azkenBehea, chkPazienteGuztiak.Bottom);
+            if (chkBajan.Visible)
+            {
+                azkenBehea = Math.Max(azkenBehea, chkBajan.Bottom);
+            }
+
             if (btnPazienteBerria.Visible)
             {
                 azkenBehea = Math.Max(azkenBehea, btnPazienteBerria.Bottom);
@@ -448,8 +421,17 @@ namespace GOsasun_app.Interfazea
                 azkenBehea = Math.Max(azkenBehea, btnOsasunLangileaSortu.Bottom);
             }
 
+            int paginazioGoia = azkenBehea + 18;
+            int paginazioZabalera = Math.Min(700, Math.Max(420, panelZabalera - (ezkerMarjina * 2)));
+            int paginazioX = Math.Max(ezkerMarjina, Math.Min(_pnlPaginazioa.Left <= 0 ? ezkerMarjina : _pnlPaginazioa.Left, panelZabalera - paginazioZabalera - ezkerMarjina));
+            _pnlPaginazioa.Location = new Point(paginazioX, paginazioGoia);
+            _pnlPaginazioa.Size = new Size(paginazioZabalera, 56);
+
+            azkenBehea = Math.Max(azkenBehea, _pnlPaginazioa.Bottom);
+
             int panelAltuera = azkenBehea + 20;
             pnlBilatzailea.Height = panelAltuera;
+            EguneratuPaginazioKontrolak();
         }
 
         private static DataGridViewTextBoxColumn SortuTestuZutabea(string propertyName, string headerText, int width, string? format = null)

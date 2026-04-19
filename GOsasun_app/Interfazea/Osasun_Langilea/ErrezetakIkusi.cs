@@ -72,7 +72,7 @@ namespace GOsasun_app.Interfazea
                 chkErrezetaAktiboak.Location = new Point(20, 490);
                 btnGarbituFiltroak.Location = new Point(20, 540);
                 btnEditatu.Location = new Point(20, 610);
-                btnEzabatu.Location = new Point(20, 777);
+                btnEzabatu.Location = new Point(20, btnEditatu.Bottom + 12);
                 return;
             }
 
@@ -316,6 +316,11 @@ namespace GOsasun_app.Interfazea
         }
 
         private void txtBilatuPaz_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvBotikak_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

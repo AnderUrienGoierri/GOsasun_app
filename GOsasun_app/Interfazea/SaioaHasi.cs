@@ -52,6 +52,7 @@ namespace GOsasun_app.Interfazea
             base.OnLoad(e);
             EguneratuLoginDiseinua();
             ZentratuPantailaLanEremuan();
+            GordeLeihoTamainaPartekatua();
         }
 
         protected override void OnShown(EventArgs e)
@@ -343,11 +344,15 @@ namespace GOsasun_app.Interfazea
                         EguneratuLoginSegurtasuna();
                         UseWaitCursor = false;
                         Cursor = Cursors.Default;
+                        AplikatuLeihoTamainaPartekatuaBerehala();
                         Show();
                     };
 
                     if (menuForm is GOsasunForm hurrengoPantaila)
                     {
+                        GordeLeihoTamainaPartekatua();
+                        hurrengoPantaila.AplikatuLeihoTamainaPartekatuaBerehala();
+
                         EventHandler? prestHandler = null;
                         prestHandler = (s, e) =>
                         {
