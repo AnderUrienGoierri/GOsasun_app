@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Drawing;
+using GOsasun_app.Kontrola;
 using GOsasun_app.Modeloa;
-using GOsasun_app.Repositorioa;
 
 namespace GOsasun_app.Interfazea
 {
     public partial class ErrezetakIkusi : OinarriPantaila
     {
-        private readonly ErrezetaDB errezetaDB = new ErrezetaDB();
+        private readonly ErrezetaKontrolatzailea errezetaKontrolatzailea = new ErrezetaKontrolatzailea();
         private List<Errezeta> errezetakGuztiak = new List<Errezeta>();
         private DateTime? filtroData = null;
 
@@ -145,13 +145,13 @@ namespace GOsasun_app.Interfazea
             if (_erabiltzailea is OsasunLangilea osasunLangilea)
             {
                 errezetakGuztiak = chkPazienteGuztiak.Checked
-                    ? errezetaDB.LortuErrezetaGuztiak(false)
-                    : errezetaDB.LortuOsasunLangilearenErrezetak(osasunLangilea.Id, false);
+                    ? errezetaKontrolatzailea.LortuErrezetaGuztiak(false)
+                    : errezetaKontrolatzailea.LortuOsasunLangilearenErrezetak(osasunLangilea.Id, false);
                 IragaziDatuak();
             }
             else if (_erabiltzailea is Pazientea pazientea)
             {
-                errezetakGuztiak = errezetaDB.LortuPazientearenErrezetak(pazientea.Id, false);
+                errezetakGuztiak = errezetaKontrolatzailea.LortuPazientearenErrezetak(pazientea.Id, false);
                 IragaziDatuak();
             }
         }
@@ -298,7 +298,7 @@ namespace GOsasun_app.Interfazea
 
                 if (result == DialogResult.Yes)
                 {
-                    if (errezetaDB.EzabatuErrezeta(id))
+                    if (errezetaKontrolatzailea.EzabatuErrezeta(id))
                     {
                         MessageBox.Show("Errezeta ongi ezabatu da.");
                         KargatuDatuak();

@@ -101,7 +101,7 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
                 if (!device.TryOpen(out _stream)) throw new Exception("Ezin izan da HID gailua ireki.");
                 _stream.ReadTimeout = 2000;
                 _stream.WriteTimeout = 2000;
-                
+
                 // Gailuaren report luzera natiboak lortu (Metodo berriak erabiliz obsolete ekiditeko)
                 _maxInput = device.GetMaxInputReportLength();
                 _maxOutput = device.GetMaxOutputReportLength();
@@ -114,7 +114,7 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
                 try {
                     // Microdia/Sonix-ek Feature Report-a behar du abiadura ezartzeko (ID=2, SetFlags=1, BaudLow, BaudHigh)
                     // Padded to the device's native feature report length.
-                    byte[] baud = new byte[_maxFeature];    
+                    byte[] baud = new byte[_maxFeature];
                     if (_maxFeature >= 4) {
                         baud[0] = 0x02; // Report ID
                         baud[1] = 0x01; // Flags (1 = set baud)
@@ -129,10 +129,10 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
                 }
             }
 
-            public void Write(byte[] data) 
-            { 
+            public void Write(byte[] data)
+            {
                 byte[] report = new byte[9]; // Beti 9 byte (MaxOutput)
-                
+
                 if (Mode == ProtocolMode.MicrodiaTunnel)
                 {
                     // Report ID 0x08 + Length + Data

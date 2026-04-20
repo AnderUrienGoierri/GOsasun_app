@@ -1,0 +1,109 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6">
+  <diagram id="login-seq" name="1. Saioa hasi">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#9ca3af;fontStyle=1;fontSize=18;" value="1. Osasun langileak saioa hasten du" vertex="1">
+          <mxGeometry x="430" y="10" width="430" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlActor;size=60;" value="Osasun langilea" vertex="1">
+          <mxGeometry x="70" y="70" width="40" height="860" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" value="INTERFAZEA&lt;div&gt;SaioaHasi&lt;/div&gt;" vertex="1">
+          <mxGeometry x="220" y="70" width="120" height="860" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" value="KONTROLA&lt;div&gt;ErabiltzaileKontrolatzailea&lt;/div&gt;" vertex="1">
+          <mxGeometry x="450" y="70" width="170" height="860" as="geometry" />
+        </mxCell>
+        <mxCell id="L4" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" value="REPOSITORIOA&lt;div&gt;ErabiltzaileDB&lt;/div&gt;" vertex="1">
+          <mxGeometry x="760" y="70" width="150" height="860" as="geometry" />
+        </mxCell>
+        <mxCell id="A2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry x="275" y="140" width="10" height="620" as="geometry" />
+        </mxCell>
+        <mxCell id="A3a" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry x="530" y="190" width="10" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="A3b" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry x="530" y="330" width="10" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="A4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry x="830" y="390" width="10" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="E1" edge="1" parent="1" style="html=1;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="emaila eta pasahitza sartu eta Saioa hasi sakatu">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="150" as="sourcePoint" />
+            <mxPoint x="280" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E2" edge="1" parent="1" style="html=1;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="LortuLoginBlokeoEgoera()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="210" as="sourcePoint" />
+            <mxPoint x="535" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E3" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="LoginSegurtasunEgoera">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="535" y="260" as="sourcePoint" />
+            <mxPoint x="280" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F1" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=140;height=40;boundedLbl=1;verticalAlign=top;align=left;spacingLeft=5;" value="alt&#xa;[segurtasunEgoera.Blokeatuta]" vertex="1">
+          <mxGeometry x="30" y="290" width="610" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="E4" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="blokeo mezua erakutsi">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="360" as="sourcePoint" />
+            <mxPoint x="95" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F2" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=140;height=40;boundedLbl=1;verticalAlign=top;align=left;spacingLeft=5;" value="alt&#xa;[ez dago blokeatuta]" vertex="1">
+          <mxGeometry x="30" y="430" width="980" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="E5" edge="1" parent="1" style="html=1;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="Login(emaila, pasahitza)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="500" as="sourcePoint" />
+            <mxPoint x="535" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E6" edge="1" parent="1" style="html=1;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="Login(emaila, pasahitza)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="535" y="560" as="sourcePoint" />
+            <mxPoint x="835" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E7" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="Erabiltzailea?">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="835" y="620" as="sourcePoint" />
+            <mxPoint x="535" y="620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E8" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="LoginEmaitza">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="535" y="680" as="sourcePoint" />
+            <mxPoint x="280" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F3" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=140;height=40;boundedLbl=1;verticalAlign=top;align=left;spacingLeft=5;" value="alt&#xa;[erabiltzaileaObj != null]" vertex="1">
+          <mxGeometry x="60" y="710" width="500" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="E9" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="menu nagusira bideratu">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="765" as="sourcePoint" />
+            <mxPoint x="95" y="765" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F4" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=140;height=40;boundedLbl=1;verticalAlign=top;align=left;spacingLeft=5;" value="alt&#xa;[erabiltzaileaObj == null]" vertex="1">
+          <mxGeometry x="590" y="710" width="390" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="E10" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=0;" value="errore edo blokeo mezua erakutsi">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="765" as="sourcePoint" />
+            <mxPoint x="95" y="815" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

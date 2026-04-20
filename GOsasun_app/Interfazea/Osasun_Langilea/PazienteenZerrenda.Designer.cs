@@ -98,7 +98,7 @@ namespace GOsasun_app.Interfazea
             lblIzenburua.Size = new Size(1898, 94);
             lblIzenburua.TabIndex = 0;
             lblIzenburua.Text = "NIRE PAZIENTEAK";
-            lblIzenburua.TextAlign = ContentAlignment.MiddleCenter;
+            lblIzenburua.TextAlign = ContentAlignment.MiddleLeft;
             lblIzenburua.Click += lblIzenburua_Click;
             // 
             // pnlBilatzailea

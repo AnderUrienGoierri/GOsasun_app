@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using GOsasun_app.Kontrola;
 using GOsasun_app.Modeloa;
 using GOsasun_app.Repositorioa;
 
@@ -10,9 +11,9 @@ namespace GOsasun_app.Interfazea
 {
     public partial class ErrezetaSortu : OinarriPantaila
     {
-        private ErabiltzaileDB erabiltzaileDB = new ErabiltzaileDB();
-        private BotikaDB botikaDB = new BotikaDB();
-        private ErrezetaDB errezetaDB = new ErrezetaDB();
+        private readonly PazienteKontrolatzailea _pazienteKontrolatzailea = new PazienteKontrolatzailea();
+        private readonly BotikaDB botikaDB = new BotikaDB();
+        private readonly ErrezetaKontrolatzailea errezetaKontrolatzailea = new ErrezetaKontrolatzailea();
 
         private Errezeta? _editatzekoErrezeta;
 
@@ -120,13 +121,13 @@ namespace GOsasun_app.Interfazea
             if (_erabiltzailea != null && _erabiltzailea is OsasunLangilea)
             {
                 pazienteak = chkPazienteGuztiak.Checked
-                    ? erabiltzaileDB.LortuGuztiakPazienteak(bilatzailea)
-                    : erabiltzaileDB.LortuLangilearenPazienteak(_erabiltzailea.Id, bilatzailea);
+                    ? _pazienteKontrolatzailea.LortuGuztiakPazienteak(bilatzailea)
+                    : _pazienteKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea.Id, bilatzailea);
 
                 // Fallback: If not found in doctor's list (e.g. editing an old prescription), search all patients
                 if (pazienteak.Count == 0 && !string.IsNullOrEmpty(bilatzailea) && !chkPazienteGuztiak.Checked)
                 {
-                    var guztiak = erabiltzaileDB.LortuGuztiakPazienteak();
+                    var guztiak = _pazienteKontrolatzailea.LortuGuztiakPazienteak();
                     var aurkitua = guztiak.FirstOrDefault(p => p.Nan != null && p.Nan.Equals(bilatzailea, StringComparison.OrdinalIgnoreCase));
                     if (aurkitua != null) pazienteak.Add(aurkitua);
                 }
@@ -236,7 +237,7 @@ namespace GOsasun_app.Interfazea
                     });
                 }
 
-                bool eguneratuEmaitza = errezetaDB.EguneratuErrezeta(editatzekoErrezeta);
+                bool eguneratuEmaitza = errezetaKontrolatzailea.EguneratuErrezeta(editatzekoErrezeta);
                 if (eguneratuEmaitza)
                 {
                     MessageBox.Show("Errezeta zuzen eguneratu da.", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -283,7 +284,7 @@ namespace GOsasun_app.Interfazea
                 });
             }
 
-            bool emaitza = errezetaDB.SortuErrezeta(berria);
+            bool emaitza = errezetaKontrolatzailea.SortuErrezeta(berria);
             if (emaitza)
             {
                 MessageBox.Show("Errezeta berria ondo gorde da aukeratutako pazientearentzat.", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);

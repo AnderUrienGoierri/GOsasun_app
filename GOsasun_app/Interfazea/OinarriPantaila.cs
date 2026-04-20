@@ -187,6 +187,16 @@ namespace GOsasun_app.Interfazea
             EgokituPortadarenNeurrira();
         }
 
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+
+            if (Visible && !DiseinuModuan())
+            {
+                BeginInvoke(new Action(FreskatuPantailaIkusgaiDenean));
+            }
+        }
+
         protected override bool PantailaOsoanIreki => false;
 
         private void EgokituPortadarenNeurrira()
@@ -221,6 +231,22 @@ namespace GOsasun_app.Interfazea
             {
                 _atzeraBotoia.BringToFront();
             }
+        }
+
+        private void FreskatuPantailaIkusgaiDenean()
+        {
+            if (IsDisposed || DiseinuModuan())
+            {
+                return;
+            }
+
+            EgokituPortadarenNeurrira();
+            AplikatuLeihoTamainaPartekatuaBerehala();
+            _edukiPanela?.PerformLayout();
+            _edukiPanela?.Invalidate(true);
+            PerformLayout();
+            Invalidate(true);
+            Update();
         }
 
         private static string? BilatuPortadaBidea()
@@ -451,6 +477,7 @@ namespace GOsasun_app.Interfazea
                     AplikatuLeihoTamainaPartekatuaBerehala();
                     Show();
                     ZentratuPantailaLanEremuan();
+                    FreskatuPantailaIkusgaiDenean();
                 }
             };
 
@@ -518,19 +545,21 @@ namespace GOsasun_app.Interfazea
 
         private static Erabiltzailea? LortuErabiltzaileOsoa(Erabiltzailea erabiltzailea)
         {
-            ErabiltzaileKontrolatzailea kontrolatzailea = new ErabiltzaileKontrolatzailea();
+            PazienteKontrolatzailea pazienteKontrolatzailea = new PazienteKontrolatzailea();
+            OsasunLangileKontrolatzailea osasunLangileKontrolatzailea = new OsasunLangileKontrolatzailea();
+            HarrerakoLangileKontrolatzailea harrerakoLangileKontrolatzailea = new HarrerakoLangileKontrolatzailea();
 
             if (erabiltzailea is Pazientea)
             {
-                return kontrolatzailea.LortuPazientea(erabiltzailea.Id);
+                return pazienteKontrolatzailea.LortuPazientea(erabiltzailea.Id);
             }
 
             if (erabiltzailea is OsasunLangilea)
             {
-                return kontrolatzailea.LortuOsasunLangilea(erabiltzailea.Id);
+                return osasunLangileKontrolatzailea.LortuOsasunLangilea(erabiltzailea.Id);
             }
 
-            return kontrolatzailea.LortuHarrerakoa(erabiltzailea.Id);
+            return harrerakoLangileKontrolatzailea.LortuHarrerakoa(erabiltzailea.Id);
         }
 
         // -----------------------------------------------------------

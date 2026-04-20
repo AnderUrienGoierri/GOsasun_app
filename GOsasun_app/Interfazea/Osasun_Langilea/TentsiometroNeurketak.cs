@@ -29,7 +29,7 @@ namespace GOsasun_app.Interfazea
         private bool _isHid;
         private CancellationTokenSource? _searchCts;
         private List<Pazientea> _pazienteak = new List<Pazientea>();
-        private readonly ErabiltzaileKontrolatzailea _erabiltzaileKontrolatzailea = new ErabiltzaileKontrolatzailea();
+        private readonly PazienteKontrolatzailea _pazienteKontrolatzailea = new PazienteKontrolatzailea();
         private readonly JarraipenaKontrolatzailea _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
         private readonly int? _pazienteIdAurrehautatu;
         private readonly string? _pazienteIzenburua;
@@ -284,9 +284,9 @@ namespace GOsasun_app.Interfazea
         {
             try
             {
-                if (_erabiltzaileKontrolatzailea != null && _erabiltzailea != null)
+                if (_erabiltzailea != null)
                 {
-                    _pazienteak = _erabiltzaileKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea.Id);
+                    _pazienteak = _pazienteKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea.Id);
                     GordeDgvDatuak(_pazienteak);
                 }
             }

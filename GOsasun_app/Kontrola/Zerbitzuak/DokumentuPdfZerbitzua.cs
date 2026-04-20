@@ -11,7 +11,7 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
     {
         private static string PazienteDokumentuKarpeta => AplikazioBideak.LortuPazienteDokumentuKarpeta();
 
-        private readonly ErabiltzaileDB _erabiltzaileDb = new ErabiltzaileDB();
+        private readonly PazienteaDB _pazienteaDb = new PazienteaDB();
         private readonly JarraipenaDB _jarraipenaDb = new JarraipenaDB();
         private readonly ErrezetaDB _errezetaDb = new ErrezetaDB();
         private readonly HitzorduDB _hitzorduDb = new HitzorduDB();
@@ -38,7 +38,7 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
             DateTime? grafikaHasieraData = null,
             DateTime? grafikaAmaieraData = null)
         {
-            Pazientea pazientea = _erabiltzaileDb.LortuPazientea(pazienteId)
+            Pazientea pazientea = _pazienteaDb.LortuPazientea(pazienteId)
                 ?? throw new InvalidOperationException("Pazientea ez da aurkitu.");
 
             List<Jarraipena> jarraipenGuztiak = _jarraipenaDb

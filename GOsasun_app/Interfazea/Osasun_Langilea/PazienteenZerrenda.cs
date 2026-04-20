@@ -18,13 +18,13 @@ namespace GOsasun_app.Interfazea
     /// </summary>
     public partial class PazienteenZerrenda : OinarriPantaila
     {
-        private const int PazienteenZerrendaZabalera = 2360;
         private const int EkintzaZutabeZabalera = 260;
         private const int EkintzaIkonoTamaina = 30;
         private const int EkintzaBotoiTamaina = 52;
         private const int PazienteErrenkadaAltuera = 64;
         private const int OrrikoErregistroKopurua = 10;
-        private readonly ErabiltzaileKontrolatzailea _kontrolatzailea;
+        private readonly PazienteKontrolatzailea _pazienteKontrolatzailea;
+        private readonly OsasunLangileKontrolatzailea _osasunLangileKontrolatzailea;
         private List<Pazientea> _pazienteak = new List<Pazientea>();
         private readonly Dictionary<string, Bitmap?> _ekintzaIkonoak = new Dictionary<string, Bitmap?>();
         private readonly Panel _pnlPaginazioa = new Panel();
@@ -39,7 +39,8 @@ namespace GOsasun_app.Interfazea
             : base(medikua)
         {
             InitializeComponent();
-            _kontrolatzailea = new ErabiltzaileKontrolatzailea();
+            _pazienteKontrolatzailea = new PazienteKontrolatzailea();
+            _osasunLangileKontrolatzailea = new OsasunLangileKontrolatzailea();
             EzarriFormularioZabalera();
 
             // Izenburua aldatu rolaran arabera
@@ -159,8 +160,7 @@ namespace GOsasun_app.Interfazea
 
         private void EzarriFormularioZabalera()
         {
-            int pantailaZabalera = Screen.FromControl(this).WorkingArea.Width;
-            int zabalera = Math.Min(PazienteenZerrendaZabalera, Math.Max(1040, pantailaZabalera - 60));
+            int zabalera = ClientSize.Width;
 
             ClientSize = new Size(zabalera, ClientSize.Height);
             _goiburuBarra.Width = zabalera;
@@ -456,6 +456,7 @@ namespace GOsasun_app.Interfazea
         {
             _ekintzaIkonoak["ikusi"] = KargatuIkonoBitmapa("eye.svg", Color.White, EkintzaIkonoTamaina);
             _ekintzaIkonoak["editatu"] = KargatuIkonoBitmapa("pencil.svg", Color.White, EkintzaIkonoTamaina);
+            _ekintzaIkonoak["jarraipena"] = KargatuIkonoBitmapa("plus-circle.svg", Color.White, EkintzaIkonoTamaina);
             _ekintzaIkonoak["ezabatu"] = KargatuIkonoBitmapa("trash-2.svg", Color.White, EkintzaIkonoTamaina);
         }
 
@@ -469,8 +470,8 @@ namespace GOsasun_app.Interfazea
         private static Dictionary<string, Rectangle> LortuEkintzaBotoiak(Rectangle cellBounds)
         {
             int buttonSize = EkintzaBotoiTamaina;
-            int spacing = 14;
-            int totalWidth = (buttonSize * 3) + (spacing * 2);
+            int spacing = 10;
+            int totalWidth = (buttonSize * 4) + (spacing * 3);
             int left = cellBounds.Left + Math.Max(10, (cellBounds.Width - totalWidth) / 2);
             int top = cellBounds.Top + Math.Max(6, (cellBounds.Height - buttonSize) / 2);
 
@@ -478,7 +479,8 @@ namespace GOsasun_app.Interfazea
             {
                 ["ikusi"] = new Rectangle(left, top, buttonSize, buttonSize),
                 ["editatu"] = new Rectangle(left + buttonSize + spacing, top, buttonSize, buttonSize),
-                ["ezabatu"] = new Rectangle(left + ((buttonSize + spacing) * 2), top, buttonSize, buttonSize)
+                ["jarraipena"] = new Rectangle(left + ((buttonSize + spacing) * 2), top, buttonSize, buttonSize),
+                ["ezabatu"] = new Rectangle(left + ((buttonSize + spacing) * 3), top, buttonSize, buttonSize)
             };
         }
 
@@ -503,8 +505,10 @@ namespace GOsasun_app.Interfazea
                 ? Color.FromArgb(41, 128, 185)
                 : ekintza == "editatu"
                     ? Color.FromArgb(39, 174, 96)
+                    : ekintza == "jarraipena"
+                        ? Color.FromArgb(243, 156, 18)
                     : Color.FromArgb(192, 57, 43);
-            string fallbackIkurra = ekintza == "ikusi" ? "I" : ekintza == "editatu" ? "E" : "X";
+            string fallbackIkurra = ekintza == "ikusi" ? "I" : ekintza == "editatu" ? "E" : ekintza == "jarraipena" ? "+" : "X";
 
             using GraphicsPath path = SortuBiribildua(rectangle, 12);
             using SolidBrush brush = new SolidBrush(kolorea);
@@ -559,7 +563,11 @@ namespace GOsasun_app.Interfazea
                 }
                 else if (botoia.Key == "editatu")
                 {
-                    IrekiFormularioa(new PazienteXehetasunak(pazientea));
+                    EditatuPazientea(pazientea.Id);
+                }
+                else if (botoia.Key == "jarraipena")
+                {
+                    SortuPazientearenJarraipena(pazientea);
                 }
                 else if (botoia.Key == "ezabatu")
                 {
@@ -580,7 +588,7 @@ namespace GOsasun_app.Interfazea
                 return;
             }
 
-            if (_kontrolatzailea.EzabatuPazientea(pazientea.Id))
+            if (_pazienteKontrolatzailea.EzabatuPazientea(pazientea.Id))
             {
                 MessageBox.Show("Pazientea ondo desaktibatu da.", "Arrakasta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 KargatuPazienteak(txtBilatu.Text.Trim());
@@ -591,14 +599,44 @@ namespace GOsasun_app.Interfazea
             }
         }
 
+        private void EditatuPazientea(int pazienteId)
+        {
+            if (_erabiltzailea == null)
+            {
+                return;
+            }
+
+            Pazientea? pazienteOsoa = _pazienteKontrolatzailea.LortuPazientea(pazienteId);
+            if (pazienteOsoa == null)
+            {
+                MessageBox.Show("Ezin izan da pazientearen informazioa kargatu.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            int? esleitutakoLangileId = _erabiltzailea is OsasunLangilea ? _erabiltzailea.Id : null;
+            IrekiAzpiPantaila(
+                () => new ErabiltzaileaSortu(pazienteOsoa, _erabiltzailea, esleitutakoLangileId),
+                () => KargatuPazienteak(txtBilatu.Text.Trim()));
+        }
+
+        private void SortuPazientearenJarraipena(Pazientea pazientea)
+        {
+            if (_erabiltzailea == null)
+            {
+                return;
+            }
+
+            IrekiAzpiPantaila(() => new JarraipenMotak(_erabiltzailea, pazientea.Id, pazientea.IzenOsoa));
+        }
+
         private void EsleituOsasunLangileak(Pazientea pazientea)
         {
-            List<OsasunLangilea> langileGuztiak = _kontrolatzailea.LortuGuztiakOsasunLangileak()
+            List<OsasunLangilea> langileGuztiak = _osasunLangileKontrolatzailea.LortuGuztiakOsasunLangileak()
                 .OrderBy(langilea => langilea.Espezialitatea)
                 .ThenBy(langilea => langilea.Abizenak)
                 .ThenBy(langilea => langilea.Izena)
                 .ToList();
-            HashSet<int> jadaEsleitutaIds = _kontrolatzailea.LortuPazientearenOsasunLangileak(pazientea.Id)
+            HashSet<int> jadaEsleitutaIds = _pazienteKontrolatzailea.LortuPazientearenOsasunLangileak(pazientea.Id)
                 .Select(langilea => langilea.Id)
                 .ToHashSet();
             using EsleituOsasunLangileakLaguntzailea popup = new EsleituOsasunLangileakLaguntzailea();
@@ -606,7 +644,7 @@ namespace GOsasun_app.Interfazea
 
             if (popup.ShowDialog(this) == DialogResult.OK)
             {
-                bool ondo = _kontrolatzailea.EsleituOsasunLangileakPazienteari(
+                bool ondo = _pazienteKontrolatzailea.EsleituOsasunLangileakPazienteari(
                     pazientea.Id,
                     popup.HautatutakoLangileIds.ToList());
 
@@ -680,10 +718,10 @@ namespace GOsasun_app.Interfazea
         {
             if (_erabiltzailea is HarrerakoLangilea || pazienteGuztiak)
             {
-                return _kontrolatzailea.LortuGuztiakPazienteak(testua, egoeraFiltroa);
+                return _pazienteKontrolatzailea.LortuGuztiakPazienteak(testua, egoeraFiltroa);
             }
 
-            return _kontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea!.Id, testua, egoeraFiltroa);
+            return _pazienteKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea!.Id, testua, egoeraFiltroa);
         }
 
         private void AplikatuPazienteZerrenda(List<Pazientea> pazienteak)

@@ -1,0 +1,77 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6">
+  <diagram id="bp-monitoring-seq" name="3. Tentsiometroa">
+    <mxGraphModel dx="1700" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1550" pageHeight="980" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="actor" parent="1" style="shape=umlActor;html=1;verticalLabelPosition=top;verticalAlign=bottom;outlineConnect=0;fontSize=14;" value="Pazientea" vertex="1">
+          <mxGeometry x="50" y="35" width="60" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="box1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=14;align=center;verticalAlign=middle;" value="Interfazea&lt;div&gt;JarraipenMotak / TentsiometroNeurketak&lt;/div&gt;" vertex="1">
+          <mxGeometry x="180" y="40" width="220" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="box2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=14;align=center;verticalAlign=middle;" value="Kontrola&lt;div&gt;BM58Driver / JarraipenaKontrolatzailea&lt;/div&gt;" vertex="1">
+          <mxGeometry x="520" y="40" width="250" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="box3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=14;align=center;verticalAlign=middle;" value="Repositorioa&lt;div&gt;JarraipenaDB&lt;/div&gt;" vertex="1">
+          <mxGeometry x="910" y="40" width="180" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" edge="1" parent="1" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value=""><mxGeometry relative="1" as="geometry"><mxPoint x="80" y="130" as="sourcePoint" /><mxPoint x="80" y="830" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="l2" edge="1" parent="1" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value=""><mxGeometry relative="1" as="geometry"><mxPoint x="290" y="82" as="sourcePoint" /><mxPoint x="290" y="830" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="l3" edge="1" parent="1" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value=""><mxGeometry relative="1" as="geometry"><mxPoint x="645" y="82" as="sourcePoint" /><mxPoint x="645" y="830" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="l4" edge="1" parent="1" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value=""><mxGeometry relative="1" as="geometry"><mxPoint x="1000" y="82" as="sourcePoint" /><mxPoint x="1000" y="830" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="a1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1"><mxGeometry x="285" y="150" width="10" height="575" as="geometry" /></mxCell>
+        <mxCell id="a2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1"><mxGeometry x="640" y="220" width="10" height="445" as="geometry" /></mxCell>
+        <mxCell id="a3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1"><mxGeometry x="995" y="610" width="10" height="65" as="geometry" /></mxCell>
+        <mxCell id="m1" edge="1" parent="1" style="html=1;endArrow=block;strokeColor=#000000;strokeWidth=1;rounded=0;" value="Tentsiometroa hautatu eta Inportatu sakatu">
+          <mxGeometry relative="1" y="15" as="geometry"><mxPoint x="80" y="165" as="sourcePoint" /><mxPoint x="290" y="165" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m2" edge="1" parent="1" style="html=1;endArrow=block;strokeColor=#000000;strokeWidth=1;rounded=0;" value="BilatuGailua(out isHid)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="290" y="235" as="sourcePoint" /><mxPoint x="645" y="235" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m3" edge="1" parent="1" style="html=1;endArrow=block;strokeColor=#000000;strokeWidth=1;rounded=0;" value="EgiaztatuHardwareKonexioa()">
+          <mxGeometry relative="1" y="15" as="geometry"><mxPoint x="645" y="285" as="sourcePoint" /><mxPoint x="645" y="320" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m4" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value="identifier, isHid">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="645" y="360" as="sourcePoint" /><mxPoint x="290" y="360" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m5" edge="1" parent="1" style="html=1;endArrow=block;strokeColor=#000000;strokeWidth=1;rounded=0;" value="IrakurriErrekordGuztiak(identifier, isHid)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="290" y="410" as="sourcePoint" /><mxPoint x="645" y="410" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m6" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value="records">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="645" y="460" as="sourcePoint" /><mxPoint x="290" y="460" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m7" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value="memoria eta inportazio mota hautatu">
+          <mxGeometry relative="1" y="-15" as="geometry"><mxPoint x="290" y="510" as="sourcePoint" /><mxPoint x="80" y="510" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m8" edge="1" parent="1" style="html=1;endArrow=block;strokeColor=#000000;strokeWidth=1;rounded=0;" value="LortuAzkenNeurketa(...) / KalkulatuBatezbestekoa(...)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="290" y="555" as="sourcePoint" /><mxPoint x="645" y="555" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m9" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value="neurria">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="645" y="600" as="sourcePoint" /><mxPoint x="290" y="600" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m10" edge="1" parent="1" style="html=1;endArrow=block;strokeColor=#000000;strokeWidth=1;rounded=0;" value="GordeJarraipena(neurria)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="290" y="625" as="sourcePoint" /><mxPoint x="645" y="625" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m11" edge="1" parent="1" style="html=1;endArrow=block;strokeColor=#000000;strokeWidth=1;rounded=0;" value="GordeJarraipena(neurria)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="645" y="625" as="sourcePoint" /><mxPoint x="1000" y="625" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m12" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value="gordeta">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1000" y="670" as="sourcePoint" /><mxPoint x="645" y="670" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m13" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value="gordeta">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="645" y="715" as="sourcePoint" /><mxPoint x="290" y="715" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m14" edge="1" parent="1" style="html=1;endArrow=block;strokeColor=#000000;strokeWidth=1;rounded=0;" value="[gordeta == true] EsportatuXML(neurria)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="290" y="750" as="sourcePoint" /><mxPoint x="645" y="750" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m15" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value="[gordeta == true] arrakasta mezua erakutsi">
+          <mxGeometry relative="1" y="-20" as="geometry"><mxPoint x="290" y="785" as="sourcePoint" /><mxPoint x="80" y="785" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m16" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value="[gordeta == false] errorea erakutsi">
+          <mxGeometry relative="1" y="20" as="geometry"><mxPoint x="290" y="785" as="sourcePoint" /><mxPoint x="80" y="825" as="targetPoint" /></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

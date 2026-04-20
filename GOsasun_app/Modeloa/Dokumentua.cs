@@ -35,6 +35,7 @@ namespace GOsasun_app.Modeloa
             DokumentuIzena = dokumentuIzena;
             Deskribapena = deskribapena;
             IgotzeData = igotzeData;
+                
         }
     }
 }

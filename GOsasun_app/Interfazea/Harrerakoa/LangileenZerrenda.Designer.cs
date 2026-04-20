@@ -143,7 +143,7 @@ namespace GOsasun_app.Interfazea
             // LangileenZerrenda
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1680, 980);
+            ClientSize = new Size(1902, 1055);
             Name = "LangileenZerrenda";
             Text = "GOsasun - Langileen zerrenda";
             _edukiPanela.ResumeLayout(false);

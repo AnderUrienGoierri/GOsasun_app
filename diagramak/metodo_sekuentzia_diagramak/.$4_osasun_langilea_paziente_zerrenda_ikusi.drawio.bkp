@@ -1,0 +1,58 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6">
+  <diagram id="patient-list-seq" name="4. Paziente zerrenda">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1450" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="actor" parent="1" style="shape=umlActor;html=1;verticalLabelPosition=top;verticalAlign=bottom;outlineConnect=0;fontSize=14;" value="Osasun langilea" vertex="1">
+          <mxGeometry x="45" y="35" width="60" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="box1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=14;align=center;verticalAlign=middle;" value="Interfazea&lt;div&gt;PazienteenZerrenda&lt;/div&gt;" vertex="1">
+          <mxGeometry x="220" y="40" width="180" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="box2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=14;align=center;verticalAlign=middle;" value="Kontrola&lt;div&gt;ErabiltzaileKontrolatzailea&lt;/div&gt;" vertex="1">
+          <mxGeometry x="515" y="40" width="210" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="box3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=14;align=center;verticalAlign=middle;" value="Repositorioa&lt;div&gt;ErabiltzaileDB&lt;/div&gt;" vertex="1">
+          <mxGeometry x="870" y="40" width="180" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" edge="1" parent="1" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value=""><mxGeometry relative="1" as="geometry"><mxPoint x="75" y="130" as="sourcePoint" /><mxPoint x="75" y="760" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="l2" edge="1" parent="1" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value=""><mxGeometry relative="1" as="geometry"><mxPoint x="310" y="82" as="sourcePoint" /><mxPoint x="310" y="760" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="l3" edge="1" parent="1" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value=""><mxGeometry relative="1" as="geometry"><mxPoint x="620" y="82" as="sourcePoint" /><mxPoint x="620" y="760" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="l4" edge="1" parent="1" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value=""><mxGeometry relative="1" as="geometry"><mxPoint x="960" y="82" as="sourcePoint" /><mxPoint x="960" y="760" as="targetPoint" /></mxGeometry></mxCell>
+        <mxCell id="a1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1"><mxGeometry x="305" y="155" width="10" height="460" as="geometry" /></mxCell>
+        <mxCell id="a2a" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1"><mxGeometry x="615" y="295" width="10" height="90" as="geometry" /></mxCell>
+        <mxCell id="a2b" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1"><mxGeometry x="615" y="425" width="10" height="90" as="geometry" /></mxCell>
+        <mxCell id="a3a" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1"><mxGeometry x="955" y="330" width="10" height="55" as="geometry" /></mxCell>
+        <mxCell id="a3b" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1"><mxGeometry x="955" y="460" width="10" height="55" as="geometry" /></mxCell>
+        <mxCell id="m1" edge="1" parent="1" style="html=1;endArrow=block;strokeColor=#000000;strokeWidth=1;rounded=0;" value="Pazienteen zerrenda ireki edo bilaketa/filtroa aplikatu">
+          <mxGeometry relative="1" y="15" as="geometry"><mxPoint x="75" y="165" as="sourcePoint" /><mxPoint x="310" y="165" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m2" edge="1" parent="1" style="html=1;endArrow=block;strokeColor=#000000;strokeWidth=1;rounded=0;" value="KargatuPazienteak(testua)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="230" as="sourcePoint" /><mxPoint x="620" y="230" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m3" edge="1" parent="1" style="html=1;endArrow=block;strokeColor=#000000;strokeWidth=1;rounded=0;" value="[chkPazienteGuztiak] LortuGuztiakPazienteak(testua, egoeraFiltroa)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="620" y="330" as="sourcePoint" /><mxPoint x="960" y="330" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m4" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value="List&lt;Pazientea&gt;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="960" y="375" as="sourcePoint" /><mxPoint x="620" y="375" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m5" edge="1" parent="1" style="html=1;endArrow=block;strokeColor=#000000;strokeWidth=1;rounded=0;" value="[!chkPazienteGuztiak] LortuLangilearenPazienteak(langileId, testua, egoeraFiltroa)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="620" y="460" as="sourcePoint" /><mxPoint x="960" y="460" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m6" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value="List&lt;Pazientea&gt;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="960" y="505" as="sourcePoint" /><mxPoint x="620" y="505" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m7" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value="pazienteak">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="620" y="565" as="sourcePoint" /><mxPoint x="310" y="565" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m8" edge="1" parent="1" style="html=1;endArrow=block;strokeColor=#000000;strokeWidth=1;rounded=0;" value="AplikatuPazienteZerrenda(pazienteak)">
+          <mxGeometry relative="1" y="15" as="geometry"><mxPoint x="310" y="610" as="sourcePoint" /><mxPoint x="310" y="645" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="m9" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeColor=#000000;strokeWidth=1;rounded=0;" value="taulako pazienteak bistaratu">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="700" as="sourcePoint" /><mxPoint x="75" y="700" as="targetPoint" /></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

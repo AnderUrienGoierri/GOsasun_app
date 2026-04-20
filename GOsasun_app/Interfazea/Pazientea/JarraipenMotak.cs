@@ -20,7 +20,7 @@ namespace GOsasun_app.Interfazea
     /// </summary>
     public partial class JarraipenMotak : OinarriPantaila
     {
-        private readonly ErabiltzaileKontrolatzailea _erabiltzaileKontrolatzailea = new ErabiltzaileKontrolatzailea();
+        private readonly PazienteKontrolatzailea _pazienteKontrolatzailea = new PazienteKontrolatzailea();
         private readonly JarraipenaKontrolatzailea _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
         private readonly int? _pazienteIdAurrehautatu;
         private readonly string? _pazienteIzenburua;
@@ -158,7 +158,7 @@ namespace GOsasun_app.Interfazea
 
             if (!_erabiltzailea.DaPazientea() && !_pazienteIdAurrehautatu.HasValue)
             {
-                pazienteak = _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak()
+                pazienteak = _pazienteKontrolatzailea.LortuGuztiakPazienteak()
                     .OrderBy(p => p.IzenOsoa)
                     .ToList();
 
@@ -177,7 +177,7 @@ namespace GOsasun_app.Interfazea
                 pazienteak,
                 bilaketa => string.IsNullOrWhiteSpace(bilaketa)
                     ? pazienteak.OrderBy(p => p.IzenOsoa).ToList()
-                    : _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak(bilaketa.Trim()).OrderBy(p => p.IzenOsoa).ToList());
+                    : _pazienteKontrolatzailea.LortuGuztiakPazienteak(bilaketa.Trim()).OrderBy(p => p.IzenOsoa).ToList());
 
             if (elkarrizketa.ShowDialog(this) != DialogResult.OK)
             {

@@ -76,9 +76,9 @@ namespace GOsasun_app.Kontrola
         {
             try
             {
-                var jarraipenaNode = new XElement("Jarraipena",
-                                     new XElement("erregistro_data", n.ErregistroData.ToString("yyyy-MM-dd HH:mm:ss")),
-                                     new XElement("paziente_id", n.PazienteId)
+                var jarraipenaNode=new XElement("Jarraipena",
+                                    new XElement("erregistro_data", n.ErregistroData.ToString("yyyy-MM-dd HH:mm:ss")),
+                                    new XElement("paziente_id", n.PazienteId)
                 );
 
                 if (n.TentsioSistolikoa.HasValue) jarraipenaNode.Add(new XElement("tentsio_sistolikoa", n.TentsioSistolikoa.Value));
@@ -89,10 +89,10 @@ namespace GOsasun_app.Kontrola
 
                 XDocument doc = new XDocument(new XDeclaration("1.0", "utf-8", "yes"),
                     new XElement("Jarraipenak", jarraipenaNode));
-                
+
                 string path = @"C:\Apache24-64\htdocs\GOsasun_web\xml_paziente_neurketak";
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-                
+
                 string izena = $"JARRAIPENA_{n.PazienteId}_{n.ErregistroData:yyyyMMdd_HHmmss}.xml";
                 doc.Save(Path.Combine(path, izena));
             }

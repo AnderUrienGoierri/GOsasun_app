@@ -31,6 +31,10 @@ namespace GOsasun_app.Interfazea
         protected virtual bool EskalatzeProportzionalaGaitu => true;
         protected virtual bool PantailaHandiagoetanHanditu => false;
         protected virtual bool HasierakoMarrazketaLeundu => true;
+        protected virtual bool LeihoTamainaPartekatuaGaitu => !Modal
+            && FormBorderStyle != FormBorderStyle.FixedDialog
+            && FormBorderStyle != FormBorderStyle.FixedToolWindow
+            && FormBorderStyle != FormBorderStyle.SizableToolWindow;
         protected virtual bool PantailaOsoanIreki => FormBorderStyle != FormBorderStyle.FixedDialog
             && FormBorderStyle != FormBorderStyle.FixedToolWindow
             && FormBorderStyle != FormBorderStyle.SizableToolWindow;
@@ -78,8 +82,12 @@ namespace GOsasun_app.Interfazea
             {
                 BeginInvoke(new Action(() =>
                 {
-                    AplikatuLeihoTamainaPartekatua();
-                    GordeLeihoTamainaPartekatua();
+                    if (LeihoTamainaPartekatuaGaitu)
+                    {
+                        AplikatuLeihoTamainaPartekatua();
+                        GordeLeihoTamainaPartekatua();
+                    }
+
                     AmaituHasierakoMarrazketa();
                 }));
             }
@@ -89,7 +97,7 @@ namespace GOsasun_app.Interfazea
         {
             base.OnResizeEnd(e);
 
-            if (!DiseinuModuan())
+            if (!DiseinuModuan() && LeihoTamainaPartekatuaGaitu)
             {
                 GordeLeihoTamainaPartekatua();
             }
@@ -99,7 +107,7 @@ namespace GOsasun_app.Interfazea
         {
             base.OnMove(e);
 
-            if (!DiseinuModuan() && Visible)
+            if (!DiseinuModuan() && Visible && LeihoTamainaPartekatuaGaitu)
             {
                 GordeLeihoTamainaPartekatua();
             }
@@ -206,7 +214,7 @@ namespace GOsasun_app.Interfazea
 
         protected void GordeLeihoTamainaPartekatua()
         {
-            if (DiseinuModuan() || WindowState == FormWindowState.Minimized || Width <= 0 || Height <= 0)
+            if (DiseinuModuan() || !LeihoTamainaPartekatuaGaitu || WindowState == FormWindowState.Minimized || Width <= 0 || Height <= 0)
             {
                 return;
             }
@@ -243,7 +251,7 @@ namespace GOsasun_app.Interfazea
 
         private void AplikatuLeihoTamainaPartekatua()
         {
-            if (DiseinuModuan() || !_leihoBoundsPartekatua.HasValue)
+            if (DiseinuModuan() || !LeihoTamainaPartekatuaGaitu || !_leihoBoundsPartekatua.HasValue)
             {
                 return;
             }

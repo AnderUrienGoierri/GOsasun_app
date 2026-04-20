@@ -11,7 +11,7 @@ namespace GOsasun_app.Interfazea
 {
     public partial class EskuzkoNeurketak : OinarriPantaila
     {
-        private readonly ErabiltzaileKontrolatzailea _erabiltzaileKontrolatzailea;
+        private readonly PazienteKontrolatzailea _pazienteKontrolatzailea;
         private readonly JarraipenaKontrolatzailea _jarraipenaKontrolatzailea;
         private readonly bool _isPisua;
         private readonly int? _pazienteIdAurrehautatu;
@@ -21,7 +21,7 @@ namespace GOsasun_app.Interfazea
         public EskuzkoNeurketak(Erabiltzailea erabiltzailea, bool isPisua) : base(erabiltzailea)
         {
             InitializeComponent();
-            _erabiltzaileKontrolatzailea = new ErabiltzaileKontrolatzailea();
+            _pazienteKontrolatzailea = new PazienteKontrolatzailea();
             _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
             _isPisua = isPisua;
             _pazienteIdAurrehautatu = null;
@@ -35,7 +35,7 @@ namespace GOsasun_app.Interfazea
         public EskuzkoNeurketak(Erabiltzailea erabiltzailea, bool isPisua, int pazienteId, string? pazienteIzenburua = null) : base(erabiltzailea)
         {
             InitializeComponent();
-            _erabiltzaileKontrolatzailea = new ErabiltzaileKontrolatzailea();
+            _pazienteKontrolatzailea = new PazienteKontrolatzailea();
             _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
             _isPisua = isPisua;
             _pazienteIdAurrehautatu = pazienteId;
@@ -111,7 +111,7 @@ namespace GOsasun_app.Interfazea
 
         private void PrestatuAurrehautatutakoPazientea()
         {
-            Pazientea? aurkitutakoa = _erabiltzaileKontrolatzailea.LortuPazientea(_pazienteIdAurrehautatu!.Value);
+            Pazientea? aurkitutakoa = _pazienteKontrolatzailea.LortuPazientea(_pazienteIdAurrehautatu!.Value);
             _hautatutakoPazientea = aurkitutakoa ?? new Pazientea
             {
                 Id = _pazienteIdAurrehautatu.Value,
@@ -164,7 +164,7 @@ namespace GOsasun_app.Interfazea
                 }
 
                 string bilaketa = _txtPazienteBilatu.Text.Trim();
-                var list = _erabiltzaileKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea!.Id, bilaketa);
+                var list = _pazienteKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea!.Id, bilaketa);
 
                 _dgvPazienteak.DataSource = null;
                 _dgvPazienteak.DataSource = list;

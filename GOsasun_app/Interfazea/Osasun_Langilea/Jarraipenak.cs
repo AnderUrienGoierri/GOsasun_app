@@ -198,7 +198,7 @@ namespace GOsasun_app.Interfazea
             _dgvJarraipenak.DefaultCellStyle.SelectionBackColor = Color.FromArgb(232, 240, 254);
             _dgvJarraipenak.DefaultCellStyle.SelectionForeColor = Color.FromArgb(44, 62, 80);
             _dgvJarraipenak.CellBorderStyle = DataGridViewCellBorderStyle.Single;
-            _dgvJarraipenak.GridColor = Color.FromArgb(205, 211, 217);
+            _dgvJarraipenak.GridColor = Color.Black;
             _dgvJarraipenak.AutoGenerateColumns = false;
             _dgvJarraipenak.RowTemplate.Height = JarraipenFilaAltuera;
             _dgvJarraipenak.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
@@ -1101,7 +1101,7 @@ namespace GOsasun_app.Interfazea
 
         private void MarraztuGelaxkaErtzak(Graphics graphics, Rectangle bounds)
         {
-            using Pen pen = new Pen(_dgvJarraipenak.GridColor);
+            using Pen pen = new Pen(Color.Black);
             graphics.DrawLine(pen, bounds.Right - 1, bounds.Top, bounds.Right - 1, bounds.Bottom - 1);
             graphics.DrawLine(pen, bounds.Left, bounds.Bottom - 1, bounds.Right - 1, bounds.Bottom - 1);
         }

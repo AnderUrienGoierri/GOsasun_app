@@ -15,7 +15,7 @@ namespace GOsasun_app.Interfazea
         private const int EkintzaBotoienTartea = 12;
 
         private readonly DokumentuaKontrolatzailea _dokumentuaKontrolatzailea = new DokumentuaKontrolatzailea();
-        private readonly ErabiltzaileKontrolatzailea _erabiltzaileKontrolatzailea = new ErabiltzaileKontrolatzailea();
+        private readonly PazienteKontrolatzailea _pazienteKontrolatzailea = new PazienteKontrolatzailea();
         private readonly JarraipenaKontrolatzailea _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
         private readonly BindingSource _bindingSource = new BindingSource();
         private readonly List<Dokumentua> _dokumentuak = new List<Dokumentua>();
@@ -734,11 +734,11 @@ namespace GOsasun_app.Interfazea
 
             if (DaPazientea())
             {
-                Pazientea? pazientea = _erabiltzailea as Pazientea ?? _erabiltzaileKontrolatzailea.LortuPazientea(_erabiltzailea.Id);
+                Pazientea? pazientea = _erabiltzailea as Pazientea ?? _pazienteKontrolatzailea.LortuPazientea(_erabiltzailea.Id);
                 return pazientea == null ? new List<Pazientea>() : new List<Pazientea> { pazientea };
             }
 
-            return _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak().OrderBy(p => p.IzenOsoa).ToList();
+            return _pazienteKontrolatzailea.LortuGuztiakPazienteak().OrderBy(p => p.IzenOsoa).ToList();
         }
 
         private bool EskatuDokumentuBerriarenDatuak(
@@ -759,7 +759,7 @@ namespace GOsasun_app.Interfazea
                 !DaPazientea(),
                 bilaketa => string.IsNullOrWhiteSpace(bilaketa)
                     ? pazienteak.OrderBy(p => p.IzenOsoa).ToList()
-                    : _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak(bilaketa.Trim()).OrderBy(p => p.IzenOsoa).ToList());
+                    : _pazienteKontrolatzailea.LortuGuztiakPazienteak(bilaketa.Trim()).OrderBy(p => p.IzenOsoa).ToList());
 
             if (formularioa.ShowDialog(this) != DialogResult.OK || !formularioa.PazienteId.HasValue)
             {
@@ -793,7 +793,7 @@ namespace GOsasun_app.Interfazea
                 pazienteak,
                 bilaketa => string.IsNullOrWhiteSpace(bilaketa)
                     ? pazienteak.OrderBy(p => p.IzenOsoa).ToList()
-                    : _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak(bilaketa.Trim()).OrderBy(p => p.IzenOsoa).ToList(),
+                    : _pazienteKontrolatzailea.LortuGuztiakPazienteak(bilaketa.Trim()).OrderBy(p => p.IzenOsoa).ToList(),
                 hautatutakoPazienteId => _jarraipenaKontrolatzailea.LortuJarraipenGuztiak(pazienteId: hautatutakoPazienteId));
 
             if (formularioa.ShowDialog(this) != DialogResult.OK || !formularioa.PazienteId.HasValue)

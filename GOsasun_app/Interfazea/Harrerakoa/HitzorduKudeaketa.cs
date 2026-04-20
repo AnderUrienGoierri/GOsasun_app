@@ -11,7 +11,8 @@ namespace GOsasun_app.Interfazea
     public partial class HitzorduKudeaketa : OinarriPantaila
     {
         private HitzorduKontrolatzailea _kontrolatzailea;
-        private ErabiltzaileKontrolatzailea _erabiltzaileKontrolatzailea;
+        private PazienteKontrolatzailea _pazienteKontrolatzailea;
+        private OsasunLangileKontrolatzailea _osasunLangileKontrolatzailea;
         private List<Hitzordua> _hitzorduGuztiak = new List<Hitzordua>();
         private int _aukeratutakoHitzorduId = 0;
 
@@ -19,7 +20,8 @@ namespace GOsasun_app.Interfazea
         {
             InitializeComponent();
             _kontrolatzailea = new HitzorduKontrolatzailea();
-            _erabiltzaileKontrolatzailea = new ErabiltzaileKontrolatzailea();
+            _pazienteKontrolatzailea = new PazienteKontrolatzailea();
+            _osasunLangileKontrolatzailea = new OsasunLangileKontrolatzailea();
 
             KonfiguratuTaula();
             KargatuKonboak();
@@ -50,12 +52,12 @@ namespace GOsasun_app.Interfazea
         {
             try
             {
-                var pazienteak = _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak();
+                var pazienteak = _pazienteKontrolatzailea.LortuGuztiakPazienteak();
                 cmbPazienteak.DataSource = pazienteak;
                 cmbPazienteak.DisplayMember = "IzenOsoa";
                 cmbPazienteak.ValueMember = "Id";
 
-                var medikuak = _erabiltzaileKontrolatzailea.LortuGuztiakOsasunLangileak();
+                var medikuak = _osasunLangileKontrolatzailea.LortuGuztiakOsasunLangileak();
                 cmbMedikuak.DataSource = medikuak;
                 cmbMedikuak.DisplayMember = "IzenOsoa";
                 cmbMedikuak.ValueMember = "Id";

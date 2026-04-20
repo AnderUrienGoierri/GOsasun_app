@@ -52,7 +52,8 @@ namespace GOsasun_app.Interfazea
         private const int PaginazioPanelAltuera = 64;
 
         private readonly LangileMota _mota;
-        private readonly ErabiltzaileKontrolatzailea _kontrolatzailea = new ErabiltzaileKontrolatzailea();
+        private readonly OsasunLangileKontrolatzailea _osasunLangileKontrolatzailea = new OsasunLangileKontrolatzailea();
+        private readonly HarrerakoLangileKontrolatzailea _harrerakoLangileKontrolatzailea = new HarrerakoLangileKontrolatzailea();
         private readonly Dictionary<EkintzaMota, Bitmap> _ekintzaIkonoak = new Dictionary<EkintzaMota, Bitmap>();
 
         private List<LangileZerrendaItem> _langileak = new List<LangileZerrendaItem>();
@@ -89,7 +90,7 @@ namespace GOsasun_app.Interfazea
                 return;
             }
 
-            ClientSize = new Size(1680, 980);
+            ClientSize = new Size(1902, 1055);
             ZentratuPantailaLanEremuan();
             EguneratuDiseinua();
         }
@@ -360,8 +361,8 @@ namespace GOsasun_app.Interfazea
             {
                 string? bilatzailea = string.IsNullOrWhiteSpace(_txtBilatu.Text) ? null : _txtBilatu.Text.Trim();
                 _langileak = _mota == LangileMota.OsasunLangilea
-                    ? _kontrolatzailea.LortuGuztiakOsasunLangileak(bilatzailea).Select(SortuItem).ToList()
-                    : _kontrolatzailea.LortuGuztiakHarrerakoak(bilatzailea).Select(SortuItem).ToList();
+                    ? _osasunLangileKontrolatzailea.LortuGuztiakOsasunLangileak(bilatzailea).Select(SortuItem).ToList()
+                    : _harrerakoLangileKontrolatzailea.LortuGuztiakHarrerakoak(bilatzailea).Select(SortuItem).ToList();
 
                 BistaratuUnekoOrria(lehenOrriraJoan: true);
                 GarbituOrdenazioIkurrak();
@@ -631,7 +632,7 @@ namespace GOsasun_app.Interfazea
         {
             if (_mota == LangileMota.OsasunLangilea)
             {
-                OsasunLangilea? langilea = _kontrolatzailea.LortuOsasunLangilea(item.Id);
+                OsasunLangilea? langilea = _osasunLangileKontrolatzailea.LortuOsasunLangilea(item.Id);
                 if (langilea != null)
                 {
                     IrekiAzpiPantaila(() => new NireErabiltzaileFitxa(langilea));
@@ -640,7 +641,7 @@ namespace GOsasun_app.Interfazea
                 return;
             }
 
-            HarrerakoLangilea? harrerakoa = _kontrolatzailea.LortuHarrerakoa(item.Id);
+            HarrerakoLangilea? harrerakoa = _harrerakoLangileKontrolatzailea.LortuHarrerakoa(item.Id);
             if (harrerakoa != null)
             {
                 IrekiAzpiPantaila(() => new NireErabiltzaileFitxa(harrerakoa));
@@ -656,7 +657,7 @@ namespace GOsasun_app.Interfazea
 
             if (_mota == LangileMota.OsasunLangilea)
             {
-                OsasunLangilea? langilea = _kontrolatzailea.LortuOsasunLangilea(item.Id);
+                OsasunLangilea? langilea = _osasunLangileKontrolatzailea.LortuOsasunLangilea(item.Id);
                 if (langilea == null)
                 {
                     MessageBox.Show("Ezin izan da osasun langilearen informazioa kargatu.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -667,7 +668,7 @@ namespace GOsasun_app.Interfazea
                 return;
             }
 
-            HarrerakoLangilea? harrerakoa = _kontrolatzailea.LortuHarrerakoa(item.Id);
+            HarrerakoLangilea? harrerakoa = _harrerakoLangileKontrolatzailea.LortuHarrerakoa(item.Id);
             if (harrerakoa == null)
             {
                 MessageBox.Show("Ezin izan da harrerako langilearen informazioa kargatu.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -693,8 +694,8 @@ namespace GOsasun_app.Interfazea
             }
 
             bool ondo = _mota == LangileMota.OsasunLangilea
-                ? _kontrolatzailea.EzabatuOsasunLangilea(item.Id)
-                : _kontrolatzailea.EzabatuHarrerakoa(item.Id);
+                ? _osasunLangileKontrolatzailea.EzabatuOsasunLangilea(item.Id)
+                : _harrerakoLangileKontrolatzailea.EzabatuHarrerakoa(item.Id);
 
             if (!ondo)
             {

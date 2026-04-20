@@ -16,7 +16,7 @@ namespace GOsasun_app.Interfazea
     public partial class PazienteXehetasunak : OinarriPantaila
     {
         private readonly Pazientea _pazientea;
-        private readonly ErabiltzaileKontrolatzailea _kontrolatzailea = new ErabiltzaileKontrolatzailea();
+        private readonly PazienteKontrolatzailea _pazienteKontrolatzailea = new PazienteKontrolatzailea();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PazienteXehetasunak() : this(SortuDiseinukoPazientea())
@@ -202,7 +202,7 @@ namespace GOsasun_app.Interfazea
                 return;
             }
 
-            bool ondoGordeDa = _kontrolatzailea.AldatuPazientearenEgoera(_pazientea.Id, egoeraBerria);
+            bool ondoGordeDa = _pazienteKontrolatzailea.AldatuPazientearenEgoera(_pazientea.Id, egoeraBerria);
             if (!ondoGordeDa)
             {
                 MessageBox.Show(

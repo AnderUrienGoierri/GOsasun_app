@@ -14,7 +14,7 @@ namespace GOsasun_app.Interfazea
     public partial class Grafikak : OinarriPantaila
     {
         private readonly JarraipenaKontrolatzailea _jarraipenaKontrolatzailea;
-        private readonly ErabiltzaileKontrolatzailea _erabiltzaileKontrolatzailea;
+        private readonly PazienteKontrolatzailea _pazienteKontrolatzailea;
         private readonly List<Pazientea> _pazienteGuztiak = new List<Pazientea>();
         private readonly List<GrafikoSeriea> _unekoSerieak = new List<GrafikoSeriea>();
         private bool _dataTarteaEguneratzen;
@@ -56,7 +56,7 @@ namespace GOsasun_app.Interfazea
         public Grafikak() : base()
         {
             _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
-            _erabiltzaileKontrolatzailea = new ErabiltzaileKontrolatzailea();
+            _pazienteKontrolatzailea = new PazienteKontrolatzailea();
             InitializeComponent();
             KonfiguratuPantaila();
         }
@@ -64,7 +64,7 @@ namespace GOsasun_app.Interfazea
         public Grafikak(Erabiltzailea u) : base(u)
         {
             _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
-            _erabiltzaileKontrolatzailea = new ErabiltzaileKontrolatzailea();
+            _pazienteKontrolatzailea = new PazienteKontrolatzailea();
             InitializeComponent();
             KonfiguratuPantaila();
         }
@@ -218,15 +218,15 @@ namespace GOsasun_app.Interfazea
         {
             if (_erabiltzailea?.DaPazientea() == true)
             {
-                Pazientea? pazientea = _erabiltzaileKontrolatzailea.LortuPazientea(_erabiltzailea.Id);
+                Pazientea? pazientea = _pazienteKontrolatzailea.LortuPazientea(_erabiltzailea.Id);
                 return pazientea == null ? new List<Pazientea>() : new List<Pazientea> { pazientea };
             }
 
             if (_erabiltzailea?.DaOsasunLangilea() == true)
             {
                 IEnumerable<Pazientea> pazienteak = pazienteGuztiak
-                    ? _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak()
-                    : _erabiltzaileKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea.Id);
+                    ? _pazienteKontrolatzailea.LortuGuztiakPazienteak()
+                    : _pazienteKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea.Id);
 
                 return pazienteak
                     .OrderBy(p => p.Abizenak)
@@ -234,7 +234,7 @@ namespace GOsasun_app.Interfazea
                     .ToList();
             }
 
-            return _erabiltzaileKontrolatzailea
+            return _pazienteKontrolatzailea
                 .LortuGuztiakPazienteak()
                 .OrderBy(p => p.Abizenak)
                 .ThenBy(p => p.Izena)
@@ -314,7 +314,7 @@ namespace GOsasun_app.Interfazea
 
             if (_erabiltzailea?.DaPazientea() == true)
             {
-                Pazientea? pazientea = _erabiltzaileKontrolatzailea.LortuPazientea(_erabiltzailea.Id);
+                Pazientea? pazientea = _pazienteKontrolatzailea.LortuPazientea(_erabiltzailea.Id);
                 if (pazientea != null)
                 {
                     _pazienteGuztiak.Add(pazientea);
@@ -323,8 +323,8 @@ namespace GOsasun_app.Interfazea
             else if (_erabiltzailea?.DaOsasunLangilea() == true)
             {
                 IEnumerable<Pazientea> pazienteak = chkPazienteGuztiak.Checked
-                    ? _erabiltzaileKontrolatzailea.LortuGuztiakPazienteak()
-                    : _erabiltzaileKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea.Id);
+                    ? _pazienteKontrolatzailea.LortuGuztiakPazienteak()
+                    : _pazienteKontrolatzailea.LortuLangilearenPazienteak(_erabiltzailea.Id);
 
                 _pazienteGuztiak.AddRange(pazienteak
                     .OrderBy(p => p.Abizenak)
@@ -332,7 +332,7 @@ namespace GOsasun_app.Interfazea
             }
             else
             {
-                _pazienteGuztiak.AddRange(_erabiltzaileKontrolatzailea
+                _pazienteGuztiak.AddRange(_pazienteKontrolatzailea
                     .LortuGuztiakPazienteak()
                     .OrderBy(p => p.Abizenak)
                     .ThenBy(p => p.Izena));

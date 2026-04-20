@@ -15,7 +15,9 @@ namespace GOsasun_app.Interfazea
     {
         private const string IrudiLehenetsia = "img/png/irudi_lehenetsia.png";
         private readonly string _rolIzena;
-        private readonly ErabiltzaileKontrolatzailea _kontrolatzailea;
+        private readonly PazienteKontrolatzailea _pazienteKontrolatzailea;
+        private readonly OsasunLangileKontrolatzailea _osasunLangileKontrolatzailea;
+        private readonly HarrerakoLangileKontrolatzailea _harrerakoLangileKontrolatzailea;
         private readonly int? _esleitutakoLangileId;
         private readonly Erabiltzailea? _editatzenErabiltzailea;
         private readonly List<OsasunLangilea> _langileGuztiak = new List<OsasunLangilea>();
@@ -28,6 +30,11 @@ namespace GOsasun_app.Interfazea
 
         public ErabiltzaileaSortu(string rolIzena, Erabiltzailea unekoLangilea, int? esleitutakoLangileId = null)
             : this(rolIzena, unekoLangilea, esleitutakoLangileId, null)
+        {
+        }
+
+        public ErabiltzaileaSortu(Pazientea pazientea, Erabiltzailea unekoLangilea, int? esleitutakoLangileId = null)
+            : this("Pazientea", unekoLangilea, esleitutakoLangileId, pazientea)
         {
         }
 
@@ -44,7 +51,9 @@ namespace GOsasun_app.Interfazea
         private ErabiltzaileaSortu(string rolIzena, Erabiltzailea unekoLangilea, int? esleitutakoLangileId, Erabiltzailea? editatzekoErabiltzailea) : base(unekoLangilea)
         {
             _rolIzena = rolIzena;
-            _kontrolatzailea = new ErabiltzaileKontrolatzailea();
+            _pazienteKontrolatzailea = new PazienteKontrolatzailea();
+            _osasunLangileKontrolatzailea = new OsasunLangileKontrolatzailea();
+            _harrerakoLangileKontrolatzailea = new HarrerakoLangileKontrolatzailea();
             _esleitutakoLangileId = esleitutakoLangileId;
             _editatzenErabiltzailea = editatzekoErabiltzailea;
             _jatorrizkoIrudiBidea = editatzekoErabiltzailea?.Irudia;
@@ -148,7 +157,7 @@ namespace GOsasun_app.Interfazea
             {
                 string? lehenetsia = await Task.Run(() => BilatuFitxategia(IrudiLehenetsia));
                 List<OsasunLangilea> langileak = RolPazienteaDa()
-                    ? await Task.Run(() => _kontrolatzailea.LortuGuztiakOsasunLangileak()
+                    ? await Task.Run(() => _osasunLangileKontrolatzailea.LortuGuztiakOsasunLangileak()
                         .OrderBy(langilea => langilea.IzenOsoa)
                         .ToList())
                     : new List<OsasunLangilea>();
@@ -247,7 +256,7 @@ namespace GOsasun_app.Interfazea
             }
 
             _langileGuztiak.Clear();
-            _langileGuztiak.AddRange(_kontrolatzailea.LortuGuztiakOsasunLangileak()
+            _langileGuztiak.AddRange(_osasunLangileKontrolatzailea.LortuGuztiakOsasunLangileak()
                 .OrderBy(langilea => langilea.IzenOsoa));
 
             if (_esleitutakoLangileId.HasValue)
@@ -504,29 +513,34 @@ namespace GOsasun_app.Interfazea
                     return;
                 }
 
-                Pazientea p = new Pazientea
-                {
-                    Emaila = txtEmaila.Text,
-                    Pasahitza = LortuPasahitzaGordetzeko(),
-                    Hizkuntza = hizkuntzaSelected,
-                    Izena = txtIzena.Text,
-                    Abizenak = txtAbizenak.Text,
-                    Nan = txtNan.Text,
-                    Sexua = cmbSexua.SelectedItem?.ToString() ?? "Gizona",
-                    JaiotzeData = dtpJaiotzeData.Value,
-                    Telefonoa = txtTelefonoa.Text,
-                    Helbidea = txtHelbidea.Text,
-                    Herria = txtHerria.Text,
-                    PostaKodea = txtPostaKodea.Text,
-                    OdolTaldea = string.IsNullOrWhiteSpace(cmbOdolTaldea.Text) ? null : cmbOdolTaldea.Text,
-                    AzkenPisua = pisua,
-                    AzkenAltuera = altuera,
-                    Irudia = LortuIrudiBideaGordetzeko() ?? "img/lehenetsia.png"
-                };
-                ondoGordeta = _kontrolatzailea.SortuPazientea(
-                    p,
-                    _hautatutakoLangileak.Select(langilea => langilea.Id).ToArray(),
-                    _hautatutakoIrudiBidea);
+                Pazientea p = _editatzenErabiltzailea as Pazientea ?? new Pazientea();
+                p.Id = _editatzenErabiltzailea?.Id ?? 0;
+                p.Emaila = txtEmaila.Text;
+                p.Pasahitza = LortuPasahitzaGordetzeko();
+                p.Hizkuntza = hizkuntzaSelected;
+                p.Izena = txtIzena.Text;
+                p.Abizenak = txtAbizenak.Text;
+                p.Nan = txtNan.Text;
+                p.Sexua = cmbSexua.SelectedItem?.ToString() ?? "Gizona";
+                p.JaiotzeData = dtpJaiotzeData.Value;
+                p.Telefonoa = txtTelefonoa.Text;
+                p.Helbidea = txtHelbidea.Text;
+                p.Herria = txtHerria.Text;
+                p.PostaKodea = txtPostaKodea.Text;
+                p.OdolTaldea = string.IsNullOrWhiteSpace(cmbOdolTaldea.Text) ? null : cmbOdolTaldea.Text;
+                p.AzkenPisua = pisua;
+                p.AzkenAltuera = altuera;
+                p.Irudia = LortuIrudiBideaGordetzeko() ?? "img/lehenetsia.png";
+                p.EgoeraKlinikoa = (_editatzenErabiltzailea as Pazientea)?.EgoeraKlinikoa ?? "Alta";
+
+                ondoGordeta = EditatzenAriDa
+                    ? _pazienteKontrolatzailea.EguneratuPazientea(
+                        p,
+                        _hautatutakoLangileak.Select(langilea => langilea.Id).ToArray())
+                    : _pazienteKontrolatzailea.SortuPazientea(
+                        p,
+                        _hautatutakoLangileak.Select(langilea => langilea.Id).ToArray(),
+                        _hautatutakoIrudiBidea);
             }
             else if (RolOsasunLangileaDa())
             {
@@ -549,8 +563,8 @@ namespace GOsasun_app.Interfazea
                 m.PostaKodea = txtPostaKodea.Text;
                 m.Irudia = LortuIrudiBideaGordetzeko() ?? "img/lehenetsia.png";
                 ondoGordeta = EditatzenAriDa
-                    ? _kontrolatzailea.EguneratuOsasunLangilea(m)
-                    : _kontrolatzailea.SortuOsasunLangilea(m, _hautatutakoIrudiBidea);
+                    ? _osasunLangileKontrolatzailea.EguneratuOsasunLangilea(m)
+                    : _osasunLangileKontrolatzailea.SortuOsasunLangilea(m, _hautatutakoIrudiBidea);
             }
             else if (_rolIzena == "Harrerako Langilea")
             {
@@ -570,8 +584,8 @@ namespace GOsasun_app.Interfazea
                 h.PostaKodea = txtPostaKodea.Text;
                 h.Irudia = LortuIrudiBideaGordetzeko() ?? "img/lehenetsia.png";
                 ondoGordeta = EditatzenAriDa
-                    ? _kontrolatzailea.EguneratuHarrerakoa(h)
-                    : _kontrolatzailea.SortuHarrerakoa(h, _hautatutakoIrudiBidea);
+                    ? _harrerakoLangileKontrolatzailea.EguneratuHarrerakoa(h)
+                    : _harrerakoLangileKontrolatzailea.SortuHarrerakoa(h, _hautatutakoIrudiBidea);
             }
 
             if (ondoGordeta)

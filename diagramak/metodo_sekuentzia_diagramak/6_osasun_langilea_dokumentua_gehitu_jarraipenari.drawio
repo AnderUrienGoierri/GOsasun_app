@@ -1,0 +1,214 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6">
+  <diagram id="tracking-document-attach-seq" name="6. Dokumentua gehitu jarraipenari">
+    <mxGraphModel dx="1097" dy="659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="actor" parent="1" style="shape=umlActor;html=1;verticalLabelPosition=top;verticalAlign=bottom;outlineConnect=0;fontSize=14;strokeColor=#FFFFFF;" value="Osasun langilea" vertex="1">
+          <mxGeometry height="90" width="60" x="45" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="box1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;align=center;verticalAlign=middle;strokeColor=#FFFFFF;" value="Interfazea&lt;div&gt;Jarraipenak&lt;/div&gt;" vertex="1">
+          <mxGeometry height="42" width="170" x="165" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="box2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;align=center;verticalAlign=middle;strokeColor=#FFFFFF;" value="Interfazea&lt;div&gt;DokumentuBerriaLaguntzailea&lt;/div&gt;" vertex="1">
+          <mxGeometry height="42" width="230" x="405" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="box3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;align=center;verticalAlign=middle;strokeColor=#FFFFFF;" value="Kontrola&lt;div&gt;DokumentuaKontrolatzailea&lt;/div&gt;" vertex="1">
+          <mxGeometry height="42" width="220" x="735" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="box4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;align=center;verticalAlign=middle;strokeColor=#FFFFFF;" value="Zerbitzua&lt;div&gt;DokumentuPdfZerbitzua / Fitxategi sistema&lt;/div&gt;" vertex="1">
+          <mxGeometry height="42" width="280" x="1060" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="box5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;align=center;verticalAlign=middle;strokeColor=#FFFFFF;" value="Repositorioa&lt;div&gt;DokumentuaDB&lt;/div&gt;" vertex="1">
+          <mxGeometry height="42" width="190" x="1455" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" edge="1" parent="1" source="_XHFwhfnycTCP7AP8Y3m-9" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="75" y="130" as="sourcePoint" />
+            <mxPoint x="75" y="1040" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l2" edge="1" parent="1" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="250" y="82" as="sourcePoint" />
+            <mxPoint x="250" y="1040" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l3" edge="1" parent="1" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="520" y="82" as="sourcePoint" />
+            <mxPoint x="520" y="1040" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l4" edge="1" parent="1" source="_XHFwhfnycTCP7AP8Y3m-3" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="845" y="82" as="sourcePoint" />
+            <mxPoint x="845" y="970" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l5" edge="1" parent="1" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1200" y="82" as="sourcePoint" />
+            <mxPoint x="1200" y="970" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l6" edge="1" parent="1" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1550" y="82" as="sourcePoint" />
+            <mxPoint x="1550" y="970" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FFFFFF;" value="" vertex="1">
+          <mxGeometry height="920" width="10" x="245" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FFFFFF;" value="" vertex="1">
+          <mxGeometry height="780" width="10" x="515" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FFFFFF;" value="" vertex="1">
+          <mxGeometry height="175" width="10" x="840" y="455" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FFFFFF;" value="" vertex="1">
+          <mxGeometry height="110" width="10" x="1195" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FFFFFF;" value="" vertex="1">
+          <mxGeometry height="120" width="10" x="1545" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="m1" edge="1" parent="1" style="html=1;endArrow=block;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;fontSize=10;entryX=-0.233;entryY=0.015;entryDx=0;entryDy=0;entryPerimeter=0;" target="a1" value="Jarraipenak taulan&amp;nbsp;&lt;div&gt;Dokumentua Gehitu botoia klikatu&lt;/div&gt;">
+          <mxGeometry relative="1" y="15" as="geometry">
+            <mxPoint x="75" y="165" as="sourcePoint" />
+            <mxPoint x="240" y="165" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2" edge="1" parent="1" style="html=1;endArrow=block;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;fontSize=9;" value="DokumentuBerriaLaguntzailea ireki(jarraipena, pazientea)">
+          <mxGeometry relative="1" x="-0.0566" y="15" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="255" y="225" as="sourcePoint" />
+            <mxPoint x="510" y="225" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m3" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="PDFa hautatu, izena/deskribapena bete eta Gorde sakatu">
+          <mxGeometry relative="1" y="-10" as="geometry">
+            <mxPoint x="510" y="305" as="sourcePoint" />
+            <mxPoint x="80" y="305" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m4" edge="1" parent="1" style="html=1;endArrow=block;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;fontSize=10;" value="GehituDokumentuGenerikoa(pdfFitxategia, pazienteId, jarraipenaId,&lt;div&gt;&amp;nbsp;osasunLangileId, dokumentuIzena, deskribapena)&lt;/div&gt;">
+          <mxGeometry relative="1" x="-0.0312" y="20" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="525" y="470" as="sourcePoint" />
+            <mxPoint x="840" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m5" edge="1" parent="1" style="html=1;endArrow=block;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="ZiurtatuJarraipena(pazienteId, jarraipenaId, osasunLangileId)">
+          <mxGeometry relative="1" x="-0.4286" y="175" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="845" y="520" as="sourcePoint" />
+            <mxPoint x="845" y="555" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m6" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="[jarraipenaId badago]&amp;nbsp;&lt;div&gt;jarraipenaId bera&lt;/div&gt;">
+          <mxGeometry relative="1" x="-0.6" y="-55" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="845" y="565" as="sourcePoint" />
+            <mxPoint x="845" y="590" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m7" edge="1" parent="1" style="html=1;endArrow=block;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="SortuHelmugaBidea(fitxategiIzena)&amp;nbsp;&lt;div&gt;eta File.Copy(jatorrizkoFitxategia, helmugaBidea)&lt;/div&gt;">
+          <mxGeometry relative="1" x="0.0857" y="20" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="850" y="620" as="sourcePoint" />
+            <mxPoint x="1190" y="620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m8" edge="1" parent="1" source="a4" style="html=1;endArrow=open;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;exitX=-0.447;exitY=0.911;exitDx=0;exitDy=0;exitPerimeter=0;" value="helmugaBidea">
+          <mxGeometry relative="1" x="-0.0286" y="-20" as="geometry">
+            <mxPoint x="-1" as="offset" />
+            <mxPoint x="1200" y="690" as="sourcePoint" />
+            <mxPoint x="850" y="690" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m9" edge="1" parent="1" style="html=1;endArrow=block;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="GordeDokumentua(dokumentua)">
+          <mxGeometry relative="1" x="0.5143" y="15" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="850" y="725" as="sourcePoint" />
+            <mxPoint x="1540" y="725" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m10" edge="1" parent="1" style="html=1;endArrow=block;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="INSERT dokumentuak (jarraipena_id, fitxategi_izena,&amp;nbsp;&lt;div&gt;bidea_zerbitzarian, dokumentu_izena, deskribapena, igotze_data)&lt;/div&gt;">
+          <mxGeometry relative="1" x="0.4286" y="180" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="1550" y="745" as="sourcePoint" />
+            <mxPoint x="1550" y="780" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m11" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;entryX=1.164;entryY=0.164;entryDx=0;entryDy=0;entryPerimeter=0;" target="_XHFwhfnycTCP7AP8Y3m-3" value="ondo / errorea">
+          <mxGeometry relative="1" x="-0.0072" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="1545" y="820" as="sourcePoint" />
+            <mxPoint x="860" y="820" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m12" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="emaitza">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="840" y="860" as="sourcePoint" />
+            <mxPoint x="525" y="860" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m13" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="[ondo] arrakasta mezua erakutsi">
+          <mxGeometry relative="1" x="0.1818" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="510" y="890" as="sourcePoint" />
+            <mxPoint x="80" y="890" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m14" edge="1" parent="1" source="a2" style="html=1;endArrow=block;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;exitX=-0.179;exitY=0.987;exitDx=0;exitDy=0;exitPerimeter=0;" value="KargatuIragazkiekin()">
+          <mxGeometry relative="1" y="18" as="geometry">
+            <mxPoint x="510" y="980" as="sourcePoint" />
+            <mxPoint x="255" y="980" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m15" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="zerrenda eguneratua">
+          <mxGeometry relative="1" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="240" y="1010" as="sourcePoint" />
+            <mxPoint x="80" y="1010" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m16" edge="1" parent="1" style="html=1;endArrow=open;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="[errorea] errore mezua erakutsi">
+          <mxGeometry relative="1" x="0.2273" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="510" y="930" as="sourcePoint" />
+            <mxPoint x="80" y="930" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_XHFwhfnycTCP7AP8Y3m-2" edge="1" parent="1" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" target="_XHFwhfnycTCP7AP8Y3m-1" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="845" y="82" as="sourcePoint" />
+            <mxPoint x="845" y="970" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_XHFwhfnycTCP7AP8Y3m-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FFFFFF;" value="" vertex="1">
+          <mxGeometry height="62.5" width="10" x="840" y="667.5" as="geometry" />
+        </mxCell>
+        <mxCell id="_XHFwhfnycTCP7AP8Y3m-8" edge="1" parent="1" source="_XHFwhfnycTCP7AP8Y3m-1" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" target="_XHFwhfnycTCP7AP8Y3m-3" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="845" y="730" as="sourcePoint" />
+            <mxPoint x="845" y="970" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_XHFwhfnycTCP7AP8Y3m-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FFFFFF;" value="" vertex="1">
+          <mxGeometry height="62.5" width="10" x="840" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="_XHFwhfnycTCP7AP8Y3m-10" edge="1" parent="1" style="html=1;endArrow=none;startArrow=none;dashed=1;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" target="_XHFwhfnycTCP7AP8Y3m-9" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="75" y="130" as="sourcePoint" />
+            <mxPoint x="75" y="1040" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_XHFwhfnycTCP7AP8Y3m-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FFFFFF;" value="" vertex="1">
+          <mxGeometry height="920" width="10" x="70" y="140" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
