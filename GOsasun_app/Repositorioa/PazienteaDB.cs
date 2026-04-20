@@ -47,11 +47,11 @@ namespace GOsasun_app.Repositorioa
                     JOIN erabiltzaileak e ON pl.paziente_id = e.id
                     LEFT JOIN pazienteak p ON e.id = p.id
                     WHERE pl.langile_id = @langileId AND e.aktibo = 1
-                        AND (@egoeraFiltroa IS NULL OR COALESCE(p.egoera_klinikoa, 'Alta') = @egoeraFiltroa)";
+                        AND (@egoeraFiltroa IS NULL OR COALESCE(p.egoera_klinikoa COLLATE utf8mb4_unicode_ci, 'Alta') = (CONVERT(@egoeraFiltroa USING utf8mb4) COLLATE utf8mb4_unicode_ci))";
 
                 if (!string.IsNullOrEmpty(bilatzailea))
                 {
-                    query += " AND (e.izena LIKE @testua OR e.abizenak LIKE @testua OR e.nan LIKE @testua)";
+                    query += " AND (e.izena COLLATE utf8mb4_unicode_ci LIKE (CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci) OR e.abizenak COLLATE utf8mb4_unicode_ci LIKE (CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci) OR e.nan COLLATE utf8mb4_unicode_ci LIKE (CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci))";
                 }
 
                 using (var komandoa = new MySqlCommand(query, konexioa))
@@ -109,11 +109,11 @@ namespace GOsasun_app.Repositorioa
                                 FROM erabiltzaileak e
                                 LEFT JOIN pazienteak p ON e.id = p.id
                                 WHERE e.rol_id = 2 AND e.aktibo = 1
-                                    AND (@egoeraFiltroa IS NULL OR COALESCE(p.egoera_klinikoa, 'Alta') = @egoeraFiltroa)";
+                                    AND (@egoeraFiltroa IS NULL OR COALESCE(p.egoera_klinikoa COLLATE utf8mb4_unicode_ci, 'Alta') = (CONVERT(@egoeraFiltroa USING utf8mb4) COLLATE utf8mb4_unicode_ci))";
 
                 if (!string.IsNullOrEmpty(bilatzailea))
                 {
-                    query += " AND (e.izena LIKE @testua OR e.abizenak LIKE @testua OR e.nan LIKE @testua)";
+                    query += " AND (e.izena COLLATE utf8mb4_unicode_ci LIKE (CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci) OR e.abizenak COLLATE utf8mb4_unicode_ci LIKE (CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci) OR e.nan COLLATE utf8mb4_unicode_ci LIKE (CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci))";
                 }
 
                 using (var komandoa = new MySqlCommand(query, konexioa))

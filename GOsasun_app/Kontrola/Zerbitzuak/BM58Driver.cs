@@ -385,7 +385,7 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
                 TentsioDiastolikoa = (int)Math.Round((double)sDia / count, MidpointRounding.AwayFromZero),
                 PultsuaPpm = (int)Math.Round((double)sPul / count, MidpointRounding.AwayFromZero),
                 ErregistroData = DateTime.Now,
-                Oharrak = $"U{memoria} batezbestekoa - {count} neurketa (indize blokea)."
+                Oharrak = $"U{memoria} batezbestekoa - oharra"
             };
         }
 
@@ -414,7 +414,7 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
                 TentsioDiastolikoa = di,
                 PultsuaPpm = pu,
                 ErregistroData = DateTime.Now,
-                Oharrak = $"U{memoria} azken neurketa - 01 posizioa (indizea: {azkena.Index:00})."
+                Oharrak = $"U{memoria} azken neurketa - oharra"
             };
         }
 

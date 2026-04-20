@@ -27,6 +27,7 @@ namespace GOsasun_app.Interfazea
 
         private readonly JarraipenaKontrolatzailea _jarraipenaKontrolatzailea = new JarraipenaKontrolatzailea();
         private readonly DokumentuaKontrolatzailea _dokumentuaKontrolatzailea = new DokumentuaKontrolatzailea();
+        private readonly PazienteKontrolatzailea _pazienteKontrolatzailea = new PazienteKontrolatzailea();
         private readonly List<Jarraipena> _jarraipenak = new List<Jarraipena>();
         private readonly Dictionary<EkintzaMota, Bitmap?> _ekintzaIkonoak = new Dictionary<EkintzaMota, Bitmap?>();
         private readonly int? _pazienteIdFiltroa;
@@ -48,6 +49,10 @@ namespace GOsasun_app.Interfazea
         private Bitmap? _oharraIkonoa;
         private bool _hasierakoJarraipenakKargatuta;
         private bool _hasierakoJarraipenakKargatzen;
+        private bool _pazienteBilaketaAukerakEguneratzen;
+        private int? _hautatutakoBilaketaPazienteId;
+        private string _unekoBilaketaTestua = string.Empty;
+        private bool _bilaketaHautapenaAplikatzen;
 
         private string _azkenOrdenazioZutabea = string.Empty;
         private bool _ordenazioGorakorra = true;
@@ -61,6 +66,19 @@ namespace GOsasun_app.Interfazea
             GehituDokumentua,
             IkusiDokumentuak,
             Ezabatu
+        }
+
+        private sealed class PazienteBilaketaItem
+        {
+            public int Id { get; init; }
+            public string IzenOsoa { get; init; } = string.Empty;
+            public string Nan { get; init; } = string.Empty;
+            public string Etiketa => string.IsNullOrWhiteSpace(Nan) ? IzenOsoa : $"{IzenOsoa} ({Nan})";
+
+            public override string ToString()
+            {
+                return Etiketa;
+            }
         }
 
         public Jarraipenak() : base()
@@ -108,10 +126,10 @@ namespace GOsasun_app.Interfazea
 
             try
             {
-                string bilaketa = _txtBilatu.Text.Trim();
+                string? bilaketa = LortuBilaketaTestua();
                 (DateTime? hasieraData, DateTime? amaieraData) = LortuDataTartea();
                 List<Jarraipena> jarraipenak = await Task.Run(() =>
-                    _jarraipenaKontrolatzailea.LortuJarraipenGuztiak(bilaketa, hasieraData, amaieraData, _pazienteIdFiltroa));
+                    _jarraipenaKontrolatzailea.LortuJarraipenGuztiak(bilaketa, hasieraData, amaieraData, LortuPazienteFiltroId()));
 
                 if (IsDisposed)
                 {
@@ -143,6 +161,7 @@ namespace GOsasun_app.Interfazea
             UseWaitCursor = kargatzen;
             Cursor = kargatzen ? Cursors.WaitCursor : Cursors.Default;
             _txtBilatu.Enabled = !kargatzen;
+            _lstBilatuAukerak.Enabled = !kargatzen;
             _dtpHasieraData.Enabled = !kargatzen;
             _dtpAmaieraData.Enabled = !kargatzen;
             _btnFiltroakGarbitu.Enabled = !kargatzen;
@@ -182,6 +201,9 @@ namespace GOsasun_app.Interfazea
             _txtBilatu.BackColor = Color.White;
             _txtBilatu.ForeColor = Color.FromArgb(44, 62, 80);
             _txtBilatu.BorderStyle = BorderStyle.FixedSingle;
+            _lstBilatuAukerak.BackColor = Color.White;
+            _lstBilatuAukerak.ForeColor = Color.FromArgb(44, 62, 80);
+            _lstBilatuAukerak.BorderStyle = BorderStyle.FixedSingle;
             _dtpHasieraData.CalendarMonthBackground = Color.White;
             _dtpAmaieraData.CalendarMonthBackground = Color.White;
             _chkJarraipenGuztiakIkusi.BackColor = Color.Transparent;
@@ -402,7 +424,12 @@ namespace GOsasun_app.Interfazea
 
         private void KonfiguratuGertaerak()
         {
-            _txtBilatu.TextChanged += (s, e) => KargatuIragazkiekin();
+            _txtBilatu.TextChanged += TxtBilatu_TextChanged;
+            _txtBilatu.KeyDown += TxtBilatu_KeyDown;
+            _txtBilatu.Leave += TxtBilatu_Leave;
+            _lstBilatuAukerak.Click += LstBilatuAukerak_Click;
+            _lstBilatuAukerak.KeyDown += LstBilatuAukerak_KeyDown;
+            _lstBilatuAukerak.Leave += LstBilatuAukerak_Leave;
             _dtpHasieraData.ValueChanged += (s, e) => KargatuIragazkiekin();
             _dtpAmaieraData.ValueChanged += (s, e) => KargatuIragazkiekin();
             _chkJarraipenGuztiakIkusi.CheckedChanged += (s, e) => BistaratuJarraipenak();
@@ -434,7 +461,184 @@ namespace GOsasun_app.Interfazea
             if (DiseinuModuan()) return;
 
             (DateTime? hasieraData, DateTime? amaieraData) = LortuDataTartea();
-            KargatuJarraipenak(_txtBilatu.Text.Trim(), hasieraData, amaieraData);
+            KargatuJarraipenak(LortuBilaketaTestua(), hasieraData, amaieraData);
+        }
+
+        private string? LortuBilaketaTestua()
+        {
+            if (!ErakutsiPazienteBilatzailea)
+            {
+                return null;
+            }
+
+            if (_hautatutakoBilaketaPazienteId.HasValue)
+            {
+                return null;
+            }
+
+            string bilaketa = _unekoBilaketaTestua.Trim();
+            return string.IsNullOrWhiteSpace(bilaketa) ? null : bilaketa;
+        }
+
+        private int? LortuPazienteFiltroId()
+        {
+            return _pazienteIdFiltroa ?? _hautatutakoBilaketaPazienteId;
+        }
+
+        private void TxtBilatu_TextChanged(object? sender, EventArgs e)
+        {
+            if (_pazienteBilaketaAukerakEguneratzen || _bilaketaHautapenaAplikatzen)
+            {
+                return;
+            }
+
+            _unekoBilaketaTestua = _txtBilatu.Text;
+            _hautatutakoBilaketaPazienteId = null;
+            EguneratuPazienteBilaketaAukerak(_unekoBilaketaTestua);
+            KargatuIragazkiekin();
+        }
+
+        private void TxtBilatu_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (!_lstBilatuAukerak.Visible || _lstBilatuAukerak.Items.Count == 0)
+            {
+                return;
+            }
+
+            if (e.KeyCode == Keys.Down)
+            {
+                _lstBilatuAukerak.SelectedIndex = 0;
+                _lstBilatuAukerak.Focus();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                EzkutatuPazienteBilaketaAukerak();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void TxtBilatu_Leave(object? sender, EventArgs e)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                if (!_txtBilatu.Focused && !_lstBilatuAukerak.Focused)
+                {
+                    EzkutatuPazienteBilaketaAukerak();
+                }
+            }));
+        }
+
+        private void LstBilatuAukerak_Click(object? sender, EventArgs e)
+        {
+            AplikatuHautatutakoPazienteBilaketa();
+        }
+
+        private void LstBilatuAukerak_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Tab)
+            {
+                AplikatuHautatutakoPazienteBilaketa();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                EzkutatuPazienteBilaketaAukerak();
+                _txtBilatu.Focus();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void LstBilatuAukerak_Leave(object? sender, EventArgs e)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                if (!_txtBilatu.Focused && !_lstBilatuAukerak.Focused)
+                {
+                    EzkutatuPazienteBilaketaAukerak();
+                }
+            }));
+        }
+
+        private void AplikatuHautatutakoPazienteBilaketa()
+        {
+            if (_pazienteBilaketaAukerakEguneratzen || _lstBilatuAukerak.SelectedItem is not PazienteBilaketaItem hautatutakoPazientea)
+            {
+                return;
+            }
+
+            _bilaketaHautapenaAplikatzen = true;
+            try
+            {
+                _hautatutakoBilaketaPazienteId = hautatutakoPazientea.Id;
+                _unekoBilaketaTestua = hautatutakoPazientea.Etiketa;
+                _txtBilatu.Text = hautatutakoPazientea.Etiketa;
+                _txtBilatu.SelectionStart = _txtBilatu.Text.Length;
+                _txtBilatu.SelectionLength = 0;
+            }
+            finally
+            {
+                _bilaketaHautapenaAplikatzen = false;
+            }
+
+            EzkutatuPazienteBilaketaAukerak();
+            _txtBilatu.Focus();
+            KargatuIragazkiekin();
+        }
+
+        private void EguneratuPazienteBilaketaAukerak(string? bilaketa)
+        {
+            if (!ErakutsiPazienteBilatzailea || DiseinuModuan())
+            {
+                return;
+            }
+
+            string testua = bilaketa?.Trim() ?? string.Empty;
+            _unekoBilaketaTestua = testua;
+            List<PazienteBilaketaItem> aukerak = string.IsNullOrWhiteSpace(testua)
+                ? new List<PazienteBilaketaItem>()
+                : _pazienteKontrolatzailea
+                    .LortuGuztiakPazienteak(testua)
+                    .OrderBy(p => p.IzenOsoa)
+                    .Take(12)
+                    .Select(p => new PazienteBilaketaItem
+                    {
+                        Id = p.Id,
+                        IzenOsoa = p.IzenOsoa,
+                        Nan = p.Nan
+                    })
+                    .ToList();
+
+            _pazienteBilaketaAukerakEguneratzen = true;
+            try
+            {
+                _lstBilatuAukerak.BeginUpdate();
+                _lstBilatuAukerak.Items.Clear();
+
+                foreach (PazienteBilaketaItem aukera in aukerak)
+                {
+                    _lstBilatuAukerak.Items.Add(aukera);
+                }
+
+                _lstBilatuAukerak.Height = Math.Max(44, Math.Min(aukerak.Count, 5) * _lstBilatuAukerak.ItemHeight + 8);
+                _lstBilatuAukerak.Visible = aukerak.Count > 0 && !string.IsNullOrWhiteSpace(testua) && _txtBilatu.Focused;
+                _lstBilatuAukerak.BringToFront();
+                _lstBilatuAukerak.EndUpdate();
+            }
+            finally
+            {
+                _pazienteBilaketaAukerakEguneratzen = false;
+            }
+        }
+
+        private void EzkutatuPazienteBilaketaAukerak()
+        {
+            _lstBilatuAukerak.Visible = false;
+            _lstBilatuAukerak.ClearSelected();
         }
 
         private (DateTime? HasieraData, DateTime? AmaieraData) LortuDataTartea()
@@ -452,7 +656,11 @@ namespace GOsasun_app.Interfazea
 
         private void GarbituFiltroak()
         {
+            _unekoBilaketaTestua = string.Empty;
             _txtBilatu.Text = string.Empty;
+            _lstBilatuAukerak.Items.Clear();
+            EzkutatuPazienteBilaketaAukerak();
+            _hautatutakoBilaketaPazienteId = null;
             _dtpHasieraData.Checked = false;
             _dtpAmaieraData.Checked = false;
 
@@ -466,7 +674,7 @@ namespace GOsasun_app.Interfazea
         {
             try
             {
-                List<Jarraipena> jarraipenak = _jarraipenaKontrolatzailea.LortuJarraipenGuztiak(bilaketa, hasieraData, amaieraData, _pazienteIdFiltroa);
+                List<Jarraipena> jarraipenak = _jarraipenaKontrolatzailea.LortuJarraipenGuztiak(bilaketa, hasieraData, amaieraData, LortuPazienteFiltroId());
                 AplikatuJarraipenak(jarraipenak);
             }
             catch (Exception ex)
@@ -735,13 +943,16 @@ namespace GOsasun_app.Interfazea
                 int testuAltuera = panelAltuera < 900 ? 44 : 52;
                 int bilatuKaxaY = _lblBilatu.Bottom + 8;
                 _txtBilatu.Location = new Point(marjina, bilatuKaxaY);
-                _txtBilatu.Size = new Size(Math.Max(560, panelZabalera - (marjina * 2)), testuAltuera);
+                _txtBilatu.Size = new Size(Math.Max(420, Math.Min(560, panelZabalera / 3)), testuAltuera);
+                _lstBilatuAukerak.Location = new Point(_txtBilatu.Left, _txtBilatu.Bottom + 2);
+                _lstBilatuAukerak.Width = _txtBilatu.Width;
                 goikoKontrolenBehea = _txtBilatu.Bottom;
             }
             else
             {
                 _lblBilatu.Visible = false;
                 _txtBilatu.Visible = false;
+                _lstBilatuAukerak.Visible = false;
             }
 
             int dataEtiketaY = goikoKontrolenBehea + elementuTartea;

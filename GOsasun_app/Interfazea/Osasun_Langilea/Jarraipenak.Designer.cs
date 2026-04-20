@@ -26,6 +26,7 @@ namespace GOsasun_app.Interfazea
             _btnJarraipenBerria = new Button();
             _lblBilatu = new Label();
             _txtBilatu = new TextBox();
+            _lstBilatuAukerak = new ListBox();
             _lblDataFiltroa = new Label();
             _dtpHasieraData = new DateTimePicker();
             _dtpAmaieraData = new DateTimePicker();
@@ -44,6 +45,7 @@ namespace GOsasun_app.Interfazea
             _edukiPanela.Controls.Add(_dtpAmaieraData);
             _edukiPanela.Controls.Add(_dtpHasieraData);
             _edukiPanela.Controls.Add(_lblDataFiltroa);
+            _edukiPanela.Controls.Add(_lstBilatuAukerak);
             _edukiPanela.Controls.Add(_txtBilatu);
             _edukiPanela.Controls.Add(_lblBilatu);
             _edukiPanela.Controls.Add(_btnJarraipenBerria);
@@ -213,15 +215,28 @@ namespace GOsasun_app.Interfazea
             // 
             // _txtBilatu
             // 
-            _txtBilatu.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            _txtBilatu.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             _txtBilatu.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             _txtBilatu.Location = new Point(18, 109);
             _txtBilatu.Margin = new Padding(6);
-            _txtBilatu.MinimumSize = new Size(900, 52);
+            _txtBilatu.MinimumSize = new Size(420, 0);
             _txtBilatu.Name = "_txtBilatu";
             _txtBilatu.PlaceholderText = "Adibidez: Urrutia, Jon edo 000000001";
-            _txtBilatu.Size = new Size(900, 52);
+            _txtBilatu.Size = new Size(520, 53);
             _txtBilatu.TabIndex = 3;
+            // 
+            // _lstBilatuAukerak
+            // 
+            _lstBilatuAukerak.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            _lstBilatuAukerak.Font = new Font("Segoe UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            _lstBilatuAukerak.FormattingEnabled = true;
+            _lstBilatuAukerak.ItemHeight = 37;
+            _lstBilatuAukerak.Location = new Point(18, 166);
+            _lstBilatuAukerak.Margin = new Padding(6);
+            _lstBilatuAukerak.Name = "_lstBilatuAukerak";
+            _lstBilatuAukerak.Size = new Size(520, 152);
+            _lstBilatuAukerak.TabIndex = 10;
+            _lstBilatuAukerak.Visible = false;
             // 
             // _lblDataFiltroa
             // 
@@ -335,6 +350,7 @@ namespace GOsasun_app.Interfazea
         private Button _btnJarraipenBerria;
         private Label _lblBilatu;
         private TextBox _txtBilatu;
+        private ListBox _lstBilatuAukerak;
         private Label _lblDataFiltroa;
         private DateTimePicker _dtpHasieraData;
         private DateTimePicker _dtpAmaieraData;
