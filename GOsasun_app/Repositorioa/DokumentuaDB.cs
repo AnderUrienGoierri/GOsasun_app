@@ -13,6 +13,15 @@ namespace GOsasun_app.Repositorioa
 
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
+                string bilaketaKonparazioa = DatuBaseTestua.SortuLikeMultzoaSql(
+                    "@testua",
+                    "e.nan",
+                    "e.izena",
+                    "e.abizenak",
+                    "d.dokumentu_izena",
+                    "d.fitxategi_izena",
+                    "DATE_FORMAT(d.igotze_data, '%Y-%m-%d')",
+                    "DATE_FORMAT(d.igotze_data, '%d/%m/%Y')");
                 string query = @"
                     SELECT d.id, d.jarraipena_id, d.fitxategi_izena, d.bidea_zerbitzarian, d.dokumentu_izena, d.deskribapena, d.igotze_data,
                            j.erregistro_data AS jarraipen_data, j.paziente_id,
@@ -21,13 +30,7 @@ namespace GOsasun_app.Repositorioa
                     JOIN jarraipenak j ON d.jarraipena_id = j.id
                     JOIN erabiltzaileak e ON j.paziente_id = e.id
                     WHERE (@testua IS NULL
-                            OR e.nan LIKE @testua
-                            OR e.izena LIKE @testua
-                            OR e.abizenak LIKE @testua
-                            OR d.dokumentu_izena LIKE @testua
-                            OR d.fitxategi_izena LIKE @testua
-                            OR DATE_FORMAT(d.igotze_data, '%Y-%m-%d') LIKE @testua
-                            OR DATE_FORMAT(d.igotze_data, '%d/%m/%Y') LIKE @testua)
+                            OR " + bilaketaKonparazioa + @")
                       AND (@hasieraData IS NULL OR d.igotze_data >= @hasieraData)
                       AND (@amaieraData IS NULL OR d.igotze_data < @amaieraData)
                       AND (@pazienteId IS NULL OR j.paziente_id = @pazienteId)
@@ -89,6 +92,13 @@ namespace GOsasun_app.Repositorioa
 
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
+                string bilaketaKonparazioa = DatuBaseTestua.SortuLikeMultzoaSql(
+                    "@testua",
+                    "e.nan",
+                    "e.izena",
+                    "e.abizenak",
+                    "d.dokumentu_izena",
+                    "d.fitxategi_izena");
                 string query = @"
                     SELECT d.id, d.jarraipena_id, d.fitxategi_izena, d.bidea_zerbitzarian, d.dokumentu_izena, d.deskribapena, d.igotze_data,
                            j.erregistro_data AS jarraipen_data, j.paziente_id,
@@ -99,11 +109,7 @@ namespace GOsasun_app.Repositorioa
                     WHERE j.paziente_id = @pazienteId
                       AND (@baztertuJarraipenaId IS NULL OR d.jarraipena_id <> @baztertuJarraipenaId)
                       AND (@testua IS NULL
-                            OR e.nan LIKE @testua
-                            OR e.izena LIKE @testua
-                            OR e.abizenak LIKE @testua
-                            OR d.dokumentu_izena LIKE @testua
-                            OR d.fitxategi_izena LIKE @testua)
+                            OR " + bilaketaKonparazioa + @")
                     ORDER BY d.igotze_data DESC";
 
                 using (var komandoa = new MySqlCommand(query, konexioa))

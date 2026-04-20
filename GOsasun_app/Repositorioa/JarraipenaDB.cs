@@ -13,6 +13,7 @@ namespace GOsasun_app.Repositorioa
 
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
+                string bilaketaKonparazioa = DatuBaseTestua.SortuLikeMultzoaSql("@testua", "e.nan", "e.izena", "e.abizenak");
                 string query = @"
                     SELECT j.id, j.paziente_id, e.nan, e.izena, e.abizenak, j.tentsio_sistolikoa,
                            j.tentsio_diastolikoa, j.pisua_kg, j.altuera, j.pultsua_ppm,
@@ -20,10 +21,11 @@ namespace GOsasun_app.Repositorioa
                     FROM jarraipenak j
                     JOIN erabiltzaileak e ON e.id = j.paziente_id
                     LEFT JOIN dokumentuak d ON d.jarraipena_id = j.id
-                                        WHERE (@testua IS NULL OR e.nan LIKE @testua OR e.izena LIKE @testua OR e.abizenak LIKE @testua)
-                                            AND (@hasieraData IS NULL OR j.erregistro_data >= @hasieraData)
-                                            AND (@amaieraData IS NULL OR j.erregistro_data < @amaieraData)
-                                            AND (@pazienteId IS NULL OR j.paziente_id = @pazienteId)
+                    WHERE (@testua IS NULL
+                            OR " + bilaketaKonparazioa + @")
+                        AND (@hasieraData IS NULL OR j.erregistro_data >= @hasieraData)
+                        AND (@amaieraData IS NULL OR j.erregistro_data < @amaieraData)
+                        AND (@pazienteId IS NULL OR j.paziente_id = @pazienteId)
                     GROUP BY j.id, j.paziente_id, e.nan, e.izena, e.abizenak, j.tentsio_sistolikoa,
                              j.tentsio_diastolikoa, j.pisua_kg, j.altuera, j.pultsua_ppm,
                              j.oharrak, j.erregistro_data
@@ -33,8 +35,8 @@ namespace GOsasun_app.Repositorioa
                 {
                     string? testua = string.IsNullOrWhiteSpace(bilaketa) ? null : $"%{bilaketa.Trim()}%";
                     komandoa.Parameters.AddWithValue("@testua", (object?)testua ?? DBNull.Value);
-                                        komandoa.Parameters.AddWithValue("@hasieraData", (object?)hasieraData?.Date ?? DBNull.Value);
-                                        komandoa.Parameters.AddWithValue("@amaieraData", (object?)amaieraData?.Date.AddDays(1) ?? DBNull.Value);
+                    komandoa.Parameters.AddWithValue("@hasieraData", (object?)hasieraData?.Date ?? DBNull.Value);
+                    komandoa.Parameters.AddWithValue("@amaieraData", (object?)amaieraData?.Date.AddDays(1) ?? DBNull.Value);
                     komandoa.Parameters.AddWithValue("@pazienteId", (object?)pazienteId ?? DBNull.Value);
 
                     using (var irakurlea = komandoa.ExecuteReader())

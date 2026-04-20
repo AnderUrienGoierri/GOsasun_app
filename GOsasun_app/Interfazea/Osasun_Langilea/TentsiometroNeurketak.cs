@@ -76,6 +76,22 @@ namespace GOsasun_app.Interfazea
             HasieraEstatuaEzarri();
         }
 
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+
+            BeginInvoke(new Action(() =>
+            {
+                if (IsDisposed || Disposing)
+                {
+                    return;
+                }
+
+                _atzeraBotoia.Focus();
+                EzarriScrollaGoian();
+            }));
+        }
+
         private void KonfiguratuGertaerak()
         {
             _btnUtzi.Click += (s, e) => { _searchCts?.Cancel(); this.Close(); };
@@ -171,8 +187,25 @@ namespace GOsasun_app.Interfazea
             _txtPazienteBilatu.Visible = false;
             _dgvPazienteak.Visible = false;
             _btnInportatu.Visible = false;
+
+            EzarriScrollaGoian();
             
             HasiBilaketaAsync();
+        }
+
+        private void EzarriScrollaGoian()
+        {
+            if (_edukiPanela == null || !_edukiPanela.IsHandleCreated)
+            {
+                return;
+            }
+
+            _edukiPanela.AutoScrollPosition = Point.Empty;
+
+            if (_edukiPanela.VerticalScroll.Visible)
+            {
+                _edukiPanela.VerticalScroll.Value = _edukiPanela.VerticalScroll.Minimum;
+            }
         }
 
         private async void HasiBilaketaAsync()
@@ -217,7 +250,7 @@ namespace GOsasun_app.Interfazea
 
                             if ((DateTime.Now - startTime).TotalSeconds > 10)
                             {
-                                if (this.IsHandleCreated) this.Invoke(new Action(() => {
+                                if (this.IsHandleCreated)   this.Invoke(new Action(() => {
                                     _lblStatus.Text = "Oraindik bilatzen... (Saiakera: " + counter + ")\nZiurtatu 'PC' ikusten dela pantailan.";
                                     _lblStatus.ForeColor = Color.DarkOrange;
                                 }));
@@ -351,16 +384,7 @@ namespace GOsasun_app.Interfazea
             bool bilaketaBerrabiarazi = true;
             try
             {
-                string? eguneratutakoPortua = _driver.BilatuGailua(out bool isHidOrain);
-                if (eguneratutakoPortua == null)
-                {
-                    MessageBox.Show("Ez da BM58 gailua aurkitu. Ziurtatu USB bidez konektatuta dagoela eta pantailan 'PC' ageri dela.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                _portuIzena = eguneratutakoPortua;
-                _isHid = isHidOrain;
-                string portuIzena = eguneratutakoPortua;
+                string portuIzena = _portuIzena;
 
                 // 1. PRE-SCAN MODAL: Konexioa egiaztatu
                 DialogResult waitResult;

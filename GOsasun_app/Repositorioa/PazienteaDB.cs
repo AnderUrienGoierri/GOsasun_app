@@ -39,6 +39,8 @@ namespace GOsasun_app.Repositorioa
 
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
+                string egoeraKonparazioa = DatuBaseTestua.SortuBerdinketaKonparazioaSql("COALESCE(p.egoera_klinikoa, 'Alta')", "@egoeraFiltroa");
+                string bilaketaKonparazioa = DatuBaseTestua.SortuLikeMultzoaSql("@testua", "e.izena", "e.abizenak", "e.nan");
                 string query = @"
                     SELECT e.id, e.email, e.pasahitza, e.rol_id, e.aktibo, e.sortze_data,
                         e.nan, e.izena, e.abizenak, e.jaiotze_data, e.telefonoa, e.helbidea, e.herria, e.posta_kodea, e.irudia,
@@ -47,11 +49,11 @@ namespace GOsasun_app.Repositorioa
                     JOIN erabiltzaileak e ON pl.paziente_id = e.id
                     LEFT JOIN pazienteak p ON e.id = p.id
                     WHERE pl.langile_id = @langileId AND e.aktibo = 1
-                        AND (@egoeraFiltroa IS NULL OR COALESCE(p.egoera_klinikoa COLLATE utf8mb4_unicode_ci, 'Alta') = (CONVERT(@egoeraFiltroa USING utf8mb4) COLLATE utf8mb4_unicode_ci))";
+                        AND (@egoeraFiltroa IS NULL OR " + egoeraKonparazioa + @")";
 
                 if (!string.IsNullOrEmpty(bilatzailea))
                 {
-                    query += " AND (e.izena COLLATE utf8mb4_unicode_ci LIKE (CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci) OR e.abizenak COLLATE utf8mb4_unicode_ci LIKE (CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci) OR e.nan COLLATE utf8mb4_unicode_ci LIKE (CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci))";
+                    query += " AND (" + bilaketaKonparazioa + ")";
                 }
 
                 using (var komandoa = new MySqlCommand(query, konexioa))
@@ -103,17 +105,19 @@ namespace GOsasun_app.Repositorioa
             List<Pazientea> pazienteak = new List<Pazientea>();
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
+                string egoeraKonparazioa = DatuBaseTestua.SortuBerdinketaKonparazioaSql("COALESCE(p.egoera_klinikoa, 'Alta')", "@egoeraFiltroa");
+                string bilaketaKonparazioa = DatuBaseTestua.SortuLikeMultzoaSql("@testua", "e.izena", "e.abizenak", "e.nan");
                 string query = @"SELECT e.id, e.email, e.pasahitza, e.rol_id, e.aktibo, e.sortze_data,
                                         e.nan, e.izena, e.abizenak, e.jaiotze_data, e.telefonoa, e.helbidea, e.herria, e.posta_kodea, e.irudia,
                                         p.sexua, p.odol_taldea, p.azken_altuera, p.azken_pisua, p.egoera_klinikoa
                                 FROM erabiltzaileak e
                                 LEFT JOIN pazienteak p ON e.id = p.id
                                 WHERE e.rol_id = 2 AND e.aktibo = 1
-                                    AND (@egoeraFiltroa IS NULL OR COALESCE(p.egoera_klinikoa COLLATE utf8mb4_unicode_ci, 'Alta') = (CONVERT(@egoeraFiltroa USING utf8mb4) COLLATE utf8mb4_unicode_ci))";
+                                    AND (@egoeraFiltroa IS NULL OR " + egoeraKonparazioa + @")";
 
                 if (!string.IsNullOrEmpty(bilatzailea))
                 {
-                    query += " AND (e.izena COLLATE utf8mb4_unicode_ci LIKE (CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci) OR e.abizenak COLLATE utf8mb4_unicode_ci LIKE (CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci) OR e.nan COLLATE utf8mb4_unicode_ci LIKE (CONVERT(@testua USING utf8mb4) COLLATE utf8mb4_unicode_ci))";
+                    query += " AND (" + bilaketaKonparazioa + ")";
                 }
 
                 using (var komandoa = new MySqlCommand(query, konexioa))

@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6">
   <diagram name="Kontrola-Repo" id="kontrola-repo-estilizatua">
-    <mxGraphModel dx="1737" dy="1043" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3200" pageHeight="2200" math="0" shadow="0">
+    <mxGraphModel dx="1097" dy="659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3200" pageHeight="2200" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -80,7 +80,10 @@
           <mxGeometry height="250" width="430" x="2740" y="780" as="geometry" />
         </mxCell>
         <mxCell id="pdf" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#ef4444;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.38;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;DokumentuPdfZerbitzua&lt;/div&gt;&lt;hr/&gt;+ {static} SortuHelmugaBidea(fitxategiIzena: string): string&lt;br/&gt;+ SortuPazientearenTxostena(pazienteId: int, dokumentuIzena: string, grafikaMotak: IReadOnlyCollection&lt;TxostenGrafikaMota&gt;? = null, grafikaHasieraData: DateTime? = null, grafikaAmaieraData: DateTime? = null): string&lt;/div&gt;" vertex="1">
-          <mxGeometry height="165" width="590" x="2730" y="590" as="geometry" />
+          <mxGeometry height="165" width="590" x="2730" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="txgzs" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#ef4444;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:10px;line-height:1.34;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:16px;font-weight:700;color:#000000;&quot;&gt;TxostenGrafikaZerbitzua&lt;/div&gt;&lt;hr/&gt;+ {static} LortuGrafikaTestua(mota: TxostenGrafikaMota): string&lt;br/&gt;+ SortuGrafikaIrudia(pazientea: Pazientea, jarraipenak: IReadOnlyList&lt;Jarraipena&gt;, mota: TxostenGrafikaMota, hasieraData: DateTime?, amaieraData: DateTime?): byte[]?&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="510" x="2790" y="355" as="geometry" />
         </mxCell>
         <mxCell id="lbs" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#ef4444;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.38;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;LoginBlokeoZerbitzua&lt;/div&gt;&lt;hr/&gt;+ LortuEgoera(): LoginSegurtasunEgoera&lt;br/&gt;+ ErregistratuHutsegitea(): LoginSegurtasunEgoera&lt;br/&gt;+ Berrezarri(): void&lt;/div&gt;" vertex="1">
           <mxGeometry height="110" width="280" x="2290" y="230" as="geometry" />
@@ -103,9 +106,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="e1c" edge="1" parent="1" source="olk" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;strokeWidth=2;strokeColor=#16a34a;fontColor=#000000;labelBackgroundColor=#ffffff;" target="oldb" value="dependentzia">
-          <mxGeometry relative="1" as="geometry">
+          <mxGeometry relative="1" x="0.6" as="geometry">
+            <mxPoint as="offset" />
             <Array as="points">
-              <mxPoint x="1020" y="640" />
+              <mxPoint x="1060" y="640" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -197,7 +201,7 @@
               <mxPoint x="2020" y="570" />
               <mxPoint x="2205" y="570" />
             </Array>
-            <mxPoint x="780.0000000000002" y="669.9999999999999" as="sourcePoint" />
+            <mxPoint x="810" y="670" as="sourcePoint" />
             <mxPoint x="2205" y="530" as="targetPoint" />
           </mxGeometry>
         </mxCell>
@@ -285,7 +289,9 @@
         <mxCell id="e16" edge="1" parent="1" source="pdf" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;strokeWidth=2;strokeColor=#ef4444;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="m3" value="txosten PDF sorkuntza">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2490" y="672" />
+              <mxPoint x="2730" y="660" />
+              <mxPoint x="2490" y="660" />
+              <mxPoint x="2490" y="659" />
             </Array>
             <mxPoint x="2440" y="1172.5" as="sourcePoint" />
             <mxPoint x="2200" y="840" as="targetPoint" />
@@ -322,7 +328,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="hrdb" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.36;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;HarrerakoLangileaDB&lt;/div&gt;&lt;hr/&gt;+ LortuGuztiakHarrerakoak(bilatzailea: string? = null): List&lt;HarrerakoLangilea&gt;&lt;br/&gt;+ LortuHarrerakoa(harrerakoaId: int): HarrerakoLangilea?&lt;br/&gt;+ SortuHarrerakoa(h: HarrerakoLangilea): bool&lt;br/&gt;+ SortuHarrerakoa(h: HarrerakoLangilea, irudiBidea: string?): bool&lt;br/&gt;+ EzabatuHarrerakoa(id: int): bool&lt;br/&gt;+ EguneratuHarrerakoa(h: HarrerakoLangilea): bool&lt;/div&gt;" vertex="1">
-          <mxGeometry height="172.5" width="320" x="1460" y="737.5" as="geometry" />
+          <mxGeometry height="172.5" width="360" x="1460" y="737.5" as="geometry" />
         </mxCell>
         <mxCell id="nA7qtLTf1yviLeXeJgNl-8" edge="1" parent="1" source="hlk" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;strokeWidth=2;strokeColor=#16a34a;fontColor=#000000;labelBackgroundColor=#ffffff;" target="pzk" value="">
           <mxGeometry relative="1" as="geometry">
@@ -332,7 +338,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="pzk" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#16a34a;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.38;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;PazienteKontrolatzailea&lt;/div&gt;&lt;hr/&gt;+ LortuLangilearenPazienteak(langileId: int, bilatzailea: string? = null, egoeraFiltroa: string? = null): List&lt;Pazientea&gt;&lt;br/&gt;+ LortuGuztiakPazienteak(bilatzailea: string? = null, egoeraFiltroa: string? = null): List&lt;Pazientea&gt;&lt;br/&gt;+ LortuPazientea(pazienteId: int): Pazientea?&lt;br/&gt;+ LortuPazientearenOsasunLangileak(pazienteId: int): List&lt;OsasunLangilea&gt;&lt;br/&gt;+ SortuPazientea(p: Pazientea): bool&lt;br/&gt;+ SortuPazientea(p: Pazientea, osasunLangileIds: IEnumerable&lt;int&gt;, irudiBidea: string?): bool&lt;br/&gt;+ EsleituOsasunLangileakPazienteari(pazienteId: int, osasunLangileIds: IEnumerable&lt;int&gt;): bool&lt;br/&gt;+ EzabatuPazientea(id: int): bool&lt;br/&gt;+ EguneratuPazientea(p: Pazientea): bool&lt;br/&gt;+ EguneratuPazientea(p: Pazientea, osasunLangileIds: IEnumerable&lt;int&gt;): bool&lt;br/&gt;+ AldatuPazientearenEgoera(pazienteId: int, egoeraBerria: string): bool&lt;/div&gt;" vertex="1">
-          <mxGeometry height="270" width="430" x="450" y="300" as="geometry" />
+          <mxGeometry height="280" width="430" x="450" y="300" as="geometry" />
         </mxCell>
         <mxCell id="nA7qtLTf1yviLeXeJgNl-9" edge="1" parent="1" source="hlk" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;strokeWidth=2;strokeColor=#f97316;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=0.99;exitY=0.927;exitDx=0;exitDy=0;exitPerimeter=0;" target="oldb" value="">
           <mxGeometry relative="1" as="geometry">
@@ -345,8 +351,61 @@
             <mxPoint x="2235" y="550" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="oldb" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.36;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;OsasunLangileaDB&lt;/div&gt;&lt;hr/&gt;+ LortuGuztiakOsasunLangileak(bilatzailea: string? = null): List&lt;OsasunLangilea&gt;&lt;br/&gt;+ LortuOsasunLangilea(osasunLangileId: int): OsasunLangilea?&lt;br/&gt;+ SortuOsasunLangilea(m: OsasunLangilea): bool&lt;br/&gt;+ SortuOsasunLangilea(m: OsasunLangilea, irudiBidea: string?): bool&lt;br/&gt;+ EzabatuOsasunLangilea(id: int): bool&lt;br/&gt;+ EguneratuOsasunLangilea(m: OsasunLangilea): bool&lt;/div&gt;" vertex="1">
-          <mxGeometry height="205" width="340" x="1020" y="340" as="geometry" />
+        <mxCell id="oldb" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;fontSize=10;" value="&lt;div style=&quot;padding: 10px; line-height: 1.36; color: rgb(0, 0, 0);&quot;&gt;&lt;div style=&quot;font-weight: 700; color: rgb(0, 0, 0);&quot;&gt;OsasunLangileaDB&lt;/div&gt;&lt;hr&gt;+ LortuGuztiakOsasunLangileak(bilatzailea: string? = null): List&lt;br&gt;+ LortuOsasunLangilea(osasunLangileId: int): OsasunLangilea?&lt;br&gt;+ SortuOsasunLangilea(m: OsasunLangilea): bool&lt;br&gt;+ SortuOsasunLangilea(m: OsasunLangilea, irudiBidea: string?): bool&lt;br&gt;+ EzabatuOsasunLangilea(id: int): bool&lt;br&gt;+ EguneratuOsasunLangilea(m: OsasunLangilea): bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="150" width="340" x="1020" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="dbkon" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:10px;line-height:1.33;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:16px;font-weight:700;color:#000000;&quot;&gt;DatuBaseKonexioa&lt;/div&gt;&lt;div style=&quot;font-size:10px;color:#1d4ed8;font-weight:600;margin-top:4px;&quot;&gt;Klase estatikoa&lt;/div&gt;&lt;hr/&gt;+ {static} LortuDatuBaseIzena(): string&lt;br/&gt;+ {static} LortuKonexioa(datuBasearekin: bool = true): MySqlConnection&lt;br/&gt;+ {static} ItxiKonexioa(konexioa: MySqlConnection?): void&lt;br/&gt;+ {static} ProbatuKonexioa(out erroreMezua: string): bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="145" width="460" x="1460" y="1790" as="geometry" />
+        </mxCell>
+        <mxCell id="akh" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#ef4444;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:10px;line-height:1.33;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:16px;font-weight:700;color:#000000;&quot;&gt;AplikazioKonfigurazioaHornitzailea&lt;/div&gt;&lt;div style=&quot;font-size:10px;color:#991b1b;font-weight:600;margin-top:4px;&quot;&gt;Klase estatikoa&lt;/div&gt;&lt;hr/&gt;+ {static} LortuKonfigurazioa(): AplikazioKonfigurazioa&lt;br/&gt;+ {static} GordeKonfigurazioa(konfigurazioa: AplikazioKonfigurazioa): void&lt;br/&gt;+ {static} BerrizKargatu(): void&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130" width="440" x="2050" y="1490" as="geometry" />
+        </mxCell>
+        <mxCell id="abideak" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#ef4444;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:10px;line-height:1.28;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:16px;font-weight:700;color:#000000;&quot;&gt;AplikazioBideak&lt;/div&gt;&lt;div style=&quot;font-size:10px;color:#991b1b;font-weight:600;margin-top:4px;&quot;&gt;Klase estatikoa&lt;/div&gt;&lt;hr/&gt;+ {static} LortuWebErroa(): string&lt;br/&gt;+ {static} LortuDokumentuKarpeta(): string&lt;br/&gt;+ {static} LortuPazienteDokumentuKarpeta(): string&lt;br/&gt;+ {static} LortuXmlKarpeta(): string&lt;br/&gt;+ {static} LortuIrudiKarpeta(): string&lt;br/&gt;+ {static} LortuAplikazioIrudiKarpeta(): string&lt;br/&gt;+ {static} LortuIrudiErroak(): IEnumerable&lt;string&gt;&lt;br/&gt;+ {static} LortuIrudiHelmugaBidea(irudiErlatiboa: string): string&lt;br/&gt;+ {static} ZiurtatuBiltegiratzeKarpetak(): void&lt;/div&gt;" vertex="1">
+          <mxGeometry height="215" width="490" x="2670" y="1400" as="geometry" />
+        </mxCell>
+        <mxCell id="hzs" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#ef4444;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:10px;line-height:1.34;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:16px;font-weight:700;color:#000000;&quot;&gt;HasierakoPrestaketaZerbitzua&lt;/div&gt;&lt;div style=&quot;font-size:10px;color:#991b1b;font-weight:600;margin-top:4px;&quot;&gt;Klase estatikoa&lt;/div&gt;&lt;hr/&gt;+ {static} Exekutatu(): HasierakoPrestaketaEmaitza&lt;/div&gt;" vertex="1">
+          <mxGeometry height="95" width="400" x="2640" y="1870" as="geometry" />
+        </mxCell>
+        <mxCell id="e19" edge="1" parent="1" source="pdf" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;strokeWidth=2;strokeColor=#ef4444;fontColor=#000000;labelBackgroundColor=#ffffff;" target="txgzs" value="grafika sorkuntza">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3060" y="510" />
+              <mxPoint x="3060" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e20" edge="1" parent="1" source="pdf" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;strokeWidth=2;strokeColor=#ef4444;fontColor=#000000;labelBackgroundColor=#ffffff;" target="abideak" value="fitxategi helmuga">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3200" y="1508" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e21" edge="1" parent="1" source="hzs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;strokeWidth=2;strokeColor=#ef4444;fontColor=#000000;labelBackgroundColor=#ffffff;" target="akh" value="konfigurazioa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e22" edge="1" parent="1" source="hzs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;strokeWidth=2;strokeColor=#ef4444;fontColor=#000000;labelBackgroundColor=#ffffff;" target="abideak" value="biltegiratzea prestatu">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2860" y="1730" />
+              <mxPoint x="2860" y="1730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e23" edge="1" parent="1" source="hzs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;strokeWidth=2;strokeColor=#ef4444;fontColor=#000000;labelBackgroundColor=#ffffff;" target="dbkon" value="DB konexio-proba">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1910" y="1827" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e24" edge="1" parent="1" source="dbkon" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;strokeWidth=2;strokeColor=#2563eb;fontColor=#000000;labelBackgroundColor=#ffffff;" target="akh" value="konfigurazioa">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1920" y="1640" />
+              <mxPoint x="2050" y="1640" />
+            </Array>
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>

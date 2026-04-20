@@ -98,8 +98,8 @@ begin
     False);
   HasierakoPrestaketaOrria.Add('Datu-base eskema sortu edo eguneratu lehen exekuzioan');
   HasierakoPrestaketaOrria.Add('Lehen erregistroak eta seed datuak kargatu lehen exekuzioan');
-  HasierakoPrestaketaOrria.Values[0] := True;
-  HasierakoPrestaketaOrria.Values[1] := True;
+  HasierakoPrestaketaOrria.Values[0] := False;
+  HasierakoPrestaketaOrria.Values[1] := False;
 end;
 
 function JsnEscape(const Value: string): string;

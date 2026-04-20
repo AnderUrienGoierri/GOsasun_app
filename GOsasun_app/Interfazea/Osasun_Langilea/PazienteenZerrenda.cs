@@ -18,7 +18,7 @@ namespace GOsasun_app.Interfazea
     /// </summary>
     public partial class PazienteenZerrenda : OinarriPantaila
     {
-        private const int EkintzaZutabeZabalera = 260;
+        private const int EkintzaZutabeZabalera = 330;
         private const int EkintzaIkonoTamaina = 30;
         private const int EkintzaBotoiTamaina = 52;
         private const int PazienteErrenkadaAltuera = 64;
@@ -457,6 +457,7 @@ namespace GOsasun_app.Interfazea
             _ekintzaIkonoak["ikusi"] = KargatuIkonoBitmapa("eye.svg", Color.White, EkintzaIkonoTamaina);
             _ekintzaIkonoak["editatu"] = KargatuIkonoBitmapa("pencil.svg", Color.White, EkintzaIkonoTamaina);
             _ekintzaIkonoak["jarraipena"] = KargatuIkonoBitmapa("plus-circle.svg", Color.White, EkintzaIkonoTamaina);
+            _ekintzaIkonoak["jarraipenak"] = KargatuIkonoBitmapa("list.svg", Color.White, EkintzaIkonoTamaina);
             _ekintzaIkonoak["ezabatu"] = KargatuIkonoBitmapa("trash-2.svg", Color.White, EkintzaIkonoTamaina);
         }
 
@@ -471,7 +472,7 @@ namespace GOsasun_app.Interfazea
         {
             int buttonSize = EkintzaBotoiTamaina;
             int spacing = 10;
-            int totalWidth = (buttonSize * 4) + (spacing * 3);
+            int totalWidth = (buttonSize * 5) + (spacing * 4);
             int left = cellBounds.Left + Math.Max(10, (cellBounds.Width - totalWidth) / 2);
             int top = cellBounds.Top + Math.Max(6, (cellBounds.Height - buttonSize) / 2);
 
@@ -480,7 +481,8 @@ namespace GOsasun_app.Interfazea
                 ["ikusi"] = new Rectangle(left, top, buttonSize, buttonSize),
                 ["editatu"] = new Rectangle(left + buttonSize + spacing, top, buttonSize, buttonSize),
                 ["jarraipena"] = new Rectangle(left + ((buttonSize + spacing) * 2), top, buttonSize, buttonSize),
-                ["ezabatu"] = new Rectangle(left + ((buttonSize + spacing) * 3), top, buttonSize, buttonSize)
+                ["jarraipenak"] = new Rectangle(left + ((buttonSize + spacing) * 3), top, buttonSize, buttonSize),
+                ["ezabatu"] = new Rectangle(left + ((buttonSize + spacing) * 4), top, buttonSize, buttonSize)
             };
         }
 
@@ -507,8 +509,10 @@ namespace GOsasun_app.Interfazea
                     ? Color.FromArgb(39, 174, 96)
                     : ekintza == "jarraipena"
                         ? Color.FromArgb(243, 156, 18)
+                        : ekintza == "jarraipenak"
+                            ? Color.FromArgb(142, 68, 173)
                     : Color.FromArgb(192, 57, 43);
-            string fallbackIkurra = ekintza == "ikusi" ? "I" : ekintza == "editatu" ? "E" : ekintza == "jarraipena" ? "+" : "X";
+            string fallbackIkurra = ekintza == "ikusi" ? "I" : ekintza == "editatu" ? "E" : ekintza == "jarraipena" ? "+" : ekintza == "jarraipenak" ? "L" : "X";
 
             using GraphicsPath path = SortuBiribildua(rectangle, 12);
             using SolidBrush brush = new SolidBrush(kolorea);
@@ -569,6 +573,10 @@ namespace GOsasun_app.Interfazea
                 {
                     SortuPazientearenJarraipena(pazientea);
                 }
+                else if (botoia.Key == "jarraipenak")
+                {
+                    IkusiPazientearenJarraipenak(pazientea);
+                }
                 else if (botoia.Key == "ezabatu")
                 {
                     EzabatuPazientea(pazientea);
@@ -627,6 +635,16 @@ namespace GOsasun_app.Interfazea
             }
 
             IrekiAzpiPantaila(() => new JarraipenMotak(_erabiltzailea, pazientea.Id, pazientea.IzenOsoa));
+        }
+
+        private void IkusiPazientearenJarraipenak(Pazientea pazientea)
+        {
+            if (_erabiltzailea == null)
+            {
+                return;
+            }
+
+            IrekiAzpiPantaila(() => new Jarraipenak(_erabiltzailea, pazientea.Id, pazientea.IzenOsoa));
         }
 
         private void EsleituOsasunLangileak(Pazientea pazientea)

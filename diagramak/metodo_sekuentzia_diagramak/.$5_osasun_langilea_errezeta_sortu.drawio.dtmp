@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6">
   <diagram id="prescription-create-seq" name="5. Errezeta sortu">
-    <mxGraphModel dx="1895" dy="1138" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1750" pageHeight="980" math="0" shadow="0">
+    <mxGraphModel dx="1303" dy="783" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1750" pageHeight="980" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -129,7 +129,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="loop0" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FFFFFF;fontSize=12;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;" value="&lt;font style=&quot;color: rgb(255, 128, 0); font-size: 11px;&quot;&gt;loop [saskiko botika bakoitzeko]&lt;/font&gt;" vertex="1">
-          <mxGeometry height="325" width="1360" x="290" y="605" as="geometry" />
+          <mxGeometry height="325" width="1400" x="250" y="605" as="geometry" />
         </mxCell>
         <mxCell id="m7b" edge="1" parent="1" style="html=1;endArrow=block;strokeColor=#000000;strokeWidth=1;rounded=0;" value="berria.Botikak.Add(new ErrezetaBotika { BotikaId, Dosia, Maiztasuna })">
           <mxGeometry relative="1" x="0.3333" y="-45" as="geometry">
@@ -145,7 +145,8 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="m9" edge="1" parent="1" style="html=1;endArrow=block;strokeWidth=1;rounded=0;strokeColor=#FFFFFF;" value="SortuErrezeta(berria)">
-          <mxGeometry relative="1" as="geometry">
+          <mxGeometry relative="1" x="-0.0886" y="-100" as="geometry">
+            <mxPoint as="offset" />
             <mxPoint x="310" y="640" as="sourcePoint" />
             <mxPoint x="1100" y="640" as="targetPoint" />
           </mxGeometry>

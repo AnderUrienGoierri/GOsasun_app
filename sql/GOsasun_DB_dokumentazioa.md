@@ -8,8 +8,8 @@ Dokumentu honek `GOsasun_DB` datu-basearen egitura teknikoa, erlazioak eta optim
 
 Datu-basearen erlazioak kudeatzeko funtsezko bi kontzeptu erabili dira:
 
-*   **Primary Key (PK)**: Taula bateko erregistrorik bakoitza modu esklusiboan identifikatzen duen zutabea edo zutabe multzoa da. Gure sisteman gehienak `id` izenekoak dira eta `AUTO_INCREMENT` propietatea dute (salbu eta 1:1 lotura duten tauletan, adibidez `pazienteak`).
-*   **Foreign Key (FK)**: Taula bat beste batekin lotzen duen zutabea da. Guraso-taula bateko PK-ari egiten dio erreferentzia, datuen arteko koherentzia ziurtatuz. Adibidez, `erabiltzaileak` taulako `rol_id` eremua `rolak` taulako `id`-ari lotuta dago.
+- **Primary Key (PK)**: Taula bateko erregistrorik bakoitza modu esklusiboan identifikatzen duen zutabea edo zutabe multzoa da. Gure sisteman gehienak `id` izenekoak dira eta `AUTO_INCREMENT` propietatea dute (salbu eta 1:1 lotura duten tauletan, adibidez `pazienteak`).
+- **Foreign Key (FK)**: Taula bat beste batekin lotzen duen zutabea da. Guraso-taula bateko PK-ari egiten dio erreferentzia, datuen arteko koherentzia ziurtatuz. Adibidez, `erabiltzaileak` taulako `rol_id` eremua `rolak` taulako `id`-ari lotuta dago.
 
 ---
 
@@ -17,22 +17,22 @@ Datu-basearen erlazioak kudeatzeko funtsezko bi kontzeptu erabili dira:
 
 Honako taula honek datu-baseko entitate nagusiak, haien PK-ak, FK-ak eta aplikatutako murrizketak erakusten ditu:
 
-| Taula | PK | Foreign Key (FK) | Guraso Taula | Constraints / Murrizketak |
-| :--- | :--- | :--- | :--- | :--- |
-| **rolak** | `id` | - | - | `izena` UNIQUE |
-| **erabiltzaileak** | `id` | `rol_id` | `rolak` | `email` UNIQUE, RESTRICT/CASCADE |
-| **pazienteak** | `id` | `id` | `erabiltzaileak` | `nan` UNIQUE, RESTRICT/CASCADE |
-| **osasun_langileak** | `id` | `id` | `erabiltzaileak` | `elkargokide_zenbakia` UNIQUE, RESTRICT/CASCADE |
-| **harrerako_langileak** | `id` | `id` | `erabiltzaileak` | RESTRICT/CASCADE |
-| **pazientek_langileak** | `id` | `langile_id`, `paziente_id` | `osasun_langileak`, `pazienteak` | UNIQUE(`langile_id`, `paziente_id`) |
-| **jarraipenak** | `id` | `paziente_id`, `osasun_langile_id` | `pazienteak`, `osasun_langileak` | RESTRICT/CASCADE |
-| **mezuak** | `id` | `bidaltzaile_id`, `hartzaile_id` | `erabiltzaileak` | RESTRICT/CASCADE |
-| **dokumentuak** | `id` | `jarraipena_id` | `jarraipenak` | RESTRICT/CASCADE |
-| **hitzorduak** | `id` | `paziente_id`, `osasun_langile_id` | `pazienteak`, `osasun_langileak` | RESTRICT/CASCADE |
-| **errezetak** | `id` | `hitzordu_id`, `osasun_langile_id`, `paziente_id` | `hitzorduak`, `osasun_langileak`, `pazienteak` | `hitzordu_id` SET NULL/CASCADE |
-| **abisuak** | `id` | `paziente_id` | `pazienteak` | RESTRICT/CASCADE |
-| **botikak** | `id` | - | - | `izena` UNIQUE |
-| **errezeta_botikak** | `id` | `errezeta_id`, `botika_id` | `errezetak`, `botikak` | UNIQUE(`errezeta_id`, `botika_id`) |
+| Taula                   | PK   | Foreign Key (FK)                                  | Guraso Taula                                   | Constraints / Murrizketak                       |
+| :---------------------- | :--- | :------------------------------------------------ | :--------------------------------------------- | :---------------------------------------------- |
+| **rolak**               | `id` | -                                                 | -                                              | `izena` UNIQUE                                  |
+| **erabiltzaileak**      | `id` | `rol_id`                                          | `rolak`                                        | `email` UNIQUE, RESTRICT/CASCADE                |
+| **pazienteak**          | `id` | `id`                                              | `erabiltzaileak`                               | `nan` UNIQUE, RESTRICT/CASCADE                  |
+| **osasun_langileak**    | `id` | `id`                                              | `erabiltzaileak`                               | `elkargokide_zenbakia` UNIQUE, RESTRICT/CASCADE |
+| **harrerako_langileak** | `id` | `id`                                              | `erabiltzaileak`                               | RESTRICT/CASCADE                                |
+| **pazientek_langileak** | `id` | `langile_id`, `paziente_id`                       | `osasun_langileak`, `pazienteak`               | UNIQUE(`langile_id`, `paziente_id`)             |
+| **jarraipenak**         | `id` | `paziente_id`, `osasun_langile_id`                | `pazienteak`, `osasun_langileak`               | RESTRICT/CASCADE                                |
+| **mezuak**              | `id` | `bidaltzaile_id`, `hartzaile_id`                  | `erabiltzaileak`                               | RESTRICT/CASCADE                                |
+| **dokumentuak**         | `id` | `jarraipena_id`                                   | `jarraipenak`                                  | RESTRICT/CASCADE                                |
+| **hitzorduak**          | `id` | `paziente_id`, `osasun_langile_id`                | `pazienteak`, `osasun_langileak`               | RESTRICT/CASCADE                                |
+| **errezetak**           | `id` | `hitzordu_id`, `osasun_langile_id`, `paziente_id` | `hitzorduak`, `osasun_langileak`, `pazienteak` | `hitzordu_id` SET NULL/CASCADE                  |
+| **abisuak**             | `id` | `paziente_id`                                     | `pazienteak`                                   | RESTRICT/CASCADE                                |
+| **botikak**             | `id` | -                                                 | -                                              | `izena` UNIQUE                                  |
+| **errezeta_botikak**    | `id` | `errezeta_id`, `botika_id`                        | `errezetak`, `botikak`                         | UNIQUE(`errezeta_id`, `botika_id`)              |
 
 ---
 
@@ -50,10 +50,10 @@ Datuen osotasuna mantentzeko, DBak automatikoki kudeatzen ditu erregistroen arte
 
 Bilaketak eta iragazketak azkartzeko, honako indizeak definitu dira:
 
-*   **`idx_pazienteak_abizenak_izena`**: Pazienteak izen-abizenen arabera bilatzea azkartzen du.
-*   **`idx_hitzorduak_data`**: Agendako hitzorduak dataren arabera lortzean errendimendua hobetzen du.
-*   **`idx_neurketak_paziente_data`**: Paziente baten neurketak dataren arabera ordenatuta azkarrago kargatzea lortzen du.
-*   **`idx_mezuak_hartzaile_data`**: Mezuak hartzailearen eta dataren arabera kargatzea optimizatzen du.
+- **`idx_pazienteak_abizenak_izena`**: Pazienteak izen-abizenen arabera bilatzea azkartzen du.
+- **`idx_hitzorduak_data`**: Agendako hitzorduak dataren arabera lortzean errendimendua hobetzen du.
+- **`idx_neurketak_paziente_data`**: Paziente baten neurketak dataren arabera ordenatuta azkarrago kargatzea lortzen du.
+- **`idx_mezuak_hartzaile_data`**: Mezuak hartzailearen eta dataren arabera kargatzea optimizatzen du.
 
 ---
 
@@ -61,17 +61,38 @@ Bilaketak eta iragazketak azkartzeko, honako indizeak definitu dira:
 
 Bistak taula konplexuen arteko `JOIN`ak sinplifikatzeko erabiltzen dira. Hona hemen definizioak eta PHP kodean non erabiltzen diren:
 
-| Bista Izena | Deskribapena | Non erabiltzen da? (PHP) |
-| :--- | :--- | :--- |
-| **`V_Login`** | Erabiltzailearen kredentzialak eta rola bateratzen ditu. | `php_orri_hasierakoak/login.php` |
-| **`V_Pazientea`** | Pazientearen datuak eta erabiltzaile kontua batzen ditu. | `php_pazienteak/index.php`, `paziente_info.php` |
-| **`V_Osasun_Langilea`** | Osasun langilearen eta kontuaren datu guztiak. | `php_osasun_langileak/index.php` |
-| **`V_Langile_Pazienteak`** | Langile bati esleitutako pazienteen zerrenda osoa. | `php_osasun_langileak/pazienteak.php` |
-| **`V_Hitzorduak_Osoa`** | Hitzorduak, pazienteen eta langileen izenekin batera. | `php_harrera_langileak/hitzorduak.php`, `hitzordu_xehetasuna.php` |
-| **`V_Harrera`** | Harrerako langileen eta haien kontuen informazioa. | `php_harrera_langileak/index.php` |
-| **`V_Jarraipenak_Osoa`** | Jarraipenen datuak, paziente eta langilearekin batera. | `php_osasun_langileak/pazientea_info.php` |
+| Bista Izena                | Deskribapena                                             | Non erabiltzen da? (PHP)                                          |
+| :------------------------- | :------------------------------------------------------- | :---------------------------------------------------------------- |
+| **`V_Login`**              | Erabiltzailearen kredentzialak eta rola bateratzen ditu. | `php_orri_hasierakoak/login.php`                                  |
+| **`V_Pazientea`**          | Pazientearen datuak eta erabiltzaile kontua batzen ditu. | `php_pazienteak/index.php`, `paziente_info.php`                   |
+| **`V_Osasun_Langilea`**    | Osasun langilearen eta kontuaren datu guztiak.           | `php_osasun_langileak/index.php`                                  |
+| **`V_Langile_Pazienteak`** | Langile bati esleitutako pazienteen zerrenda osoa.       | `php_osasun_langileak/pazienteak.php`                             |
+| **`V_Hitzorduak_Osoa`**    | Hitzorduak, pazienteen eta langileen izenekin batera.    | `php_harrera_langileak/hitzorduak.php`, `hitzordu_xehetasuna.php` |
+| **`V_Harrera`**            | Harrerako langileen eta haien kontuen informazioa.       | `php_harrera_langileak/index.php`                                 |
+| **`V_Jarraipenak_Osoa`**   | Jarraipenen datuak, paziente eta langilearekin batera.   | `php_osasun_langileak/pazientea_info.php`                         |
 
 ---
 
 > [!NOTE]
 > Dokumentazio hau SQL eskema aldaketaren baten ondorioz eguneratu behar bada, ziurtatu `sql/` direktorioan dauden `.sql` fitxategiak (eskema, indizeak eta bistak) sinkronizatuta daudela.
+
+---
+
+## 6. Kolazio Homogeneizazioa
+
+MySQL 8 ingurune batzuetan, bereziki dump zaharrak edo kanpotik egindako inportazioak erabili badira, testu-zutabe batzuk `utf8mb4_0900_ai_ci` kolazioan gera daitezke eta beste batzuk `utf8mb4_unicode_ci` kolazioan. Horrek `LIKE` edo `=` konparazioetan `Illegal mix of collations` errorea sor dezake.
+
+Horretarako, repoan migrazio osagarri hau dago:
+
+- `sql/GOsasun_DB_collation_fix.sql`
+
+Script horrek honakoak egiten ditu:
+
+- `gosasun_db` datu-basearen default kolazioa `utf8mb4_unicode_ci`-ra ezartzen du.
+- Datu-baseko base table guztiak `ALTER TABLE ... CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci` bidez normalizatzen ditu.
+- Amaieran egiaztapen-kontsultak ematen ditu, kolazio desberdinik geratu den ikusteko.
+
+Gomendioa:
+
+- Script hau exekutatu backup baten ondoren.
+- Ondoren aplikazioa berriro probatu `Jarraipenak`, `Dokumentuak`, paziente-bilatzaileak eta langile-bilatzaileak bezalako `LIKE` bilaketak dituzten pantailatan.

@@ -32,6 +32,12 @@ namespace GOsasun_app.Repositorioa
             List<HarrerakoLangilea> harrerakoak = new List<HarrerakoLangilea>();
             using (var konexioa = DatuBaseKonexioa.LortuKonexioa())
             {
+                string bilaketaKonparazioa = DatuBaseTestua.SortuLikeMultzoaSql(
+                    "@bilatzailea",
+                    "e.izena",
+                    "e.abizenak",
+                    "COALESCE(e.nan, '')",
+                    "CONCAT(e.izena, ' ', e.abizenak)");
                 string query = @"SELECT e.id, e.email, e.pasahitza, e.rol_id, e.aktibo, e.sortze_data, e.hizkuntza,
                                         e.nan, e.izena, e.abizenak, e.jaiotze_data, e.telefonoa, e.helbidea, e.herria, e.posta_kodea, e.irudia,
                                         hl.txanda
@@ -39,10 +45,7 @@ namespace GOsasun_app.Repositorioa
                                  JOIN erabiltzaileak e ON hl.id = e.id
                                  WHERE e.aktibo = 1
                                    AND (@bilatzailea IS NULL
-                                        OR e.izena LIKE @bilatzailea
-                                        OR e.abizenak LIKE @bilatzailea
-                                        OR COALESCE(e.nan, '') LIKE @bilatzailea
-                                        OR CONCAT(e.izena, ' ', e.abizenak) LIKE @bilatzailea)
+                                        OR " + bilaketaKonparazioa + @")
                                  ORDER BY e.abizenak, e.izena";
                 using (var komandoa = new MySqlCommand(query, konexioa))
                 {

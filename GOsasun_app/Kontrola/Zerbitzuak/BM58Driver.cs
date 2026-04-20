@@ -41,6 +41,9 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
         private const int Beurer_PID = 0x7406;
         private const int HandshakeSaiakeraKopurua = 5;
         private const int HandshakeItxaronaldiaMs = 250;
+        private const int InitKomandoItxaronaldiaMs = 100;
+        private const int BankuPrestaketaItxaronaldiaMs = 250;
+        private const int BankuBerrabiarazteItxaronaldiaMs = 150;
 
         // TentsioNeurria kenduta OBP logika jarraitzeko (Jarraipena modeloa erabiliko da)
 
@@ -280,7 +283,7 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
             {
                 channel = KonektatuGailura(identifier, isHid);
                 channel.Write(new byte[] { 0xA4 }); // Init
-                Thread.Sleep(200);
+                Thread.Sleep(InitKomandoItxaronaldiaMs);
 
                 // FASE 1: USER 1 (0xA6 + 0-59 indizeak)
                 IrakurriBankua(channel, records, 1, 0xA6);
@@ -299,14 +302,14 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
             // FASE 2 bada (U2), seguruagoa da lehenik Ending eta Re-Init egitea bankua aldatzeko
             if (userId == 2) {
                 try { 
-                    channel.Write(new byte[] { 0xA5 }); Thread.Sleep(300);
-                    channel.Write(new byte[] { 0xA4 }); Thread.Sleep(300);
+                    channel.Write(new byte[] { 0xA5 }); Thread.Sleep(BankuBerrabiarazteItxaronaldiaMs);
+                    channel.Write(new byte[] { 0xA4 }); Thread.Sleep(BankuBerrabiarazteItxaronaldiaMs);
                 } catch { }
             }
 
             try { 
                 channel.Write(new byte[] { cmd }); 
-                Thread.Sleep(800); // Itxaronaldi luzeagoa banku aldaketarentzat
+                Thread.Sleep(BankuPrestaketaItxaronaldiaMs);
                 channel.DiscardInBuffer();
             } catch { }
 
@@ -322,7 +325,6 @@ namespace GOsasun_app.Kontrola.Zerbitzuak
                 {
                     try {
                         channel.Write(new byte[] { 0xA3, (byte)idx });
-                        Thread.Sleep(70); 
                         byte[] data = channel.ReadPayload();
 
                         if (data != null && data.Length >= 8) {
