@@ -8,6 +8,7 @@ build_validate_*/
 build_errors.txt
 dokumentuak/
 *.user
+Technical specifications/
 
 # Large files (>100MB)
 **/*.exe

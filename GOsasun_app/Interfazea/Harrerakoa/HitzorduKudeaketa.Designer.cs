@@ -49,23 +49,20 @@ namespace GOsasun_app.Interfazea
             _edukiPanela.Controls.Add(panelKudeaketa);
             _edukiPanela.Controls.Add(dgvHitzorduak);
             _edukiPanela.Controls.Add(lblIzenburua);
-            _edukiPanela.Location = new Point(0, 293);
+            _edukiPanela.Location = new Point(0, 169);
             _edukiPanela.Margin = new Padding(6);
             _edukiPanela.Padding = new Padding(4);
-            _edukiPanela.Size = new Size(1902, 762);
+            _edukiPanela.Size = new Size(1902, 886);
             // 
             // _goiburuBarra
             // 
             _goiburuBarra.Margin = new Padding(6);
-            _goiburuBarra.Padding = new Padding(37, 21, 37, 21);
-            _goiburuBarra.Size = new Size(1902, 293);
+            _goiburuBarra.Size = new Size(1902, 169);
             // 
             // _atzeraBotoia
             // 
             _atzeraBotoia.FlatAppearance.BorderSize = 0;
-            _atzeraBotoia.Location = new Point(74, 198);
             _atzeraBotoia.Margin = new Padding(6);
-            _atzeraBotoia.Size = new Size(385, 73);
             // 
             // lblIzenburua
             // 

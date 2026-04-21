@@ -1,0 +1,389 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6">
+  <diagram name="Modeloa" id="modeloa-estilizatua">
+    <mxGraphModel dx="9547" dy="4173" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2600" pageHeight="1800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e5e7eb;strokeColor=#9ca3af;fontColor=#000000;fontStyle=1;fontSize=22;arcSize=14;shadow=1;" value="GOsasun App - Modeloko Klase Diagrama&lt;div&gt;Kontrola eta Repositorioa&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="740" x="335" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#d1d5db;fontColor=#000000;fontSize=14;arcSize=12;" value="Modeloko 11 klaseak, atributu nagusiak, eragiketak eta erlazio estandarizatuak. UML notazioa: `-` atributu pribatua, `+` eragiketa publikoa, `{static}` metodo estatikoa." vertex="1">
+          <mxGeometry height="40" width="820" x="-130" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="bg1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#000000;fontStyle=1;fontSize=16;align=center;verticalAlign=top;spacingTop=10;arcSize=18;shadow=1;" value="Erabiltzaile familia" vertex="1">
+          <mxGeometry height="1015" width="1490" x="-40" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="bg2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#fdba74;fontColor=#000000;fontStyle=1;fontSize=16;align=center;verticalAlign=top;spacingTop=10;arcSize=18;shadow=1;" value="" vertex="1">
+          <mxGeometry height="822.5" width="1100" x="-450" y="1200" as="geometry" />
+        </mxCell>
+        <mxCell id="bg3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#d8b4fe;fontColor=#000000;fontStyle=1;fontSize=16;align=center;verticalAlign=top;spacingTop=10;arcSize=18;shadow=1;" value="Hitzordu eta errezeta eredua" vertex="1">
+          <mxGeometry height="822.5" width="1380" x="780" y="1200" as="geometry" />
+        </mxCell>
+        <mxCell id="erabiltzailea" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#374151;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;spacing=6;" value="&lt;div style=&quot;padding:10px;font-size:13px;line-height:1.42;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;&amp;laquo;abstract&amp;raquo; Erabiltzailea&lt;/div&gt;&lt;hr/&gt;&lt;b&gt;Atributuak&lt;/b&gt;&lt;br/&gt;- Id: int&lt;br/&gt;- Emaila: string&lt;br/&gt;- Pasahitza: string&lt;br/&gt;- RolId: int&lt;br/&gt;- Nan: string&lt;br/&gt;- Izena: string&lt;br/&gt;- Abizenak: string&lt;br/&gt;- JaiotzeData: DateTime&lt;br/&gt;- Telefonoa: string?&lt;br/&gt;- Helbidea: string?&lt;br/&gt;- Herria: string?&lt;br/&gt;- PostaKodea: string?&lt;br/&gt;- Irudia: string&lt;br/&gt;- Aktibo: bool&lt;br/&gt;- SortzeData: DateTime&lt;br/&gt;- Hizkuntza: string&lt;br/&gt;- IzenOsoa: string&lt;br/&gt;- Rola: string&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Eragiketak&lt;/b&gt;&lt;br/&gt;+ DaPazientea(): bool&lt;br/&gt;+ DaOsasunLangilea(): bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="520" width="260" x="510" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="rola" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffedd5;strokeColor=#ea580c;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:13px;line-height:1.5;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;Rola&lt;/div&gt;&lt;hr/&gt;- RolId: int&lt;br/&gt;- Izena: string&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="140" x="170" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="pazientea" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:13px;line-height:1.45;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;Pazientea&lt;/div&gt;&lt;hr/&gt;&lt;b&gt;Atributuak&lt;/b&gt;&lt;br/&gt;- Sexua: string&lt;br/&gt;- OdolTaldea: string?&lt;br/&gt;- AzkenAltuera: decimal?&lt;br/&gt;- AzkenPisua: decimal?&lt;br/&gt;- EgoeraKlinikoa: string&lt;br/&gt;- OsasunLangileak: ArrayList&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Eragiketak&lt;/b&gt;&lt;br/&gt;+ DaPazientea(): bool&lt;br/&gt;+ IzenOsoa: string&lt;br/&gt;+ Rola: string&lt;/div&gt;" vertex="1">
+          <mxGeometry height="295" width="340" x="-20" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="osasun" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:13px;line-height:1.45;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;OsasunLangilea&lt;/div&gt;&lt;hr/&gt;&lt;b&gt;Atributuak&lt;/b&gt;&lt;br/&gt;- ElkargokideZenbakia: string&lt;br/&gt;- Espezialitatea: string&lt;br/&gt;- Kontsulta: string?&lt;br/&gt;- Lanaldia: string&lt;br/&gt;- Pazienteak: ArrayList&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Eragiketak&lt;/b&gt;&lt;br/&gt;+ DaOsasunLangilea(): bool&lt;br/&gt;+ IzenOsoa: string&lt;br/&gt;+ Rola: string&lt;/div&gt;" vertex="1">
+          <mxGeometry height="270" width="350" x="530" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="harrera" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:13px;line-height:1.45;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;HarrerakoLangilea&lt;/div&gt;&lt;hr/&gt;&lt;b&gt;Atributuak&lt;/b&gt;&lt;br/&gt;- Txanda: string&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Eragiketak&lt;/b&gt;&lt;br/&gt;+ IzenOsoa: string&lt;br/&gt;+ Rola: string&lt;/div&gt;" vertex="1">
+          <mxGeometry height="170" width="320" x="920" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="jarraipena" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:13px;line-height:1.42;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;Jarraipena&lt;/div&gt;&lt;hr/&gt;- Id: int&lt;br/&gt;- PazienteId: int&lt;br/&gt;- OsasunLangileId: int?&lt;br/&gt;- TentsioSistolikoa: int?&lt;br/&gt;- TentsioDiastolikoa: int?&lt;br/&gt;- PisuaKg: decimal?&lt;br/&gt;- Altuera: decimal?&lt;br/&gt;- PultsuaPpm: int?&lt;br/&gt;- Oharrak: string?&lt;br/&gt;- BideaZerbitzarian: string?&lt;br/&gt;- ErregistroData: DateTime&lt;br/&gt;- DokumentuKopurua: int&lt;/div&gt;" vertex="1">
+          <mxGeometry height="340" width="390" x="-410" y="1300" as="geometry" />
+        </mxCell>
+        <mxCell id="dokumentua" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:13px;line-height:1.42;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;Dokumentua&lt;/div&gt;&lt;hr/&gt;- Id: int&lt;br/&gt;- JarraipenaId: int&lt;br/&gt;- PazienteId: int&lt;br/&gt;- FitxategiIzena: string&lt;br/&gt;- BideaZerbitzarian: string&lt;br/&gt;- DokumentuIzena: string?&lt;br/&gt;- Deskribapena: string?&lt;br/&gt;- IgotzeData: DateTime&lt;br/&gt;- JarraipenData: DateTime?&lt;/div&gt;" vertex="1">
+          <mxGeometry height="250" width="350" x="-170" y="1730" as="geometry" />
+        </mxCell>
+        <mxCell id="hitzordua" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#9333ea;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:13px;line-height:1.42;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;Hitzordua&lt;/div&gt;&lt;hr/&gt;- HitzorduId: int&lt;br/&gt;- PazienteId: int&lt;br/&gt;- OsasunLangileId: int&lt;br/&gt;- Data: DateTime&lt;br/&gt;- HasieraOrdua: TimeSpan&lt;br/&gt;- BukaeraOrdua: TimeSpan?&lt;br/&gt;- Arrazoia: string?&lt;br/&gt;- Egoera: string&lt;br/&gt;- SortzeData: DateTime&lt;/div&gt;" vertex="1">
+          <mxGeometry height="260" width="350" x="860" y="1572.5" as="geometry" />
+        </mxCell>
+        <mxCell id="errezeta" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#9333ea;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:13px;line-height:1.42;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;Errezeta&lt;/div&gt;&lt;hr/&gt;- ErrezetaId: int&lt;br/&gt;- HitzorduId: int?&lt;br/&gt;- OsasunLangileId: int&lt;br/&gt;- PazienteId: int&lt;br/&gt;- IgorpenData: DateTime&lt;br/&gt;- IraungitzeData: DateTime?&lt;br/&gt;- XmlBidea: string?&lt;br/&gt;- Diagnostikoa: string?&lt;br/&gt;- Aktibo: bool&lt;br/&gt;- Botikak: List&lt;ErrezetaBotika&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="290" width="360" x="1420" y="1292.5" as="geometry" />
+        </mxCell>
+        <mxCell id="errezetaBotika" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#9333ea;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:13px;line-height:1.42;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;ErrezetaBotika&lt;/div&gt;&lt;hr/&gt;- LoturaId: int&lt;br/&gt;- ErrezetaId: int&lt;br/&gt;- BotikaId: int&lt;br/&gt;- Dosia: string?&lt;br/&gt;- Maiztasuna: string?&lt;br/&gt;- BotikaIzena: string?&lt;/div&gt;" vertex="1">
+          <mxGeometry height="220" width="310" x="1445" y="1772.5" as="geometry" />
+        </mxCell>
+        <mxCell id="botika" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#9333ea;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:13px;line-height:1.42;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;Botika&lt;/div&gt;&lt;hr/&gt;- BotikaId: int&lt;br/&gt;- Izena: string&lt;br/&gt;- IzenKimikoa: string?&lt;br/&gt;- NomenklaturaKimikoa: string?&lt;br/&gt;- EraginFokoa: string?&lt;br/&gt;- Aktibitatea: string?&lt;/div&gt;" vertex="1">
+          <mxGeometry height="220" width="310" x="1830" y="1372.5" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#94a3b8;fontColor=#000000;fontSize=13;arcSize=10;shadow=1;" value="Legenda:&lt;div&gt;- = atributu pribatua&lt;/div&gt;&lt;div&gt;+ = eragiketa publikoa&lt;/div&gt;&lt;div&gt;generalizazioa = herentzia&lt;/div&gt;&lt;div&gt;asoziazioa = erlazio zuzena&lt;/div&gt;&lt;div&gt;konposizioa = osagai dependentearen erlazioa&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="305" x="995" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="pazientea" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeWidth=2;strokeColor=#374151;fontColor=#000000;labelBackgroundColor=#ffffff;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="erabiltzailea" value="oinordekotza">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="415" y="780" />
+              <mxPoint x="415" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-70" connectable="0" parent="e1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.9079" y="2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="osasun" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeWidth=2;strokeColor=#374151;fontColor=#000000;labelBackgroundColor=#ffffff;" target="erabiltzailea" value="oinordekotza">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="705" y="720" />
+              <mxPoint x="705" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="harrera" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeWidth=2;strokeColor=#374151;fontColor=#000000;labelBackgroundColor=#ffffff;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" target="erabiltzailea" value="oinordekotza">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="erabiltzailea" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;strokeColor=#ea580c;fontColor=#000000;labelBackgroundColor=#ffffff;endFill=0;" target="rola" value="betetzen du[Erabiltzailea 0..* - Rola 1]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-66" connectable="0" parent="e4" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.5257" y="-3" as="geometry">
+            <mxPoint x="63" y="-7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="pazientea" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startArrow=none;strokeWidth=2;strokeColor=#16a34a;fontColor=#000000;labelBackgroundColor=#ffffff;endFill=0;startFill=0;" target="osasun" value="asoziazio bidirekzionala [0..* - 0..*]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-68" connectable="0" parent="e5" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; background-color: rgb(27, 29, 30);&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20connectable%3D%220%22%20parent%3D%221%22%20style%3D%22edgeLabel%3Bhtml%3D1%3Balign%3Dcenter%3BverticalAlign%3Dmiddle%3Bresizable%3D0%3Bpoints%3D%5B%5D%3BfontColor%3D%23000000%3BlabelBackgroundColor%3D%23FFFFFF%3B%22%20value%3D%22%26lt%3Bspan%20style%3D%26quot%3B%26quot%3B%26gt%3B0..*%26amp%3Bnbsp%3B%26lt%3B%2Fspan%26gt%3B%22%20vertex%3D%221%22%3E%3CmxGeometry%20x%3D%22489.6666666666665%22%20y%3D%22410.0000000000001%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.9245" y="-1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-69" connectable="0" parent="e5" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.8732" y="2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-71" connectable="0" parent="e5" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.8471" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="hitzordua" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;strokeColor=#9333ea;fontColor=#000000;labelBackgroundColor=#ffffff;endFill=0;" target="pazientea" value="zita du[Pazientea 1 - Hitzordua 0..*]">
+          <mxGeometry relative="1" x="-0.2642" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-73" connectable="0" parent="e6" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="1" vertex="1">
+          <mxGeometry relative="1" x="0.9677" y="1" as="geometry">
+            <mxPoint x="1" y="11" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="hitzordua" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;strokeColor=#9333ea;fontColor=#000000;labelBackgroundColor=#ffffff;endFill=0;" target="osasun" value="asoziazioa [OsasunLangilea 1 - Hitzordua 0..*]">
+          <mxGeometry relative="1" x="-0.1862" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="705" y="1630" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="jarraipena" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;strokeColor=#ea580c;fontColor=#000000;labelBackgroundColor=#ffffff;endFill=0;" target="pazientea" value="sortzen ditu[Pazientea 1 - Jarraipena 0..*]">
+          <mxGeometry relative="1" x="-0.7661" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="-205" y="1160" />
+              <mxPoint x="40" y="1160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="jarraipena" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;strokeColor=#ea580c;fontColor=#000000;labelBackgroundColor=#ffffff;endFill=0;" target="osasun" value="sortzen ditu [OsasunLangilea 1 - Jarraipena 0..*]">
+          <mxGeometry relative="1" x="-0.1667" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="580" y="1470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-75" connectable="0" parent="e9" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="1" vertex="1">
+          <mxGeometry relative="1" x="0.7674" y="-1" as="geometry">
+            <mxPoint y="-77" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="dokumentua" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;strokeColor=#ea580c;fontColor=#000000;labelBackgroundColor=#ffffff;endFill=0;" target="jarraipena" value="atxikitzen zaikzio[Jarraipena 1 - Dokumentua 0..*]">
+          <mxGeometry relative="1" x="0.7118" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="5" y="1710" />
+              <mxPoint x="-215" y="1710" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="dokumentua" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;strokeColor=#ea580c;fontColor=#000000;labelBackgroundColor=#ffffff;entryX=0.25;entryY=1;entryDx=0;entryDy=0;exitX=0.672;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;endFill=0;" target="pazientea" value="igotzen ditu[Pazientea 1 - Dokumentua 0..*]">
+          <mxGeometry relative="1" x="0.2715" y="55" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points" />
+            <mxPoint x="70" y="1745" as="sourcePoint" />
+            <mxPoint x="84.94" y="990" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-74" connectable="0" parent="e11" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;1&lt;/span&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.9338" y="1" as="geometry">
+            <mxPoint y="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;strokeColor=#9333ea;fontColor=#000000;labelBackgroundColor=#FFFFFF;endFill=0;" value="errezetatzen zaio[Pazientea 1 - Errezeta 0..*]">
+          <mxGeometry relative="1" x="-0.403" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="230" y="1379" />
+            </Array>
+            <mxPoint x="1471" y="1380" as="sourcePoint" />
+            <mxPoint x="230" y="975" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="errezeta" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;strokeColor=#9333ea;fontColor=#000000;labelBackgroundColor=#ffffff;endFill=0;" target="osasun" value="errezetatzen du[OsasunLangilea 1 - Errezeta 0..*]">
+          <mxGeometry relative="1" x="-0.08" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="760" y="1350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="errezeta" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;strokeColor=#9333ea;fontColor=#000000;labelBackgroundColor=#ffffff;endFill=0;" target="hitzordua" value="lotuta dago [Hitzordua 0..1 - Errezeta 0..*]">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1370" y="1452.5" />
+              <mxPoint x="1370" y="1702.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="errezeta" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=diamondThin;endFill=0;strokeWidth=2;strokeColor=#9333ea;fontColor=#000000;labelBackgroundColor=#ffffff;startArrow=none;startFill=0;startSize=17;endSize=17;" target="errezetaBotika" value="gehitzen dira[Errezeta 1 - ErrezetaBotika 1..*]">
+          <mxGeometry relative="1" x="-0.0526" y="60" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="errezetaBotika" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;strokeColor=#9333ea;fontColor=#000000;labelBackgroundColor=#ffffff;endFill=0;startArrow=diamondThin;startFill=0;endSize=16;startSize=17;" target="botika" value="konposatzen ditu[Botika 1 - ErrezetaBotika 0..*]">
+          <mxGeometry relative="1" x="0.3704" y="-5" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#86efac;fontColor=#000000;fontStyle=1;fontSize=18;align=center;verticalAlign=top;spacingTop=12;arcSize=18;shadow=1;" value="Kontrola" vertex="1">
+          <mxGeometry height="1875" width="880" x="-1380" y="195" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-2" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#16a34a;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.38;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;ErabiltzaileKontrolatzailea&lt;/div&gt;&lt;div style=&quot;font-size:11px;color:#166534;font-weight:600;margin-top:4px;&quot;&gt;Autentifikazio-fachada (login-only)&lt;/div&gt;&lt;hr/&gt;+ Login(emaila: string, pasahitza: string): LoginEmaitza&lt;br/&gt;+ LortuLoginBlokeoEgoera(): LoginSegurtasunEgoera&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130" width="360" x="-970" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-3" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#16a34a;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.4;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;HarrerakoLangileKontrolatzailea&lt;/div&gt;&lt;hr/&gt;+ LortuGuztiakHarrerakoak(bilatzailea: string? = null): List&lt;HarrerakoLangilea&gt;&lt;br/&gt;+ LortuHarrerakoa(harrerakoaId: int): HarrerakoLangilea?&lt;br/&gt;+ SortuHarrerakoa(h: HarrerakoLangilea): bool&lt;br/&gt;+ SortuHarrerakoa(h: HarrerakoLangilea, irudiBidea: string?): bool&lt;br/&gt;+ EzabatuHarrerakoa(id: int): bool&lt;br/&gt;+ EguneratuHarrerakoa(h: HarrerakoLangilea): bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="172.5" width="360" x="-910" y="865" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-4" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#16a34a;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.4;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;OsasunLangileKontrolatzailea&lt;/div&gt;&lt;hr/&gt;+ LortuGuztiakOsasunLangileak(bilatzailea: string? = null): List&lt;OsasunLangilea&gt;&lt;br/&gt;+ LortuOsasunLangilea(osasunLangileId: int): OsasunLangilea?&lt;br/&gt;+ SortuOsasunLangilea(m: OsasunLangilea): bool&lt;br/&gt;+ SortuOsasunLangilea(m: OsasunLangilea, irudiBidea: string?): bool&lt;br/&gt;+ EzabatuOsasunLangilea(id: int): bool&lt;br/&gt;+ EguneratuOsasunLangilea(m: OsasunLangilea): bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="430" x="-980" y="695" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-5" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#16a34a;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.4;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;HitzorduKontrolatzailea&lt;/div&gt;&lt;hr/&gt;+ LortuHitzorduGuztiak(): List&lt;Hitzordua&gt;&lt;br/&gt;+ LortuPazientearenHitzorduak(pazienteId: int): List&lt;Hitzordua&gt;&lt;br/&gt;+ LortuOsasunLangilearenHitzorduak(osasunLangileId: int): List&lt;Hitzordua&gt;&lt;br/&gt;+ GehituHitzordua(h: Hitzordua): void&lt;br/&gt;+ EguneratuHitzordua(h: Hitzordua): void&lt;br/&gt;+ EzabatuHitzordua(hitzorduId: int): void&lt;/div&gt;" vertex="1">
+          <mxGeometry height="170" width="380" x="-900" y="1605" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-6" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#16a34a;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.4;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;JarraipenaKontrolatzailea&lt;/div&gt;&lt;hr/&gt;+ LortuPazientearenJarraipenak(pazienteId: int): List&lt;Jarraipena&gt;&lt;br/&gt;+ LortuJarraipenGuztiak(bilaketa: string? = null, hasieraData: DateTime? = null, amaieraData: DateTime? = null, pazienteId: int? = null): List&lt;Jarraipena&gt;&lt;br/&gt;+ LortuJarraipena(jarraipenaId: int): Jarraipena?&lt;br/&gt;+ GordeJarraipena(jarraipena: Jarraipena): bool&lt;br/&gt;+ GordeJarraipenaEtaLortuId(jarraipena: Jarraipena): int?&lt;br/&gt;+ EzabatuJarraipena(jarraipenaId: int): bool&lt;br/&gt;+ EguneratuJarraipena(jarraipena: Jarraipena): bool&lt;br/&gt;+ LortuJarraipenarenDokumentuak(jarraipenaId: int): List&lt;Dokumentua&gt;&lt;br/&gt;+ GordeDokumentua(dokumentua: Dokumentua): bool&lt;br/&gt;+ EsportatuXML(n: Jarraipena): void&lt;/div&gt;" vertex="1">
+          <mxGeometry height="220" width="710" x="-1220" y="1065" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-7" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#16a34a;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.36;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;DokumentuaKontrolatzailea&lt;/div&gt;&lt;hr/&gt;+ LortuDokumentuak(bilaketa: string? = null, hasieraData: DateTime? = null, amaieraData: DateTime? = null, pazienteId: int? = null): List&lt;Dokumentua&gt;&lt;br/&gt;+ LortuJarraipenarenDokumentuak(jarraipenaId: int): List&lt;Dokumentua&gt;&lt;br/&gt;+ LortuPazientearenBesteDokumentuak(pazienteId: int, baztertuJarraipenaId: int? = null, bilaketa: string? = null): List&lt;Dokumentua&gt;&lt;br/&gt;+ LortuDokumentua(dokumentuId: int): Dokumentua?&lt;br/&gt;+ GordeDokumentua(dokumentua: Dokumentua): bool&lt;br/&gt;+ EguneratuDokumentua(dokumentua: Dokumentua): bool&lt;br/&gt;+ EzabatuDokumentua(dokumentuId: int): bool&lt;br/&gt;+ BerrlotuDokumentuaJarraipenera(dokumentuId: int, jarraipenaId: int): bool&lt;br/&gt;+ ZiurtatuJarraipena(pazienteId: int, jarraipenaId: int?, osasunLangileId: int?, oharrak: string? = null): int?&lt;br/&gt;+ GehituDokumentuGenerikoa(jatorrizkoFitxategia: string, pazienteId: int, jarraipenaId: int?, osasunLangileId: int?, dokumentuIzena: string, deskribapena: string?): bool&lt;br/&gt;+ GehituTxostena(pazienteId: int, jarraipenaId: int?, osasunLangileId: int?, dokumentuIzena: string, deskribapena: string?): bool&lt;br/&gt;+ GehituTxostena(pazienteId: int, jarraipenaId: int?, osasunLangileId: int?, dokumentuIzena: string, deskribapena: string?, grafikaMotak: IReadOnlyCollection&lt;TxostenGrafikaMota&gt;?, grafikaHasieraData: DateTime?, grafikaAmaieraData: DateTime?): bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="270" width="850" x="-1360" y="1320" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-8" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#16a34a;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.38;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;ErrezetaKontrolatzailea&lt;/div&gt;&lt;hr/&gt;+ LortuErrezetaGuztiak(soilikAktiboak: bool = true): List&lt;Errezeta&gt;&lt;br/&gt;+ LortuOsasunLangilearenErrezetak(langileId: int, soilikAktiboak: bool = true): List&lt;Errezeta&gt;&lt;br/&gt;+ LortuPazientearenErrezetak(pazienteId: int, soilikAktiboak: bool = true): List&lt;Errezeta&gt;&lt;br/&gt;+ SortuErrezeta(errezeta: Errezeta): bool&lt;br/&gt;+ EguneratuErrezeta(errezeta: Errezeta): bool&lt;br/&gt;+ EzabatuErrezeta(errezetaId: int): bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="190" width="410" x="-930" y="1795" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-12" edge="1" parent="1" source="tibaM857Dn8ZIo-XiKcg-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="tibaM857Dn8ZIo-XiKcg-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-14" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#16a34a;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.38;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;PazienteKontrolatzailea&lt;/div&gt;&lt;hr/&gt;+ LortuLangilearenPazienteak(langileId: int, bilatzailea: string? = null, egoeraFiltroa: string? = null): List&lt;Pazientea&gt;&lt;br/&gt;+ LortuGuztiakPazienteak(bilatzailea: string? = null, egoeraFiltroa: string? = null): List&lt;Pazientea&gt;&lt;br/&gt;+ LortuPazientea(pazienteId: int): Pazientea?&lt;br/&gt;+ LortuPazientearenOsasunLangileak(pazienteId: int): List&lt;OsasunLangilea&gt;&lt;br/&gt;+ SortuPazientea(p: Pazientea): bool&lt;br/&gt;+ SortuPazientea(p: Pazientea, osasunLangileIds: IEnumerable&lt;int&gt;, irudiBidea: string?): bool&lt;br/&gt;+ EsleituOsasunLangileakPazienteari(pazienteId: int, osasunLangileIds: IEnumerable&lt;int&gt;): bool&lt;br/&gt;+ EzabatuPazientea(id: int): bool&lt;br/&gt;+ EguneratuPazientea(p: Pazientea): bool&lt;br/&gt;+ EguneratuPazientea(p: Pazientea, osasunLangileIds: IEnumerable&lt;int&gt;): bool&lt;br/&gt;+ AldatuPazientearenEgoera(pazienteId: int, egoeraBerria: string): bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="280" width="430" x="-980" y="405" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-16" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#93c5fd;fontColor=#000000;fontStyle=1;fontSize=18;align=center;verticalAlign=top;spacingTop=12;arcSize=18;shadow=1;" value="Repositorioa" vertex="1">
+          <mxGeometry height="620" width="3080" x="-610" y="2080" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-17" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.36;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;ErabiltzaileDB&lt;/div&gt;&lt;hr/&gt;+ Login(emaila: string, pasahitza: string): Erabiltzailea?&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="290" x="-20" y="2120" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-18" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.36;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;PazienteaDB&lt;/div&gt;&lt;hr/&gt;+ LortuLangilearenPazienteak(langileId: int, bilatzailea: string? = null, egoeraFiltroa: string? = null): List&lt;Pazientea&gt;&lt;br/&gt;+ LortuGuztiakPazienteak(bilatzailea: string? = null, egoeraFiltroa: string? = null): List&lt;Pazientea&gt;&lt;br/&gt;+ LortuPazientea(pazienteId: int): Pazientea?&lt;br/&gt;+ LortuPazientearenOsasunLangileak(pazienteId: int): List&lt;OsasunLangilea&gt;&lt;br/&gt;+ SortuPazientea(p: Pazientea): bool&lt;br/&gt;+ SortuPazientea(p: Pazientea, osasunLangileIds: IEnumerable&lt;int&gt;?, irudiBidea: string?): bool&lt;br/&gt;+ EzabatuPazientea(id: int): bool&lt;br/&gt;+ EguneratuPazientea(p: Pazientea): bool&lt;br/&gt;+ EguneratuPazientea(p: Pazientea, osasunLangileIds: IEnumerable&lt;int&gt;): bool&lt;br/&gt;+ AldatuPazientearenEgoera(pazienteId: int, egoeraBerria: string): bool&lt;br/&gt;+ EsleituOsasunLangileakPazienteari(pazienteId: int, osasunLangileIds: IEnumerable&lt;int&gt;): bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="230" width="530" x="320" y="2120" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-19" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.4;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;HitzorduDB&lt;/div&gt;&lt;hr/&gt;+ LortuHitzorduGuztiak(): List&lt;Hitzordua&gt;&lt;br/&gt;+ LortuPazientearenHitzorduak(pazienteId: int): List&lt;Hitzordua&gt;&lt;br/&gt;+ LortuOsasunLangilearenHitzorduak(langileId: int): List&lt;Hitzordua&gt;&lt;br/&gt;+ GehituHitzordua(h: Hitzordua): void&lt;br/&gt;+ EguneratuHitzordua(h: Hitzordua): void&lt;br/&gt;+ EzabatuHitzordua(hitzorduId: int): void&lt;/div&gt;" vertex="1">
+          <mxGeometry height="180" width="310" x="-150" y="2390" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-20" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.4;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;JarraipenaDB&lt;/div&gt;&lt;hr/&gt;+ LortuJarraipenGuztiak(bilaketa: string? = null, hasieraData: DateTime? = null, amaieraData: DateTime? = null, pazienteId: int? = null): List&lt;Jarraipena&gt;&lt;br/&gt;+ LortuPazientearenJarraipenak(pazienteId: int): List&lt;Jarraipena&gt;&lt;br/&gt;+ LortuJarraipena(jarraipenaId: int): Jarraipena?&lt;br/&gt;+ GordeJarraipenaEtaLortuId(jarraipena: Jarraipena): int?&lt;br/&gt;+ GordeJarraipena(jarraipena: Jarraipena): bool&lt;br/&gt;+ EguneratuJarraipena(jarraipena: Jarraipena): bool&lt;br/&gt;+ EzabatuJarraipena(jarraipenaId: int): bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="180" width="740" x="1670" y="2126.25" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-21" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.36;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;DokumentuaDB&lt;/div&gt;&lt;hr/&gt;+ LortuDokumentuGuztiak(bilaketa: string? = null, hasieraData: DateTime? = null, amaieraData: DateTime? = null, pazienteId: int? = null): List&lt;Dokumentua&gt;&lt;br/&gt;+ LortuJarraipenarenDokumentuak(jarraipenaId: int): List&lt;Dokumentua&gt;&lt;br/&gt;+ LortuPazientearenBesteDokumentuak(pazienteId: int, baztertuJarraipenaId: int? = null, bilaketa: string? = null): List&lt;Dokumentua&gt;&lt;br/&gt;+ LortuDokumentua(dokumentuId: int): Dokumentua?&lt;br/&gt;+ GordeDokumentua(dokumentua: Dokumentua): bool&lt;br/&gt;+ EguneratuDokumentua(dokumentua: Dokumentua): bool&lt;br/&gt;+ AldatuDokumentuarenJarraipena(dokumentuId: int, jarraipenaId: int): bool&lt;br/&gt;+ EzabatuDokumentua(dokumentuId: int): bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="210" width="740" x="215" y="2390" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-102" edge="1" parent="1" source="tibaM857Dn8ZIo-XiKcg-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="tibaM857Dn8ZIo-XiKcg-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-22" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9333ea;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.4;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;ErrezetaDB&lt;/div&gt;&lt;hr/&gt;+ LortuErrezetaGuztiak(soilikAktiboak: bool = true): List&lt;Errezeta&gt;&lt;br/&gt;+ SortuErrezeta(errezeta: Errezeta): bool&lt;br/&gt;+ LortuOsasunLangilearenErrezetak(langileId: int, soilikAktiboak: bool = true): List&lt;Errezeta&gt;&lt;br/&gt;+ LortuPazientearenErrezetak(pazienteId: int, soilikAktiboak: bool = true): List&lt;Errezeta&gt;&lt;br/&gt;+ EguneratuErrezeta(errezeta: Errezeta): bool&lt;br/&gt;+ EzabatuErrezeta(errezetaId: int): bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="170" width="440" x="1035" y="2390" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-23" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9333ea;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.4;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;BotikaDB&lt;/div&gt;&lt;hr/&gt;+ LortuBotikaGuztiak(): List&lt;Botika&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="220" x="1545" y="2390" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-24" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.36;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;HarrerakoLangileaDB&lt;/div&gt;&lt;hr/&gt;+ LortuGuztiakHarrerakoak(bilatzailea: string? = null): List&lt;HarrerakoLangilea&gt;&lt;br/&gt;+ LortuHarrerakoa(harrerakoaId: int): HarrerakoLangilea?&lt;br/&gt;+ SortuHarrerakoa(h: HarrerakoLangilea): bool&lt;br/&gt;+ SortuHarrerakoa(h: HarrerakoLangilea, irudiBidea: string?): bool&lt;br/&gt;+ EzabatuHarrerakoa(id: int): bool&lt;br/&gt;+ EguneratuHarrerakoa(h: HarrerakoLangilea): bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="172.5" width="360" x="1280" y="2130" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-25" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;fontSize=10;" value="&lt;div style=&quot;padding: 10px; line-height: 1.36; color: rgb(0, 0, 0);&quot;&gt;&lt;div style=&quot;font-weight: 700; color: rgb(0, 0, 0);&quot;&gt;OsasunLangileaDB&lt;/div&gt;&lt;hr&gt;+ LortuGuztiakOsasunLangileak(bilatzailea: string? = null): List&lt;br&gt;+ LortuOsasunLangilea(osasunLangileId: int): OsasunLangilea?&lt;br&gt;+ SortuOsasunLangilea(m: OsasunLangilea): bool&lt;br&gt;+ SortuOsasunLangilea(m: OsasunLangilea, irudiBidea: string?): bool&lt;br&gt;+ EzabatuOsasunLangilea(id: int): bool&lt;br&gt;+ EguneratuOsasunLangilea(m: OsasunLangilea): bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="150" width="340" x="885" y="2130" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-26" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:10px;line-height:1.33;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:16px;font-weight:700;color:#000000;&quot;&gt;DatuBaseKonexioa&lt;/div&gt;&lt;div style=&quot;font-size:10px;color:#1d4ed8;font-weight:600;margin-top:4px;&quot;&gt;Klase estatikoa&lt;/div&gt;&lt;hr/&gt;+ {static} LortuDatuBaseIzena(): string&lt;br/&gt;+ {static} LortuKonexioa(datuBasearekin: bool = true): MySqlConnection&lt;br/&gt;+ {static} ItxiKonexioa(konexioa: MySqlConnection?): void&lt;br/&gt;+ {static} ProbatuKonexioa(out erroreMezua: string): bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="145" width="460" x="-545" y="2120" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-27" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#d8b4fe;fontColor=#000000;fontStyle=1;fontSize=18;align=center;verticalAlign=top;spacingTop=12;arcSize=18;shadow=1;" value="Zerbitzu osagarriak" vertex="1">
+          <mxGeometry height="1690" width="750" x="2190" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-32" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#ef4444;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.4;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;BM58Driver&lt;/div&gt;&lt;hr/&gt;+ EgiaztatuHardwareKonexioa(): bool&lt;br/&gt;+ BilatuGailua(out isHid: bool): string?&lt;br/&gt;+ IrakurriErrekordGuztiak(identifier: string, isHid: bool): List&lt;BM58RawRecord&gt;&lt;br/&gt;+ KalkulatuBatezbestekoa(records: List&lt;BM58RawRecord&gt;, pazienteId: int, memoria: int): Jarraipena?&lt;br/&gt;+ LortuAzkenNeurketa(records: List&lt;BM58RawRecord&gt;, pazienteId: int, memoria: int): Jarraipena?&lt;br/&gt;+ AnalizatuErrekordak(records: List&lt;BM58RawRecord&gt;): MemoriaInformazioa&lt;/div&gt;" vertex="1">
+          <mxGeometry height="250" width="430" x="2270" y="1090" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-33" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#ef4444;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.38;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;DokumentuPdfZerbitzua&lt;/div&gt;&lt;hr/&gt;+ {static} SortuHelmugaBidea(fitxategiIzena: string): string&lt;br/&gt;+ SortuPazientearenTxostena(pazienteId: int, dokumentuIzena: string, grafikaMotak: IReadOnlyCollection&lt;TxostenGrafikaMota&gt;? = null, grafikaHasieraData: DateTime? = null, grafikaAmaieraData: DateTime? = null): string&lt;/div&gt;" vertex="1">
+          <mxGeometry height="165" width="590" x="2270" y="890" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-34" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#ef4444;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:10px;line-height:1.34;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:16px;font-weight:700;color:#000000;&quot;&gt;TxostenGrafikaZerbitzua&lt;/div&gt;&lt;hr/&gt;+ {static} LortuGrafikaTestua(mota: TxostenGrafikaMota): string&lt;br/&gt;+ SortuGrafikaIrudia(pazientea: Pazientea, jarraipenak: IReadOnlyList&lt;Jarraipena&gt;, mota: TxostenGrafikaMota, hasieraData: DateTime?, amaieraData: DateTime?): byte[]?&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="510" x="2270" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-35" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#ef4444;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:11px;line-height:1.38;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:17px;font-weight:700;color:#000000;&quot;&gt;LoginBlokeoZerbitzua&lt;/div&gt;&lt;hr/&gt;+ LortuEgoera(): LoginSegurtasunEgoera&lt;br/&gt;+ ErregistratuHutsegitea(): LoginSegurtasunEgoera&lt;br/&gt;+ Berrezarri(): void&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="280" x="2270" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-38" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#ef4444;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:10px;line-height:1.33;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:16px;font-weight:700;color:#000000;&quot;&gt;AplikazioKonfigurazioaHornitzailea&lt;/div&gt;&lt;div style=&quot;font-size:10px;color:#991b1b;font-weight:600;margin-top:4px;&quot;&gt;Klase estatikoa&lt;/div&gt;&lt;hr/&gt;+ {static} LortuKonfigurazioa(): AplikazioKonfigurazioa&lt;br/&gt;+ {static} GordeKonfigurazioa(konfigurazioa: AplikazioKonfigurazioa): void&lt;br/&gt;+ {static} BerrizKargatu(): void&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130" width="440" x="2250" y="1400" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-39" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#ef4444;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:10px;line-height:1.28;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:16px;font-weight:700;color:#000000;&quot;&gt;AplikazioBideak&lt;/div&gt;&lt;div style=&quot;font-size:10px;color:#991b1b;font-weight:600;margin-top:4px;&quot;&gt;Klase estatikoa&lt;/div&gt;&lt;hr/&gt;+ {static} LortuWebErroa(): string&lt;br/&gt;+ {static} LortuDokumentuKarpeta(): string&lt;br/&gt;+ {static} LortuPazienteDokumentuKarpeta(): string&lt;br/&gt;+ {static} LortuXmlKarpeta(): string&lt;br/&gt;+ {static} LortuIrudiKarpeta(): string&lt;br/&gt;+ {static} LortuAplikazioIrudiKarpeta(): string&lt;br/&gt;+ {static} LortuIrudiErroak(): IEnumerable&lt;string&gt;&lt;br/&gt;+ {static} LortuIrudiHelmugaBidea(irudiErlatiboa: string): string&lt;br/&gt;+ {static} ZiurtatuBiltegiratzeKarpetak(): void&lt;/div&gt;" vertex="1">
+          <mxGeometry height="215" width="490" x="2250" y="1585" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-40" parent="1" style="shape=rectangle;rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#ef4444;strokeWidth=2;fontColor=#000000;align=left;verticalAlign=top;shadow=1;" value="&lt;div style=&quot;padding:10px;font-size:10px;line-height:1.34;color:#000000;&quot;&gt;&lt;div style=&quot;font-size:16px;font-weight:700;color:#000000;&quot;&gt;HasierakoPrestaketaZerbitzua&lt;/div&gt;&lt;div style=&quot;font-size:10px;color:#991b1b;font-weight:600;margin-top:4px;&quot;&gt;Klase estatikoa&lt;/div&gt;&lt;hr/&gt;+ {static} Exekutatu(): HasierakoPrestaketaEmaitza&lt;/div&gt;" vertex="1">
+          <mxGeometry height="95" width="400" x="2250" y="1820" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-45" edge="1" parent="1" source="tibaM857Dn8ZIo-XiKcg-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0.595;entryY=-0.01;entryDx=0;entryDy=0;entryPerimeter=0;" target="tibaM857Dn8ZIo-XiKcg-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-65" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#d1d5db;fontColor=#000000;fontSize=14;arcSize=12;" value="UML notazioa: `+` publikoa, `{static}` estatikoa, `izena: mota` parametroetan, `): mota` itzulera motan. Mota guztiak C# notazioan daude." vertex="1">
+          <mxGeometry height="40" width="1220" x="690" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-67" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;1&lt;/font&gt;" vertex="1">
+          <mxGeometry x="320" y="260" as="geometry">
+            <mxPoint x="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-76" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="1" vertex="1">
+          <mxGeometry x="700" y="1110" as="geometry">
+            <mxPoint x="7" y="-13" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-77" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="1" vertex="1">
+          <mxGeometry x="760" y="1100" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-79" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry x="-170" y="1270" as="geometry">
+            <mxPoint x="-30" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-80" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry x="30" y="1490" as="geometry">
+            <mxPoint x="-12" y="-16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-82" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry y="1710" as="geometry">
+            <mxPoint x="-30" y="-4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-83" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry x="80" y="1690" as="geometry">
+            <mxPoint x="-19" y="5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-84" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry x="830" y="1702.5" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-85" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry x="830" y="1662.5" as="geometry">
+            <mxPoint x="1" y="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-86" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry x="1410" y="1392.5" as="geometry">
+            <mxPoint x="-16" y="-3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-87" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry x="1380" y="1412.5" as="geometry">
+            <mxPoint x="6" y="11" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-88" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry x="1390" y="1452.5" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-89" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry x="1240" y="1702.5" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-92" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry x="1800" y="1882.5" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-94" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="1" vertex="1">
+          <mxGeometry x="300" y="1010" as="geometry">
+            <mxPoint x="-70" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-96" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="1" vertex="1">
+          <mxGeometry x="-190" y="1640" as="geometry">
+            <mxPoint x="-25" y="14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-97" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;1&lt;/span&gt;" vertex="1">
+          <mxGeometry x="40" y="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-98" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry x="1620" y="1752.5" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-99" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry x="1620" y="1602.5" as="geometry" />
+        </mxCell>
+        <mxCell id="tibaM857Dn8ZIo-XiKcg-100" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;labelBackgroundColor=#FFFFFF;" value="&lt;span style=&quot;&quot;&gt;0..*&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry x="2080" y="1642.5" as="geometry">
+            <mxPoint x="-101" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

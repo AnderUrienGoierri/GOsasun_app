@@ -468,22 +468,28 @@ namespace GOsasun_app.Interfazea
                 && string.Equals(dgvPazienteak.Columns[columnIndex].Name, "Ekintzak", StringComparison.OrdinalIgnoreCase);
         }
 
-        private static Dictionary<string, Rectangle> LortuEkintzaBotoiak(Rectangle cellBounds)
+        private Dictionary<string, Rectangle> LortuEkintzaBotoiak(Rectangle cellBounds)
         {
             int buttonSize = EkintzaBotoiTamaina;
             int spacing = 10;
-            int totalWidth = (buttonSize * 5) + (spacing * 4);
+            bool harrerakoa = _erabiltzailea is HarrerakoLangilea;
+
+            // Harrerakoak ez ditu jarraipena/jarraipenak botoiak ikusten
+            List<string> ekintzak = harrerakoa
+                ? new List<string> { "ikusi", "editatu", "ezabatu" }
+                : new List<string> { "ikusi", "editatu", "jarraipena", "jarraipenak", "ezabatu" };
+
+            int totalWidth = (buttonSize * ekintzak.Count) + (spacing * (ekintzak.Count - 1));
             int left = cellBounds.Left + Math.Max(10, (cellBounds.Width - totalWidth) / 2);
             int top = cellBounds.Top + Math.Max(6, (cellBounds.Height - buttonSize) / 2);
 
-            return new Dictionary<string, Rectangle>
+            Dictionary<string, Rectangle> botoiak = new Dictionary<string, Rectangle>();
+            for (int i = 0; i < ekintzak.Count; i++)
             {
-                ["ikusi"] = new Rectangle(left, top, buttonSize, buttonSize),
-                ["editatu"] = new Rectangle(left + buttonSize + spacing, top, buttonSize, buttonSize),
-                ["jarraipena"] = new Rectangle(left + ((buttonSize + spacing) * 2), top, buttonSize, buttonSize),
-                ["jarraipenak"] = new Rectangle(left + ((buttonSize + spacing) * 3), top, buttonSize, buttonSize),
-                ["ezabatu"] = new Rectangle(left + ((buttonSize + spacing) * 4), top, buttonSize, buttonSize)
-            };
+                botoiak[ekintzak[i]] = new Rectangle(left + ((buttonSize + spacing) * i), top, buttonSize, buttonSize);
+            }
+
+            return botoiak;
         }
 
         private void DgvPazienteak_CellPainting(object? sender, DataGridViewCellPaintingEventArgs e)
