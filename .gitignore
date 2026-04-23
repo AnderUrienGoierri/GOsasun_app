@@ -11,7 +11,8 @@ dokumentuak/
 Technical specifications/
 
 # Large files (>100MB)
-**/*.exe
+publish
+deployment
 **/*.zip
 **/*.rar
 **/beurer_tentsiometroa_pultsometroa/
