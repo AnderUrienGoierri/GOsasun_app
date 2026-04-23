@@ -10,10 +10,10 @@
       "GOsasun_app/1.0.0": {
         "dependencies": {
           "HidSharp": "2.6.4",
-          "MySql.Data": "9.6.0",
+          "MySql.Data": "9.7.0",
           "QuestPDF": "2024.12.3",
           "Svg": "3.4.7",
-          "System.IO.Ports": "10.0.6",
+          "System.IO.Ports": "10.0.7",
           "System.Management": "10.0.5",
           "runtimepack.Microsoft.NETCore.App.Runtime.win-x64": "10.0.6",
           "runtimepack.Microsoft.WindowsDesktop.App.Runtime.win-x64": "10.0.6"
@@ -933,7 +933,7 @@
           }
         }
       },
-      "MySql.Data/9.6.0": {
+      "MySql.Data/9.7.0": {
         "dependencies": {
           "BouncyCastle.Cryptography": "2.6.2",
           "Google.Protobuf": "3.32.0",
@@ -942,8 +942,8 @@
         },
         "runtime": {
           "lib/net10.0/MySql.Data.dll": {
-            "assemblyVersion": "9.6.0.0",
-            "fileVersion": "9.6.0.0"
+            "assemblyVersion": "9.7.0.0",
+            "fileVersion": "9.7.0.0"
           }
         },
         "native": {
@@ -1000,11 +1000,11 @@
           }
         }
       },
-      "System.IO.Ports/10.0.6": {
+      "System.IO.Ports/10.0.7": {
         "runtime": {
           "runtimes/win/lib/net10.0/System.IO.Ports.dll": {
-            "assemblyVersion": "10.0.0.6",
-            "fileVersion": "10.0.626.17701"
+            "assemblyVersion": "10.0.0.7",
+            "fileVersion": "10.0.726.21808"
           }
         }
       },
@@ -1091,12 +1091,12 @@
       "path": "k4os.hash.xxhash/1.0.8",
       "hashPath": "k4os.hash.xxhash.1.0.8.nupkg.sha512"
     },
-    "MySql.Data/9.6.0": {
+    "MySql.Data/9.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-jjCXNBxLLQHBcyYyOP4yp5jqljStH2qGFXXg3jBMdwYQk9ihpLH9BXoMyc/J3421pENBDjCf/eGi9Ow0Ib7LUA==",
-      "path": "mysql.data/9.6.0",
-      "hashPath": "mysql.data.9.6.0.nupkg.sha512"
+      "sha512": "sha512-yJRZnwqOaKd7DXdbim2/gznKnt4kJEYUe/+PdbopY0WC+2UPcYGOtuSrHrBOAoKEpO66p5TGwlP4hQ233SBAKA==",
+      "path": "mysql.data/9.7.0",
+      "hashPath": "mysql.data.9.7.0.nupkg.sha512"
     },
     "QuestPDF/2024.12.3": {
       "type": "package",
@@ -1112,12 +1112,12 @@
       "path": "svg/3.4.7",
       "hashPath": "svg.3.4.7.nupkg.sha512"
     },
-    "System.IO.Ports/10.0.6": {
+    "System.IO.Ports/10.0.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-+rKTjiJwrN8F/9Zncnj4bbb1fHtPQBsp91cGVAqPqt4vEyOrYcAtdAVQBvhi0X83Fl9YnRrkSZm0f3346H9Icw==",
-      "path": "system.io.ports/10.0.6",
-      "hashPath": "system.io.ports.10.0.6.nupkg.sha512"
+      "sha512": "sha512-mqXbgdKeERkGaD7RLWPSEUjSaGUSswZOd6SEcbkB42FK+1JywtZ8RqBf1Q8n8hoXSo7jOuVujltrzXoWP1AXhQ==",
+      "path": "system.io.ports/10.0.7",
+      "hashPath": "system.io.ports.10.0.7.nupkg.sha512"
     },
     "System.Management/10.0.5": {
       "type": "package",
