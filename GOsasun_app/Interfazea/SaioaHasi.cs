@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 // SaioaHasi.cs - Saioa hasteko formularioa
 // ============================================================
 // Erabiltzaileak saioa hasteko formularioa. Erabiltzaile-izena
@@ -9,7 +9,7 @@
 using GOsasun_app.Modeloa;
 using GOsasun_app.Kontrola;
 using GOsasun_app.Kontrola.Zerbitzuak;
-using GOsasun_app.Interfazea.Kontrolak;
+using GOsasun_app.Interfazea.Oinarriak_UI;
 using System.ComponentModel;
 
 namespace GOsasun_app.Interfazea

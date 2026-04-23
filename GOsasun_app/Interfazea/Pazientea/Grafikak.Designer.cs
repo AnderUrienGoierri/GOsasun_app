@@ -46,7 +46,6 @@ namespace GOsasun_app.Interfazea
             _edukiPanela.Controls.Add(pnlIragazkiak);
             _edukiPanela.Controls.Add(lblIzenburua);
             _edukiPanela.Location = new Point(0, 186);
-            _edukiPanela.Size = new Size(1902, 869);
             // 
             // _goiburuBarra
             // 
@@ -63,7 +62,7 @@ namespace GOsasun_app.Interfazea
             lblIzenburua.ForeColor = Color.White;
             lblIzenburua.Location = new Point(2, 2);
             lblIzenburua.Name = "lblIzenburua";
-            lblIzenburua.Size = new Size(1877, 93);
+            lblIzenburua.Size = new Size(1898, 93);
             lblIzenburua.TabIndex = 0;
             lblIzenburua.Text = "OSASUN DATUEN GRAFIKAK";
             lblIzenburua.TextAlign = ContentAlignment.MiddleLeft;
@@ -84,9 +83,9 @@ namespace GOsasun_app.Interfazea
             pnlIragazkiak.Controls.Add(lblAmaiera);
             pnlIragazkiak.Controls.Add(dtpAmaiera);
             pnlIragazkiak.Controls.Add(btnGrafikoaErakutsi);
-            pnlIragazkiak.Location = new Point(94, 114);
+            pnlIragazkiak.Location = new Point(0, 94);
             pnlIragazkiak.Name = "pnlIragazkiak";
-            pnlIragazkiak.Size = new Size(1714, 67);
+            pnlIragazkiak.Size = new Size(1901, 134);
             pnlIragazkiak.TabIndex = 1;
             // 
             // lblPazienteBilatu
@@ -94,19 +93,19 @@ namespace GOsasun_app.Interfazea
             lblPazienteBilatu.AutoSize = true;
             lblPazienteBilatu.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblPazienteBilatu.ForeColor = Color.FromArgb(44, 62, 80);
-            lblPazienteBilatu.Location = new Point(3, 1);
+            lblPazienteBilatu.Location = new Point(10, -3);
             lblPazienteBilatu.Name = "lblPazienteBilatu";
-            lblPazienteBilatu.Size = new Size(153, 25);
+            lblPazienteBilatu.Size = new Size(245, 41);
             lblPazienteBilatu.TabIndex = 0;
             lblPazienteBilatu.Text = "Bilatu pazientea";
             // 
             // txtPazienteBilatu
             // 
             txtPazienteBilatu.Font = new Font("Segoe UI", 11F);
-            txtPazienteBilatu.Location = new Point(3, 29);
+            txtPazienteBilatu.Location = new Point(10, 40);
             txtPazienteBilatu.Name = "txtPazienteBilatu";
             txtPazienteBilatu.PlaceholderText = "Abizena, izena edo NAN";
-            txtPazienteBilatu.Size = new Size(346, 32);
+            txtPazienteBilatu.Size = new Size(346, 47);
             txtPazienteBilatu.TabIndex = 1;
             // 
             // lblPazientea
@@ -114,9 +113,9 @@ namespace GOsasun_app.Interfazea
             lblPazientea.AutoSize = true;
             lblPazientea.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblPazientea.ForeColor = Color.FromArgb(44, 62, 80);
-            lblPazientea.Location = new Point(387, 1);
+            lblPazientea.Location = new Point(366, -1);
             lblPazientea.Name = "lblPazientea";
-            lblPazientea.Size = new Size(97, 25);
+            lblPazientea.Size = new Size(152, 41);
             lblPazientea.TabIndex = 2;
             lblPazientea.Text = "Pazientea";
             // 
@@ -125,9 +124,9 @@ namespace GOsasun_app.Interfazea
             cmbPazienteak.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPazienteak.Font = new Font("Segoe UI", 11F);
             cmbPazienteak.FormattingEnabled = true;
-            cmbPazienteak.Location = new Point(387, 29);
+            cmbPazienteak.Location = new Point(362, 40);
             cmbPazienteak.Name = "cmbPazienteak";
-            cmbPazienteak.Size = new Size(292, 33);
+            cmbPazienteak.Size = new Size(292, 48);
             cmbPazienteak.TabIndex = 3;
             // 
             // chkPazienteGuztiak
@@ -135,21 +134,22 @@ namespace GOsasun_app.Interfazea
             chkPazienteGuztiak.AutoSize = true;
             chkPazienteGuztiak.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             chkPazienteGuztiak.ForeColor = Color.FromArgb(44, 62, 80);
-            chkPazienteGuztiak.Location = new Point(182, 3);
+            chkPazienteGuztiak.Location = new Point(10, 87);
             chkPazienteGuztiak.Name = "chkPazienteGuztiak";
-            chkPazienteGuztiak.Size = new Size(199, 25);
+            chkPazienteGuztiak.Size = new Size(309, 40);
             chkPazienteGuztiak.TabIndex = 4;
             chkPazienteGuztiak.Text = "Paziente guztiak ikusi";
             chkPazienteGuztiak.UseVisualStyleBackColor = true;
+            chkPazienteGuztiak.CheckedChanged += chkPazienteGuztiak_CheckedChanged;
             // 
             // lblGrafikaMota
             // 
             lblGrafikaMota.AutoSize = true;
             lblGrafikaMota.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblGrafikaMota.ForeColor = Color.FromArgb(44, 62, 80);
-            lblGrafikaMota.Location = new Point(685, 1);
+            lblGrafikaMota.Location = new Point(664, -1);
             lblGrafikaMota.Name = "lblGrafikaMota";
-            lblGrafikaMota.Size = new Size(128, 25);
+            lblGrafikaMota.Size = new Size(202, 41);
             lblGrafikaMota.TabIndex = 4;
             lblGrafikaMota.Text = "Grafika mota";
             // 
@@ -158,9 +158,9 @@ namespace GOsasun_app.Interfazea
             cmbGrafikaMota.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbGrafikaMota.Font = new Font("Segoe UI", 11F);
             cmbGrafikaMota.FormattingEnabled = true;
-            cmbGrafikaMota.Location = new Point(685, 29);
+            cmbGrafikaMota.Location = new Point(660, 40);
             cmbGrafikaMota.Name = "cmbGrafikaMota";
-            cmbGrafikaMota.Size = new Size(236, 33);
+            cmbGrafikaMota.Size = new Size(341, 48);
             cmbGrafikaMota.TabIndex = 5;
             // 
             // lblHasiera
@@ -168,9 +168,9 @@ namespace GOsasun_app.Interfazea
             lblHasiera.AutoSize = true;
             lblHasiera.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblHasiera.ForeColor = Color.FromArgb(44, 62, 80);
-            lblHasiera.Location = new Point(946, -1);
+            lblHasiera.Location = new Point(1007, -1);
             lblHasiera.Name = "lblHasiera";
-            lblHasiera.Size = new Size(122, 25);
+            lblHasiera.Size = new Size(194, 41);
             lblHasiera.TabIndex = 6;
             lblHasiera.Text = "Hasiera data";
             // 
@@ -178,9 +178,9 @@ namespace GOsasun_app.Interfazea
             // 
             dtpHasiera.Font = new Font("Segoe UI", 11F);
             dtpHasiera.Format = DateTimePickerFormat.Short;
-            dtpHasiera.Location = new Point(946, 30);
+            dtpHasiera.Location = new Point(1006, 40);
             dtpHasiera.Name = "dtpHasiera";
-            dtpHasiera.Size = new Size(231, 32);
+            dtpHasiera.Size = new Size(231, 47);
             dtpHasiera.TabIndex = 7;
             // 
             // lblAmaiera
@@ -188,9 +188,9 @@ namespace GOsasun_app.Interfazea
             lblAmaiera.AutoSize = true;
             lblAmaiera.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblAmaiera.ForeColor = Color.FromArgb(44, 62, 80);
-            lblAmaiera.Location = new Point(1183, -1);
+            lblAmaiera.Location = new Point(1255, -1);
             lblAmaiera.Name = "lblAmaiera";
-            lblAmaiera.Size = new Size(129, 25);
+            lblAmaiera.Size = new Size(206, 41);
             lblAmaiera.TabIndex = 8;
             lblAmaiera.Text = "Amaiera data";
             // 
@@ -198,9 +198,9 @@ namespace GOsasun_app.Interfazea
             // 
             dtpAmaiera.Font = new Font("Segoe UI", 11F);
             dtpAmaiera.Format = DateTimePickerFormat.Short;
-            dtpAmaiera.Location = new Point(1183, 30);
+            dtpAmaiera.Location = new Point(1255, 40);
             dtpAmaiera.Name = "dtpAmaiera";
-            dtpAmaiera.Size = new Size(225, 32);
+            dtpAmaiera.Size = new Size(225, 47);
             dtpAmaiera.TabIndex = 9;
             // 
             // btnGrafikoaErakutsi
@@ -210,40 +210,42 @@ namespace GOsasun_app.Interfazea
             btnGrafikoaErakutsi.FlatStyle = FlatStyle.Flat;
             btnGrafikoaErakutsi.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnGrafikoaErakutsi.ForeColor = Color.White;
-            btnGrafikoaErakutsi.Location = new Point(1445, 27);
+            btnGrafikoaErakutsi.Location = new Point(1594, 10);
             btnGrafikoaErakutsi.Name = "btnGrafikoaErakutsi";
-            btnGrafikoaErakutsi.Size = new Size(236, 35);
+            btnGrafikoaErakutsi.Size = new Size(295, 78);
             btnGrafikoaErakutsi.TabIndex = 10;
             btnGrafikoaErakutsi.Text = "Grafikoa erakutsi";
             btnGrafikoaErakutsi.UseVisualStyleBackColor = false;
             // 
             // lblEgoera
             // 
-            lblEgoera.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblEgoera.ForeColor = Color.White;
-            lblEgoera.Location = new Point(94, 85);
+            lblEgoera.Font = new Font("Segoe UI", 12F, FontStyle.Italic);
+            lblEgoera.ForeColor = Color.FromArgb(127, 140, 141);
+            lblEgoera.Location = new Point(984, 225);
             lblEgoera.Name = "lblEgoera";
-            lblEgoera.Size = new Size(1714, 31);
-            lblEgoera.TabIndex = 3;
-            lblEgoera.Text = "-";
+            lblEgoera.Size = new Size(825, 50);
+            lblEgoera.TabIndex = 2;
+            lblEgoera.Text = "Pazienteak kargatzen...";
+            lblEgoera.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblPazienteDatuak
             // 
-            lblPazienteDatuak.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            lblPazienteDatuak.ForeColor = Color.White;
-            lblPazienteDatuak.Location = new Point(95, 180);
+            lblPazienteDatuak.AutoSize = true;
+            lblPazienteDatuak.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblPazienteDatuak.ForeColor = Color.DimGray;
+            lblPazienteDatuak.Location = new Point(94, 304);
             lblPazienteDatuak.Name = "lblPazienteDatuak";
-            lblPazienteDatuak.Size = new Size(580, 31);
-            lblPazienteDatuak.TabIndex = 2;
-            lblPazienteDatuak.Text = "Pazientea: -";
+            lblPazienteDatuak.Size = new Size(33, 45);
+            lblPazienteDatuak.TabIndex = 3;
+            lblPazienteDatuak.Text = "-";
             // 
             // lblAzalpena
             // 
             lblAzalpena.Font = new Font("Segoe UI", 9.5F);
-            lblAzalpena.ForeColor = Color.WhiteSmoke;
-            lblAzalpena.Location = new Point(668, 180);
+            lblAzalpena.ForeColor = Color.DimGray;
+            lblAzalpena.Location = new Point(832, 318);
             lblAzalpena.Name = "lblAzalpena";
-            lblAzalpena.Size = new Size(653, 31);
+            lblAzalpena.Size = new Size(975, 32);
             lblAzalpena.TabIndex = 4;
             lblAzalpena.Text = "-";
             lblAzalpena.Click += lblAzalpena_Click;
@@ -252,18 +254,19 @@ namespace GOsasun_app.Interfazea
             // 
             pnlGrafikoa.BackColor = Color.White;
             pnlGrafikoa.BorderStyle = BorderStyle.FixedSingle;
-            pnlGrafikoa.Location = new Point(94, 212);
+            pnlGrafikoa.Location = new Point(94, 349);
             pnlGrafikoa.Name = "pnlGrafikoa";
-            pnlGrafikoa.Size = new Size(1714, 719);
+            pnlGrafikoa.Size = new Size(1714, 756);
             pnlGrafikoa.TabIndex = 5;
             // 
             // Grafikak
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1902, 1055);
+            ClientSize = new Size(1902, 1580);
             Name = "Grafikak";
             Text = "GOsasun - Grafikak";
             _edukiPanela.ResumeLayout(false);
+            _edukiPanela.PerformLayout();
             pnlIragazkiak.ResumeLayout(false);
             pnlIragazkiak.PerformLayout();
             ResumeLayout(false);

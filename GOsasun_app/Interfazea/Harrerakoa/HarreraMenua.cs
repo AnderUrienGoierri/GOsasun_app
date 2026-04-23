@@ -1,7 +1,7 @@
-﻿// HarreraMenua.cs - Harrerako langilearen Menua (Receptionist Menu)
+// HarreraMenua.cs - Harrerako langilearen Menua (Receptionist Menu)
 // ============================================================
 
-using GOsasun_app.Interfazea.Kontrolak;
+using GOsasun_app.Interfazea.Oinarriak_UI;
 using GOsasun_app.Modeloa;
 using System.Drawing;
 

@@ -21,10 +21,10 @@ namespace GOsasun_app.Interfazea
 
         private void InitializeComponent()
         {
-            btnTentsiometroa = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            btnPisua = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            btnAltuera = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            btnOharra = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
+            btnTentsiometroa = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
+            btnPisua = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
+            btnAltuera = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
+            btnOharra = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
             _edukiPanela.SuspendLayout();
             SuspendLayout();
             //
@@ -105,10 +105,10 @@ namespace GOsasun_app.Interfazea
 
         #endregion
 
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnTentsiometroa;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnPisua;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnAltuera;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnOharra;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnTentsiometroa;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnPisua;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnAltuera;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnOharra;
     }
 }
 

@@ -1,6 +1,6 @@
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
-using GOsasun_app.Interfazea.Kontrolak;
+using GOsasun_app.Interfazea.Oinarriak_UI;
 using GOsasun_app.Modeloa;
 
 namespace GOsasun_app.Interfazea

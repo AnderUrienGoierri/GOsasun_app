@@ -29,9 +29,14 @@ namespace GOsasun_app.Interfazea
             btnOsasunLangileaSortu = new Button();
             txtBilatu = new TextBox();
             lblBilatu = new Label();
+            pnlPaginazioa = new Panel();
+            btnAurrekoOrria = new Button();
+            lblPaginazioa = new Label();
+            btnHurrengoOrria = new Button();
             _edukiPanela.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPazienteak).BeginInit();
             pnlBilatzailea.SuspendLayout();
+            pnlPaginazioa.SuspendLayout();
             SuspendLayout();
             // 
             // _edukiPanela
@@ -39,7 +44,6 @@ namespace GOsasun_app.Interfazea
             _edukiPanela.Controls.Add(dgvPazienteak);
             _edukiPanela.Controls.Add(pnlBilatzailea);
             _edukiPanela.Controls.Add(lblIzenburua);
-            _edukiPanela.Size = new Size(1902, 874);
             // 
             // _atzeraBotoia
             // 
@@ -82,7 +86,7 @@ namespace GOsasun_app.Interfazea
             dgvPazienteak.RowHeadersWidth = 82;
             dgvPazienteak.RowTemplate.Height = 64;
             dgvPazienteak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPazienteak.Size = new Size(1898, 0);
+            dgvPazienteak.Size = new Size(1898, 518);
             dgvPazienteak.TabIndex = 1;
             dgvPazienteak.CellContentClick += dgvPazienteak_CellContentClick;
             // 
@@ -111,6 +115,7 @@ namespace GOsasun_app.Interfazea
             pnlBilatzailea.Controls.Add(btnOsasunLangileaSortu);
             pnlBilatzailea.Controls.Add(txtBilatu);
             pnlBilatzailea.Controls.Add(lblBilatu);
+            pnlBilatzailea.Controls.Add(pnlPaginazioa);
             pnlBilatzailea.Dock = DockStyle.Top;
             pnlBilatzailea.Location = new Point(2, 96);
             pnlBilatzailea.Margin = new Padding(6);
@@ -123,21 +128,22 @@ namespace GOsasun_app.Interfazea
             chkBajan.AutoSize = true;
             chkBajan.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             chkBajan.ForeColor = Color.White;
-            chkBajan.Location = new Point(263, 73);
+            chkBajan.Location = new Point(576, 28);
             chkBajan.Name = "chkBajan";
-            chkBajan.Size = new Size(82, 29);
+            chkBajan.Size = new Size(122, 42);
             chkBajan.TabIndex = 4;
             chkBajan.Text = "Bajan";
             chkBajan.UseVisualStyleBackColor = true;
+            chkBajan.CheckedChanged += chkBajan_CheckedChanged;
             // 
             // chkAltan
             // 
             chkAltan.AutoSize = true;
             chkAltan.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             chkAltan.ForeColor = Color.White;
-            chkAltan.Location = new Point(351, 73);
+            chkAltan.Location = new Point(577, 63);
             chkAltan.Name = "chkAltan";
-            chkAltan.Size = new Size(80, 29);
+            chkAltan.Size = new Size(120, 42);
             chkAltan.TabIndex = 3;
             chkAltan.Text = "Altan";
             chkAltan.UseVisualStyleBackColor = true;
@@ -149,12 +155,13 @@ namespace GOsasun_app.Interfazea
             chkPazienteGuztiak.CheckState = CheckState.Checked;
             chkPazienteGuztiak.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
             chkPazienteGuztiak.ForeColor = Color.White;
-            chkPazienteGuztiak.Location = new Point(38, 73);
+            chkPazienteGuztiak.Location = new Point(31, 73);
             chkPazienteGuztiak.Name = "chkPazienteGuztiak";
-            chkPazienteGuztiak.Size = new Size(219, 29);
+            chkPazienteGuztiak.Size = new Size(333, 42);
             chkPazienteGuztiak.TabIndex = 2;
             chkPazienteGuztiak.Text = "Paziente guztiak ikusi";
             chkPazienteGuztiak.UseVisualStyleBackColor = true;
+            chkPazienteGuztiak.CheckedChanged += chkPazienteGuztiak_CheckedChanged;
             // 
             // btnPazienteBerria
             // 
@@ -190,11 +197,11 @@ namespace GOsasun_app.Interfazea
             // 
             txtBilatu.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtBilatu.Font = new Font("Segoe UI", 12F);
-            txtBilatu.Location = new Point(112, 30);
+            txtBilatu.Location = new Point(140, 28);
             txtBilatu.Margin = new Padding(6);
             txtBilatu.Name = "txtBilatu";
             txtBilatu.PlaceholderText = "Bilatu izena, abizena edo NAN...";
-            txtBilatu.Size = new Size(303, 34);
+            txtBilatu.Size = new Size(430, 50);
             txtBilatu.TabIndex = 1;
             // 
             // lblBilatu
@@ -202,17 +209,68 @@ namespace GOsasun_app.Interfazea
             lblBilatu.AutoSize = true;
             lblBilatu.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblBilatu.ForeColor = Color.White;
-            lblBilatu.Location = new Point(38, 33);
+            lblBilatu.Location = new Point(24, 33);
             lblBilatu.Margin = new Padding(6, 0, 6, 0);
             lblBilatu.Name = "lblBilatu";
-            lblBilatu.Size = new Size(73, 28);
+            lblBilatu.Size = new Size(116, 45);
             lblBilatu.TabIndex = 0;
             lblBilatu.Text = "Bilatu:";
+            // 
+            // pnlPaginazioa
+            // 
+            pnlPaginazioa.BackColor = Color.Transparent;
+            pnlPaginazioa.Controls.Add(btnAurrekoOrria);
+            pnlPaginazioa.Controls.Add(lblPaginazioa);
+            pnlPaginazioa.Controls.Add(btnHurrengoOrria);
+            pnlPaginazioa.Location = new Point(24, 150);
+            pnlPaginazioa.Name = "pnlPaginazioa";
+            pnlPaginazioa.Size = new Size(602, 56);
+            pnlPaginazioa.TabIndex = 7;
+            // 
+            // btnAurrekoOrria
+            // 
+            btnAurrekoOrria.BackColor = Color.FromArgb(52, 73, 94);
+            btnAurrekoOrria.FlatAppearance.BorderSize = 0;
+            btnAurrekoOrria.FlatStyle = FlatStyle.Flat;
+            btnAurrekoOrria.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnAurrekoOrria.ForeColor = Color.White;
+            btnAurrekoOrria.Location = new Point(0, 8);
+            btnAurrekoOrria.Name = "btnAurrekoOrria";
+            btnAurrekoOrria.Size = new Size(202, 40);
+            btnAurrekoOrria.TabIndex = 0;
+            btnAurrekoOrria.Text = "Aurreko 10ak";
+            btnAurrekoOrria.UseVisualStyleBackColor = false;
+            btnAurrekoOrria.Click += BtnAurrekoOrria_Click;
+            // 
+            // lblPaginazioa
+            // 
+            lblPaginazioa.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+            lblPaginazioa.ForeColor = Color.White;
+            lblPaginazioa.Location = new Point(156, 8);
+            lblPaginazioa.Name = "lblPaginazioa";
+            lblPaginazioa.Size = new Size(188, 40);
+            lblPaginazioa.TabIndex = 1;
+            lblPaginazioa.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnHurrengoOrria
+            // 
+            btnHurrengoOrria.BackColor = Color.FromArgb(41, 128, 185);
+            btnHurrengoOrria.FlatAppearance.BorderSize = 0;
+            btnHurrengoOrria.FlatStyle = FlatStyle.Flat;
+            btnHurrengoOrria.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnHurrengoOrria.ForeColor = Color.White;
+            btnHurrengoOrria.Location = new Point(350, 8);
+            btnHurrengoOrria.Name = "btnHurrengoOrria";
+            btnHurrengoOrria.Size = new Size(226, 40);
+            btnHurrengoOrria.TabIndex = 2;
+            btnHurrengoOrria.Text = "Hurrengo 10ak";
+            btnHurrengoOrria.UseVisualStyleBackColor = false;
+            btnHurrengoOrria.Click += BtnHurrengoOrria_Click;
             // 
             // PazienteenZerrenda
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1902, 1055);
+            ClientSize = new Size(1902, 1575);
             Margin = new Padding(11, 9, 11, 9);
             Name = "PazienteenZerrenda";
             Text = "GOsasun - Pazienteen Zerrenda";
@@ -220,6 +278,7 @@ namespace GOsasun_app.Interfazea
             ((System.ComponentModel.ISupportInitialize)dgvPazienteak).EndInit();
             pnlBilatzailea.ResumeLayout(false);
             pnlBilatzailea.PerformLayout();
+            pnlPaginazioa.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -235,6 +294,10 @@ namespace GOsasun_app.Interfazea
         private System.Windows.Forms.CheckBox chkPazienteGuztiak;
         private System.Windows.Forms.Button btnPazienteBerria;
         private System.Windows.Forms.Button btnOsasunLangileaSortu;
+        private System.Windows.Forms.Panel pnlPaginazioa;
+        private System.Windows.Forms.Button btnAurrekoOrria;
+        private System.Windows.Forms.Button btnHurrengoOrria;
+        private System.Windows.Forms.Label lblPaginazioa;
     }
 }
 

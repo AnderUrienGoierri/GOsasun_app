@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 // GoiburuBarra.cs - Goiburuko barra (Header Bar)
 // ============================================================
 // Aplikazioaren goialdean agertzen den barra iluna.
@@ -6,7 +6,7 @@
 // botoia erakusten ditu.
 // ============================================================
 
-namespace GOsasun_app.Interfazea.Kontrolak
+namespace GOsasun_app.Interfazea.Oinarriak_UI
 {
     /// <summary>
     /// Goiburuko barra: erabiltzaile izena, data, ordua eta logout botoia.
@@ -116,7 +116,7 @@ namespace GOsasun_app.Interfazea.Kontrolak
             // Saioa itxi botoia
             _logoutBotoia = new Button
             {
-                Text = "⏻  Irten",
+                Text = "?  Irten",
                 Font = new Font("Segoe UI", 14f, FontStyle.Bold),
                 ForeColor = Color.White,
                 BackColor = Color.FromArgb(231, 76, 60), // #E74C3C gorria

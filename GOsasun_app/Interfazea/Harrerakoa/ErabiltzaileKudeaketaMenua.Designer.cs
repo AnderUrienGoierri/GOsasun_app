@@ -20,8 +20,8 @@ namespace GOsasun_app.Interfazea
 
         private void InitializeComponent()
         {
-            btnSortu = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            btnZerrendatu = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
+            btnSortu = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
+            btnZerrendatu = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
             _edukiPanela.SuspendLayout();
             SuspendLayout();
             // 
@@ -80,8 +80,8 @@ namespace GOsasun_app.Interfazea
 
         #endregion
 
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnSortu;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnZerrendatu;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnSortu;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnZerrendatu;
     }
 }
 

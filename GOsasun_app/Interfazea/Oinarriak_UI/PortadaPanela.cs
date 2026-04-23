@@ -1,7 +1,7 @@
 using System.Drawing.Drawing2D;
 using System.ComponentModel;
 
-namespace GOsasun_app.Interfazea.Kontrolak
+namespace GOsasun_app.Interfazea.Oinarriak_UI
 {
     public sealed class PortadaPanela : Panel
     {

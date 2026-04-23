@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 // MenuTxartelBotoia.cs - Txartel pertsonalizatua (Card Button)
 // ============================================================
 // Panel kontroletik heredatzen duen kontrol pertsonalizatua.
@@ -8,7 +8,7 @@
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
-namespace GOsasun_app.Interfazea.Kontrolak
+namespace GOsasun_app.Interfazea.Oinarriak_UI
 {
     /// <summary>
     /// Txartel pertsonalizatua: borde biribilduak, ikono handia eta testua.

@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using GOsasun_app.Interfazea.Kontrolak;
+using GOsasun_app.Interfazea.Oinarriak_UI;
 using GOsasun_app.Modeloa;
 using GOsasun_app.Kontrola;
 
@@ -27,10 +27,6 @@ namespace GOsasun_app.Interfazea
         private readonly OsasunLangileKontrolatzailea _osasunLangileKontrolatzailea;
         private List<Pazientea> _pazienteak = new List<Pazientea>();
         private readonly Dictionary<string, Bitmap?> _ekintzaIkonoak = new Dictionary<string, Bitmap?>();
-        private readonly Panel _pnlPaginazioa = new Panel();
-        private readonly Label _lblPaginazioa = new Label();
-        private readonly Button _btnAurrekoOrria = new Button();
-        private readonly Button _btnHurrengoOrria = new Button();
         private bool _hasierakoPazienteakKargatuta;
         private bool _hasierakoPazienteakKargatzen;
         private int _unekoOrria = 1;
@@ -60,7 +56,6 @@ namespace GOsasun_app.Interfazea
             }
 
             KonfiguratuTaula();
-            HasieratuPaginazioa();
             KargatuEkintzaIkonoak();
 
             // Gertaerak
@@ -72,42 +67,6 @@ namespace GOsasun_app.Interfazea
             btnOsasunLangileaSortu.Click += BtnOsasunLangileaSortu_Click;
         }
 
-        private void HasieratuPaginazioa()
-        {
-            _pnlPaginazioa.BackColor = Color.Transparent;
-            _pnlPaginazioa.Height = 56;
-
-            _btnAurrekoOrria.Text = "Aurreko 10ak";
-            _btnAurrekoOrria.Size = new Size(150, 40);
-            _btnAurrekoOrria.FlatStyle = FlatStyle.Flat;
-            _btnAurrekoOrria.FlatAppearance.BorderSize = 0;
-            _btnAurrekoOrria.BackColor = Color.FromArgb(52, 73, 94);
-            _btnAurrekoOrria.ForeColor = Color.White;
-            _btnAurrekoOrria.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            _btnAurrekoOrria.Click += BtnAurrekoOrria_Click;
-
-            _btnHurrengoOrria.Text = "Hurrengo 10ak";
-            _btnHurrengoOrria.Size = new Size(150, 40);
-            _btnHurrengoOrria.FlatStyle = FlatStyle.Flat;
-            _btnHurrengoOrria.FlatAppearance.BorderSize = 0;
-            _btnHurrengoOrria.BackColor = Color.FromArgb(41, 128, 185);
-            _btnHurrengoOrria.ForeColor = Color.White;
-            _btnHurrengoOrria.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            _btnHurrengoOrria.Click += BtnHurrengoOrria_Click;
-
-            _lblPaginazioa.AutoSize = false;
-            _lblPaginazioa.TextAlign = ContentAlignment.MiddleCenter;
-            _lblPaginazioa.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
-            _lblPaginazioa.ForeColor = Color.White;
-
-            _pnlPaginazioa.Controls.Add(_btnAurrekoOrria);
-            _pnlPaginazioa.Controls.Add(_lblPaginazioa);
-            _pnlPaginazioa.Controls.Add(_btnHurrengoOrria);
-            pnlBilatzailea.Controls.Add(_pnlPaginazioa);
-            _pnlPaginazioa.BringToFront();
-
-            EguneratuPaginazioKontrolak();
-        }
 
         private void KonfiguratuTaula()
         {
@@ -286,27 +245,32 @@ namespace GOsasun_app.Interfazea
 
         private void EguneratuPaginazioKontrolak()
         {
-            int orrialdeKopurua = LortuOrrialdeKopurua();
-            int hasiera = _pazienteak.Count == 0 ? 0 : ((_unekoOrria - 1) * OrrikoErregistroKopurua) + 1;
-            int amaiera = _pazienteak.Count == 0 ? 0 : Math.Min(_unekoOrria * OrrikoErregistroKopurua, _pazienteak.Count);
-
-            _btnAurrekoOrria.Enabled = !_hasierakoPazienteakKargatzen && _unekoOrria > 1;
-            _btnHurrengoOrria.Enabled = !_hasierakoPazienteakKargatzen && _unekoOrria < orrialdeKopurua;
-            _lblPaginazioa.Text = _pazienteak.Count == 0
-                ? "0 erregistro"
-                : $"{hasiera}-{amaiera} / {_pazienteak.Count}   |   {_unekoOrria}. orria / {orrialdeKopurua}";
-
-            if (_pnlPaginazioa.ClientSize.Width <= 0)
+            if (btnAurrekoOrria == null || btnHurrengoOrria == null || lblPaginazioa == null || pnlPaginazioa == null)
             {
                 return;
             }
 
-            _btnAurrekoOrria.Location = new Point(0, 8);
-            _btnHurrengoOrria.Location = new Point(_btnAurrekoOrria.Right + 14, 8);
-            _lblPaginazioa.Bounds = new Rectangle(
-                _btnHurrengoOrria.Right + 18,
+            int orrialdeKopurua = LortuOrrialdeKopurua();
+            int hasiera = _pazienteak.Count == 0 ? 0 : ((_unekoOrria - 1) * OrrikoErregistroKopurua) + 1;
+            int amaiera = _pazienteak.Count == 0 ? 0 : Math.Min(_unekoOrria * OrrikoErregistroKopurua, _pazienteak.Count);
+
+            btnAurrekoOrria.Enabled = !_hasierakoPazienteakKargatzen && _unekoOrria > 1;
+            btnHurrengoOrria.Enabled = !_hasierakoPazienteakKargatzen && _unekoOrria < orrialdeKopurua;
+            lblPaginazioa.Text = _pazienteak.Count == 0
+                ? "0 erregistro"
+                : $"{hasiera}-{amaiera} / {_pazienteak.Count}   |   {_unekoOrria}. orria / {orrialdeKopurua}";
+
+            if (pnlPaginazioa.ClientSize.Width <= 0)
+            {
+                return;
+            }
+
+            btnAurrekoOrria.Location = new Point(0, 8);
+            btnHurrengoOrria.Location = new Point(btnAurrekoOrria.Right + 14, 8);
+            lblPaginazioa.Bounds = new Rectangle(
+                btnHurrengoOrria.Right + 18,
                 8,
-                Math.Max(260, _pnlPaginazioa.ClientSize.Width - (_btnAurrekoOrria.Width + _btnHurrengoOrria.Width + 32)),
+                Math.Max(260, pnlPaginazioa.ClientSize.Width - (btnAurrekoOrria.Width + btnHurrengoOrria.Width + 32)),
                 40);
         }
 
@@ -379,7 +343,8 @@ namespace GOsasun_app.Interfazea
                 || chkAltan == null
                 || chkBajan == null
                 || btnPazienteBerria == null
-                || btnOsasunLangileaSortu == null)
+                || btnOsasunLangileaSortu == null
+                || pnlPaginazioa == null)
             {
                 return;
             }
@@ -423,11 +388,11 @@ namespace GOsasun_app.Interfazea
 
             int paginazioGoia = azkenBehea + 18;
             int paginazioZabalera = Math.Min(700, Math.Max(420, panelZabalera - (ezkerMarjina * 2)));
-            int paginazioX = Math.Max(ezkerMarjina, Math.Min(_pnlPaginazioa.Left <= 0 ? ezkerMarjina : _pnlPaginazioa.Left, panelZabalera - paginazioZabalera - ezkerMarjina));
-            _pnlPaginazioa.Location = new Point(paginazioX, paginazioGoia);
-            _pnlPaginazioa.Size = new Size(paginazioZabalera, 56);
+            int paginazioX = Math.Max(ezkerMarjina, Math.Min(pnlPaginazioa.Left <= 0 ? ezkerMarjina : pnlPaginazioa.Left, panelZabalera - paginazioZabalera - ezkerMarjina));
+            pnlPaginazioa.Location = new Point(paginazioX, paginazioGoia);
+            pnlPaginazioa.Size = new Size(paginazioZabalera, 56);
 
-            azkenBehea = Math.Max(azkenBehea, _pnlPaginazioa.Bottom);
+            azkenBehea = Math.Max(azkenBehea, pnlPaginazioa.Bottom);
 
             int panelAltuera = azkenBehea + 20;
             pnlBilatzailea.Height = panelAltuera;
@@ -824,6 +789,16 @@ namespace GOsasun_app.Interfazea
         }
 
         private void lblIzenburua_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkBajan_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkPazienteGuztiak_CheckedChanged(object sender, EventArgs e)
         {
 
         }

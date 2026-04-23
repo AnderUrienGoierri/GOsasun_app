@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 // OinarriPantaila.cs - Formulario oinarria (Base Form)
 // ============================================================
 // Formulario guztiek heredatzen duten oinarri klasea.
@@ -6,7 +6,7 @@
 // kudeatzen ditu.
 // ============================================================
 
-using GOsasun_app.Interfazea.Kontrolak;
+using GOsasun_app.Interfazea.Oinarriak_UI;
 using GOsasun_app.Kontrola;
 using GOsasun_app.Kontrola.Zerbitzuak;
 using GOsasun_app.Modeloa;

@@ -1,11 +1,11 @@
-﻿// MenuaOsasunLangilea.cs - Osasun langilearen menu nagusia
+// MenuaOsasunLangilea.cs - Osasun langilearen menu nagusia
 // ============================================================
 // Aplikazioaren sarrera nagusia login egin ondoren.
 // Erabiltzailearen rolaren arabera (Pazientea/OsasunLangilea)
 // txartelak dinamikoki kargatzen ditu.
 // ============================================================
 
-using GOsasun_app.Interfazea.Kontrolak;
+using GOsasun_app.Interfazea.Oinarriak_UI;
 using GOsasun_app.Modeloa;
 
 namespace GOsasun_app.Interfazea

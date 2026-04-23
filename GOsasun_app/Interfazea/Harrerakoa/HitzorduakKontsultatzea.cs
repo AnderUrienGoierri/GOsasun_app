@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using GOsasun_app.Interfazea.Kontrolak;
+using GOsasun_app.Interfazea.Oinarriak_UI;
 using GOsasun_app.Kontrola;
 using GOsasun_app.Modeloa;
 
@@ -27,7 +27,6 @@ namespace GOsasun_app.Interfazea
             KonfiguratuTaula();
 
             calEgutegia.DateChanged += CalEgutegia_DateChanged;
-            btnGuztiak.Click += BtnGuztiak_Click;
             txtPazienteBilatu.TextChanged += TxtPazienteBilatu_TextChanged;
             chkPazienteGuztiak.CheckedChanged += ChkPazienteGuztiak_CheckedChanged;
         }
@@ -178,7 +177,6 @@ namespace GOsasun_app.Interfazea
             Cursor = kargatzen ? Cursors.WaitCursor : Cursors.Default;
             dgvHitzorduak.Enabled = !kargatzen;
             calEgutegia.Enabled = !kargatzen;
-            btnGuztiak.Enabled = !kargatzen;
             txtPazienteBilatu.Enabled = !kargatzen;
             chkPazienteGuztiak.Enabled = !kargatzen;
         }
@@ -270,12 +268,6 @@ namespace GOsasun_app.Interfazea
             AplikatuIragazkiak();
         }
 
-        private void BtnGuztiak_Click(object? sender, EventArgs e)
-        {
-            _dataIragazkiaAldiBaterakoKendu = true;
-            AplikatuIragazkiak();
-        }
-
         private void TxtPazienteBilatu_TextChanged(object? sender, EventArgs e)
         {
             AplikatuIragazkiak();
@@ -291,12 +283,12 @@ namespace GOsasun_app.Interfazea
 
         }
 
-        private void btnGuztiak_Click_1(object sender, EventArgs e)
+        private void lblIzenburua_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void lblIzenburua_Click(object sender, EventArgs e)
+        private void lblBilatuPazientea_Click(object sender, EventArgs e)
         {
 
         }

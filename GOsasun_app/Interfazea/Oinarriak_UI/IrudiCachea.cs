@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 
-namespace GOsasun_app.Interfazea.Kontrolak
+namespace GOsasun_app.Interfazea.Oinarriak_UI
 {
     internal static class IrudiCachea
     {

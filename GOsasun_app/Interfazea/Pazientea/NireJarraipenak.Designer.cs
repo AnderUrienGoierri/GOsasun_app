@@ -24,7 +24,7 @@ namespace GOsasun_app.Interfazea
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             labelTitulua = new Label();
-            btnNeurketaBerria = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
+            btnNeurketaBerria = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
             dgvHistoriala = new DataGridView();
             dtpHasieraData = new DateTimePicker();
             lblDataFiltroa = new Label();
@@ -197,7 +197,7 @@ namespace GOsasun_app.Interfazea
         #endregion
 
         private Label labelTitulua;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnNeurketaBerria;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnNeurketaBerria;
         private DataGridView dgvHistoriala;
         private DateTimePicker dtpHasieraData;
         private Label lblDataFiltroa;

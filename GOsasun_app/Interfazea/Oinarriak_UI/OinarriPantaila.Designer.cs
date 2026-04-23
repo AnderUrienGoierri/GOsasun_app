@@ -28,8 +28,8 @@ namespace GOsasun_app.Interfazea
         /// </summary>
         private void InitializeComponent()
         {
-            _edukiPanela = new GOsasun_app.Interfazea.Kontrolak.PortadaPanela();
-            _goiburuBarra = new GOsasun_app.Interfazea.Kontrolak.GoiburuBarra();
+            _edukiPanela = new GOsasun_app.Interfazea.Oinarriak_UI.PortadaPanela();
+            _goiburuBarra = new GOsasun_app.Interfazea.Oinarriak_UI.GoiburuBarra();
             _atzeraBotoia = new Button();
             SuspendLayout();
             //
@@ -90,8 +90,8 @@ namespace GOsasun_app.Interfazea
 
         #endregion
 
-        protected GOsasun_app.Interfazea.Kontrolak.PortadaPanela _edukiPanela;
-        protected GOsasun_app.Interfazea.Kontrolak.GoiburuBarra _goiburuBarra;
+        protected GOsasun_app.Interfazea.Oinarriak_UI.PortadaPanela _edukiPanela;
+        protected GOsasun_app.Interfazea.Oinarriak_UI.GoiburuBarra _goiburuBarra;
         protected Button _atzeraBotoia;
     }
 }

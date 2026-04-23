@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -71,9 +71,9 @@ namespace GOsasun_app.Interfazea
 
         private void KonfiguratuPantaila()
         {
-            ClientSize = new Size(1902, 1394);
+            ClientSize = new Size(1902, 1334);
             _goiburuBarra.Width = ClientSize.Width;
-            _edukiPanela.Size = new Size(ClientSize.Width, _edukiPanela.Height);
+            _edukiPanela.Size = new Size(ClientSize.Width, 1148);
 
             KonfiguratuGrafikoa();
             KonfiguratuGrafikaMotenZerrenda();
@@ -84,9 +84,9 @@ namespace GOsasun_app.Interfazea
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            ClientSize = new Size(1902, 1394);
+            ClientSize = new Size(1902, 1334);
             _goiburuBarra.Width = ClientSize.Width;
-            _edukiPanela.Size = new Size(ClientSize.Width, _edukiPanela.Height);
+            _edukiPanela.Size = new Size(ClientSize.Width, 1148);
             ZentratuPantailaLanEremuan();
         }
 
@@ -841,6 +841,11 @@ namespace GOsasun_app.Interfazea
         }
 
         private void lblAzalpena_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkPazienteGuztiak_CheckedChanged(object sender, EventArgs e)
         {
 
         }

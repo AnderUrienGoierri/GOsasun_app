@@ -21,12 +21,12 @@ namespace GOsasun_app.Interfazea
 
         private void InitializeComponent()
         {
-            btnPazienteak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            btnNeurketak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            btnErrezetak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            btnGrafikak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            btnDokumentuak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            btnHitzorduak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
+            btnPazienteak = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
+            btnNeurketak = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
+            btnErrezetak = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
+            btnGrafikak = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
+            btnDokumentuak = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
+            btnHitzorduak = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
             _edukiPanela.SuspendLayout();
             SuspendLayout();
             //
@@ -133,12 +133,12 @@ namespace GOsasun_app.Interfazea
 
         #endregion
 
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnPazienteak;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnNeurketak;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnErrezetak;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnGrafikak;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnDokumentuak;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnHitzorduak;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnPazienteak;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnNeurketak;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnErrezetak;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnGrafikak;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnDokumentuak;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnHitzorduak;
     }
 }
 

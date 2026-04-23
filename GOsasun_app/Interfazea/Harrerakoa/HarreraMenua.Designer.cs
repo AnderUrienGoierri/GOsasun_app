@@ -21,11 +21,11 @@ namespace GOsasun_app.Interfazea
 
         private void InitializeComponent()
         {
-            btnPazienteak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            btnMedikuak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            btnLangileak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            btnHitzorduak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
-            btnDokumentuak = new GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia();
+            btnPazienteak = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
+            btnMedikuak = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
+            btnLangileak = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
+            btnHitzorduak = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
+            btnDokumentuak = new GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia();
             _edukiPanela.SuspendLayout();
             SuspendLayout();
             //
@@ -132,11 +132,11 @@ namespace GOsasun_app.Interfazea
 
         #endregion
 
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnPazienteak;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnMedikuak;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnLangileak;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnHitzorduak;
-        private GOsasun_app.Interfazea.Kontrolak.MenuTxartelBotoia btnDokumentuak;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnPazienteak;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnMedikuak;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnLangileak;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnHitzorduak;
+        private GOsasun_app.Interfazea.Oinarriak_UI.MenuTxartelBotoia btnDokumentuak;
     }
 }
 

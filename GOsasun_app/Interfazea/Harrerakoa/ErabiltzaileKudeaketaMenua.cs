@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using GOsasun_app.Interfazea.Kontrolak;
+using GOsasun_app.Interfazea.Oinarriak_UI;
 using GOsasun_app.Modeloa;
 
 namespace GOsasun_app.Interfazea

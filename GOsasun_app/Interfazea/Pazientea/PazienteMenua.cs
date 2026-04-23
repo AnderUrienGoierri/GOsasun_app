@@ -1,7 +1,7 @@
-﻿// PazienteMenua.cs - Pazientearen Menua (Patient Menu)
+// PazienteMenua.cs - Pazientearen Menua (Patient Menu)
 // ============================================================
 
-using GOsasun_app.Interfazea.Kontrolak;
+using GOsasun_app.Interfazea.Oinarriak_UI;
 using GOsasun_app.Modeloa;
 using System.Windows.Forms;
 
